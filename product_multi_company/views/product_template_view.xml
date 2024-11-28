@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_template_form_view">
+        <field name="name">Product template form view (with multi-company)</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath
+                    expr="//page[@name='general_information']//field[@name='company_id']"
+                    position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='general_information']//field[@name='company_id']"
+                   position="after">
+                <field
+                        name="company_ids"
+                        groups="base.group_multi_company"
+                        widget="many2many_tags"
+                        options="{'no_create': True}"
+                />
+                <field name="retailer_ids" widget="many2many_tags"/>
+            </xpath>
+            <!-- Trick for allowing to set this field via Form -->
+            <xpath expr="//header" position="inside">
+                <field name="company_id" class="invisible"/>
+            </xpath>
+            <xpath expr="//page[@name='general_information']//field[@name='detailed_type']"
+                   position="after">
+                <field name="status"/>
+                <field name="name" string="Product Description"/>
+            </xpath>
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="NLF Details">
+                    <group>
+                        <group>
+                            <field name="product_display_name"/>
+                            <field name="product_display_name_40"/>
+                            <field name="product_display_name_30"/>
+                            <field name="product_display_name_36"/>
+                            <field name="product_display_name_20"/>
+                            <field name="product_display_name_short"/>
+                        </group>
+                        <group>
+                            <field name="color_name"/>
+                            <field name="facet_color"/>
+                            <field name="hex_code"/>
+                            <field name="is_hypoallergenic_color"/>
+                            <field name="size"/>
+                            <field name="count_items"/>
+                            <field name="includes"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="what_is_it"/>
+                        <field name="how_to_use"/>
+                        <field name="how_to_use_shortended"/>
+                        <field name="recommended"/>
+                        <field name="benifits"/>
+                        <field name="romance_copy"/>
+                        <field name="key_ingredients"/>
+                        <field name="full_ingredients"/>
+                        <field name="care_instructions"/>
+                        <field name="awards"/>
+                    </group>
+                </page>
+                <page string="Category, Packaging &amp; Import Details">
+                    <group>
+                        <group>
+                            <field name="categ_id"/>
+                            <field name="product_sub_categ_1"/>
+                            <field name="product_sub_categ_2"/>
+                            <field name="is_gift"/>
+                        </group>
+                        <group>
+                            <field name="product_group_id" required="1"/>
+                            <field name="product_group_id_cartons"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Release Details">
+                    <group>
+                        <group>
+                            <field name="release_id"/>
+                            <field name="collection_id"/>
+                            <field name="exclusivity_ids" widget="many2many_tags"/>
+                            <field name="production_edition"/>
+                            <!--                            <field name="region_availability_ids" widget="many2many_tags"/>-->
+                        </group>
+                        <group>
+                            <field name="ats_date"/>
+                            <field name="wholesale_launch_date"/>
+                            <field name="slip_ecomm_launch_date"/>
+                            <field name="global_discontinued_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="product_template_search_view_upc_barcode" model="ir.ui.view">
+        <field name="name">product.template.search.upc</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field string="UPC" name="barcode"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_template_tree_view_inherited_product_multi_company">
+        <field name="name">Product template tree view inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="field[@name='company_id']" position="after">
+                <field name="product_sub_categ_1" optional="hide"/>
+                <field name="product_sub_categ_2" optional="hide"/>
+                <field name="product_group_id" optional="hide"/>
+                <field name="product_group_id_cartons" optional="hide"/>
+                <field name="release_id" optional="hide"/>
+                <field name="collection_id" optional="hide"/>
+                <field name="production_edition" optional="hide"/>
+                <field name="exclusivity_ids" widget="many2many_tags" optional="hide"/>
+                <field name="retailer_ids" widget="many2many_tags" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

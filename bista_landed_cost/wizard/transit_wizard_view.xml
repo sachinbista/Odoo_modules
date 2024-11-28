@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="transit_wizard_view_form" model="ir.ui.view">
+        <field name="name">transit.wizard.form</field>
+        <field name="model">transit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Transit">
+                <group>
+                    <group>
+                        <field name="purchase_id" invisible="1"/>
+                        <field name="transit_date" required="1"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="In-Transit Details">
+                        <field name="transit_line_ids" widget="one2many_list">
+                            <tree editable="bottom">
+                                <field name="product_id" domain="[('landed_cost_ok', '=', True)]"/>
+                                <field name="is_landed_cost" nolabel="1" invisible="1"
+                                       readonly="0"
+                                       force_save="1"/>
+                                <field name="price"/>
+                                <field name="is_transit" invisible="1" nolabel="1"/>
+                                <field name="purchase_line_id" invisible="1" nolabel="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_transit" type="object" string="Proceed" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

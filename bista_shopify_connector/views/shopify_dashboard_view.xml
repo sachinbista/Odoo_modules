@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Dashboard View -->
+        <record id="shopify_config_kanban_view" model="ir.ui.view">
+            <field name="name">shopify configuration</field>
+            <field name="model">shopify.config</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_account_kanban"
+                        create="0" style="width:100%;">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)}" style="background-color:aliceblue;">
+                                <div t-attf-class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <br/>
+                                            <a type="object"
+                                               name="action_open_shopify_configuration_view">
+                                                <field name="name"/>
+                                            </a>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </div>
+                                <div class="row mt16 mb16">
+                                    <div class="col-2" style="border-right: 1px solid;border-color:lightgrey;">
+                                        <a name="action_shopify_customer" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;">
+                                                <i class="fa fa-user" title="Customers"/>
+                                            </span>
+                                            <field name="shopify_customer_count"/>
+                                            <span style="color: darkslategrey;"><b>Customers</b></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-2" style="border-right: 1px solid;border-color:lightgrey;">
+                                        <a name="action_shopify_product" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;">
+                                                <i class="fa fa-product-hunt" title="Products"/>
+                                            </span>
+                                            <field name="shopify_product_count"/>
+                                            <span style="color: darkslategrey;"><b>Products</b></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-2" style="border-right: 1px solid;border-color:lightgrey;">
+                                        <a name="action_shopify_order" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;"> 
+                                                <i class="fa fa-usd" title="Orders"/>
+                                            </span>
+                                            <field name="shopify_order_count"/>
+                                            <span style="color: darkslategrey;"><b>Orders</b></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-2" style="border-right: 1px solid;border-color:lightgrey;">
+                                        <a name="action_shopify_invoice" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;">
+                                                <i class="fa fa-pencil-square-o" title="Invoices"/>
+                                            </span>
+                                            <field name="shopify_invoice_count"/>
+                                            <span style="color: darkslategrey;"><b>Invoices</b></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-2" style="border-right: 1px solid;border-color:lightgrey;">
+                                        <a name="action_shopify_credit_note" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;">
+                                                <i class="fa fa-credit-card" title="Credit Note"/>
+                                            </span>
+                                            <field name="shopify_credit_note_count"/>
+                                            <span style="color: darkslategrey;font-size:12px;"><b>Credit Note</b></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-2">
+                                        <a name="action_shopify_delivery" type="object"
+                                           class="d-flex flex-column align-items-center">
+                                            <span class="font-weight-bold" style="font-size:25px;color:#6ea2c7;">
+                                                <i class="fa fa-shopping-cart" title="Shipment"/>
+                                            </span>
+                                            <field name="shopify_delivery_count"/>
+                                            <span style="color: darkslategrey;"><b>Shipment</b></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 o_kanban_primary_left">
+                                        <button id="shopify_btn" type="object" name="action_wizard_shopify_import_export_operations" class="btn btn-secondary">
+                                            <span style="color:#020202;">
+                                                <i class="fa fa-arrow-down" title="Operation"/>
+                                                <i class="fa fa-arrow-up" title="Operation"/>
+                                                Operation
+                                            </span>
+                                        </button>
+                                        <button id="shopify_btn" type="object" name="action_shopify_queue_operations" class="btn btn-secondary">
+                                            <span style="color:#020202;">
+                                                <i class="fa fa-solid fa-list" title="Queue"></i>
+                                                Queue
+                                            </span>
+                                        </button>
+                                        <button id="shopify_btn" type="object" name="action_shopify_sale_report" class="btn btn-secondary">
+                                            <span style="color:#020202;">
+                                                <i class="fa fa-area-chart" title="Report"></i>
+                                                Report
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="col-2 o_kanban_primary_right float-right">
+                                        <button id="log_btn" type="object" name="action_shopify_log_operations" class="btn btn-secondary"
+                                                style="display:unset !important;background-color:aliceblue;">
+                                            <span style="color:#6ea2c7;">
+                                                <i class="fa fa-history fa-lg" title="Log"/>
+                                                Log
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style="height:100px;">
+                                    <t t-call="ShopifyDashboard"/>
+                                </div>
+                                <div class="row mt16 mb16">
+                                    <div class="col-10 o_kanban_primary_left">
+                                        <button id="shopify_btn" type="object" name="update_week" class="btn btn-secondary">
+                                            <field name="week_data" invisible="1"/>
+                                            <span style="color:#020202;">
+                                                Week
+                                            </span>
+                                        </button>
+                                        <button id="shopify_btn" type="object" name="update_month"  class="btn btn-secondary">
+                                            <field name="month_data" invisible="1"/>
+                                            <span style="color:#020202;">
+                                                Month
+                                            </span>
+                                        </button>
+                                        <button id="shopify_btn" type="object" name="update_year" class="btn btn-secondary">
+                                            <field name="year_data" invisible="1"/>
+                                            <span style="color:#020202;">
+                                                Year
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-name="ShopifyDashboard">
+                            <field name="kanban_dashboard_graph" class="o_marketplace_record" style="margin:2px -1px !important; " graph_type="bar" widget="dashboard_graph"/>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="shopify_config_kanban_action" model="ir.actions.act_window">
+            <field name="name">Shopify Dashboard</field>
+            <field name="res_model">shopify.config</field>
+            <field name="view_mode">kanban</field>
+            <field name="domain">[('active','=', True)]</field>
+            <field name="view_id" ref="shopify_config_kanban_view"/>
+        </record>
+
+        <menuitem id="shopify_dashboard_menu" name="Dashboard"
+                  parent="shopify_menu_root"
+                  groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user"
+                  action="shopify_config_kanban_action"
+                  sequence="1"/>
+    </data>
+</odoo>

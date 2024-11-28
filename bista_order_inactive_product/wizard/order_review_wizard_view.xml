@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="order_review_wizard_view_form" model="ir.ui.view">
+        <field name="name">order.review.wizard.form</field>
+        <field name="model">order.review.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Order Review">
+                <field name="name" readonly="1" nolabel="1"/>
+                <footer>
+                    <button string="Continue" class="btn-primary" type="object" name="action_continue"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_landed_cost_form_inherit" model="ir.ui.view">
+        <field name="name">view.stock.landed.cost.form.inherit</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//button[@name='button_cancel']" position='after'>
+                <button name="action_set_draft" string="Set to Draft" invisible="state == 'draft'" class="oe_highlight" type="object"/>
+            </xpath>-->
+            <!--<field name="picking_ids" position="after">
+                <field name="landed_cost_id"/>
+                <field name="flag"/>
+            </field>-->
+            <xpath expr="//field[@name='picking_ids']" position="after">
+                <field name="fiscal_position_id"/>
+            </xpath>
+
+           <xpath expr="//notebook/page[@name='valuation_adjustments']" position='after'>
+               <page name="standard_cost" string="Standard Landed Cost">
+                   <field name="standard_line" widget="one2many" >
+                        <tree string="Standard Landed Cost" editable="bottom">
+                            <field name="product_id" />
+                            <field name="name" />
+                            <field name="account_id"/>
+                            <field name="split_method"/>
+                            <field name="price_unit" />
+                        </tree>
+
+                   </field>
+               </page>
+           </xpath>
+        </field>
+    </record>
+
+</odoo>

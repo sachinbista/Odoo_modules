@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Export Shopify Product Variant -->
+    <record id="export_shopify_product_variant_view" model="ir.ui.view">
+        <field name="name">export.shopify.product.variant.view</field>
+        <field name="model">export.shopify.variant</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Product Variant Export">
+                <span>Do you want to export the selected variants on shopify?</span>
+                <footer>
+                    <button string="Export" name="export_shopify_product_variant" type="object"
+                        class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or
+    multiple product templates -->
+    <record id="shopify_product_variant_export_action" model="ir.actions.act_window">
+        <field name="name">Shopify : Export Variant</field>
+        <field name="res_model">export.shopify.variant</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopify_product_product" />
+        <field name="binding_view_types">form,list</field>
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
+    </record>
+
+    <!-- Update Variant In Shopify -->
+    <!-- <record id="update_odoo_product_variant_in_shopify" model="ir.ui.view">
+        <field name="name">export.shopify.product.variant.view</field>
+        <field name="model">export.shopify.variant</field>
+        <field name="arch" type="xml">
+            <form string="Update variant in shopify">
+                <span>Do you want to update variants on shopify?</span>
+                <footer>
+                    <button string="Update Variant" name="update_variant_on_shopify"
+                        type="object"
+                        class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record> -->
+
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or
+    multiple product variants to update in shopify -->
+    <!-- <record id="update_odoo_product_variant_in_shopify_action" model="ir.actions.act_window">
+        <field name="name">Shopify : Update Variant</field>
+        <field name="res_model">export.shopify.variant</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopify_product_product" />
+        <field name="binding_view_types">form,list</field>
+        <field name="view_id" ref="update_odoo_product_variant_in_shopify" />
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
+    </record> -->
+
+    <!-- Update Multiple Variants From ODOO into SHOPIFY-->
+    <record id="update_product_variants_odoo_to_shopify" model="ir.ui.view">
+        <field name="name">export.shopify.product.variant.view</field>
+        <field name="model">export.shopify.variant</field>
+        <field name="arch" type="xml">
+            <form string="Shopify : Update Variants In Shopify">
+                <span>Do you want to update variants on shopify?</span>
+                <footer>
+                    <button string="Update Variant" name="update_product_variant_odoo_to_shopify"
+                        type="object"
+                        class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or
+    multiple product variants to update in shopify -->
+    <record id="update_product_variant_odoo_to_shopify_action" model="ir.actions.act_window">
+        <field name="name">Shopify : Update Variant Odoo To Shopify</field>
+        <field name="res_model">export.shopify.variant</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopify_product_product" />
+        <field name="binding_view_types">form,list</field>
+        <field name="view_id" ref="update_product_variants_odoo_to_shopify" />
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
+    </record>
+
+    <!-- Update Multiple Product Variant Odoo To Shopify From ODOO-PRODCUT-PRODUCT -->
+    <record id="update_product_variants_from_odoo_to_shopify" model="ir.ui.view">
+        <field name="name">export.shopify.product.variant.view</field>
+        <field name="model">export.shopify.variant</field>
+        <field name="arch" type="xml">
+            <form string="Shopify : Update Variant From Odoo To Shopify">
+                <span>Do you want to update variants on shopify?</span>
+                <footer>
+                    <button string="Update Variant" name="update_product_variant_odoo_to_shopify"
+                        type="object"
+                        class="btn-primary" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or
+    multiple product variants to update in shopify -->
+    <record id="update_product_variants_from_odoo_to_shopify_action" model="ir.actions.act_window">
+        <field name="name">Shopify : Update Variant From Odoo To Shopify</field>
+        <field name="res_model">export.shopify.variant</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_product_product" />
+        <field name="binding_view_types">form,list</field>
+        <field name="view_id" ref="update_product_variants_from_odoo_to_shopify" />
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
+    </record>
+
+</odoo>

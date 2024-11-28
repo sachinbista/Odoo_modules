@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="shopify_financial_workflow_tree_view" model="ir.ui.view">
+            <field name="name">shopify.financial.workflow.tree_view</field>
+            <field name="model">shopify.financial.workflow</field>
+            <field name="arch" type="xml">
+                <tree string="Shopify Financial Workflow" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="shopify_config_id" required="1"/>
+                    <field name="company_id" required="1"/>
+                    <field name="auto_workflow_id" required="1" domain="[('company_id', '=', company_id)]"/>
+                    <field name="payment_gateway_id" required="1" domain="[('shopify_config_id', '=', shopify_config_id)]"/>
+                    <field name="payment_term_id" required="1"/>
+                    <field name="financial_status" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_shopify_financial_workflow" model="ir.actions.act_window">
+            <field name="name">Shopify Financial Workflow</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.financial.workflow</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="action_shopify_financial_workflow_menu" name="Shopify Financial Workflow"
+              parent="shopify_configuration_menu"
+              action="action_shopify_financial_workflow"
+              groups="bista_shopify_connector.group_shopify_admin"
+              sequence="3"/>
+    </data>
+</odoo>
