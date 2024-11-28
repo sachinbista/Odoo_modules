@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="product_menu_root"
+    name="Products"
+    active="True"
+    web_icon="sale_management,static/description/icon.png"
+    sequence="30">
+        <menuitem id="product_menu_data_users"
+        name="Products"
+        sequence="30">
+
+            <menuitem id="menu_product_template_action_data_user"
+                action="sale.product_template_action"
+                sequence="10"/>
+            <menuitem id="menu_products_data_user"
+                action="product.product_normal_action_sell"
+                groups="product.group_product_variant"
+                sequence="20"/>
+        </menuitem>
+    </menuitem>
+
+</odoo>

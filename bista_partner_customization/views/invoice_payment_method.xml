@@ -1,0 +1,15 @@
+<odoo>
+
+    <record id="action_invoice_payment_method_form" model="ir.actions.act_window">
+           <field name="name">Invoice Payment Method</field>
+           <field name="res_model">invoice.payment.method</field>
+           <field name="view_mode">tree,form</field>
+           <field name="help">Create invoice payment method.</field>
+       </record>
+
+    <menuitem
+            parent="contacts.res_partner_menu_config"
+            id="menu_invoice_payment_method_form"
+            action="action_invoice_payment_method_form"/>
+
+</odoo>

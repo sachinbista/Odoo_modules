@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="stock_picking_purity_cosmetics_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.purity_cosmetics.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="widget">res_partner_many2one</attribute>
+                    <attribute name="context">{'res_partner_search_mode': 'customer',
+                        'show_address': 1, 'show_vat': True}
+                    </attribute>
+                    <attribute name="options">{"always_reload": True}</attribute>
+                </xpath>
+            </field>
+        </record>
+</odoo>

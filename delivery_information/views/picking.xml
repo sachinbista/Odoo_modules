@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="view_picking_form_inherited" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherited</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+                <field name="origin" position="after">
+                    <field name="shipped"/>
+                    <field name="add_track_no"/>
+                    <field name="ups_add_track_no"/>
+                </field>
+
+                <xpath expr="//page[@name='note']" position="after">
+                    <page name="tracking_details" string="Fedex Tracking Details" invisible="add_track_no == False">
+                        <field name="picking_tracking_line" widget="one2many" >
+                            <tree string="Fedex Tracking Details"  editable="top" >
+                                <field name="track_no" />
+                                <field name="account_no" />
+                                <field name="carrier_id" />
+                                <field name="delivered" />
+                                <field name="status" />
+                                <button name="%(track_wizard_request_action)d" string="Track Details"
+                                        class="btn-primary" type="action" />
+                            </tree>
+                        </field>
+
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

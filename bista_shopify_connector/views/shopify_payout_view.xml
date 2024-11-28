@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_payout_form" model="ir.ui.view">
+        <field name="name">Shopify Payout Form</field>
+        <field name="model">shopify.payout</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <header>
+                    <button class="oe_highlight" invisible="statement_id == False" name="shopify_view_bank_statement" string="View Statement" type="object" />
+                    <button class="oe_highlight" help="Click Here To Generate Bank Statement" invisible="statement_id != False" name="generate_bank_statement" string="Generate Bank Statement" type="object" />
+                    <button name="generate_remaining_bank_statement" string="Generate Remaining Bank" invisible="status != 'partially_generated' or not statement_id" class="oe_highlight" help="Click Here To Generate Remaining Bank Statement" type="object" />
+                    <field name="status" statusbar_visible="draft,generated,processed,validated" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="date_payout" />
+                        </group>
+                        <group>
+                            <field name="payout_status" />
+                            <field name="shopify_config_id" />
+                        </group>
+                        <group>
+                            <field name="amount_total" />
+                            <field invisible="1" name="statement_id" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Transactions">
+                            <field name="payout_transaction_ids">
+                                <tree create="false" delete="false">
+                                    <field invisible="1" name="payout_id" />
+                                    <field name="transaction_id" />
+                                    <field name="source_order_id" />
+                                    <field name="transaction_type" />
+                                    <field name="source_type" />
+                                    <field name="amount" />
+                                    <field name="fee" />
+                                    <field name="net_amount" />
+                                    <field name="processed_date" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_shopify_payout_tree" model="ir.ui.view">
+        <field name="name">Shopify Payout Tree</field>
+        <field name="model">shopify.payout</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name" />
+                <field name="date_payout" />
+                <field name="payout_status" />
+                <field name="shopify_config_id" />
+                <field name="amount_total" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_shopify_payout" model="ir.actions.act_window">
+        <field name="name">Shopify Payout</field>
+        <field name="res_model">shopify.payout</field>
+        <field name="help" type="html">
+            <div class="oe_empty_shopify_instance">
+                <p class="o_view_nocontent_smiling_face">
+                    <b>
+                        There is no Payout Report imported yet.
+                    </b>
+                </p>
+                <p>
+                    To import your first Shopify Payout Report,
+                    <br />
+                    Go to menu Shopify
+                    <i class="fa fa-angle-double-right" />
+                    Processes
+                    <i class="fa fa-angle-double-right" />
+                    Shopify Operations and select your instance and option "Import Payout".
+                    <br />
+                    Give a date range for importing Payout Report. Clicking on "OK" button will import Payout Report
+                    from Shopify to Odoo.
+                </p>
+            </div>
+        </field>
+    </record>
+    <menuitem action="action_shopify_payout" groups="account.group_account_user" id="menu_shopify_payout_report" name="Payouts" parent="bista_shopify_connector.shopify_odoo_operations_menu" sequence="9" />
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Shopify Product Variant Inventory Sync -->
+    <record id="shopify_product_variant_inventory_sync_view" model="ir.ui.view">
+        <field name="name">shopify.product.variant.inventory.sync.view</field>
+        <field name="model">shopify.variant.inventory.sync</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Product Variant Inventory Sync">
+                <span>Do you want to synchronize the current inventory of the selected variant/s on Shopify?</span>
+                <footer>
+                    <button string="Sync Inventory" name="shopify_product_variant_inventory_sync" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or multiple product templates -->
+
+    <record id="shopify_product_variant_inventory_sync_action" model="ir.actions.act_window">
+        <field name="name">Shopify Product Variant Inventory Sync</field>
+        <field name="res_model">shopify.variant.inventory.sync</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopify_product_product"/>
+        <field name="binding_view_types">form</field>
+        <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="inline_form">
+            <div t-if="provider_sudo.eway_payment_method_type == 'from_odoo'" t-attf-id="o_eway_form_{{provider_id}}" class="o_eway_form">
+                <div class="form-group">
+                    <label t-attf-for="o_eway_card_{{provider_id}}" class="col-form-label">Card Number</label>
+                    <input type="text" t-attf-id="o_eway_card_{{provider_id}}" required="" maxlength="19" class="form-control"/>
+                    <label t-attf-for="o_eway_name_on_card_{{provider_id}}" class="col-form-label">Name on Card</label>
+                    <input type="text" t-attf-id="o_eway_name_on_card_{{provider_id}}" required="" maxlength="19" class="form-control"/>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-group">
+                        <label t-attf-for="o_eway_month_{{provider_id}}">Expiration</label>
+                        <div class="input-group">
+                            <input type="number" t-attf-id="o_eway_month_{{provider_id}}" placeholder="MM" min="1" max="12" required="" class="form-control" style="margin-right: 10px;"/>
+                            <input type="number" t-attf-id="o_eway_year_{{provider_id}}" placeholder="YY" min="00" max="99" required="" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label t-attf-for="o_eway_code_{{provider_id}}">Card Code</label>
+                        <input type="number" t-attf-id="o_eway_code_{{provider_id}}" placeholder="CCV" max="9999" class="form-control"/>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div t-if="provider.authorize_payment_method_type == 'credit_card'" t-attf-id="o_authorize_form_{{provider_id}}" class="o_authorize_form">
+                <div class="mb-3">
+                    <label t-attf-for="o_authorize_card_{{provider_id}}" class="col-form-label">Card Number</label>
+                    <input type="text" t-attf-id="o_authorize_card_{{provider_id}}" required="" maxlength="19" class="form-control"/>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 mb-3">
+                        <label t-attf-for="o_authorize_month_{{provider_id}}">Expiration</label>
+                        <div class="input-group">
+                            <input type="number" t-attf-id="o_authorize_month_{{provider_id}}" placeholder="MM" min="1" max="12" required="" class="form-control"/>
+                            <input type="number" t-attf-id="o_authorize_year_{{provider_id}}" placeholder="YY" min="00" max="99" required="" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label t-attf-for="o_authorize_code_{{provider_id}}">Card Code</label>
+                        <input type="number" t-attf-id="o_authorize_code_{{provider_id}}" max="9999" class="form-control"/>
+                    </div>
+                </div>
+            </div>-->
+
+        </template>
+        <!-- <template id="odoo_pragmatic_payment_eway.method_form" inherit_id="payment.method_form">
+            <xpath expr="//input[@name='o_payment_radio']" position="attributes">
+                <attribute name="t-att-data-eway-inline-form-values">
+                    provider_sudo._eway_make_request(pm_sudo.code)
+                </attribute>
+            </xpath>
+        </template> -->
+        <!-- <template id="eway_express_checkout_form">
+            <div name="o_express_checkout_container"
+                t-attf-id="o_stripe_express_checkout_container_{{provider_sudo.id}}"
+                t-att-data-provider-id="provider_sudo.id"
+                t-att-data-provider-code="provider_sudo.code"
+                t-att-data-stripe-publishable-key="provider_sudo._stripe_get_publishable_key()"
+                t-att-data-country-code="provider_sudo.company_id.country_id.code"
+                class="w-100 mt-2"
+            />
+        </template> -->
+
+    </data>
+</odoo>
+

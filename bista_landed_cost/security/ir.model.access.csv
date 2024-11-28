@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_standard_landed_cost,standard.landed.cost,model_standard_landed_cost,base.group_user,1,1,1,1
+access_transit_wizard_user,transit.wizard,model_transit_wizard,base.group_user,1,1,1,1
+access_transit_line_wizard_user,transit.line.wizard,model_transit_line_wizard,base.group_user,1,1,1,1

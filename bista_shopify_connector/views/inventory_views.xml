@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_picking_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.shopify</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field eval="12" name="priority" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="shopify_order_id == False" string="Shopify">
+                        <group name="shopify_info" string="Shopify Info">
+                            <group>
+                                <field name="shopify_fulfillment_id" />
+                                <field name="shopify_fulfillment_service" />
+                            </group>
+                            <group>
+                                <field name="shopify_order_id" />
+                                <field name="shopify_refund_id" />
+                                <field name="picking_return_id" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_stock_move_line_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">stock.move.line.inherit.shopify</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+            <field eval="12" name="priority" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="after">
+                    <field invisible="1" name="lot_ids" string="LOT IDS" widget="many2many_tags" />
+                </xpath>
+                <xpath expr="//field[@name='lot_id']" position="attributes">
+                    <attribute name="domain">
+                        [('id', 'in', lot_ids)]</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="stock_move_line_custom_inherit_tree_view" model="ir.ui.view">
+            <field name="name">stock.move.line.inherit.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" postion="inside">
+                    <header>
+                        <button class="btn btn-primary" name="%(bista_shopify_connector.stock_move_line_export_product_in_shopify)d" string="Send Items to Shopify" type="action" />
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        <!-- Using this record did the Tracking Reference Field Editable -->
+        <record id="custom_view_picking_withcarrier_out_form" model="ir.ui.view">
+            <field name="name">delivery_stock_picking_withcarrier_form_view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock_delivery.view_picking_withcarrier_out_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='carrier_tracking_ref']" position="replace">
+                    <field class="oe_inline" name="carrier_tracking_ref" readonly="state == 'cancel'" />
+                    <button class="oe_highlight" invisible="state != 'done'" name="update_tracking_info" string="Update Tracking" type="object" />
+                </xpath>
+                <xpath expr="//field[@name='carrier_id']" position="replace">
+                    <field name="carrier_id" options="{'no_create': True, 'no_open': True}" readonly="state == 'cancel'" />
+                </xpath>
+                <field name="carrier_id" position="after">
+                    <field name="shopify_tracking_url" />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
