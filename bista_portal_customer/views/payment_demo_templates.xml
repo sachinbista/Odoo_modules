@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="express_checkout_form" inherit_id="payment_demo.express_checkout_form">
+        <xpath expr="//button[@t-attf-data-bs-target='#o_payment_demo_modal_{{provider_sudo.id}}']" position="attributes">
+            <attribute name="t-if">not is_portal_customer</attribute>
+        </xpath>
+    </template>
+</odoo>

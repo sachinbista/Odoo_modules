@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_form_unreserve_form_view" model="ir.ui.view">
+            <field name="name">view_picking_form_unreserve</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="before">
+                    <button name="do_unreserve" type="object" string="Unreserve"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_picking_form_unreserve" model="ir.ui.view">
+            <field name="name">view_picking_form_unreserve</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_assign_serial']" position="after">
+                    <button icon="fa-backward" invisible="product_uom_qty == 0" name="do_unrserve" type="object"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Inherit stock.move.tree view -->
+        <record id="view_stock_move_unreserve_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.move.tree.inherit.unreserve</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <button icon="fa-times" name="do_unrserve" string="Unreserve" type="object"/>
+                    <header>
+                        <button icon="fa-times" name="do_unrserve" string="Unreserve" type="object"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_stock_rule_form_inherit" model="ir.ui.view">
+            <field name="name">stock.rule.form.inherit</field>
+            <field name="model">stock.rule</field>
+            <field name="inherit_id" ref="stock.view_route_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="auto" position="after">
+                    <field name="merge_move_to_picking"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

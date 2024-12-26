@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit res.partner form view for add our custom fields -->
+    <record id="view_partner_property_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit.authorize</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="//field[@name='bank_ids']/tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath> -->
+            <xpath expr="//page[@name='accounting_disabled']" position="after">
+                <page name="authorize_net" string="Authorize.Net">
+                    <group>
+                        <group groups="account.group_account_invoice,account.group_account_readonly" name="banks" string="Authorize CIM">
+                            <field colspan="4" name="authorize_partner_ids" nolabel="1">
+                                <tree create="0" delete="0">
+                                    <field name="merchant_id" placeholder="e.g : CUST18060506698" readonly="merchant_id != False"/>
+                                    <field name="customer_profile_id" readonly="customer_profile_id != False"/>
+                                    <field name="shipping_address_id" readonly="shipping_address_id != False"/>
+                                    <field invisible="1" name="partner_id" readonly="partner_id != False"/>
+                                    <field groups="base.group_multi_company" name="company_id" readonly="company_id != False"/>
+                                    <field invisible="1" name="provider_id"/>
+                                    <button icon="fa-lg fa-arrow-circle-o-right" invisible="customer_profile_id == False" name="%(action_authorize_shipping_partner_view)d" no_label="1" string="Update Customer Profile" title="Update Customer Information to Authorize.Net" type="action"/>
+                                    <button icon="fa-lg fa-chain-broken" invisible="customer_profile_id == False" name="unlink_authorize" no_label="1" string="Unlink Customer Profile" title="Unlink to Authorize.Net" type="object"/>
+                                </tree></field>
+                            <button class="oe_right" colspan="4" name="%(action_authorize_shipping_partner_view)d" string="Link to Authorized.NET" type="action"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='accounting']" position="inside">
+                <group>
+                    <group name="credit_cards" string="Credit Cards">
+                        <field colspan="4" context="{'default_partner_id': active_id, 'authorize': True, 'provider': 'authorize', 'default_authorize_payment_method_type': 'credit_card',  'credit_card': True}" name="payment_token_ids" nolabel="1">
+                            <tree>
+                                <field name="credit_card_type"/>
+                                <field name="credit_card_no"/>
+                                <field name="payment_method_id"/>
+                                <field name="provider_id"/>
+                                <field name="credit_card_expiration_month"/>
+                                <field name="credit_card_expiration_year"/>
+                                <field name="credit_card_code"/>
+                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field name="provider_ref"/>
+                                <field name="default_payment_token" editable="1"/>
+                                <field force_save="1" name="customer_profile_id" readonly="1"/>
+                                <field invisible="1" name="provider_id"/>
+                                <field invisible="1" name="provider"/>
+                            </tree></field>
+                    </group>
+                </group>
+                <group>
+                    <group name="bank_accounts" string="Bank Accounts">
+                        <field colspan="4" context="{'default_partner_id': active_id, 'authorize': True, 'provider': 'authorize','default_authorize_payment_method_type': 'bank_account', 'bank_account': True}" name="bank_payment_token_ids" nolabel="1">
+                            <tree>
+                                <field name="authorize_bank_type"/>
+                                <field name="acc_number"/>
+                                <field name="routing_number"/>
+                                <field name="owner_name"/>
+                                <field name="payment_method_id"/>
+                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field name="provider_ref"/>
+
+                                <field invisible="1" name="provider_id"/>
+                                <field invisible="0" name="authorize_payment_method_type"/>
+                                <field invisible="1" name="provider"/>
+                                <field force_save="1" name="customer_profile_id" readonly="1"/>
+                            </tree></field>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='accounting_disabled']" position="inside">
+                <group>
+                    <group name="credit_cards" string="Credit Cards">
+                        <field colspan="4" context="{'default_partner_id': active_id, 'authorize': True, 'default_authorize_payment_method_type': 'credit_card', 'credit_card': True}" name="payment_token_ids" nolabel="1">
+                            <tree>
+                                <field name="credit_card_type"/>
+                                <field name="credit_card_no"/>
+                                <field name="payment_method_id"/>
+                                <field name="provider_id"/>
+                                <field name="authorize_payment_method_type"/>
+                                <field name="credit_card_expiration_month"/>
+                                <field name="credit_card_expiration_year"/>
+                                <field name="credit_card_code"/>
+                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field name="provider_ref"/>
+
+                                <field invisible="1" name="provider_id"/>
+                                <field invisible="1" name="provider_code"/>
+                                <field force_save="1" name="customer_profile_id" readonly="1"/>
+                            </tree></field>
+                    </group>
+                </group>
+                <group>
+                    <group name="bank_accounts" string="Bank Accounts">
+                        <field colspan="4" context="{'default_partner_id': active_id, 'authorize': True, 'provider_code': 'authorize','default_authorize_payment_method_type': 'bank_account',                         'bank_account': True}" name="bank_payment_token_ids" nolabel="1">
+                            <tree>
+                                <field name="authorize_bank_type"/>
+                                <field name="acc_number"/>
+                                <field name="routing_number"/>
+                                <field name="owner_name"/>
+                                <field name="payment_method_id"/>
+                                <field groups="base.group_multi_company" name="company_id"/>
+                                <field name="provider_ref"/>
+
+                                <field invisible="1" name="provider_id"/>
+                                <field invisible="0" name="authorize_payment_method_type"/>
+                                <field invisible="1" name="provider"/>
+                                <field force_save="1" name="customer_profile_id" readonly="1"/>
+                            </tree></field>
+                    </group>
+                </group>
+            </xpath></field>
+    </record>
+</odoo>

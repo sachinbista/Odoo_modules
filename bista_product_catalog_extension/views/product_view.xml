@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="product_view_tree_catalog" model="ir.ui.view">
+            <field name="name">product.view.tree.catalog</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree editable="top" js_class="list_catalog_view">
+                    <field name="name"/>
+                    <field name="default_code"/>
+                    <field name="catalog_prd_quantity"/>
+                    <field name="list_price"/>
+                    <field name="priority" widget="priority"/>
+                    <field name="product_template_attribute_value_ids"
+                           widget="many2many_tags"
+                           domain="[('id', 'in', parent.ids)]"
+                           groups="product.group_product_variant"
+                           options="{'color_field': 'color'}"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bista_shipping_charge_user,shipping.charge,model_shipping_charge,base.group_user,1,1,1,1
-access_bista_shipping_charge_line_user,shipping.charge.line,model_shipping_charge_line,base.group_user,1,1,1,1

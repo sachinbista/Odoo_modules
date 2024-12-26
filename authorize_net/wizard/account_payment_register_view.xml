@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit account.payment.register view for add custom fields -->
+    <record id="authorize_net_view_account_payment_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register.form.authorize_net</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="attributes">
+                <attribute name="context">
+                    {'invoice_id': active_id, 'payment_authorize': payment_authorize}</attribute></field>
+            <field name="payment_method_line_id" position="after">
+                <field invisible="1" name="auth_partner_id"/>
+                <field invisible="1" name="authorize_payment_type"/>
+
+                <field invisible="((payment_method_code == 'authorize' and customer_profile_id == False) and can_group_payments == True) or (payment_method_code != 'authorize' and customer_profile_id == False) or (payment_method_code != 'authorize' and payment_type == 'inbound') or (payment_method_code != 'authorize' and payment_type == 'outbound') and is_refund_ref == False" name="payment_authorize"/>
+                <field invisible="1" name="is_wo_save_card"/>
+                <field groups="authorize_net.group_without_save_payment_options" invisible="payment_authorize == False or (payment_type == 'outbound' and is_refund_ref == True)" name="is_wo_save_card" string="Direct payment (Without Save Card)"/></field>
+            <label for="amount" position="attributes">
+                <attribute name="invisible">can_edit_wizard == False or (can_group_payments == True and group_payment == False) or (payment_authorize == True and payment_type == 'outbound')</attribute>
+            </label>
+            <xpath expr="//div[@name='amount_div']" position="attributes">
+                <attribute name="invisible">can_edit_wizard == False or (can_group_payments == True and group_payment == False) or (payment_authorize == True and payment_type == 'outbound')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_token_id']" position="attributes">
+                <attribute name="options">
+                    {'no_open': True, 'no_create': True}</attribute>
+                <attribute name="context">
+                    {'default_partner_id': partner_id, 'authorize': True, 'invoice_id': active_id, 'payment_authorize': payment_authorize, 'auth_partner_id': auth_partner_id, 'active_ids': active_ids, 'payment_method_code': payment_method_code, 'company_id': company_id, 'provider_id': provider_id}</attribute>
+                <attribute name="required">((group_payment == True and payment_method_code == 'authorize') and is_wo_save_card == False) or ((is_wo_save_card == False and payment_authorize == True) and payment_type == 'inbound')</attribute>
+                <attribute name="invisible">((((is_wo_save_card == True and payment_authorize == False) and group_payment == True) and can_group_payments == True) and use_electronic_payment_method == False) or ((((is_wo_save_card == True or use_electronic_payment_method == False) or (((group_payment == False and payment_authorize == False) and use_electronic_payment_method == True) and payment_method_code == 'authorize')) or (((group_payment == False and payment_authorize == False) and use_electronic_payment_method == True) and payment_method_code == 'authorize')) or (can_edit_wizard == False or (can_group_payments == True and group_payment == False)))</attribute>
+            </xpath>
+            <field name="payment_method_line_id" position="attributes">
+                <attribute name="invisible">payment_authorize == True and payment_type == 'outbound'</attribute></field>
+            <button name="action_create_payments" position="attributes">
+                <attribute name="context">
+                    {'group_payment': group_payment, 'payment_token_id': payment_token_id, 'payment_method_code': payment_method_code}</attribute>
+            </button>
+            <field name="communication" position="after">
+                <field invisible="1" name="is_refund_ref"/>
+                <field force_save="1" invisible="payment_authorize == False or merchant_id == False" name="merchant_id"/>
+                <field force_save="1" invisible="payment_authorize == False or customer_profile_id == False or payment_type == 'outbound'" name="customer_profile_id"/>
+                <field force_save="1" invisible="payment_authorize == False or shipping_address_id == False" name="shipping_address_id"/>
+                <field invisible="payment_authorize == False" name="company_id"/>
+                <field force_save="1" invisible="payment_authorize == False or provider_id == False" name="provider_id" readonly="1"/></field>
+            <xpath expr="//group" position="after">
+                <separator invisible="is_wo_save_card == False" string="Credit Card Details"/>
+                <group col="4">
+                    <field invisible="is_wo_save_card == False" name="cc_number" placeholder="****************" required="is_wo_save_card == True"/>
+                    <field invisible="is_wo_save_card == False" name="cc_type"/>
+<!--                    <field invisible="is_wo_save_card == False" name="payment_method_id"/>-->
+                    <field invisible="is_wo_save_card == False" name="cc_month" placeholder="**" required="is_wo_save_card == True"/>
+                    <field invisible="is_wo_save_card == False" name="cc_year" placeholder="****" required="is_wo_save_card == True"/>
+                    <field invisible="is_wo_save_card == False" name="cc_cvv" placeholder="****" required="is_wo_save_card == True"/>
+                    <field context="{'default_type':'invoice', 'default_parent_id': partner_id}" invisible="is_wo_save_card == False" name="billing_partner_id"/>
+                </group>
+                <separator invisible="payment_authorize == False or payment_type == 'inbound' and partner_type == 'customer'" string="Credit Transaction"/>
+                <field colspan="4" invisible="payment_authorize == False or payment_type == 'inbound' and partner_type == 'customer'" name="auth_invoice_refund_ids" nolabel="1" options="{'no_open':True, 'no_create':True}" widget="one2many_list">
+                    <tree create="false" delete="true" editable="top">
+                        <field invisible="1" name="partner_id"/>
+                        <field name="transaction_id" readonly="1"/>
+                        <field name="payment_token_id" readonly="1"/>
+                        <field name="credit_amount" readonly="1" sum="Amount"/>
+                        <field name="refund_amount" required="1" sum="Amount"/>
+                        <field name="currency_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+                        <field invisible="1" name="company_id"/>
+                        <field invisible="1" name="provider_id"/>
+                    </tree></field>
+            </xpath></field>
+    </record>
+</odoo>

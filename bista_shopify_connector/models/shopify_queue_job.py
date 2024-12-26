@@ -245,12 +245,9 @@ class ShopifyQueueJob(models.Model):
             lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
-            if self.shopify_config_id.is_create_invoice:
-                order_obj.with_context(queue_line_id = line)._shopify_prepare_invoice_data(order_dict, self.shopify_config_id)
-            else:
-                order_obj.with_context(queue_line_id=line,
-                                       shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
-                    order_dict, self.shopify_config_id)
+            order_obj.with_context(queue_line_id=line,
+                                   shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
+                order_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 
@@ -335,12 +332,9 @@ class ShopifyQueueJob(models.Model):
             lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
-            if self.shopify_config_id.is_create_invoice:
-                order_obj.with_context(queue_line_id = line)._shopify_prepare_invoice_data(order_dict, self.shopify_config_id)
-            else:
-                order_obj.with_context(queue_line_id=line,
-                                       shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
-                    order_dict, self.shopify_config_id)
+            order_obj.with_context(queue_line_id=line,
+                                   shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
+                order_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 

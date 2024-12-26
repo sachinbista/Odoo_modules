@@ -8,7 +8,7 @@
 import pprint
 from .. import shopify
 import urllib.parse as urlparse
-from odoo import fields, models, api, tools
+from odoo import fields, models, tools
 from odoo.exceptions import AccessError, ValidationError
 from datetime import datetime, timedelta
 
@@ -299,7 +299,7 @@ class Partner(models.Model):
                     customer_dict = customer.to_dict()
                     shopify_customer_id = customer_dict.get('id') or ''
                     existing_customer = res_partner.search(
-                        [('shopify_customer_id', '=', shopify_customer_id),('active','=',False)])
+                        [('shopify_customer_id', '=', shopify_customer_id)])
                     if existing_customer:
                         continue
                     name = "%s %s" % (customer_dict.get('first_name', ''),
@@ -368,7 +368,7 @@ class Partner(models.Model):
                     customer_dict = customer.to_dict()
                     shopify_customer_id = customer_dict.get('id') or ''
                     existing_customer = res_partner.search(
-                        [('shopify_customer_id', '=', shopify_customer_id),('active','=',False)])
+                        [('shopify_customer_id', '=', shopify_customer_id)])
                     if existing_customer:
                         continue
                     name = "%s %s" % (customer_dict.get('first_name', ''),
@@ -384,10 +384,3 @@ class Partner(models.Model):
         if not is_customer_by_date_range:
             shopify_config.last_import_customer_date = fields.Datetime.now()
         return True
-
-    @api.model_create_multi
-    def create(self,vals_list):
-        for vals in vals_list:
-            if vals.get('shopify_customer_id'):
-                vals['active'] = False
-        return super().create(vals_list)

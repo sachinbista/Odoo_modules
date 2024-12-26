@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="bista_product_catalog_extension.product_catalogUpdateListView" t-inherit="web.ListView"
+       t-inherit-mode="primary">
+        <xpath expr="//t[@t-if='!model.root.editedRecord and activeActions.create and props.showButtons']"
+               position="after">
+            <button type="button" class="btn btn-primary" data-hotkey="c"
+                    t-on-click="productCatalogOrderline" data-bounce-button="">
+                Add Lines
+            </button>
+        </xpath>
+
+        <xpath expr="//button[@class='btn btn-primary o_list_button_add']" position="attributes">
+             <attribute name="t-att-style">'display: none;'
+            </attribute>
+        </xpath>
+
+    </t>
+
+    <t t-name="bista_product_catalog_extension.product_catalogUpdateListViewButton" t-inherit="web.ListView.Buttons"
+       t-inherit-mode="primary">
+        <xpath expr="//button[@class='btn btn-primary o_list_button_save']" position="attributes">
+             <attribute name="t-att-style">'display: none;'
+            </attribute>
+        </xpath>
+    </t>
+
+
+    <t t-name="bista_product_catalog_extension.listRendererUpdate" t-inherit="web.ListRenderer"
+       t-inherit-mode="primary">
+        <xpath expr="//th[@t-if='hasSelectors' and contains(@class, 'o_list_record_selector')]" position="attributes">
+        <attribute name="t-att-style">'display: none;'</attribute>
+    </xpath>
+
+</t>
+
+    <t t-name="bista_product_catalog_extension.listRendererRecordRowUpdate" t-inherit="web.ListRenderer.RecordRow"
+       t-inherit-mode="primary">
+        <xpath expr="//td[@t-if='hasSelectors' and contains(@class, 'o_list_record_selector user-select-none')]"
+               position="attributes">
+        <attribute name="t-att-style">'display: none;'</attribute>
+    </xpath>
+</t>
+
+
+
+</templates>
+

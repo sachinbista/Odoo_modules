@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="bista_portal_customer.total" inherit_id="website_sale.total">
+        <xpath expr="//div[@id='cart_total']" position="attributes">
+            <attribute name="t-att-class">extra_class or '' if not is_portal_customer else 'd-none' or extra_class</attribute>
+        </xpath>
+    </template>
+
+    <template id="bista_portal_customer.payment" inherit_id="website_sale.payment">
+        <xpath expr="//t[@t-call='payment.form']" position="attributes">
+            <attribute name="t-if">not is_portal_customer</attribute>
+        </xpath>
+    </template>
+
+    <template id="bista_portal_customer.payment_delivery" inherit_id="website_sale.payment_delivery">
+        <xpath expr="//div[@id='delivery_carrier']" position="attributes">
+            <attribute name="t-if">not is_portal_customer</attribute>
+        </xpath>
+    </template>
+
+
+    <template id="bista_portal_customer.order_state_message">
+        <p>Your order is waiting manual confirmation.</p>
+        <br />
+    </template>
+
+    <template id="bista_portal_customer.confirmation" inherit_id="website_sale.confirmation">
+        <div t-if="tx_sudo.state in ['pending', 'done']" position="replace">
+            <t t-if="not is_portal_customer">
+                <div t-if="tx_sudo.state in ['pending', 'done']" class="d-flex justify-content-between align-items-center">
+                    <h3>Thank you for your order.</h3>
+                    <a role="button" class="d-none d-md-inline-block btn btn-primary ms-auto" href="/shop/print" target="_blank" aria-label="Print" title="Print"><i class="fa fa-print me-2"></i>Print</a>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Thank you for your order.</h3>
+                    <a role="button" class="d-none d-md-inline-block btn btn-primary ms-auto" href="/shop/print" target="_blank" aria-label="Print" title="Print"><i class="fa fa-print me-2"></i>Print</a>
+                </div>
+            </t>
+        </div>
+
+
+        <!-- <t t-if="tx_sudo.state == 'done'">
+                <div class="mb-4">
+                    <h5>
+                        <em>
+                            <span>Order</span>
+                            <span t-field="order.name" />
+                            <t t-if="order.state == 'sale'">
+                                <i class="fa fa-check-circle ms-1"/>
+                            </t>
+                        </em>
+                    </h5>
+                </div>
+            </t> -->
+
+        <xpath expr="//h4[hasclass('text-start')]" position="attributes">
+            <attribute name="t-if">not is_portal_customer</attribute>
+        </xpath>
+        <xpath expr="//table[hasclass('table')]" position="attributes">
+            <attribute name="t-if">not is_portal_customer</attribute>
+        </xpath>
+        <xpath expr='//t[@t-if="tx_sudo.state == &apos;done&apos;"]' position="attributes">
+            <attribute name="t-if">
+                tx_sudo.state == 'done' or (website.is_portal_customer or order.state == 'sale')
+            </attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']" position="after">
+            <div class="alert alert-info" role="alert"
+                t-if="website.confirm_order_message_without_payment and is_portal_customer">
+                <span t-field="website.confirm_order_message_without_payment" />
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']" position="attributes">
+            <attribute name="t-if">not website.is_portal_customer</attribute>
+        </xpath>
+    </template>
+</odoo>

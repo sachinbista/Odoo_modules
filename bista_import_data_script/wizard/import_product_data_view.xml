@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Import Product data -->
+    <record id="import_product_template_view" model="ir.ui.view">
+        <field name="name">import.product.data.view</field>
+        <field name="model">import.product.data</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Product Template Import">
+                <sheet>
+                    <group>
+                        <field name="data_file" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Import Product Variant" name="import_product_template" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_product_template_import" model="ir.actions.act_window">
+        <field name="name">Import Product Data</field>
+        <field name="res_model">import.product.data</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="import_product_template_view"/>
+        <field name="target">new</field>
+    </record>
+<!-- 
+    <menuitem id="import_product_data_menu"
+          name="Import Data"
+          parent="sale.menu_sale_report"
+          action="bista_import_data_script.action_wizard_product_template_import"/> -->
+
+
+    <menuitem id="import_product_data_menu"
+          name="Import"
+          parent="sale.menu_sale_config"
+          sequence="100"/>
+
+
+    <menuitem id="import_product_data_sub_menu"
+          name="Import Product Variant"
+          parent="bista_import_data_script.import_product_data_menu"
+          action="bista_import_data_script.action_wizard_product_template_import"
+          sequence="100"/>
+
+
+</odoo>
+
+

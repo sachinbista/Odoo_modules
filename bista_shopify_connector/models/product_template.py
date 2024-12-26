@@ -113,7 +113,7 @@ class ProductTemplate(models.Model):
             order or purchase order.
             @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
         """
-        vals['invoice_policy'] = 'order'
+        # vals['invoice_policy'] = 'order'
         res = super(ProductTemplate, self).write(vals)
         for rec in self:
             can_be_sold = vals.get('sale_ok') or rec.sale_ok

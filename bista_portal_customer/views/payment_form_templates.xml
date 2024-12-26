@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="bista_portal_customer.submit_button" inherit_id="payment.submit_button">
+        <xpath expr="//button[@name='o_payment_submit_button']" position="replace">
+            <t t-if="is_portal_customer">
+                <button name="o_payment_submit_button"
+                    type="submit"
+                    t-out="submit_button_label"
+                    class="btn btn-primary w-100 w-md-auto ms-auto px-5 d-none"
+                />
+                <form
+                    target="_self"
+                    action="/shop/confirmation"
+                    method="post"
+                    class="float-right">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()" />
+                    <button 
+                        name="o_without_payment_submit_button"
+                        class="btn btn-primary w-100 px-5"
+                        t-out="submit_button_2_label"
+                        role="submit" />
+                </form>
+            </t>
+            <t t-else="">
+                <button name="o_payment_submit_button"
+                    type="submit"
+                    t-out="submit_button_label"
+                    class="btn btn-primary w-100 w-md-auto ms-auto px-5"
+                    disabled="true"
+                />
+            </t>
+        </xpath>
+    </template>
+</odoo>
