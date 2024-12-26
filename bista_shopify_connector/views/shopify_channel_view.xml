@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Shopify Product Collection Form View -->
+    <record id="shopify_channel_form_view" model='ir.ui.view'>
+        <field name="name">shopify.channel.form.view</field>
+        <field name="model">shopify.channel</field>
+        <field name="arch" type="xml">
+            <form name="Shopify Channel">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="online_store"/>
+                            <field name="amazon_store"/>
+                            <field name="shopify_config_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Shopify Product Collection Tree View -->
+    <record id="shopify_channel_tree_view" model='ir.ui.view'>
+        <field name="name">shopify.channel.tree.view</field>
+        <field name="model">shopify.channel</field>
+        <field name="arch" type="xml">
+            <tree name="Shopify Channel">
+                <field name="name"/>
+                <field name="online_store"/>
+                <field name="amazon_store"/>
+                <field name="shopify_config_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Shopify Product Collection Action -->
+    <record id="action_shopify_channel" model="ir.actions.act_window">
+        <field name="name">Shopify Channel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shopify.channel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu for Shopify Product Collection -->
+    <menuitem id="menu_shopify_channel"
+              name="Shopify Channel"
+              sequence="8"
+              groups="bista_shopify_connector.group_shopify_admin"
+              action="action_shopify_channel"
+              parent="shopify_configuration_menu"/>
+</odoo>

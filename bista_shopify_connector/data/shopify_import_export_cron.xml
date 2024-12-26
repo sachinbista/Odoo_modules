@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <data noupdate="1">
+        <!-- Import Customer -->
+        <record id="shopify_import_customer_cron" model="ir.cron">
+            <field name="name">Shopify Import Customer</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_cust=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Import Sales Orders -->
+        <record id="shopify_import_order_cron" model="ir.cron">
+            <field name="name">Shopify Import Sales Orders</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_order=True).import_export_data()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Import Location -->
+        <record id="shopify_import_location_cron" model="ir.cron">
+            <field name="name">Shopify Import Location</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+           <field name="code">model.with_context(from_location=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Import Collections -->
+        <record id="shopify_import_collection_cron" model="ir.cron">
+            <field name="name">Shopify Import Collection</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_collection=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+    <!-- Export Collections -->
+        <record id="shopify_export_collection_cron" model="ir.cron">
+            <field name="name">Shopify Export Collection</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(export_collection=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Export Products -->
+        <record id="shopify_export_products_cron" model="ir.cron">
+            <field name="name">Shopify Export Products</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(export_product=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+        <!-- Export Stock -->
+        <record id="shopify_export_stock_cron" model="ir.cron">
+            <field name="name">Shopify Export Stock</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(export_stock=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+        <!-- Import Products -->
+        <record id="shopify_import_products_cron" model="ir.cron">
+            <field name="name">Shopify Import Products</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(import_product=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Import Refund -->
+        <record id="shopify_import_refund_cron" model="ir.cron">
+            <field name="name">Shopify Import Refund</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_refund=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Import Fulfillment Services -->
+        <record id="shopify_import_stock_cron" model="ir.cron">
+            <field name="name">Shopify Import Stock</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_stock=True).import_export_data()</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Update Order Status-->
+        <record id="shopify_update_order" model="ir.cron">
+            <field name="name">Shopify Update Order Status</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_order_status=True).import_export_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+        <!-- Process Queue-->
+        <record id="shopify_process_queue" model="ir.cron">
+            <field name="name">Shopify Process Queue</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.with_context(from_process_queue=True).import_export_data()</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

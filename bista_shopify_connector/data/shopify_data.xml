@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+             <!-- Data for Shopify Customer  -->
+        <record model="res.partner" id="shopify_partner">
+            <field name="name">Shopify Customer</field>
+            <field name="email">shopify@test.com</field>
+            <field name="customer_rank">1</field>
+            <field name="image_1920" type="base64" file="base/static/img/avatar_grey.png"/>
+        </record>
+
+         <!-- Data for shopify Shipping product -->
+         <record model="product.product" id="shopify_shipping_product">
+            <field name="name">Shopify Shipping Product</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+        </record>
+
+        <!-- Data for shopify Roudning Diff product -->
+         <record model="product.product" id="shopify_rounding_diff_product">
+            <field name="name">Shopify Rounding Diff Product</field>
+            <field name="type">service</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <!-- Data for shopify product -->
+         <record model="product.product" id="shopify_product">
+            <field name="name">Shopify Product</field>
+            <field name="type">product</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+        <!-- Analytic account data -->
+        <!-- <record id="analytic_shopify" model="account.analytic.account">
+            <field name="name">Shopify</field>
+            <field name="company_id" eval="False"/>
+        </record> -->
+        
+        <record id="shopify_team_shopify" model="crm.team">
+            <field name="name">Shopify Sale Team</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Automatic Workflow -->
+        <record id="automatic_workflow" model="shopify.workflow.process">
+            <field name="name">Automatic Workflow</field>
+            <field name="confirm_order" eval="True"/>
+        </record>
+    </data>
+</odoo>

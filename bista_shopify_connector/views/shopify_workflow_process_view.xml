@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="shopify_workflow_process_view_form" model="ir.ui.view">
+            <field name="name">shopify.workflow.process.form</field>
+            <field name="model">shopify.workflow.process</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Shopify Auto Workflow">
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" class="oe_inline" required="1"/>
+                        </h1>
+                        <group string="Auto Workflow">
+                            <group>
+                                <field name="confirm_order" widget="boolean_toggle"/>
+                                <field name="create_invoice" widget="boolean_toggle"
+                                       attrs="{'invisible':[('confirm_order','=',False)]}"/>
+                                <field name="validate_invoice" widget="boolean_toggle"
+                                       attrs="{'invisible':[('create_invoice','=',False)]}"/>
+                                <field name="register_payment" widget="boolean_toggle"
+                                       attrs="{'invisible':[('validate_invoice','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="company_id" required="1"/>
+                                <field name="sale_journal_id" required="1" domain="[('type', '=', 'sale'), ('company_id', '=', company_id)]"/>
+                                <field name="credit_note_journal_id" required="1" domain="[('type', '=', 'sale'), ('company_id', '=', company_id)]"/>
+                                <field name="shipping_policy" required="1" widget="selection"/>
+                                <field name="pay_journal_id"
+                                       attrs="{'invisible':[('register_payment','=',False)],'required':[('register_payment','!=',False)]}"
+                                       domain="[('type','in',['bank','cash']), ('company_id', '=', company_id)]"/>
+                                <field name="in_pay_method_id" widget="selection"
+                                       attrs="{'invisible':[('register_payment','=',False)],'required':[('register_payment','!=',False)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="shopify_workflow_process_view_tree" model="ir.ui.view">
+            <field name="name">shopify.workflow.process.tree</field>
+            <field name="model">shopify.workflow.process</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Shopify Auto Workflow">
+                    <field name="name"/>
+                    <field name="create_date"/>
+                    <field name="confirm_order"/>
+                    <field name="create_invoice"/>
+                    <field name="validate_invoice"/>
+                    <field name="register_payment"/>
+                    <field name="pay_journal_id"/>
+                    <field name="sale_journal_id"/>
+                    <field name="shipping_policy"/>
+                    <field name="in_pay_method_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_shopify_workflow_process" model="ir.actions.act_window">
+            <field name="name">Shopify Auto Workflow Process</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.workflow.process</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="action_shopify_workflow_process_menu" name="Shopify Auto Workflow"
+              parent="shopify_configuration_menu"
+              action="action_shopify_workflow_process"
+              groups="bista_shopify_connector.group_shopify_admin"
+              sequence="2"/>
+    </data>
+</odoo>
+

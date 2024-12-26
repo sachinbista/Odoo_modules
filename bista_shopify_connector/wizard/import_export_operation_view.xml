@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_import_export_operation" model="ir.ui.view">
+        <field name="name">Import/Export Operation</field>
+        <field name="model">shopify.import.export.operation</field>
+        <field name="arch" type="xml">
+            <form string="Import/Export">
+                <sheet>
+                    <group name='shopify_config'>
+                        <group>
+                            <field name='shopify_config_id'
+                                   options="{'no_create':True,'no_create_edit': True,'no_open': True}"
+                                   required="1"/>
+                        </group>
+                        <group>
+                            <field name='shopify_operation' string="Operations" required="1"/>
+                            <field name='import_operation' string="Import"
+                                   attrs="{'invisible':[('shopify_operation','!=','import')],
+                                   'required':[('shopify_operation','=','import')]}"/>
+                            <field name='shopify_product_by_ids'
+                                   attrs="{'invisible':[('import_operation','!=','import_product_by_ids')],
+                                   'required':[('import_operation','=','import_product_by_ids')]}"/>
+                            <field name='is_order_by_date_range'
+                                   attrs="{'invisible':['|',('import_operation','!=','import_order'),('shopify_operation','=','export')],
+                                   'required':[('import_operation','=','import_order')]}"/>
+                            <field name='from_order_date'
+                                   attrs="{'invisible':['|',('is_order_by_date_range','=',False),('shopify_operation','=','export')],
+                                   'required':[('is_order_by_date_range','!=',False)]}"/>
+                            <field name='to_order_date'
+                                   attrs="{'invisible':['|',('is_order_by_date_range','=',False),('shopify_operation','=','export')],
+                                   'required':[('is_order_by_date_range','!=',False)]}"/>
+                            <field name='shopify_order_by_ids'
+                                   attrs="{'invisible':['|',('import_operation','!=','import_order_by_ids'),('shopify_operation','=','export')],
+                                   'required':[('import_operation','=','import_order_by_ids')]}"/>
+                            <field name='export_operation' string="Export"
+                                   attrs="{'invisible':[('shopify_operation','!=','export')],
+                                   'required':[('shopify_operation','=','export')]}"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <div name="msg_main_div">
+                        <div attrs="{'invisible':[('import_operation','not in',['import_order', 'import_order_by_ids'])]}">
+                            <p colspan="2" class="alert alert-warning" role="alert">
+                                <b>
+                                    <u>
+                                        <h3 style="font-weight:bold;color:#7d5a29">Note :
+                                        </h3>
+                                    </u>
+                                    <ol>
+                                        <li>
+                                            For Shopify order fulfillment, Shopify warehouse should be configured with Outgoing Shipments as Deliver goods directly (1 step)
+
+                                        </li>
+                                        <li>For Storable Products it is recommended that Invoicing Policy should be set to Delivered quantities.</li>
+                                        <li>Shopify Order Discount will be deducted from the Unit price.</li>
+                                    </ol>
+                                </b>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible':[('import_operation','!=','import_customer')]}">
+                            <p colspan="2" class="alert alert-warning" role="alert">
+                                <b>
+                                    <u>
+                                        <h3 style="font-weight:bold;color:#7d5a29">Note :</h3>
+                                    </u>
+                                    <ol>
+                                        <li>
+                                            Fetching customer data from Shopify and add that data in
+                                            Queue for processing.
+                                        </li>
+                                        <li>
+                                            Scheduled running in background will start processing
+                                            Queues.
+                                        </li>
+                                    </ol>
+                                </b>
+                            </p>
+                        </div>
+                        <div attrs="{'invisible':[('import_operation','!=','import_return')]}">
+                            <p colspan="2" class="alert alert-warning" role="alert">
+                                <b>
+                                    <u>
+                                        <h3 style="font-weight:bold;color:#7d5a29">Note :</h3>
+                                    </u>
+                                    <ol>
+                                        <li>
+                                            Import return does not have any impact on Odoo delivery items if it is unfulfilled in shopify and restocked at the time of refund.
+                                        </li>
+                                    </ol>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                    <footer>
+                        <field name="is_run_and_active" invisible="1"/>
+                        <button string="Run Operation" class="oe_highlight"
+                                type="object" name="shopify_run_operation"
+                                attrs="{'invisible':[('is_run_and_active','=', True)]}"/>
+                        <button string="Cancel" class="oe_highlight"
+                                special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_shopify_import_export_operations" model="ir.actions.act_window">
+        <field name="name">Shopify Operations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shopify.import.export.operation</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_shopify_import_export_operation"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu for Shopify Operations -->
+     <menuitem id="menu_shopify_import_export"
+        name="Shopify Operations"
+        sequence="5"
+        groups="bista_shopify_connector.group_shopify_admin"
+        action="action_wizard_shopify_import_export_operations"
+        parent="shopify_shopify_operations_menu"/>
+</odoo>
