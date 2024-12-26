@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="category_shopify_connector">
+            <field name="name">Shopify Connector</field>
+            <field name="description">Helps you manage Shopify connector information.</field>
+            <field name="sequence">51</field>
+        </record>
+
+        <!-- add applications to groups -->
+
+        <record model="res.groups" id="group_shopify_user">
+            <field name="name">Shopify User</field>
+            <field name="category_id" ref="category_shopify_connector"/>
+        </record>
+
+        <record model="res.groups" id="group_shopify_admin">
+            <field name="name">Shopify Admin</field>
+            <field name="category_id" ref="category_shopify_connector"/>
+            <field name="implied_ids" eval="[(4, ref('bista_shopify_connector.group_shopify_user'))]"/>
+        </record>
+
+        <!-- <record model="res.groups" id="group_shopify_manager">
+            <field name="name">Shopify Manager</field>
+            <field name="category_id" ref="category_shopify_connector"/>
+        </record> -->
+
+        <record id="shopify_config_rule" model="ir.rule">
+            <field name="name">Shopify config rule</field>
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field eval="1" name="global"/>
+            <field name="domain_force">['|',('default_company_id','=',False),('default_company_id', 'in', company_ids)]</field>
+            <field name="perm_read">True</field>
+            <field name="perm_create">False</field>
+            <field name="perm_write">False</field>
+            <field name="perm_unlink">False</field>
+        </record>
+    </data>
+</odoo>

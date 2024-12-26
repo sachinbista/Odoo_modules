@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="slip_report_invoice">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <!-- Header -->
+            <div class="row">
+                <div class="col-6">
+                    <img t-if="o.company_id.logo" t-attf-src="data:image/*;base64,{{o.company_id.logo}}"
+                         style="width: 7%;" class="mb-2"/>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <table class="table-borderless" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Phone</b>
+                            </td>
+                            <td class="text-start" style="padding-bottom: 10px;">
+                                <t t-esc="o.company_id.phone"/>
+                            </td>
+                            <br/>
+                        </tr>
+
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Website</b>
+                            </td>
+                            <td class="text-start" style="padding-bottom: 10px;">
+                                <a t-att-href="'http://' + o.company_id.website" t-esc="o.company_id.website"
+                                   target="_blank"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Email</b>
+                            </td>
+                            <td class="text-start" style="padding-bottom: 10px;">
+                                <t t-esc="o.company_id.email"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Supplier Address</b>
+                            </td>
+                            <td class="text-start" style="padding-bottom: 10px;">
+                                <t t-esc="o.company_id.street"/>,<t t-esc="o.company_id.zip"/>,
+                                <t t-esc="o.company_id.country_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Tax No.</b>
+                            </td>
+                            <td class="text-start" style="padding-bottom: 10px;">
+                                <t t-esc="o.company_id.vat"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+                <div class="col-4">
+
+                </div>
+                <div class="col-4" style="padding-right:70px;">
+                    <table class="table-borderless" width="70%">
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <strong>Date</strong>
+                            </td>
+                            <td style="padding-bottom: 10px;" class="text-end">
+                                <t t-esc="o.invoice_date"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <b>Commercial Invoice No.</b>
+                            </td>
+                            <td style="padding-bottom: 10px;" class="text-end">
+                                <t t-if="o.reference_number">
+                                    <span t-esc="o.reference_number">INV/2023/00001</span>
+                                </t>
+                                <t t-elif="o.name">
+                                    <span t-esc="o.name">INV/2023/00001</span>
+                                </t>
+<!--                                <t t-esc="o.name"/>-->
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <strong>PO Number:</strong>
+                            </td>
+                            <td style="padding-bottom: 10px;" class="text-end">
+                                <t t-if="o.purchase_id">
+                                    <span t-field="o.purchase_id.name"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                <strong>Tax No.</strong>
+                            </td>
+                            <td style="padding-bottom: 10px;" class="text-end">
+                                <!-- Add Tax Number content if needed -->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- Bill to / Ship to -->
+            <div class="row mt32" style="border: 1px solid #888; padding: 20px; border-radius: 5px;">
+                <div class="col-4">
+                    <strong style="margin-bottom: 0;">Bill to</strong>
+
+                    <hr style="width: 100%; margin: 0; border: none; border-top: 1px solid black;"/>
+                    <table class="table-borderless" width="70%">
+                        <tr>
+                            <td>
+                                <em>Name</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.name"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Address Line 1</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.street"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Address Line 2</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.street2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>City</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.city"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Post Code</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.zip"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Destination Country</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_id.country_id.name"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-4"></div>
+
+
+                <div class="col-4 text-right">
+                    <strong style="margin-bottom: 0;">Ship to</strong>
+                    <hr style="width: 100%; margin: 0; border: none; border-top: 1px solid black;"/>
+                    <table class="table-borderless" width="70%">
+                        <tr>
+                            <td>
+                                <em>Name</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Address Line 1</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.street"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Address Line 2</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.street2"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>City</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.city"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Post Code</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.zip"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <em>Destination Country</em>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.partner_shipping_id.country_id.name"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="row">
+                <div style="text-align: center;margin-top:30px;">
+                    <table class="table-borderless" width="100%" style="text-center;">
+                        <tr>
+                            <thead style="background-color:#fad1c6">
+                                <th style="width:15%"></th>
+                                <th style="width:15%"></th>
+                                <th>Commercial Invoice Number</th>
+                                <th>Ship Date</th>
+                                <th>Shipping Terms</th>
+                                <th>Ref Number</th>
+                                <th style="width:15%"></th>
+                                <th style="width:15%"></th>
+                            </thead>
+                        </tr>
+                        <tbody style="margin-top:10px">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <t t-esc="o.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.delivery_date or ''"
+                                       t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.invoice_incoterm_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.reference_number"/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <!-- Invoice Lines Table -->
+            <div class="row mt32">
+                <table class="table table-sm table-borderless">
+                    <thead style="background-color:#fad1c6">
+                        <tr>
+                            <th>
+                                <b>UPC</b>
+                            </th>
+                            <th width="27%" class="text-start">
+                                <b>Item Description</b>
+                            </th>
+                            <th>
+                                <b>Material</b>
+                            </th>
+                            <th>
+                                <b>Colour</b>
+                            </th>
+                            <th>
+                                <b>HS Code</b>
+                            </th>
+                            <th>
+                                <b>COO</b>
+                            </th>
+                            <th>
+                                <b>Weight (lb)</b>
+                            </th>
+                            <th>
+                                <b>Qty</b>
+                            </th>
+                            <th>
+                                <b>RRP</b>
+                            </th>
+                            <th>
+                                <b>Discount</b>
+                            </th>
+                            <th>
+                                <b>Unit Price</b>
+                            </th>
+                            <th width="4%">
+                                <b>Total Price</b>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <td>
+                                <t t-esc="line.product_id.barcode or ''"/>
+                            </td>
+                            <td class="text-start">
+                                <t t-esc="line.name"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.product_id.key_ingredients or '' "/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.product_id.color_name or ''"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.product_id.hs_code or ''"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-if="line.product_id.country_of_origin_id">
+                                    <t t-esc="line.product_id.country_of_origin_id.name"/>
+                                </t>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.product_id.weight or ''"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.quantity"/>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="line.discount"/>
+                            </td>
+                            <td class="text-center">
+                                <t t-esc="o.company_id.currency_id.symbol"/>
+                                <t t-esc="line.price_unit"/>
+                            </td>
+                            <td class="text-end">
+                                <t t-esc="o.company_id.currency_id.symbol"/>
+                                <t t-esc="line.price_subtotal"/>
+                            </td>
+                        </tr>
+                        <tr class="table-borderless" style="background-color:#fad1c6">
+                            <td>
+                                <!--                                <t t-esc="line.product_id.default_code or ''"/>-->
+                            </td>
+                            <td>
+                                <div width="50%" style="text-align: left; margin-left:24%;">
+                                    <span>
+                                        <strong>Bank Details</strong>
+                                        <br/>
+                                    </span>
+                                    <span>
+                                        <strong>
+                                            Slip Enterprises Ptv Ltd
+                                        </strong>
+                                        <br/>
+                                    </span>
+                                    <span>
+                                        <strong>
+                                            06400015296740
+                                        </strong>
+                                        <br/>
+                                    </span>
+                                    <span>
+                                        <strong>
+                                            CTBAAU2S
+                                        </strong>
+                                        <br/>
+                                    </span>
+                                    <span>
+                                        <strong>
+                                            15296740
+                                        </strong>
+                                        <br/>
+                                    </span>
+                                    <span>
+                                        <strong>
+                                            15296740
+                                        </strong>
+                                        <br/>
+                                    </span>
+                                </div>
+
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Material').name"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Colour').name"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.hs_code or ''"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.country_of_origin_id.code or ''"/>-->
+                            </td>
+                            <td class="text-end">
+                                <div>
+                                    <b>Subtotal</b>
+                                </div>
+                                <br/>
+                                <div style="margin-top:6%;">
+                                    <b>Settlement discount %</b>
+                                </div>
+                                <br/>
+                                <strong>Tax</strong>
+                            </td>
+                            <td style="text-align: center;">
+
+
+                            </td>
+                            <td>
+                                <span>
+
+                                    <br/>
+                                    <br/>
+                                    <div style="margin-top:6%;">
+                                        <b>0 %</b>
+                                    </div>
+
+                                    <div style="margin-top:11%;">
+                                        <b>0%</b>
+                                    </div>
+                                    <!--                                    <t t-esc="o.amount_tax"/>-->
+
+                                </span>
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.discount"/>-->
+                            </td>
+                            <td style="text-align: center;">
+                                <span>
+                                    <b>EUR</b>
+
+                                    <br/>
+                                    <br/>
+
+                                    <b>EUR</b>
+                                </span>
+                            </td>
+
+                            <td style="text-align: right;">
+                                <span>
+                                    <div>
+                                        <t t-esc="o.company_id.currency_id.symbol"/>
+                                        <t t-esc="o.amount_untaxed"/>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <b>€ 0.00</b>
+                                    </div>
+
+                                    <div style="margin-top:11%;">
+                                        <t t-esc="o.company_id.currency_id.symbol"/>
+                                        <t t-esc="o.amount_tax"/>
+                                    </div>
+                                </span>
+
+                            </td>
+                        </tr>
+                        <tr class="table-borderless" style="background-color:#fad1c6">
+                            <td>
+                                <!--                                <t t-esc="line.product_id.default_code or ''"/>-->
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Material').name"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Colour').name"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.hs_code or ''"/>-->
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.product_id.country_of_origin_id.code or ''"/>-->
+                            </td>
+                            <td class="text-end">
+                                <strong>Total</strong>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <!--                                <t t-esc="line.discount"/>-->
+                            </td>
+                            <td style="text-align: center;">
+                                <!--                                <t t-esc="line.price_unit"/>-->
+                                <span>
+                                    <b>EUR</b>
+                                </span>
+
+                            </td>
+                            <td style="text-align: right;">
+                                <span>
+                                    <t t-esc="o.company_id.currency_id.symbol"/>
+                                    <t t-esc="o.amount_total"/>
+                                </span>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="table table-sm table-bordered">
+                <thead style="background-color:#fad1c6">
+                    <tr>
+                        <td>
+                            <div style="text-align: left; margin-left:24%;">
+                                <b>Acc Queries ar@slip.com</b>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="text-align: left; margin-left:74%;">
+                                <b>
+                                    Sales Queries
+                                </b>
+                            </div>
+                        </td>
+                        <td style="text-align: left; margin-left:74%;" colspan="2">
+                            wholesaleEU@slip.com
+                        </td>
+
+
+                        <td colspan="2" style="margin-right:10%;">
+                            <div class="text-end" style="margin-right:10px">
+                                <b>VAT</b>
+                            </div>
+                        </td>
+                        <td style="text-align: center;padding-right: -10px;">
+                            NL 8260.83.675 B01
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </t>
+    </template>
+
+    <record id="bista_slip_invoice_report_paper_format" model="report.paperformat">
+        <field name="name">Slip Invoice</field>
+        <field name="default" eval="True"/>
+        <field name="format">A2</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <template id="slip_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang"/>
+                <t t-call="bista_slip_invoice_report.slip_report_invoice"
+                   t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="account_new_customize_invoice" model="ir.actions.report">
+        <field name="name">Commercial Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="bista_slip_invoice_report.bista_slip_invoice_report_paper_format"/>
+        <field name="report_name">bista_slip_invoice_report.slip_invoice_report</field>
+        <field name="report_file">bista_slip_invoice_report.slip_invoice_report</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="binding_view_types">form</field>
+    </record>
+
+
+</odoo>

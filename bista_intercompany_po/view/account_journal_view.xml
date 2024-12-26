@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_journal_form_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.journal.form.inherited</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="is_vendor_journal"/>
+                    <field name="is_customer_journal"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_form_form_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.move.form.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_vendor_bill_id']" position="after">
+                    <field name="internal_order_ref" invisible="internal_order_ref == False"/>
+                    <field name="reference_number" invisible="move_type not in ['out_invoice', 'out_refund']"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_tag_ids']" position="after">
+                    <field name="internal_order_ref" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_tree_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.move.tree.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <!--                    <field name="internal_order_ref" invisible="internal_order_ref == False"/>-->
+                    <field name="reference_number"
+                           column_invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund', 'out_receipt')"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="string">Cust Ref</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.move.form.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="internal_order_ref"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_search_inherit" model="ir.ui.view">
+            <field name="name">account.move.search.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_move_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='sales']" position="before">
+                    <filter string="Order Reference/Owner's reference"
+                            name="has_internal_order_ref"
+                            domain="[('internal_order_ref', '!=', False)]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_move_line_tree_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.move.line.form.inherited</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_distribution']" position="after">
+                    <field name="internal_order_ref" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="string">Cust Ref</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_account_move_line_filter_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.move.line.form.inherited</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="internal_order_ref"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="internal_order_ref" invisible="internal_order_ref == False"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_search_inherited_bista_intercompany_po" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="internal_order_ref"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

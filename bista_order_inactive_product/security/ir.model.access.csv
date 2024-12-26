@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_order_review_wizard_user,order.review.wizard,model_order_review_wizard,base.group_user,1,1,1,1
+access_product_allocation_user,product.allocation,model_product_allocation,base.group_user,1,1,1,1
