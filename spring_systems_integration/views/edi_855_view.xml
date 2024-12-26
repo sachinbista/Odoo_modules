@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="spring_system_edi_855_tree_view">
+            <field name="name">spring.edi.855</field>
+            <field name="model">spring.edi.855</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sale_order_id"/>
+                    <field name="spring_system_so_id"/>
+                    <field name="status" decoration-success="status == 'posted'" decoration-info="status == 'draft'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="spring_system_edi_855_form_view">
+            <field name="name">spring.edi.855</field>
+            <field name="model">spring.edi.855</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="send_acknowledgement" type="object" string="Send Acknowledgement"/>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="spring_system_so_id"/>
+                                <field name="sale_order_id"/>
+                                <field name="spring_system_po_num"/>
+                            </group>
+                            <group>
+                                <field name="payment_term"/>
+                                <field name="sale_order_id"/>
+                                <field name="spring_system_po_num"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="EDI 855 data">
+                                <field name="edi_855_data"/>
+                            </page>
+                            <page string="Errors">
+                                <field name="system_errors"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spring_system_edi_855_action_window">
+            <field name="name">Spring Systems Edi 855</field>
+            <field name="res_model">spring.edi.855</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

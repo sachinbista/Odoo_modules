@@ -1,8 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_fedex_track_line',fedex.track.line,model_fedex_track_line,base.group_user,1,1,1,1
-access_ups_track_line',ups.track.line,model_ups_track_line,base.group_user,1,1,1,1
-access_tracking_details',tracking.details,model_tracking_details,base.group_user,1,1,1,1
-access_tracking_wizard',tracking.wizard,model_tracking_wizard,base.group_user,1,1,1,1
-access_tracking_wizard',tracking.wizard,model_tracking_wizard,base.group_user,1,1,1,1
-access_tracking_route_wizard',tracking.route.wizard,model_tracking_route_wizard,base.group_user,1,1,1,0
-access_ups_tracking_wizard',ups.tracking.wizard,model_ups_tracking_wizard,base.group_user,1,1,1,1

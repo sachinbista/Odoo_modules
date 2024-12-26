@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Shopify Product Collection Form View -->
+    <record id="account_payment_custom_view_form" model='ir.ui.view'>
+        <field name="name">account.payment.custom.form.view</field>
+        <field name="model">account.payment.custom</field>
+        <field name="arch" type="xml">
+            <form name="Account Payment Custom">
+                <header>
+                        <button name="create_payment" type="object"
+                                class="oe_highlight" string="Create Payment"
+                                groups="bista_shopify_connector.group_shopify_admin"
+                                />
+                    </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="invoice_id"/>
+                            <field name="shopify_config_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Shopify Product Collection Tree View -->
+    <record id="account_payment_custom_tree_view" model='ir.ui.view'>
+        <field name="name">account.payment.custom.tree.view</field>
+        <field name="model">account.payment.custom</field>
+        <field name="arch" type="xml">
+            <tree name="Shopify Channel">
+                <field name="invoice_id"/>
+                <field name="shopify_config_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Shopify Product Collection Action -->
+    <record id="action_account_payment_custom" model="ir.actions.act_window">
+        <field name="name">Account Payment Custom</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.payment.custom</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu for Shopify Product Collection -->
+    <menuitem id="menu_account_payment_custom"
+              name="Account Payment Custom"
+              sequence="8"
+              groups="bista_shopify_connector.group_shopify_admin"
+              action="action_account_payment_custom"
+              parent="shopify_configuration_menu"/>
+</odoo>

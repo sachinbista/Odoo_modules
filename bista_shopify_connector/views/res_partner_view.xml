@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_res_partner_form_shopify_extension" model="ir.ui.view">
-            <field name="name">view.res.partner.form.custom</field>
+   <data>
+        <record id="view_res_partner_form_shopify" model='ir.ui.view'>
+            <field name="name">view.res.partner.form</field>
             <field name="model">res.partner</field>
-            <field name="priority">50</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <field invisible="1" name="supplier_rank"/>
-                    <page invisible="supplier_rank > 0 or shopify_config_id == False" name="shopify_details" string="Shopify Details">
+                    <field name="supplier_rank" invisible="1"/>
+                    <page name="shopify_details" string="Shopify Details"
+                          attrs="{'invisible':['|',('supplier_rank' ,'&gt;', 0),('shopify_config_id','=',False)]}">
                         <group col="4">
                             <field name="shopify_company_name"/>
                             <field name="shopify_province"/>
@@ -21,20 +21,26 @@
                             <field name="shopify_config_id" readonly="0"/>
                         </group>
                     </page>
-                </xpath></field>
+                </xpath>
+            </field>
         </record>
+
         <record id="view_res_partner_filter_inherit" model="ir.ui.view">
             <field name="name">res.partner.filter</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <xpath expr="//group" position="inside">
-                    <filter context="{'group_by':'shopify_config_id'}" name="shopify_config_id" string="Shopify Configuration"/>
+                    <filter string="Shopify Configuration" name="shopify_config_id"
+                            context="{'group_by':'shopify_config_id'}"/>
                 </xpath>
                 <xpath expr="//search" position="inside">
-                    <field filter_domain="[('shopify_config_id', 'ilike', self)]" name="shopify_config_id" string="Shopify Configuration"/>
-                </xpath></field>
+                    <field string="Shopify Configuration" name="shopify_config_id"
+                           filter_domain="[('shopify_config_id', 'ilike', self)]"/>
+                </xpath>
+            </field>
         </record>
+
         <record id="action_shopify_res_partner" model="ir.actions.act_window">
             <field name="name">Shopify Customers</field>
             <field name="type">ir.actions.act_window</field>
@@ -42,7 +48,13 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="domain">['|', ('shopify_customer_id', '!=', False),
                 ('shopify_address_id', '!=', False)]</field>
+
         </record>
-        <menuitem action="action_shopify_res_partner" groups="bista_shopify_connector.group_shopify_admin" id="shopify_odoo_res_partner_menu" name="Customers" parent="shopify_odoo_operations_menu" sequence="3"/>
-    </data>
+
+        <menuitem id="shopify_odoo_res_partner_menu" name="Customers"
+              parent="shopify_odoo_operations_menu"
+              action="action_shopify_res_partner"
+              groups="bista_shopify_connector.group_shopify_admin"
+              sequence="3"/>
+   </data>
 </odoo>

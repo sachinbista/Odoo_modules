@@ -9,30 +9,22 @@
             <form string="Shopify Product Template Update">
                 <span>Do you want to update the selected picking's fulfillment in shopify?</span>
                 <footer>
-                    <button string="Update" name="update_order_status_in_shopify" type="object"
-                        class="btn-primary" />
-                    <button string="Cancel" class="btn-default" special="cancel" />
+                    <button string="Update" name="update_order_status_in_shopify" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
     <!-- added menu to actions -->
-    <!-- <act_window id="action_update_order_status"
-        name="Update Shopify Order"
-        res_model="update.order.status"
-        binding_model="stock.picking"
-        view_mode="form"
-        target="new" /> -->
-
-    <record id="action_update_order_status_view" model="ir.actions.act_window">
+    <record id="action_update_order_status" model="ir.actions.act_window">
         <field name="name">Update Shopify Order</field>
         <field name="res_model">update.order.status</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="update_order_status_view" />
         <field name="target">new</field>
         <field name="binding_model_id" ref="stock.model_stock_picking" />
-        <field name="binding_view_types">list</field>
+        <field name="binding_view_types">form,list</field>
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
     </record>
-
+    
 </odoo>

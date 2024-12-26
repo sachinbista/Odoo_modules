@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+
+        <menuitem name="Spring Systems" id="spring_systems_integration_menu_root"
+                  web_icon="spring_systems_integration,static/description/logo_new.png"
+                 />
+
+        <menuitem name="Configurations" id="spring_systems_configration_menu_root"
+                  parent="spring_systems_integration_menu_root"
+                  sequence="1"/>
+
+        <menuitem name="Incoming" id="spring_systems_incoming_menu_root"
+                  parent="spring_systems_integration_menu_root" sequence="2"/>
+
+        <menuitem name="Outgoing" id="spring_systems_outgoings_menu_root"
+                  parent="spring_systems_integration_menu_root"/>
+
+        <menuitem name="Logs" id="spring_systems_logs_menu_root"
+                  parent="spring_systems_integration_menu_root"/>
+
+        <menuitem name="EDI 850(SO)" id="spring_systems_incoming_po_menu"
+                  parent="spring_systems_incoming_menu_root"
+                  action="spring_systems_sale_order_action_window"/>
+
+        <menuitem name="EDI 855(ACK)" id="spring_systems_edi_855_menu_root"
+          parent="spring_systems_outgoings_menu_root"
+          action="spring_system_edi_855_action_window" sequence="1"/>
+
+        <menuitem name="EDI 856(ASN)" id="spring_systems_edi_856_menu"
+          parent="spring_systems_outgoings_menu_root"
+          action="spring_systems_edi_856_action_window" sequence="2"/>
+
+        <menuitem name="EDI 810(Invoice)" id="spring_systems_edi_810_menu"
+          parent="spring_systems_outgoings_menu_root"
+          action="spring_systems_edi_810_action_window" sequence="3"/>
+
+        <menuitem name="Spring Systems Error Log" id="spring_systems_error_logs_menu"
+          parent="spring_systems_logs_menu_root"
+          action="spring_systems_error_logs_action" sequence="2"/>
+
+        <menuitem name="Configuration" id="spring_systems_outgoing_menu_root"
+                  parent="spring_systems_configration_menu_root" action="spring_systems_configuration_action_window"
+                  sequence="1"/>
+    </data>
+</odoo>

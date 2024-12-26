@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="paper_format_gs1_packaging_label" model="report.paperformat">
+            <field name="name">GS1-128 Shipping Label</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">152</field>
+            <field name="page_width">102</field>
+            <field name="margin_top">2.5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">70</field>
+        </record>
+
+
+        <record id="action_report_gs1_packaging_label" model="ir.actions.report">
+            <field name="name">GS1-128 Shipping Label</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'GS1-128 Shipping label - %s' % object.name</field>
+            <field name="report_name">bista_GS1_shipping_label.print_gs1_packaging_label</field>
+            <field name="report_file">bista_GS1_shipping_label.print_gs1_packaging_label</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="bista_GS1_shipping_label.paper_format_gs1_packaging_label"/>
+        </record>
+
+
+        <template id="print_gs1_packaging_label">
+            <style>
+                .page {
+                page-break-after: always;
+                }
+            </style>
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="picking">
+                    <t t-if="picking.has_packages">
+                        <t t-set="total_pack" t-value="len(picking.package_ids)"/>
+                        <t t-set="pack_count" t-value="0"/>
+                        <t t-foreach="picking.package_ids" t-as="package">
+                            <t t-set="pack_count" t-value="pack_count + 1"/>
+                            <t t-set="pack_product_ids" t-value="len(set(package.quant_ids.product_id))"/>
+                            <div class="page">
+                               <table width="100%" class="table table-bordered" style="table-layout: fixed; border: 2px solid black;">
+                                    <tr width="100%">
+                                        <td width="40%" style="font-size: 10px;">
+                                            <strong>Ship From:</strong>
+                                            <br/>
+                                            <span t-field="picking.company_id.name"/>
+                                            <br/>
+                                            <span t-field="picking.company_id.street"/>
+                                            <br/>
+                                            <span t-field="picking.company_id.street2"/>
+                                            <br/>
+                                            <span t-field="picking.company_id.city"/>
+                                            <span t-field="picking.company_id.state_id.name"/>
+                                            <span t-field="picking.company_id.zip"/>
+                                            <br/>
+                                            <span t-field="picking.company_id.country_id.name"/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                        <td width="60%" style="font-size: 10px;">
+                                            <strong>Ship To:</strong>
+                                            <br/>
+                                            <span t-field="picking.partner_id.name"/>
+                                            <br/>
+                                            <span t-field="picking.partner_id.street"/>
+                                            <br/>
+                                            <span t-field="picking.partner_id.street2"/>
+                                            <br/>
+                                            <span t-field="picking.partner_id.city"/>
+                                            <span t-field="picking.partner_id.state_id.name"/>
+                                            <span t-field="picking.partner_id.zip"/>
+                                            <br/>
+                                            <span t-field="picking.partner_id.country_id.name"/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td width="40%"
+                                            style="text-align: left;  font-size: 10px;">
+                                            <strong>Ship to Postal Code:</strong>
+                                            <br/>
+                                            <br/>
+                                            <div style="text-align: left;">
+                                                <span t-field="picking.partner_id.zip"
+                                                      t-options="{'widget': 'barcode', 'width': 600, 'height': 150, 'img_style': 'margin-left: -25px;width:160px;height:35px'}"/>
+                                            </div>
+                                            <div style="margin-left:31px;">
+                                                <t t-esc="picking.partner_id.zip"/>
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                        <td width="40%" style="font-size: 10px;">
+                                            <strong>ARN:</strong>Fly-123
+                                            <br/>
+                                            <strong>Carrier:</strong>
+                                            <span t-field="picking.carrier_id.name"/>
+                                            <br/>
+                                            <strong>Pro:</strong>
+                                            <span t-field="picking.carrier_tracking_ref"/>
+                                            <br/>
+                                            <strong>BOL:</strong>
+                                            N/A
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%" align="center">
+
+                                        <td style="border-right:0 !important; text-align: left;font-size: 10px;"
+                                            colspan="1">
+                                            <strong>PO:</strong>
+                                            <t t-if="picking.origin">
+                                                <span t-field="picking.origin"/>
+                                            </t>
+                                            <br/>
+                                            <strong>SKU-ASIN:</strong>
+                                            <t t-foreach="set(package.quant_ids.product_id)" t-as="package_product">
+                                                <t t-esc="package_product.default_code"/>
+                                            </t>
+                                            <br/>
+                                            <strong>QTY:</strong>
+                                            <t t-set="sum_of_qty" t-value="sum(package.quant_ids.mapped('quantity'))"/>
+                                            <t t-esc="sum_of_qty"/>
+                                            <br/>
+                                            <strong>CARTONS:</strong>
+                                            <t t-set="counter" t-value="pack_count"/>
+                                            <t t-set="totals" t-value="total_pack"/>
+                                            <t t-esc="counter"/>
+                                            of
+                                            <t t-esc="totals"/>
+                                            <br/>
+                                            <strong>DESC:</strong>
+                                             <t t-foreach="set(package.quant_ids.product_id)" t-as="package_product">
+                                                <t t-esc="package_product.name"/>
+                                            </t>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                        <td style="border-left:0 !important;text-align: right; font-size: 10px;"
+                                            colspan="1">
+                                            <span t-field="picking.origin"
+                                                  t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:250px;height:60px'}"/>
+                                            <!--                                            <div style="margin-left:31px;">-->
+                                            <!--                                                <t  t-esc="picking.origin"/>-->
+                                            <!--                                            </div>-->
+                                            <t t-esc="picking.origin"/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr width="100%" align="center">
+                                        <td style="padding: 5px; font-size: 10px;" width="100" colspan="2">
+                                            <t>
+                                                <div style="text-align: center;">
+                                                    <strong>Serialized Shipping Container Number (SSCC)</strong>
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                                <div style="text-align: center;">
+                                                    <t t-foreach="picking.package_ids" t-as="package">
+                                                        <span t-esc="picking.generate_sscc_barcode([package])"
+                                                              t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:65px'}"/>
+                                                        <t t-esc="picking.generate_sscc_barcode([package])"/>
+                                                    </t>
+<!--                                                    <t t-set="counter" t-value="0"/>-->
+<!--                                                    <t t-foreach="picking.package_ids" t-as="package">-->
+
+<!--                                                    <span t-esc="picking.generate_sscc_barcode(([picking.package_ids[counter]]))"-->
+<!--                                                          t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:65px'}"/>-->
+<!--                                                            <t t-esc="picking.generate_sscc_barcode(([picking.package_ids[counter]]))"/>-->
+<!--                                                        <t t-set="counter" t-value="counter+1"/>-->
+<!--                                                        </t>-->
+<!--                                                    <t t-esc="picking.generate_sscc_barcode()"/>-->
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <!--                                        <td style="padding: 5px; font-size: 10px;" width="100" colspan="2">-->
+                                        <!--                                            <t t-if="picking.env['ir.config_parameter'].sudo().get_param('bista_GS1_shipping_label.gs1_extension_digit') and picking.env['ir.config_parameter'].sudo().get_param('bista_GS1_shipping_label.gs1_company_prefix')">-->
+                                        <!--                                                <t t-set="package_barcode" t-value="picking.get_check_digit(package)"/>-->
+                                        <!--                                                <t t-set="full_barcode"-->
+                                        <!--                                                   t-value="picking.company_id.gs1_application_identifier + package_barcode"/>-->
+                                        <!--                                                Serialized Shipping Container Number-->
+                                        <!--                                                <br/>-->
+                                        <!--                                                <br/>-->
+                                                                                        <div t-out="full_barcode"
+                                                                                             t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:20%;'}"/>
+                                                                                            <img t-if="full_barcode"
+                                                                                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', full_barcode, 600, 150)"
+                                                                                                 style="width:100%;height:20%;"/>
+                                                                                        <br/>
+                                        <!--                                                <t t-esc="'('+picking.company_id.gs1_application_identifier+')'+' '+ package_barcode"/>-->
+                                        <!--                                                <br/>-->
+                                        <!--                                            </t>-->
+                                        <!--                                            <t t-else="">-->
+                                        <!--                                                <strong>Please Set the GS1 company level details to generate SSCC-18-->
+                                        <!--                                                    Barcode-->
+                                        <!--                                                </strong>-->
+                                        <!--                                                <br/>-->
+                                        <!--                                                <br/>-->
+                                        <!--                                                <br/>-->
+
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+                                    </tr>
+                                </table>
+                            </div>
+                        </t>
+                    </t>
+                    <t t-else=""/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

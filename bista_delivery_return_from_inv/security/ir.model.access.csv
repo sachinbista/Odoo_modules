@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-bista_delivery_return_from_inv.access_insufficient_stock_wizard,access_insufficient_stock_wizard,bista_delivery_return_from_inv.model_insufficient_stock_wizard,base.group_user,1,1,1,1

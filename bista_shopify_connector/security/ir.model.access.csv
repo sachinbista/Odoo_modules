@@ -5,11 +5,11 @@ access_shopify_config_group_shopify_admin,access.shopify.config.group.shopify.ad
 access_shopify_workflow_line_group_user,access.shopify.workflow.line.group.user,bista_shopify_connector.model_shopify_workflow_line,base.group_user,1,0,0,1
 access_shopify_workflow_line_group_shopify_user,access.shopify.workflow.line.group.shopify.user,bista_shopify_connector.model_shopify_workflow_line,bista_shopify_connector.group_shopify_user,1,0,0,0
 access_shopify_workflow_line_group_shopify_admin,access.shopify.workflow.line.group.shopify.admin,bista_shopify_connector.model_shopify_workflow_line,bista_shopify_connector.group_shopify_admin,1,1,1,1
-access_shopify_error_log_group_user,access.shopify.error.log.group.user,bista_shopify_connector.model_shopify_error_log,base.group_user,1,1,1,1
-access_shopify_error_log_group_shopify_user,access.shopify.error.log.group.shopify.user,bista_shopify_connector.model_shopify_error_log,bista_shopify_connector.group_shopify_user,1,1,1,1
+access_shopify_error_log_group_user,access.shopify.error.log.group.user,bista_shopify_connector.model_shopify_error_log,base.group_user,1,0,0,1
+access_shopify_error_log_group_shopify_user,access.shopify.error.log.group.shopify.user,bista_shopify_connector.model_shopify_error_log,bista_shopify_connector.group_shopify_user,1,0,0,0
 access_shopify_error_log_group_shopify_admin,access.shopify.error.log.group.shopify.admin,bista_shopify_connector.model_shopify_error_log,bista_shopify_connector.group_shopify_admin,1,1,1,1
-access_shopify_error_log_line_group_user,access.shopify.error.log.line.group.user,bista_shopify_connector.model_shopify_error_log_line,base.group_user,1,1,1,1
-access_shopify_error_log_line_group_shopify_user,access.shopify.error.log.line.group.shopify.user,bista_shopify_connector.model_shopify_error_log_line,bista_shopify_connector.group_shopify_user,1,1,1,1
+access_shopify_error_log_line_group_user,access.shopify.error.log.line.group.user,bista_shopify_connector.model_shopify_error_log_line,base.group_user,1,0,0,1
+access_shopify_error_log_line_group_shopify_user,access.shopify.error.log.line.group.shopify.user,bista_shopify_connector.model_shopify_error_log_line,bista_shopify_connector.group_shopify_user,1,0,0,0
 access_shopify_error_log_line_group_shopify_admin,access.shopify.error.log.line.group.shopify.admin,bista_shopify_connector.model_shopify_error_log_line,bista_shopify_connector.group_shopify_admin,1,1,1,1
 access_shopify_queue_job_group_user,access.shopify.queue.job.group.user,bista_shopify_connector.model_shopify_queue_job,base.group_user,1,0,0,1
 access_shopify_queue_job_group_shopify_user,access.shopify.queue.job.group.shopify.user,bista_shopify_connector.model_shopify_queue_job,bista_shopify_connector.group_shopify_user,1,0,0,0
@@ -63,6 +63,10 @@ access_shopify_export_refund_line_user,shopify.export.refund.line,model_shopify_
 access_shopify_export_refund,shopify.export.refund,model_shopify_export_refund,base.group_user,1,1,1,1
 access_shopify_tags,access_shopify_tags,model_shopify_tags,base.group_user,1,1,1,1
 access_update_order_status,access_update_order_status,model_update_order_status,base.group_user,1,1,1,1
-access_product_export_ready_user,product.export.ready.user,model_product_export_ready,base.group_user,1,1,1,1
+access_product_export_ready_user,access_product_export_ready_user,model_product_export_ready,base.group_user,1,1,1,1
 access_shopify_shopify_risk_order_group_user,access.shopify.sale.shopify.risk.order.user,bista_shopify_connector.model_shopify_risk_order,base.group_user,1,0,0,0
 access_shopify_sale_downpayment_history_group_base_user,access.sale.downpayment.history.base.user,bista_shopify_connector.model_sale_downpayment_history,base.group_user,1,0,0,0
+access_shopify_channel_group_base_user,access.shopify.channel.base.user,bista_shopify_connector.model_shopify_channel,base.group_user,1,1,1,1
+shopify_iventory_queue,shopify.inventory.queue,model_shopify_inventory_queue,base.group_user,1,1,1,1
+shopify_update_inventory_line,shopify.update.inventory.line,model_shopify_update_inventory_line,base.group_user,1,1,1,1
+access_create_payment_group_base_user,access.create.payment.base.user,bista_shopify_connector.model_account_payment_custom,base.group_user,1,1,1,1

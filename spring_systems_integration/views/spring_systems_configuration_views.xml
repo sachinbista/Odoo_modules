@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="spring_systems_configuration_form_view">
+            <field name="name">spring.systems.configuration.form.view</field>
+            <field name="model">spring.systems.configuration</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="test_connection" type="object" string="Test &amp; Confirm"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="api_user"/>
+                                <field name="url" placeholder="e.g. https://portalapp.springsystems.com" required="1"/>
+                            </group>
+                            <group>
+                                <field name="system_environment"/>
+                                <field name="api_key" password="1"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <group string="End points">
+                            <group>
+                                <field name="get_po_850"/>
+<!--                                <field name="get_po_850_url" attrs="{'invisible': [('get_po_850', '=', False)],'required' : [('get_po_850', '=', True)]}"/>-->
+<!--                                <field name="get_product_catalog"/>-->
+<!--                                <field name="get_product_catalog_url" attrs="{'invisible': [('get_product_catalog', '=', False)],'required' : [('get_product_catalog', '=', True)]}"/>-->
+                            </group>
+                            <group>
+                                <field name="send_po_ack_855"/>
+<!--                                <field name="send_po_ack_855_url" attrs="{'invisible': [('send_po_ack_855', '=', False)],'required' : [('send_po_ack_855', '=', True)]}" />-->
+                                <field name="send_po_ack_856"/>
+<!--                                <field name="send_po_ack_856_url" attrs="{'invisible': [('send_po_ack_856', '=', False)],'required' : [('send_po_ack_856', '=', True)]}"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="spring_systems_configuration_action_window">
+            <field name="name">Spring Systems Configuration</field>
+            <field name="res_model">spring.systems.configuration</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

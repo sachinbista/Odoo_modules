@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bista_spring_sytem_product.access_spring_system_product,access_spring_system_product,bista_spring_sytem_product.model_spring_system_product,base.group_user,1,1,1,1

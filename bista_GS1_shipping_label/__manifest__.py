@@ -1,0 +1,20 @@
+{
+    "name": "GS1 Shipping Label",
+    "summary": "Print GS1-128 Shipping Labels",
+    "version": "16.0.1.0.0",
+    "category": "Inventory",
+    "description": "Display Custom Inventory report",
+    'author': "Bista Solutions Pvt. Ltd.",
+    'website': "https://www.bistasolutions.com",
+    'company': 'Bista Solutions Pvt. Ltd.',
+    'maintainer': 'Bista Solutions Pvt. Ltd',
+    'depends': ['base', 'stock'],
+    "data": [
+        'views/gs1_configuration.xml',
+        'views/gs1_packaging_label_template.xml',
+    ],
+    'license': "LGPL-3",
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

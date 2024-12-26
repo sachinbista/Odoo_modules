@@ -27,10 +27,7 @@ class ShopifyRiskOrder(models.Model):
          ], string="Recommendation", default='accept')
 
     def create_risk_order_line_in_odoo(self, risk_dic, order):
-        """
-            This method used to create a fraud analysis line in order.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
+        """This method used to create a fraud analysis line in order"""
         is_risk_order = False
         if risk_dic.get('recommendation') != 'accept':
             is_risk_order = True

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="spring_systems_error_logs_tree" model="ir.ui.view">
+            <field name="name">spring.systems.error.log</field>
+            <field name="model">spring.systems.error.log</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Spring Systems Error Logs" create="false">
+                    <field name="name" readonly="1"/>
+<!--                    <field name="message" readonly="1"/>-->
+                    <field name="request_type" readonly="1"/>
+                    <field name="request" readonly="1"/>
+                    <field name="response" readonly="1"/>
+                    <field name="status" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="spring_systems_error_log_form" model="ir.ui.view">
+            <field name="name">spring.systems.error.log</field>
+            <field name="model">spring.systems.error.log</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="GoFlow Error Logs" create="false" edit="false">
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="api_url" readonly="1"/>
+                            <field name="request_type" readonly="1"/>
+                            <field name="response" readonly="1"/>
+                            <field name="request_payload" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="api_headers" readonly="1"/>
+                            <field name="status" readonly="1"/>
+                            <field name="request" readonly="1"/>
+                            <field name="response_data" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="message" readonly="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="spring_systems_error_logs_action" model="ir.actions.act_window">
+            <field name="name">Spring Systems Error Logs</field>
+            <field name="res_model">spring.systems.error.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="spring_systems_error_logs_tree"/>
+        </record>
+
+    </data>
+</odoo>

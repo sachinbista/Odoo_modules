@@ -59,10 +59,6 @@ class ShopifyProductCollection(models.Model):
                                                string="Conditions")
 
     def create_update_collection(self, data, type, shopify_config):
-        """
-            This method is used to update the collection.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
         shopify_id = data.get('id', '')
         handle = data.get('handle', '')
         title = data.get('title', '')
@@ -128,11 +124,7 @@ class ShopifyProductCollection(models.Model):
 
     def shopify_import_product_collection(self, shopify_config,
                                           list_of_collections=[], since_id=0):
-        """
-            This method is used to fetch and import the product collections.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
-        error_log_env = self.env['shopify.error.log'].sudo()
+        error_log_env = self.env['shopify.error.log']
         shopify_id = 0
         try:
             shopify_config.check_connection()
@@ -162,21 +154,17 @@ class ShopifyProductCollection(models.Model):
                     time.sleep(5)
                     self.shopify_import_product_collection(shopify_config)
             error_msg = "Facing a problems while importing Collections!: %s" % e
-            shopify_log_id = error_log_env.sudo().create_update_log(
+            shopify_log_id = error_log_env.create_update_log(
                 shopify_config_id=shopify_config,
                 operation_type='import_collection')
-            error_log_env.sudo().create_update_log(
+            error_log_env.create_update_log(
                 shop_error_log_id=shopify_log_id,
                 shopify_log_line_dict={'error': [
                     {'error_message': error_msg}]})
-            # _logger.error(_(error_msg))
+            _logger.error(_(error_msg))
             # raise AccessError(_(error_msg))
 
     def deactive_collection(self, collection_lists):
-        """
-            This method is used to deactive collection.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
         col_ids = self.env['shopify.product.collection'].search([(
             'shopify_id', 'not in', collection_lists),
             ('shopify_config_id', '=', self.id)])
@@ -185,10 +173,6 @@ class ShopifyProductCollection(models.Model):
         return True
 
     def prepare_collection_vals(self):
-        """
-           This method is used to prepare collections.
-           @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-       """
         collection_vals = {'title': self.name}
         if self.body_html:
             collection_vals.update({'body_html': self.body_html})
@@ -210,11 +194,7 @@ class ShopifyProductCollection(models.Model):
         return collection_vals
 
     def shopify_export_product_collection(self, shopify_config):
-        """
-            This method is used to export the shopify collections.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
-        error_log_env = self.env['shopify.error.log'].sudo()
+        error_log_env = self.env['shopify.error.log']
         shopify_config.check_connection()
         try:
             for collection in self.search([('shopify_published', '=', False)]):
@@ -231,7 +211,7 @@ class ShopifyProductCollection(models.Model):
                     shopify_log_id = error_log_env.create_update_log(
                         shopify_config_id=shopify_config,
                         operation_type='export_collection')
-                    error_log_env.sudo().sudo().create_update_log(
+                    error_log_env.create_update_log(
                         shop_error_log_id=shopify_log_id,
                         shopify_log_line_dict={'error': [
                             {'error_message': error_msg}]})
@@ -242,22 +222,18 @@ class ShopifyProductCollection(models.Model):
 
         except Exception as e:
             error_msg = "Error on Export Manually/Automated Collection: %s" % e
-            shopify_log_id = error_log_env.sudo().create_update_log(
+            shopify_log_id = error_log_env.create_update_log(
                 shopify_config_id=shopify_config,
                 operation_type='export_collection')
-            error_log_env.sudo().create_update_log(
+            error_log_env.create_update_log(
                 shop_error_log_id=shopify_log_id,
                 shopify_log_line_dict={'error': [
                     {'error_message': error_msg}]})
-            # _logger.error(_(error_msg))
+            _logger.error(_(error_msg))
             # raise ValidationError(
             #     _("Error on Export Manually/Automated Collection: {}".format(e)))
 
     def prepare_update_collection_vals(self, new_collection):
-        """
-            This method is used to prepare the collection vals.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
         new_collection.title = self.name
         if self.body_html:
             new_collection.body_html = self.body_html
@@ -280,10 +256,6 @@ class ShopifyProductCollection(models.Model):
         return new_collection
 
     def update_collection_in_shopify(self):
-        """
-            This method is used to prepare and update the collection vals.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
         self.shopify_config_id.check_connection() if self.shopify_config_id else False
         try:
             if self.shopify_published and self.shopify_id:
@@ -306,10 +278,6 @@ class ShopifyProductCollection(models.Model):
                 _("Error on Update Manually/Automated Collection: {}".format(e)))
 
     def shopify_update_product_collection(self, shopify_config):
-        """
-            This method is used to prepare and update the collection vals.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
         shopify_config.check_connection()
         try:
             for collection in self.search([('shopify_published', '=', True),

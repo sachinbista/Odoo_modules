@@ -41,11 +41,7 @@ class ShopifyExportRefund(models.TransientModel):
     shopify_config_id = fields.Many2one("shopify.config",string="Shopify Configuration", related='credit_note_id.shopify_config_id')
 
     def prepare_shopify_refund_line_vals(self, credit_note_id):
-        """
-            Prepares Refund Line Item values.
-            @return : shopify_refund_lines
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
+        """ Prepares Refund Line Item values """
         shopify_refund_lines = []
         for line in self.refund_line_ids:
             vals = {
@@ -62,10 +58,7 @@ class ShopifyExportRefund(models.TransientModel):
         return shopify_refund_lines
 
     def prepare_refund_vals(self, shopify_order_id, gateway, parent_id, refund_line_items, shipping={}):
-        """
-            Prepares Refund values.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
+        """ Prepares Refund values """
         return {
                 'order_id': shopify_order_id,
                 'note': self.refund_reason,
@@ -81,11 +74,9 @@ class ShopifyExportRefund(models.TransientModel):
                 }
 
     def check_refund_amount(self, shopify_order_id, order, refund_amount):
+        """ This method checks whether refund amount of credit note is elligble for refund or not
+        returns: parent id and gateway from transaction api response for kind 'sale'
         """
-            This method checks whether refund amount of credit note is elligble for refund or not
-            returns: parent id and gateway from transaction api response for kind 'sale'
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-         """
         transactions = shopify.Transaction().find(order_id=str(shopify_order_id))
         parent_id = False
         gateway = False
@@ -105,18 +96,18 @@ class ShopifyExportRefund(models.TransientModel):
                 (order.amount_total, allowed_refund))
         return parent_id, gateway
 
+
     def refund_in_shopify(self):
         """
-            Creates Refund in Shopify with below steps
-            1. Prepares refund line data
-            2. Check refund amount using transactions
-            3. Prepares refund data
-            4. Refund API call
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
+        Creates Refund in Shopify with below steps
+        1. Prepares refund line data
+        2. Check refund amount using transactions
+        3. Prepares refund data
+        4. Refund API call
         """
         shopify_order_id = self.credit_note_id.shopify_order_id
         if shopify_order_id:
-            error_log_env = self.env['shopify.error.log'].sudo()
+            error_log_env = self.env['shopify.error.log']
             shipping = {}
             order_id = self.credit_note_id.sale_order_id
             shopify_config = self.credit_note_id.shopify_config_id
@@ -136,8 +127,6 @@ class ShopifyExportRefund(models.TransientModel):
                 )
             try:
                 if parent_id and gateway:
-                    self.credit_note_id.write({'is_manual_odoo_refund': True})
-                    order_id.write({'is_manual_odoo_refund':True})
                     refund_vals = self.prepare_refund_vals(shopify_order_id, gateway, parent_id, refund_line_items, shipping=shipping)
                     shopify_refund = shopify.Refund()
                     shopify_refund_response = shopify_refund.create(refund_vals)
@@ -146,10 +135,10 @@ class ShopifyExportRefund(models.TransientModel):
             except Exception as e:
                 error_message = "Refund export operation have following " \
                                     "error %s" % e
-                shopify_log_id = error_log_env.sudo().create_update_log(
+                shopify_log_id = error_log_env.create_update_log(
                                 shopify_config_id=shopify_config,
                                 operation_type='export_refund')
-                error_log_env.sudo().create_update_log(
+                error_log_env.create_update_log(
                             shop_error_log_id=shopify_log_id,
                             shopify_log_line_dict={'error': [
                                     {'error_message': error_message}]})

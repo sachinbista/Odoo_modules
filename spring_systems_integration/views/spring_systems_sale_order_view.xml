@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="spring_systems_sale_order_tree_view">
+            <field name="name">spring.systems.sale.tree</field>
+            <field name="model">spring.systems.sale.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sale_order_id"/>
+                    <field name="spring_system_so_id"/>
+                    <field name="status" decoration-success="status == 'done'" decoration-info="status == 'draft'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="spring_systems_sale_order_form_view">
+            <field name="name">spring.systems.sale.order</field>
+            <field name="model">spring.systems.sale.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="spring_system_so_id" readonly="1"/>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="spring_system_po_num" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="payment_term_id" readonly="1"/>
+                                <field name="configuration_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Errors">
+                                <field name="system_errors" readonly="1"/>
+                            </page>
+                            <page string="EDI 850 info">
+                                <field name="edi_850_data" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spring_systems_sale_order_action_window">
+            <field name="name">Spring Systems Sale</field>
+            <field name="res_model">spring.systems.sale.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

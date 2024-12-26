@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="spring_system_edi_810_tree_view">
+            <field name="name">spring.edi.810</field>
+            <field name="model">spring.edi.810</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="status" decoration-success="status == 'posted'" decoration-info="status == 'draft'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="spring_system_edi_810_form_view">
+            <field name="name">spring.edi.810</field>
+            <field name="model">spring.edi.810</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+<!--                        <button name="send_acknowledgement" type="object" string="Send Acknowledgement"/>-->
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sale_order_id"/>
+                            </group>
+                            <group>
+                                <field name="invoice_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+<!--                            <page string="EDI 850 data">-->
+<!--                                <field name="edi_850_data"/>-->
+<!--                            </page>-->
+                            <page string="EDI 810 data">
+                                <field name="edi_810_data"/>
+                            </page>
+                            <page string="Errors">
+                                <field name="system_errors"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spring_systems_edi_810_action_window">
+            <field name="name">Spring Systems Edi 810</field>
+            <field name="res_model">spring.edi.810</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

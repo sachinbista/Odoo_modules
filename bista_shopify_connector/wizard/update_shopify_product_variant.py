@@ -13,11 +13,6 @@ class UpdateProductVariant(models.TransientModel):
     _description = 'Update Shopify Product Variant'
 
     def update_shopify_product_variant(self):
-        """
-           This method is updating the shopify products
-           variants based on odoo on shopify.
-           @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-       """
         shopify_product_variant_obj = self.env['shopify.product.product']
         for rec in self:
             active_ids = rec._context.get('active_ids')

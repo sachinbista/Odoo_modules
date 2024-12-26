@@ -4,53 +4,318 @@
 # Copyright (C) 2022 (http://www.bistasolutions.com)
 #
 ##############################################################################
-import numpy as np
-import pandas as pd
-import requests
-import json
-from .. import shopify
-import time
-import threading
+from odoo.exceptions import UserError, ValidationError
 import logging
-import re
-from datetime import datetime
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from itertools import groupby
+from datetime import datetime
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+import json
+import time
+from .. import shopify
+
 _logger = logging.getLogger(__name__)
 
+
+# class StockInventory(models.Model):
+#     _inherit = "stock.inventory"
+
+#     shopify_adjustment = fields.Boolean("Shopify Adjustment")
 
 class StockMove(models.Model):
     _inherit = "stock.move"
 
     shopify_adjustment = fields.Boolean("Shopify Adjustment")
 
+    def _action_done(self, cancel_backorder=False):
+        qty = super(StockMove, self)._action_done(cancel_backorder=cancel_backorder)
+        if self.picking_id and self.picking_id.picking_type_id.code =='internal':
+            shopify_picking = False
+            if self.picking_id.sale_id:
+                if self.picking_id.sale_id.shopify_order_id:
+                    shopify_picking = True
+            if not shopify_picking:
+                error_log_env = self.env['shopify.error.log']
+                shopify_log_line_dict = {'error': [], 'success': []}
+                product_lst = []
+                for pro in self.product_id:
+                    product_lst.append(pro.id)
+                shopify_config = self.env['shopify.config'].sudo().search(
+                    [('state', '=', 'success'), ('default_company_id', '=', self.picking_id.company_id.id)])
+                shopify_config.sudo().check_connection()
+                shopify_log_id = error_log_env.sudo().create_update_log(
+                    shopify_config_id=shopify_config,
+                    operation_type='export_stock')
+                if shopify_config:
+                    location_ids = self.env['stock.location'].search(
+                        [('shopify_config_id', '=', shopify_config.id), ('usage', '=', 'view'),
+                         ('shopify_location_id', '!=', False)])
+                    if not location_ids:
+                        log_message = "location not found for shopify config %s " % self.name
+                        shopify_log_line_dict['error'].append(
+                            {'error_message': 'Export STOCK: %s' % log_message})
+                        return 0
+                    shopify_variant_id = self.env['shopify.product.product'].sudo().search(
+                        [('shopify_config_id', '=', shopify_config.id),
+                         ('update_shopify_inv', '=', True), ('product_variant_id', 'in', product_lst)])
+                    f_qty = 0.0
+                    sh_location = ''
+                    sh_inv_item = ''
+                    product_variant_id = False
+                    for location_id in location_ids:
+                        for pp_variant in shopify_variant_id:
+                            product_variant_id = pp_variant.product_variant_id
+                            if product_variant_id.detailed_type == 'product' and not pp_variant.shopify_inventory_item_id:
+                                log_message = "Inventory item ID not found for Product Variant %s in export stock." % product_variant_id.name
+                                shopify_log_line_dict['error'].append(
+                                    {'error_message': 'Export stock: %s' % log_message})
+                                continue
+                            # qty_available = product_variant_id.with_context(
+                            #     {'location': location_id.id})._product_available()
+                            if product_variant_id:
+                                qty_available = product_variant_id.with_context(
+                                    {'location': location_id.id})._compute_quantities_dict(self._context.get('lot_id'),
+                                                                                           self._context.get(
+                                                                                               'owner_id'),
+                                                                                           self._context.get(
+                                                                                               'package_id'))
+                                variant_qty = qty_available[product_variant_id.id]['free_qty'] or 0.0
+                                shopify_location_id = location_id.shopify_location_id
+                                shopify_inventory_item_id = pp_variant.shopify_inventory_item_id
+                                f_qty += variant_qty
+                                sh_location = shopify_location_id
+                                sh_inv_item = shopify_inventory_item_id
+                    try:
+                        shopify.InventoryLevel.set(sh_location,
+                                                   sh_inv_item,
+                                                   int(f_qty))
+                        _logger.info(
+                            'Export stock successfully for location "%s" inventory item id "%s" : %s' % (
+                                sh_location, sh_inv_item, f_qty))
+
+                    except Exception as e:
+                        if e.code == 429:
+                            time.sleep(5)
+                            shopify_config.InventoryLevel.set(sh_location,
+                                                              sh_inv_item,
+                                                              int(f_qty))
+                        else:
+                            if product_variant_id:
+                                log_message = "Facing a problem while exporting Stock for shopify product variant %s: %s" % (
+                                    product_variant_id.display_name, str(e))
+                                shopify_log_line_dict['error'].append(
+                                    {'error_message': 'Export stock: %s' % log_message})
+                            else:
+                                pass
+                shopify_config.sudo().write({'last_stock_export_date': fields.Datetime.now()})
+                error_log_env.create_update_log(shopify_config_id=shopify_config,
+                                                shop_error_log_id=shopify_log_id,
+                                                shopify_log_line_dict=shopify_log_line_dict)
+        return qty
+
+    def _update_reserved_quantity(self, need, available_quantity, location_id, lot_id=None, package_id=None,
+                                  owner_id=None,
+                                  strict=True):
+        taken_quantity = super(StockMove, self)._update_reserved_quantity(need=need,
+                                                                          available_quantity=available_quantity,
+                                                                          location_id=location_id, lot_id=lot_id,
+                                                                          package_id=package_id, owner_id=owner_id,
+                                                                          strict=strict)
+        if self.picking_id and self.picking_id.picking_type_id.code in [
+            'outgoing', 'internal']:
+            shopify_picking = False
+            if self.picking_id.sale_id:
+                if self.picking_id.sale_id.shopify_order_id:
+                    shopify_picking = True
+            if not shopify_picking:
+                error_log_env = self.env['shopify.error.log']
+                shopify_log_line_dict = {'error': [], 'success': []}
+                product_id = self.product_id.id
+                shopify_config = self.env['shopify.config'].sudo().search(
+                    [('state', '=', 'success'), ('default_company_id', '=', self.picking_id.company_id.id)])
+                shopify_config.sudo().check_connection()
+                shopify_log_id = error_log_env.sudo().create_update_log(
+                    shopify_config_id=shopify_config,
+                    operation_type='export_stock')
+                if shopify_config:
+                    location_ids = self.env['stock.location'].search(
+                        [('shopify_config_id', '=', shopify_config.id), ('usage', '=', 'view'),
+                         ('shopify_location_id', '!=', False)])
+                    if not location_ids:
+                        log_message = "location not found for shopify config %s " % self.name
+                        shopify_log_line_dict['error'].append(
+                            {'error_message': 'Export STOCK: %s' % log_message})
+                        return 0
+                    shopify_variant_id = self.env['shopify.product.product'].sudo().search(
+                        [('shopify_config_id', '=', shopify_config.id),
+                         ('update_shopify_inv', '=', True), ('product_variant_id', '=', product_id)])
+                    f_qty = 0.0
+                    sh_location = ''
+                    sh_inv_item = ''
+
+                    for location_id in location_ids:
+                        if not location_ids:
+                            log_message = "Location not found for shopify config %s " % self.name
+                            shopify_log_line_dict['error'].append(
+                                {'error_message': 'Export stock: %s' % log_message})
+                            return 0
+                        product_variant_id = shopify_variant_id.product_variant_id
+                        if product_variant_id.detailed_type == 'product' and not shopify_variant_id.shopify_inventory_item_id:
+                            log_message = "Inventory item ID not found for Product Variant %s in export stock." % product_variant_id.name
+                            shopify_log_line_dict['error'].append(
+                                {'error_message': 'Export stock: %s' % log_message})
+                            continue
+                        # qty_available = product_variant_id.with_context(
+                        #     {'location': location_id.id})._product_available()
+                        if product_variant_id:
+                            qty_available = product_variant_id.with_context(
+                                {'location': location_id.id})._compute_quantities_dict(self._context.get('lot_id'),
+                                                                                       self._context.get('owner_id'),
+                                                                                       self._context.get('package_id'))
+                            variant_qty = qty_available[product_variant_id.id]['free_qty'] or 0.0
+                            shopify_location_id = location_id.shopify_location_id
+                            shopify_inventory_item_id = shopify_variant_id.shopify_inventory_item_id
+                            f_qty += variant_qty
+                            sh_location = shopify_location_id
+                            sh_inv_item = shopify_inventory_item_id
+                    try:
+                        shopify.InventoryLevel.set(sh_location,
+                                                   sh_inv_item,
+                                                   int(f_qty))
+                        _logger.info(
+                            'Export stock successfully for location "%s" inventory item id "%s" : %s' % (
+                                sh_location, sh_inv_item, f_qty))
+
+                    except Exception as e:
+                        if e.code == 429:
+                            time.sleep(5)
+                            shopify_config.InventoryLevel.set(sh_location,
+                                                              sh_inv_item,
+                                                              int(f_qty))
+                        else:
+                            log_message = "Facing a problem while exporting Stock for shopify product variant %s: %s" % (
+                                shopify_variant_id.display_name, str(e))
+                            shopify_log_line_dict['error'].append(
+                                {'error_message': 'Export stock: %s' % log_message})
+                # shopify_config.last_stock_export_date = fields.Datetime.now()
+                shopify_config.sudo().write({'last_stock_export_date': fields.Datetime.now()})
+                error_log_env.create_update_log(shopify_config_id=shopify_config,
+                                                shop_error_log_id=shopify_log_id,
+                                                shopify_log_line_dict=shopify_log_line_dict)
+                # if not shopify_log_id.shop_error_log_line_ids:
+                #     shopify_log_id.unlink()
+        return taken_quantity
+
+    def _do_unreserve(self):
+        move_reserve_dict = []
+        for st_move in self:
+            if st_move.picking_id and st_move.picking_id.picking_type_id.code in ['outgoing', 'internal']:
+                if st_move.state == 'cancel' or (st_move.state == 'done' and st_move.scrapped):
+                    continue
+                else:
+                    move_reserve_dict.append({'product_id': st_move.product_id,
+                                              'location_id': st_move.location_id,
+                                              'reserve_qry': st_move.reserved_availability})
+        res = super(StockMove, self)._do_unreserve()
+        for move in move_reserve_dict:
+            shopify_picking = False
+            for picking in self.picking_id:
+                if picking.sale_id.shopify_order_id:
+                    shopify_picking = True
+            if not shopify_picking:
+                error_log_env = self.env['shopify.error.log']
+                shopify_log_line_dict = {'error': [], 'success': []}
+                product_lst = []
+                for pro in self.product_id:
+                    product_lst.append(pro.id)
+                # product_id = self.product_id.id
+                shopify_config = self.env['shopify.config'].sudo().search(
+                    [('state', '=', 'success'), ('default_company_id', '=', self.picking_id.company_id.id)])
+                shopify_config.sudo().check_connection()
+                shopify_log_id = error_log_env.sudo().create_update_log(
+                    shopify_config_id=shopify_config,
+                    operation_type='export_stock')
+                if shopify_config:
+                    location_ids = self.env['stock.location'].search(
+                        [('shopify_config_id', '=', shopify_config.id), ('usage', '=', 'view'),
+                         ('shopify_location_id', '!=', False)])
+                    if not location_ids:
+                        log_message = "location not found for shopify config %s " % st_move.name
+                        shopify_log_line_dict['error'].append(
+                            {'error_message': 'Export STOCK: %s' % log_message})
+                        return False
+                    shopify_variant_id = self.env['shopify.product.product'].sudo().search(
+                        [('shopify_config_id', '=', shopify_config.id),
+                         ('update_shopify_inv', '=', True), ('product_variant_id', 'in', product_lst)])
+                    f_qty = 0.0
+                    sh_location = ''
+                    sh_inv_item = ''
+                    product_variant_id = False
+                    for location_id in location_ids:
+                        for pp_variant in shopify_variant_id:
+                            product_variant_id = pp_variant.product_variant_id
+                            if product_variant_id.detailed_type == 'product' and not pp_variant.shopify_inventory_item_id:
+                                log_message = "Inventory item ID not found for Product Variant %s in export stock." % product_variant_id.name
+                                shopify_log_line_dict['error'].append(
+                                    {'error_message': 'Export stock: %s' % log_message})
+                                continue
+                            # qty_available = product_variant_id.with_context(
+                            #     {'location': location_id.id})._product_available()
+                            if product_variant_id:
+                                qty_available = product_variant_id.with_context(
+                                    {'location': location_id.id})._compute_quantities_dict(self._context.get('lot_id'),
+                                                                                           self._context.get('owner_id'),
+                                                                                           self._context.get('package_id'))
+                                variant_qty = qty_available[product_variant_id.id]['free_qty'] or 0.0
+                                shopify_location_id = location_id.shopify_location_id
+                                shopify_inventory_item_id = pp_variant.shopify_inventory_item_id
+                                f_qty += variant_qty
+                                sh_location = shopify_location_id
+                                sh_inv_item = shopify_inventory_item_id
+                    try:
+                        shopify.InventoryLevel.set(sh_location,
+                                                   sh_inv_item,
+                                                   int(f_qty))
+                        _logger.info(
+                            'Export stock successfully for location "%s" inventory item id "%s" : %s' % (
+                                sh_location, sh_inv_item, f_qty))
+
+                    except Exception as e:
+                        if e.code == 429:
+                            time.sleep(5)
+                            shopify_config.InventoryLevel.set(sh_location,
+                                                              sh_inv_item,
+                                                              int(f_qty))
+                        else:
+                            if product_variant_id:
+                                log_message = "Facing a problem while exporting Stock for shopify product variant %s: %s" % (
+                                    product_variant_id.display_name, str(e))
+                                shopify_log_line_dict['error'].append(
+                                    {'error_message': 'Export stock: %s' % log_message})
+                                continue
+                            else:
+                                continue
+                shopify_config.sudo().write({'last_stock_export_date': fields.Datetime.now()})
+                error_log_env.create_update_log(shopify_config_id=shopify_config,
+                                                shop_error_log_id=shopify_log_id,
+                                                shopify_log_line_dict=shopify_log_line_dict)
+
+        return res
+
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
 
-    def _get_inventory_move_values(self, qty, location_id, location_dest_id, package_id=False, package_dest_id=False):
+    def _get_inventory_move_values(self, qty, location_id, location_dest_id, out=False):
         res = super(StockQuant, self)._get_inventory_move_values(
-            qty, location_id, location_dest_id, package_id, package_dest_id
-        )
+            qty, location_id, location_dest_id, out=out)
         if self._context.get('shopify_adjustment'):
             res.update(
                 {'shopify_adjustment': self._context.get('shopify_adjustment')})
         return res
 
-    @api.constrains('lot_id')
-    def _constrains_lot_id(self):
-        """
-            Added the constraint to restrict the produt dont have lot or serial number.
-        """
-        for stock in self:
-            if stock.tracking and stock.tracking in ['serial']:
-                if not stock.lot_id:
-                    raise UserError(
-                        _('Please add "Serial Number" for product %s!') % stock.product_id.name)
-
 
 class StockPicking(models.Model):
-
     _inherit = 'stock.picking'
 
     shopify_fulfillment_id = fields.Char(
@@ -61,7 +326,7 @@ class StockPicking(models.Model):
     shopify_order_id = fields.Char(
         "Shopify Order ID",
         help='Enter Shopify Order ID',
-        readonly=False)
+        readonly=True)
     shopify_fulfillment_service = fields.Char("Fulfillment Service.",
                                               help="Shopify service name.",
                                               copy=False)
@@ -76,272 +341,35 @@ class StockPicking(models.Model):
     is_updated_in_shopify = fields.Boolean(
         string='Updated In Shopify?', copy=False, readonly=True, default=False)
     shopify_refund_id = fields.Char("Shopify Refund ID", copy=False)
-    picking_return_id = fields.Many2one("stock.picking", string="Return Of")
-    shopify_tracking_url = fields.Char(
-        string='Shopify Tracking URL', tracking=True)
-    shopify_order_number = fields.Char('Shopify Order Number', copy=False)
-    shopify_transaction_id = fields.Char(string='Shopify Transaction ID',
-                                         copy=False)
-    fulfillment_status = fields.Char('Fulfillment Status', copy=False)
 
     def _create_backorder(self):
-        """
-            This method will create backorder and assign instance.
-            @author: Yogeshwar Chaudhari @Bista Solutions Pvt. Ltd.
-        """
         res = super(StockPicking, self)._create_backorder()
         if self.shopify_config_id:
             res.write({'shopify_config_id': self.shopify_config_id.id})
         return res
 
-    def send_qty_shopify(
-            self, shopify_config_rec, shopify_location_rec, product_id, qty
-    ):
-        """
-            This method will send the qty to shopify to update.
-            @author: Farid Ghanchi @Bista Solutions Pvt. Ltd.
-        """
-        shopify_log_id = False
-        shopify_prod_obj = self.env["shopify.product.product"]
-        shopify_config_rec.check_connection()
-        shopify_product = shopify_prod_obj.with_user(self.env.user).search(
-            [
-                ("product_variant_id", "=", product_id.id),
-                ("shopify_config_id", "=", shopify_config_rec.id),
-                ("update_shopify_inv", "=", True),
-            ],
-            limit=1,
-        )
-        if shopify_product:
-            shopify_location_id = shopify_location_rec  # .shopify_location_id
-            inventory_item_id = shopify_product.shopify_inventory_item_id
-            if inventory_item_id:
-                shopify_config_rec.with_user(self.env.user).update_shopify_inventory(
-                    shopify_location_id, inventory_item_id, int(qty), shopify_log_id
-                )
-        return True
-
-    def do_unreserve(self):
-        """
-            This method will send the qty to shopify to update on unreserve.
-            @author: Farid Ghanchi @Bista Solutions Pvt. Ltd.
-        """
-        res = super(StockPicking, self).do_unreserve()
-        if (self.shopify_config_id and self.shopify_config_id.is_stock_update_reservation):
-            self.prepare_stock_details_for_shopify(self)
-        return res
-
-    def prepare_stock_details_for_shopify(self, pickings):
-        """
-            This method will prepare the stock details to update at shopify.
-            @author: Farid Ghanchi @Bista Solutions Pvt. Ltd.
-        """
-        for picking_id in pickings.filtered(
-                lambda x: x.picking_type_id.code in ("outgoing", "internal")
-                          and (
-                                  x.location_id.shopify_location_id
-                                  or x.location_dest_id.shopify_location_id
-                          )
-        ):
-            for move in picking_id.move_ids:
-                product_id = move.product_id
-                qty = product_id.with_context(
-                    location=picking_id.location_id.id
-                ).free_qty
-                if move.location_id.shopify_location_id:
-                    shopify_location_rec = move.location_id.shopify_location_id
-                    shopify_config_rec = move.location_id.shopify_config_id
-                else:
-                    shopify_location_rec = move.location_dest_id.shopify_location_id
-                    shopify_config_rec = move.location_dest_id.shopify_config_id
-                if shopify_location_rec:
-                    self.send_qty_shopify(
-                        shopify_config_rec, shopify_location_rec, product_id, qty
-                    )
-
-    def action_assign(self):
-        """
-            Check availability of picking moves.
-            This has the effect of changing the state and reserve quants on available moves, and may
-            also impact the state of the picking as it is computed based on move's states.
-            @return: True
-            @author: Nupur Soni @Bista Solutions Pvt. Ltd.
-        """
-        res = super(StockPicking, self).action_assign()
-        if (
-                self.shopify_config_id
-                and self.shopify_config_id.is_stock_update_reservation
-        ):
-            self.prepare_stock_details_for_shopify(self)
-        return res
-
-    def action_confirm(self):
-        """
-            Check availability of picking moves.
-            This has the effect of changing the state and reserve quants on available moves, and may
-            also impact the state of the picking as it is computed based on move's states.
-            @return: True
-            @author: Nupur Soni @Bista Solutions Pvt. Ltd.
-        """
-        res = super(StockPicking, self).action_confirm()
-        if (
-                self.shopify_config_id
-                and self.shopify_config_id.is_stock_update_reservation
-        ):
-            self.prepare_stock_details_for_shopify(self)
-        return res
-
     def _action_done(self):
-        """
-            This method will call on done and create invoices.
-            @author: Niva Nirmal @Bista Solutions Pvt. Ltd.
-        """
         res = super(StockPicking, self)._action_done()
         if not self._context.get('shopify_picking_validate'):
-            shopify_picking_ids = self.filtered(
-                lambda r: r.shopify_config_id and not r.is_updated_in_shopify and
-                r.location_dest_id.usage == 'customer' and r.state == 'done'
-            )
+            shopify_picking_ids = self.filtered(lambda r: r.shopify_config_id and not r.is_updated_in_shopify
+                                                          and r.location_dest_id.usage == 'customer' and r.state == 'done')
             if shopify_picking_ids:
                 for picking in shopify_picking_ids:
-                    is_updated = self.env['sale.order'].sudo().shopify_update_order_status(
-                        picking.shopify_config_id, picking_ids=picking)
+                    # is_updated = self.env['sale.order'].shopify_update_order_status(
+                    #     picking.shopify_config_id, picking_ids=picking)
                     shopify_config_id = picking.shopify_config_id
                     if shopify_config_id.is_auto_invoice_paid:
                         invoices = picking.sale_id.invoice_ids.filtered(
-                            lambda iv: iv.move_type == 'out_invoice' and iv.payment_state != 'paid' and iv.state != 'cancel')
+                            lambda
+                                iv: iv.move_type == 'out_invoice' and iv.payment_state != 'paid' and iv.state != 'cancel')
                         if invoices.amount_total != picking.sale_id.amount_total:
                             self.sale_id.create_shopify_invoice(
                                 shopify_config_id)
         return res
 
-    def update_tracking_info(self):
-        """
-            Using this method updating the tracking information in shopify from odoo.
-        """
-        shopify_config = self.env['shopify.config']
-        shopify_config_id = shopify_config.search(
-            [('state', '=', 'success')], limit=1)
-        token = shopify_config_id.password
-        graphql_url = shopify_config_id.graphql_url
-        user = self.env.user
-        if not self.shopify_tracking_url:
-            raise UserError(
-                _("Tracking URL is missing, Please enter a Tracking URL."))
-        if not self.carrier_id:
-            raise UserError(
-                _("Carrier (Company) is missing, Please enter a Carrier."))
-        if not self.carrier_tracking_ref:
-            raise UserError(
-                _("Traking number is missing, Please enter a Tracking Number."))
-        if not self.shopify_fulfillment_id:
-            raise UserError(
-                _("Shopify Fullfillment ID is missing, Please check."))
-        if not graphql_url:
-            raise UserError(
-                _("GraphQL URL is missing, Please enter a GraphQL URL"))
-        if not token:
-            raise UserError(_("Access token is missing, Please check."))
-
-        s_tracking_url = self.is_valid_url(self.shopify_tracking_url)
-
-        if s_tracking_url is False:
-            raise UserError(_("Please enter valid Tracking URL."))
-        try:
-            url, access_token = graphql_url, token
-
-            headers = {
-                "Content-Type": "application/json",
-                "X-Shopify-Access-Token": access_token
-            }
-
-            mutation = """ mutation fulfillmentTrackingInfoUpdateV2($fulfillmentId: ID!, $trackingInfoInput: FulfillmentTrackingInput!, $notifyCustomer: Boolean) {
-                fulfillmentTrackingInfoUpdateV2(fulfillmentId: $fulfillmentId, trackingInfoInput: $trackingInfoInput, notifyCustomer: $notifyCustomer) {
-                fulfillment {
-                    id
-                    status
-                    trackingInfo {
-                        company
-                        number
-                        url
-                    }
-                }
-                userErrors {
-                    field
-                    message
-                }
-                }
-                }
-            """
-            variables = {
-                "fulfillmentId": "gid://shopify/Fulfillment/"+self.shopify_fulfillment_id,
-                "notifyCustomer": True,
-                "trackingInfoInput": {
-                    "company": self.carrier_id.name,
-                    "number": self.carrier_tracking_ref,
-                    "url": self.shopify_tracking_url,
-                }
-            }
-            try:
-                data = {"query": mutation, "variables": variables}
-                response = requests.post(
-                    url, headers=headers, data=json.dumps(data), timeout=10)
-                message = {
-                    'Carrier': self.carrier_id.name,
-                    'Tracking Number': self.carrier_tracking_ref,
-                    'URL': self.shopify_tracking_url
-                }
-                updated_fields = str(message)[1:-1]
-                self.message_post(body=f"Tracking information is updated in shopify by {user.name}, {updated_fields}.")
-                _logger.info(response)
-            except Exception as e:
-                raise UserError(e)
-        except Exception as e:
-            raise UserError(e)
-
-    def is_valid_url(self, url):
-        """
-        Regular expression to validate a URL
-        """
-        url_pattern = re.compile(
-            r'^(https?://)?'
-            r'([a-zA-Z0-9.-]+)'
-            r'(\.[a-zA-Z]{2,4})'
-            r'(/[-a-zA-Z0-9_.]*)*'
-            r'(\?[a-zA-Z0-9_=&]*)?'
-            r'(#[-a-zA-Z0-9_]*)?$'
-        )
-        return bool(url_pattern.match(url))
-
 
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
-
-    @api.depends('picking_id')
-    def binding_lot_ids(self):
-        """
-            Binding the lot/serial number to the return from outgoing delivery order.
-        """
-        stockmove = self.env['stock.move']
-        stockmoveline = self.env['stock.move.line']
-        lot_list = []
-        for order in self:
-            order.lot_ids = []
-            if order.picking_id.picking_return_id:
-                picking_id = order.picking_id.picking_return_id
-                stock_move_ids = stockmove.search(
-                    [('picking_id', '=', picking_id.id)])
-                if stock_move_ids:
-                    for move_id in stock_move_ids:
-                        stock_move_line = stockmoveline.search(
-                            [('move_id', '=', move_id.id)])
-                        for move_line in stock_move_line:
-                            lot_list.append(move_line.lot_id.id)
-            else:
-                all_lots = self.env['stock.lot'].search(
-                    [('product_id', '=', order.product_id.id)])
-                lot_list = all_lots.ids
-            order.lot_ids = lot_list
 
     shopify_error_log = fields.Text(
         "Shopify Error",
@@ -351,7 +379,6 @@ class StockMoveLine(models.Model):
         "Shopify Export", readonly=True)
     sale_line_id = fields.Many2one(
         related='move_id.sale_line_id', string='Sale Line')
-    lot_ids = fields.Many2many("stock.lot", compute="binding_lot_ids")
 
     def _check_location_config(self, location_id, location_dest_id):
         """
@@ -371,73 +398,6 @@ class StockMoveLine(models.Model):
             if valuation_out_account_id:
                 location_dest_company_id = valuation_out_account_id.company_id
 
-    def _action_done(self):
-        """
-            this method override for update shopify stock
-            :return:
-            @author: Farid Ghanchi @Bista Solutions Pvt. Ltd.
-        """
-        # Avoid updating inv in shopify at the time of import stock
-        res = super(StockMoveLine, self)._action_done()
-        shopify_line_ids = self.filtered(
-            lambda s: s.location_id.shopify_location_id
-                      or s.location_dest_id.shopify_location_id
-        )
-
-        for line in shopify_line_ids:
-            if (
-                    line.location_id.shopify_location_id
-                    and line.location_id.shopify_config_id
-            ):
-                shopify_location_id = line.location_id.shopify_location_id
-                shopify_config_rec = line.location_id.shopify_config_id
-                # qty = line.qty_done * -1
-                qty = line.product_id.with_context(
-                    location=line.location_id.id
-                ).free_qty
-                line.send_quantity_to_shopify(
-                    shopify_config_rec, shopify_location_id, qty
-                )
-            if (
-                    line.location_dest_id.shopify_location_id
-                    and line.location_dest_id.shopify_config_id
-            ):
-                shopify_location_id = line.location_dest_id.shopify_location_id
-                shopify_config_rec = line.location_dest_id.shopify_config_id
-                # qty = line.qty_done
-                qty = line.product_id.with_context(
-                    location=line.location_dest_id.id
-                ).free_qty
-                line.send_quantity_to_shopify(
-                    shopify_config_rec, shopify_location_id, qty
-                )
-        return res
-
-    def send_quantity_to_shopify(self, shopify_config_rec, shopify_location_id, qty):
-        shopify_config_rec.check_connection()
-        shopify_prod_obj = self.env["shopify.product.product"]
-        shopify_product = shopify_prod_obj.with_user(self.env.user).search(
-            [
-                ("product_variant_id", "=", self.product_id.id),
-                ("shopify_config_id", "=", shopify_config_rec.id),
-            ],
-            limit=1,
-        )
-        if shopify_product:
-            inventory_item_id = shopify_product.shopify_inventory_item_id
-            shopify_log_id = False
-            if inventory_item_id:
-                shopify_config_rec.with_user(self.env.user).update_shopify_inventory(
-                    shopify_location_id, inventory_item_id, int(qty), shopify_log_id
-                )
-
-    def split_graphql_data_into_batches(self, input_list, batch_size):
-        """
-            Using this method spliting the bunch of data in chunks/batches
-        """
-        for data in range(0, len(input_list), batch_size):
-            yield input_list[data:data + batch_size]
-
 
 class StockValuationLayer(models.Model):
     """Stock Valuation Layer"""
@@ -450,12 +410,12 @@ class StockValuationLayer(models.Model):
         :param vals: update date based move done date
         :return: recordset
         """
-        record = super(StockValuationLayer, self).create(vals)
-        for rec in record:
+        for val in vals:
+            rec = super(StockValuationLayer, self).create(val)
             if rec.stock_move_id:
                 self.env.cr.execute(
-                    """UPDATE stock_valuation_layer SET create_date = %(date)s
+                    """UPDATE stock_valuation_layer SET create_date = %(date)s 
                         WHERE id = %(rec_id)s""",
                     {'date': rec.stock_move_id.date,
                      'rec_id': rec.id})
-        return record
+            return rec

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_form_view_inherit_spring" model="ir.ui.view">
+        <field name="name">spring.systems.configuration.view.inherit</field>
+        <field name="model">spring.systems.configuration</field>
+        <field name="inherit_id" ref="spring_systems_integration.spring_systems_configuration_form_view"/>
+        <field name="priority" eval="50"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='test_connection']" position="after">
+                 <field name="state" widget="statusbar"/>
+            </xpath>
+            <xpath expr="//field[@name='get_po_850']" position="after">
+				<field name="sync_product" />
+			</xpath>
+
+        </field>
+    </record>
+</odoo>
