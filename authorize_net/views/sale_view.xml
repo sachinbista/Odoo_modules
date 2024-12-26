@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit sale.order form view for add our custom fields -->
+    <record id="view_order_form_inherited_authorize_net" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" icon="fa-money" invisible="payment_tx_count == 0" name="action_view_transactions" type="object">
+                    <field name="payment_tx_count" string="Transactions" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="after">
+                <group invisible="authorize_cc == False and authorize_bank == False and payment_authorize == False" name="authorize" string="Authorize">
+                    <field invisible="1" name="authorize_cc" readonly="1"/>
+                    <field invisible="authorize_bank == False" name="authorize_bank" readonly="1"/>
+                    <field invisible="1" name="transaction_ids" readonly="1" widget="many2many_tags"/>
+                    <field name="payment_authorize" readonly="1"/>
+                    <field force_save="1" invisible="1" name="is_customer_link"/>
+                </group>
+                <group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <field colspan="2" invisible="payment_amount == 0" name="payment_amount" nolabel="1" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button context="{'default_partner_id': partner_id}" invisible="is_customer_link == False or authorize_cc == True or state in ('sale', 'done', 'cancel')" name="%(action_authorize_transaction_view)d" string="Confirm with Auth.net" type="action"/>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="after">
+                <button invisible="transaction_ids == []" name="%(action_authorize_refund_transaction_view)d" string="Refund with Auth.net" type="action"/>
+                <button groups="account.group_account_user" invisible="transaction_ids == [] or state not in ['sale']" name="%(action_authorize_void_transaction_view)d" string="Void an Unsettled Payment" type="action"/>
+            </xpath></field>
+    </record>
+</odoo>

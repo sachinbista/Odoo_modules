@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form view for authorize.transaction object -->
+    <record id="view_authorize_transaction_form" model="ir.ui.view">
+        <field name="name">authorize.transaction.form</field>
+        <field name="model">authorize.transaction</field>
+        <field name="arch" type="xml">
+            <form string="Authorize Transaction">
+                <group>
+                    <group>
+                        <field name="authorize_payment_type" required="1"/>
+                        <field invisible="authorize_payment_type in (False, 'bank_account')" name="transaction_type" required="authorize_payment_type not in (False, 'bank_account')"/>
+                        <field invisible="1" name="is_wo_save_card"/>
+                        <field groups="authorize_net.group_without_save_payment_options" invisible="authorize_payment_type not in 'credit_card'" name="is_wo_save_card" string="Direct payment (Without Save Card)"/>
+                        <field invisible="1" name="is_wo_save_bank_acc"/>
+                        <field groups="authorize_net.group_without_save_payment_options" invisible="authorize_payment_type not in 'bank_account'" name="is_wo_save_bank_acc"/>
+                        <field name="payment_method_id"/>
+                        <field context="{'default_partner_id': partner_id, 'authorize': True, 'default_authorize_payment_method_type': authorize_payment_type, 'credit_card': True}" invisible="authorize_payment_type in (False, 'bank_account') or (is_wo_save_card == True or is_wo_save_bank_acc == True)" name="payment_token_id" options="{'no_open': True, 'no_create': True, 'no_edit': True}" required="is_wo_save_card == False and is_wo_save_bank_acc == False and authorize_payment_type == 'credit_card'" string="Credit Card"/>
+                        <field context="{'default_partner_id': partner_id, 'authorize': True, 'default_authorize_payment_method_type': authorize_payment_type, 'bank_account': True}" invisible="authorize_payment_type in (False, 'credit_card') or (is_wo_save_card == True or is_wo_save_bank_acc == True)" name="payment_token_bank_id" options="{'no_open': True}" required="is_wo_save_card == False and is_wo_save_bank_acc == False and authorize_payment_type == 'bank_account'" string="Bank Account"/>
+                    </group>
+                    <group>
+                        <field name="auth_partner_id"/>
+                        <field force_save="1" name="provider_id" readonly="1"/>
+                        <field name="company_id" readonly="1"/>
+                        <field force_save="1" invisible="merchant_id == False" name="merchant_id" readonly="1"/>
+                        <field force_save="1" name="customer_profile_id"/>
+                        <field force_save="1" invisible="shipping_address_id == False" name="shipping_address_id"/>
+                        <field invisible="1" name="partner_id"/>
+                        <field name="order_amount" readonly="transaction_type not in 'auth_capture'" required="transaction_type not in (False, 'authorize')"/>
+                    </group>
+                </group>
+                <group col="4" invisible="is_wo_save_bank_acc == False" string="Bank Account Details">
+                    <field name="acc_number" placeholder="**********" required="is_wo_save_bank_acc == True"/>
+                    <field name="acc_name" required="is_wo_save_bank_acc == True"/>
+                    <field name="bank_name" required="is_wo_save_bank_acc == True"/>
+                    <field name="routing_number" required="is_wo_save_bank_acc == True"/>
+                    <field name="authorize_bank_type" required="is_wo_save_bank_acc == True"/>
+                    <field context="{'default_type':'invoice', 'default_parent_id': partner_id}" name="billing_partner_id"/>
+                </group>
+                <group col="4" invisible="is_wo_save_card == False" string="Credit Card Details">
+                    <field name="cc_number" placeholder="****************" required="is_wo_save_card == True"/>
+                    <field name="cc_type"/>
+                    <field name="cc_month" placeholder="**" required="is_wo_save_card == True"/>
+                    <field name="cc_year" placeholder="****" required="is_wo_save_card == True"/>
+                    <field name="cc_cvv" placeholder="***" required="is_wo_save_card == True"/>
+                    <field context="{'default_type':'invoice', 'default_parent_id': partner_id}" name="billing_partner_id"/>
+                </group>
+                <footer>
+                    <button class="btn-primary" name="make_so_authorize_payment" string="Charge Customer" type="object"/>
+                    <button class="btn-default" special="cancel" string="Cancel"/>
+                </footer>
+            </form></field>
+    </record>
+    <record id="action_authorize_transaction_view" model="ir.actions.act_window">
+        <field name="name">Authorize Transaction</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">authorize.transaction</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_authorize_transaction_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

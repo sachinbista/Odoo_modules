@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
+            <div class="row service_container">
+                <div id="service_container" class="col-md-6 d-none flex-column">
+                    <label for="service_ids">Service Product(s)</label>
+                    <select id="service_ids" name="service_ids">
+                        <option selected="selected" disabled="disabled"
+                                value="">Select Option
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6 service_price" style="display: none">
+                    <h6 class="mb0">Price Per Logo</h6>
+                    <input style="padding: 8px; margin-top: 2px" type="text" disabled="disabled"
+                           class="service_price_amount" value="0"/>
+                </div>
+                <input id="otherAttributes" t-attf-value="{{otherAttributes}}" class="d-none"/>
+                <input id="sizeAttribute" t-attf-value="{{sizeAttribute}}" class="d-none"/>
+                <div class="col-md-12" style="margin-top: 20px;">
+                    <h4>Select Quantity</h4>
+                    <table class="variant_size_table table table-stripped">
+                        <thead>
+                            <tr/>
+                        </thead>
+                        <tbody>
+                            <tr/>
+                        </tbody>
+                    </table>
+                    <p id="no_product" style="display: none">
+                        No products are available for selected options.
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <p class="size_chart_error btn-danger"
+                       style="display: none; padding: 10px;">Enter the quantity and
+                        try again.
+                    </p>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+
+    <template id="products_attributes" inherit_id="website_sale.products_attributes">
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']/form/t[1]" position="replace">
+            <div id="accordionAttributes" class="accordion">
+                <t t-foreach="attributes" t-as="a">
+                    <t t-cache="a,attrib_set">
+                        <div class="accordion-item nav-item mb-1 border-0" t-if="a.value_ids and len(a.value_ids) > 1">
+                            <h6 class="accordion-header" t-attf-id="heading-{{a.id}}">
+                                <button class="accordion-button o_products_attributes_title d-none d-lg-block"
+                                        type="button" data-bs-toggle="collapse"
+                                        t-att-data-bs-target="'#collapse-%s' % a.id"
+                                        t-att-aria-expanded="'true' if any(v.id in attrib_set for v in a.value_ids) else 'false'"
+                                        t-att-aria-controls="'collapse-%s' % a.id"
+                                        style="position: relative;">
+                                    <b t-field="a.name"/>
+                                    <!-- Arrow Icon -->
+                                    <span class="rotate-icon"
+                                        style="position: absolute; right: 10px; font-size: 0.8em; transition: transform 0.3s ease;">
+                                        <i class="fa fa-chevron-down"/>
+                                    </span>
+                                </button>
+                            </h6>
+
+                            <!-- Accordion Body, open if a value is selected, otherwise collapsed -->
+                            <div t-att-id="'collapse-%s' % a.id"
+                                t-att-class="'accordion-collapse collapse' + (' show' if any(v.id in attrib_set for v in a.value_ids) else '')"
+                                t-att-aria-labelledby="'heading-%s' % a.id">
+
+                                <div class="accordion-body">
+                                    <!-- Select Dropdown for Attribute Type 'Select' -->
+                                    <t t-if="a.display_type == 'select'">
+                                        <select class="form-select css_attribute_select mb-2" name="attrib">
+                                            <option value="" selected="true">-</option>
+                                            <t t-foreach="a.value_ids" t-as="v">
+                                                <option t-att-value="'%s-%s' % (a.id, v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set"/>
+                                            </t>
+                                        </select>
+                                    </t>
+                                    
+                                    <!-- Color Picker for Attribute Type 'Color' -->
+                                    <div t-elif="a.display_type == 'color'" class="mb-3">
+                                        <t t-call="website_sale.o_wsale_offcanvas_color_attribute"/>
+                                    </div>
+                                    
+                                    <!-- Checkbox/Radios for Attribute Types 'radio', 'pills', 'multi' -->
+                                    <div t-elif="a.display_type in ('radio', 'pills', 'multi')" class="flex-column mb-3">
+                                        <t t-foreach="a.value_ids" t-as="v">
+                                            <div class="form-check mb-1">
+                                                <input type="checkbox" name="attrib" class="form-check-input"
+                                                    t-att-id="'%s-%s' % (a.id, v.id)"
+                                                    t-att-value="'%s-%s' % (a.id, v.id)"
+                                                    t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                                <label class="form-check-label fw-normal"
+                                                    t-att-for="'%s-%s' % (a.id, v.id)"
+                                                    t-field="v.name"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+
+</odoo>
+
+
+

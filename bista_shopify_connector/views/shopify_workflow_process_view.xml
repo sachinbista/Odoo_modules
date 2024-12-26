@@ -26,7 +26,6 @@
                                 <field name="shipping_policy" required="1" widget="selection"/>
                                 <field domain="[('type','in',['bank','cash']), ('company_id', '=', company_id)]" invisible="register_payment == False" name="pay_journal_id" required="register_payment != False"/>
                                 <field invisible="register_payment == False" name="in_pay_method_id" required="register_payment != False" widget="selection"/>
-                                <field name="payment_method_line_id" domain="[('company_id', '=', company_id),('journal_id','=',pay_journal_id)]" invisible="register_payment == False" required="register_payment != False"/>
                             </group>
                         </group>
                     </sheet>

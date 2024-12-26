@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_website_form_inherit" model="ir.ui.view">
+        <field name="name">view.website.form.inherit</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form"/>
+        <field name="arch" type="xml">
+            <field name="language_ids" position="after">
+                <field name="confirm_order_message_without_payment"/>
+            </field>
+        </field>
+    </record>
+</odoo>

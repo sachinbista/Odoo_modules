@@ -5,9 +5,7 @@
 #
 ##############################################################################
 
-# import requests
-# from soupsieve.util import string
-
+import requests
 from .. import shopify
 import logging
 import json
@@ -161,7 +159,7 @@ class ShopifyConfig(models.Model):
             shop.shopify_customer_count = self.env[
                 'res.partner'].sudo().search_count([('shopify_config_id', '=', shop.id),
                                                     ('parent_id', '=', False),
-                                                    ('shopify_customer_id', '!=', False),('active','=',False)])  # only consider main partners.
+                                                    ('shopify_customer_id', '!=', False)])  # only consider main partners.
 
             shop.shopify_product_count = self.env['product.template'].search_count([
                 ('shopify_product_template_ids.shopify_config_id', '=', shop.id)])
@@ -293,7 +291,6 @@ class ShopifyConfig(models.Model):
     rounding_diff_account_id = fields.Many2one('account.account',
                                                'Rounding Difference Account', tracking=True,
                                                help='Account which will be used for rounding difference of imported orders')
-    analytic_distribution = fields.Many2many("account.analytic.account",string="Analytic Distribution")
 
     default_customer_id = fields.Many2one(
         'res.partner',  'Customer', tracking=True, help='Set a default customer which will be used when there is no customer on shopify orders.')
@@ -353,8 +350,6 @@ class ShopifyConfig(models.Model):
         help="If true once order imported in odoo and stock reserved it will update on shopify.",
     )
     shopify_order_date = fields.Char(string="Shopify Order Compare Date")
-    is_create_invoice = fields.Boolean(string="Create Invoice",help="Create Invoice From Shopify")
-    delivery_channel_id = fields.Many2one('discuss.channel', string='Delivery Channel')
 
     @api.onchange('warehouse_id')
     def onchange_warehouse_id(self):
@@ -533,8 +528,7 @@ class ShopifyConfig(models.Model):
         action = self.env.ref('base.action_partner_form').read()[0]
         action['domain'] = [('parent_id', '=', False),
                             ('shopify_config_id', '=', self.id),
-                            ('shopify_customer_id', '!=', False),
-                            ('active', '=', False)]
+                            ('shopify_customer_id', '!=', False)]
         return action
 
     def action_shopify_product(self):
@@ -685,7 +679,6 @@ class ShopifyConfig(models.Model):
                         self._cr.commit()
                         # _logger.error('Invalid API key or access token: %s', e)
                 except Exception as e:
-                    print(e)
                     rec.update({'state': 'fail'})
                     self._cr.commit()
                     # _logger.error('Invalid API key or access token: %s', e)

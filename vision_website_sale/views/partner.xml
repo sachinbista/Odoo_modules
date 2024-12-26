@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_stock_warehouse_view_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit.stock.warehouse</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_account_position_id']" position="after">
+                <field name="warehouse_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

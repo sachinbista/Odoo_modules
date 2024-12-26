@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    <record id="email_template_credit_card_form" model="mail.template">-->
+    <!--        <field name="name">Credit Card Form Request</field>-->
+    <!--        <field name="model_id" ref="base.model_res_partner"/>-->
+    <!--        <field name="subject">Submit Your Credit Card Information</field>-->
+    <!--        <field name="body_html">-->
+    <!--            <![CDATA[-->
+    <!--            <p>Dear ${object.name},</p>-->
+    <!--            <p>Please click the link below to submit your credit card details:</p>-->
+    <!--            <p><a href="/submit/credit_card?partner_id=${object.id}">Submit Credit Card Information</a></p>-->
+    <!--            <p>Thank you!</p>-->
+    <!--            ]]>-->
+    <!--        </field>-->
+    <!--        <field name="email_from">${object.company_id.email}</field>-->
+    <!--    </record>-->
+
+
+    <record id="email_template_credit_card_form" model="mail.template">
+        <field name="name">Credit Card Form Request</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="subject">Submit Your Credit Card Information</field>
+        <field name="body_html">
+            <![CDATA[
+            <p>Dear ${object.name},</p>
+            <p>Please click the link below to submit your credit card details:</p>
+            <a t-attf-href="https://yourdomain.com/form/credit_card?partner_id=${object.partner_id.id}&token=${object.credit_card_token}">
+                    Submit Credit Card Information
+                </a>
+                        <p>Thank you!</p>
+        ]]>
+        </field>
+
+        <field name="email_from">${object.company_id.email}</field>
+    </record>
+
+    <template id="credit_card_form" name="Credit Card Form">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="text-center mb-4">Enter Your Credit Card Information</h2>
+                <form t-attf-action="/submit/credit_card" method="post" class="shadow p-4 rounded bg-light">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="form-group">
+                        <label for="card_number">Card Number</label>
+                        <input type="text" id="card_number" name="card_number" class="form-control"
+                               required="required" maxlength="16" placeholder="Enter your card number"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card_type">Card Type</label>
+                        <select id="card_type" name="card_type" class="form-control" required="required">
+                            <option value="">Select Card Type</option> <!-- Default prompt option -->
+                            <option value="americanexpress">American Express</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="discover">Discover</option>
+                            <option value="dinersclub">Diners Club</option>
+                            <option value="jcb">JCB</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiry_date">Expiry Date (MM/YYYY)</label>
+                        <div class="form-row">
+                            <div class="col">
+                                <select id="expiry_month" name="expiry_month" class="form-control" required="required">
+                                    <option value="">Month</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="expiry_year" name="expiry_year" class="form-control"
+                                       placeholder="Year (YYYY)" maxlength="4" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" class="form-control" required="required" maxlength="4"/>
+                    </div>
+
+                    <input type="hidden" name="partner_id" t-att-value="partner_id"/>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

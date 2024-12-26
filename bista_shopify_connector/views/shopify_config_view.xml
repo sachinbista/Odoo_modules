@@ -76,7 +76,6 @@
                             <group>
                                 <field name="shop_url" placeholder="e.g. https://my-shop.myshopify.com" readonly="state == 'success'"/>
                                 <field name="api_key" readonly="state == 'success'"/>
-                                <field name="is_create_invoice"/>
                             </group>
                             <group>
                                 <field name="password" password="1" readonly="state == 'success'"/>
@@ -111,7 +110,6 @@
                                         <field name="is_create_customer" widget="boolean_toggle"/>
                                         <field name="default_customer_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
                                         <field name="sync_product" widget="radio"/>
-                                        <field name="delivery_channel_id"/>
                                     </group>
                                     <group>
                                         <field name="is_create_product" widget="boolean_toggle"/>
@@ -161,7 +159,6 @@
                                         <field colspan="2" invisible="is_pay_unearned_revenue == False" name="shopify_tag_ids" options="{'no_create': True, 'no_create_edit': True,}" required="is_pay_unearned_revenue == True" widget="many2many_tags"/>
                                         <field colspan="2" domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" invisible="is_pay_unearned_revenue == False" name="unearned_account_id" options="{'no_create': True, 'no_create_edit': True}" required="is_pay_unearned_revenue == True"/>
                                         <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="rounding_diff_account_id" options="{'no_create': True, 'no_create_edit': True,}" readonly="state == 'success'"/>
-                                        <field name="analytic_distribution" widget="many2many_tags"/>
                                     </group>
                                     <group>
                                         <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="default_payment_term_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>

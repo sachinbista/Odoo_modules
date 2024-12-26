@@ -70,7 +70,6 @@ The Shopify integrator gives you the opportunity to manage your Odoo's products
         'views/shopify_payout_view.xml',
         'views/shopify_tags_view.xml',
         'views/stock_picking_view.xml',
-        'views/account_move_view.xml',
         'wizard/export_shopify_product_template_view.xml',
         'wizard/export_shopify_product_variant_view.xml',
         'wizard/shopify_product_variant_sync_inventory_view.xml',

@@ -237,14 +237,14 @@ class SaleOrder(models.Model):
         """ This method returns existing shopify customer or creates new customer based on customer data in sales order """
         Partner = self.env['res.partner'].sudo()
         partner_id = Partner.search([('shopify_customer_id', '=', str(
-            shopify_customer_id)), ('shopify_config_id', '=', shopify_config.id),('active','=',False)], limit=1)
+            shopify_customer_id)), ('shopify_config_id', '=', shopify_config.id)], limit=1)
         if not partner_id:
             if shopify_config.is_create_customer:
                 Partner.shopify_import_customer_by_ids(
                     shopify_config, shopify_customer_by_ids=shopify_customer_id, queue_line=self._context.get('queue_line_id'))
                 # Partner.create_update_shopify_customers_temp(customer_data, shopify_config)
                 partner_id = Partner.search([('shopify_customer_id', '=', str(
-                    shopify_customer_id)), ('shopify_config_id', '=', shopify_config.id),('active','=',False)], limit=1)
+                    shopify_customer_id)), ('shopify_config_id', '=', shopify_config.id)], limit=1)
         return partner_id or False
 
     def get_product(self, shopify_variant_id, shopify_product_id, shopify_config, sku, barcode):
@@ -262,29 +262,7 @@ class SaleOrder(models.Model):
         if odoo_product:
             ShopifyProductProduct = self.env['shopify.product.product']
             shopify_product_product_id = ShopifyProductProduct.sudo().search(
-                [('product_variant_id', '=', odoo_product.id),
-                 ('shopify_config_id','=',shopify_config.id)], limit=1)
-            if not shopify_product_product_id:
-                shopifyProductTemplate_id = shopifyProductTemplate.sudo().search([
-                    ('shopify_prod_tmpl_id','=',str(shopify_product_id)),
-                    ('shopify_config_id', '=', shopify_config.id)
-                ])
-                if not shopifyProductTemplate_id:
-                    shopifyProductTemplate_id = shopifyProductTemplate.sudo().create({
-                        'shopify_prod_tmpl_id': shopify_product_id,
-                        'shopify_config_id': shopify_config.id,
-                        'product_tmpl_id': odoo_product.product_tmpl_id.id,
-                        'shopify_published': True,
-                    })
-
-                shopify_product_product_id = ShopifyProductProduct.sudo().create(
-                    {'product_variant_id': odoo_product.id,
-                     'product_template_id': odoo_product.product_tmpl_id.id,
-                     'shopify_product_id': shopify_variant_id,
-                     'default_code': odoo_product.default_code,
-                     'barcode': odoo_product.barcode,
-                     'shopify_product_template_id': shopifyProductTemplate_id.id,
-                     'shopify_config_id': shopify_config.id})
+                [('product_variant_id', '=', odoo_product.id)], limit=1)
         else:
             if shopify_config.is_create_product:
                 shopifyProductTemplate.shopify_import_product_by_ids(
@@ -2720,209 +2698,6 @@ class SaleOrder(models.Model):
                 self.shopify_import_order_by_ids_using_server_action(
                     sale_id.shopify_config_id, sale_id.shopify_order_id)
 
-    def _shopify_prepare_invoice_data(self,order_dict,shopify_config):
-        """
-        this method is used to create invoice from shopify order
-
-        """
-        account_move_obj = self.env['account.move'].sudo()
-        shopify_config.check_connection()
-        error_log_env = self.env['shopify.error.log']
-        shop_error_log_id = self.env.context.get('shopify_log_id', False)
-        queue_line_id = self.env.context.get('queue_line_id', False)
-        shopify_product_obj = self.env['shopify.product.template']
-        shopify_product_variant_obj = self.env['shopify.product.product']
-        discount_application = order_dict.get('discount_applications', False)
-        shopify_order_created_date = order_dict.get('created_at')
-        order_number = order_dict.get('order_number')
-        shopi_order_created_year = int(shopify_order_created_date[0:4])
-        shopi_order_date = shopify_order_created_date[0:10]
-        current_date = datetime.now()
-        current_year = current_date.year
-
-        if shopify_config.shopify_order_date and not (shopi_order_created_year >= current_year and shopi_order_date > shopify_config.shopify_order_date):
-            return
-        try:
-            customer_data = order_dict.get('customer')
-            shopify_customer_id = customer_data and customer_data.get(
-                'id') or False
-            partner_id = None
-            if not customer_data and shopify_config.default_customer_id:
-                partner_id = self.env.ref(
-                    "bista_shopify_connector.shopify_partner") or shopify_config.default_customer_id
-            if customer_data and shopify_customer_id:
-                partner_id = self.get_customer(
-                    shopify_customer_id, shopify_config, customer_data)
-            if customer_data and customer_data.get('first_name') and customer_data.get('last_name'):
-                customer_name = customer_data.get(
-                    'first_name') + customer_data.get('last_name')
-                if not partner_id:
-                    raise UserError(
-                        _("Customer [%s] not found,please import customer first." % customer_name))
-            shopify_order_id = order_dict.get('id')
-            existing_order_id = account_move_obj.search([
-                ('shopify_order_id', '=', shopify_order_id),
-                ('shopify_config_id', '=', shopify_config.id),
-                ('company_id', '=', shopify_config.default_company_id.id),
-                ('state', '=', 'posted')], limit=1)
-            if existing_order_id:
-                return
-
-            shopify_order_date = order_dict.get('created_at')
-            order_date = self.convert_date_utc(shopify_order_date)
-            fulfillment_status = order_dict.get('fulfillment_status')
-            vals = {
-                "move_type": 'out_invoice',
-                'partner_id': shopify_config.default_customer_id.id,
-                'partner_shipping_id': partner_id.id,
-                'shopify_order_id': shopify_order_id,
-                'shopify_config_id': shopify_config.id,
-                'invoice_date': order_date,
-                'invoice_payment_term_id': shopify_config.default_payment_term_id.id,
-                'company_id': shopify_config.default_company_id.id,
-                'fulfillment_status': fulfillment_status,
-                'shopify_order_number': order_number,
-            }
-
-            shopify_line_items = order_dict.get('line_items')
-            shopify_shipping_lines = order_dict.get('shipping_lines')
-            taxes_included = order_dict.get('taxes_included')
-            order_line_vals = []
-            product_id = False
-            for line in shopify_line_items:
-                shopify_line_id = line.get('id')
-                shopify_variant_id = line.get('variant_id')
-                shopify_product_id = line.get('product_id')
-                shopify_product_title = line.get('title')
-                discount_lines = line.get('discount_allocations', False)
-                qty = line.get('quantity')
-                price_unit = line.get('price')
-                sku = line.get('sku')
-                shopify_variant = shopify.Variant().find(shopify_variant_id)
-                barcode = ""
-                if shopify_variant:
-                    variant_data = shopify_variant.to_dict()
-                    barcode = variant_data.get("barcode")
-                # barcode = line.get('barcode')
-                price_qty = float(price_unit) * float(qty)
-                if shopify_variant_id:
-                    shopify_product_product_id = self.get_product(
-                        shopify_variant_id, shopify_product_id, shopify_config, sku, barcode)
-                    # if shopify_product_product_id:
-                    product_id = shopify_product_product_id.product_variant_id if shopify_product_product_id else False
-                    if not product_id:
-                        if shopify_config.is_create_product:
-                            shopify_product_tmpl_id = shopify_product_obj.shopify_import_product_by_ids(
-                                shopify_config, shopify_product_id)
-                            if shopify_product_tmpl_id:
-                                shopify_variant_id = shopify_product_variant_obj.search([
-                                    ('product_variant_id',
-                                     '=', shopify_variant_id),
-                                    ('shopify_config_id',
-                                     '=', shopify_config.id),
-                                    ('shopify_product_template_id', '=', shopify_product_tmpl_id.id)], limit=1)
-                                product_id = shopify_product_tmpl_id.product_variant_id
-                            else:
-                                if not shopify_config.is_create_product:
-                                    product_id = self.env.ref(
-                                        'bista_shopify_connector.shopify_product')
-                                else:
-                                    raise UserError(
-                                        _("Product [%s] not found,please import product first." % shopify_product_title))
-                else:
-                    shopify_custom_product_name = line.get(
-                        'name') and line.get('name').strip()
-                    product_id = self.get_shopify_custom_product(
-                        shopify_custom_product_name)
-                    if not product_id:
-                        raise UserError(
-                            _("Custom Product [%s] not found in Shopify Product Mapping" % shopify_custom_product_name))
-
-                line_vals = {
-                    'shopify_config_id': shopify_config.id,
-                    'name': product_id.name,
-                    'product_id': product_id.id,
-                    'quantity': float(qty),
-                    'product_uom_id': product_id.uom_id.id,
-                    'price_unit': price_unit,
-                }
-                shopify_tax_lines = line['tax_lines']
-                tax_ids = self.get_tax_ids(
-                    shopify_tax_lines, taxes_included, shopify_config)
-                line_vals.update({'tax_ids': [(6, 0, tax_ids)]})
-
-                # apply discount on line
-                discount_percentage = 0.00
-                if discount_lines and discount_application:
-                    for discount in discount_lines:
-                        if discount_application[discount.get('discount_application_index')].get(
-                                'target_selection') in ['explicit', 'entitled']:
-                            if discount_application[discount.get('discount_application_index')].get(
-                                    'value_type') == 'fixed_amount':
-                                discount_percentage = self.calculate_discount_amount(
-                                    discount_lines[0].get('amount'), price_qty)
-                            elif discount_application[discount.get('discount_application_index')].get(
-                                    'value_type') == 'percentage':
-                                discount_percentage = discount_application[0].get('value')
-                line_vals.update({"discount": discount_percentage})
-
-                order_line_vals.append((0,0,line_vals))
-
-
-            for line in shopify_shipping_lines:
-                shipping_product_id = shopify_config.shipping_product_id
-                if not shipping_product_id:
-                    raise UserError(_("Shipping Product not configured."))
-                shipping_price = float(line.get('price', 0.0))
-
-                shipping_line_dict = {
-                    'shopify_config_id': shopify_config.id,
-                    'name': shipping_product_id.name,
-                    'product_id': shipping_product_id.id,
-                    'quantity': 1.0,
-                    'product_uom_id': shipping_product_id.uom_id.id,
-                    'price_unit': shipping_price,
-                }
-                shipping_tax_lines = line.get('tax_lines')
-                tax_ids = self.get_tax_ids(
-                    shipping_tax_lines, taxes_included, shopify_config)
-                shipping_line_dict.update({'tax_ids': [(6, 0, tax_ids)]})
-
-                order_line_vals.append((0, 0, shipping_line_dict))
-
-            vals.update({"invoice_line_ids": order_line_vals})
-
-            invoice = account_move_obj.create(vals)
-            # invoice._onchange_fiscal_position()
-
-            if invoice:
-                invoice.with_context(insufficient_stock_skip=True).action_post()
-                for picking in invoice.picking_ids:
-                    vals={
-                        'shopify_order_id': invoice.shopify_order_id,
-                        'shopify_order_number': invoice.shopify_order_number,
-                        'shopify_transaction_id': invoice.shopify_transaction_id,
-                        'fulfillment_status': invoice.fulfillment_status,
-                    }
-                    picking.write(vals)
-                invoice.create_shopify_invoice_payment(order_dict, shopify_config)
-
-                queue_line_id and queue_line_id.update({
-                        'state': 'processed',
-                })
-
-
-        except Exception as e:
-            error_message = 'Failed to import Orders : {}'.format(e)
-            error_log_env.create_update_log(
-                shop_error_log_id=shop_error_log_id,
-                shopify_log_line_dict={
-                    'error': [
-                        {
-                            'error_message': error_message,
-                            'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
-            queue_line_id and queue_line_id.write({'state': 'failed'})
-
     def shopify_import_order_by_ids(self, shopify_config, shopify_order_by_ids):
         """ TODO: Create queue and then process it like import orders """
         shopify_config.check_connection()
@@ -2945,9 +2720,6 @@ class SaleOrder(models.Model):
                 shopify_order_dict.get('id'))
             if not self.check_shopify_gateway(gateway, shopify_config):
                 self.create_shopify_payment_gateway(gateway, shopify_config)
-            if shopify_config.is_create_invoice:
-                self._shopify_prepare_invoice_data(shopify_order_dict,shopify_config)
-                return
             self.with_context(shopify_log_line_dict=shopify_log_line_dict,
                               shopify_log_id=shopify_log_id).create_update_shopify_orders(shopify_order_dict, shopify_config)
         # if not shopify_log_id.shop_error_log_line_ids and not self.env.context.get('shopify_log_id', False):
@@ -3029,6 +2801,7 @@ class SaleOrder(models.Model):
         to_order_date = to_date or fields.Datetime.now()
         shopify_order_list = self.fetch_all_shopify_orders(
             from_order_date, to_order_date, is_fetch_unfulfillment_order=shopify_config.is_fetch_unfulfillment_order)
+
         if shopify_order_list:
             payment_gateway = []
             for shopify_orders in tools.split_every(10, shopify_order_list):

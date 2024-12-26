@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form view for authorize.shipping.partner object -->
+    <record id="view_authorize_shipping_partner_form" model="ir.ui.view">
+        <field name="name">authorize.shipping.partner.form</field>
+        <field name="model">authorize.shipping.partner</field>
+        <field name="arch" type="xml">
+            <form string="Customer Profile">
+                <group>
+                    <group>
+                        <field domain="[('code', '=', 'authorize'), ('state', '!=', 'disabled'), ('company_id', '=', company_id), ('authorize_payment_method_type', '=', 'credit_card')]" name="provider_id" options="{'no_create': True, 'no_open': True}" readonly="authorize_partner_id != False" string="Provider"/>
+                        <field domain="[('code', '=', 'authorize'), ('state', '!=', 'disabled'), ('company_id', '=', company_id), ('authorize_payment_method_type', '=', 'bank_account')]" invisible="authorize_partner_id != False" name="bank_provider_id" options="{'no_create': True, 'no_open': True}" readonly="authorize_partner_id != False" required="authorize_partner_id == False" string="Bank Provider"/>
+                    </group>
+                    <group>
+                        <field name="company_id" options="{'no_create': True, 'no_open': True}" readonly="1" string="Company"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="Shipping Address">
+                        <field invisible="1" name="partner_id"/>
+                        <field invisible="1" name="authorize_partner_id"/>
+                        <field context="{'default_type':'delivery', 'default_parent_id': partner_id}" name="shipping_partner_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button class="btn-primary" name="add_shipping_authorize_cust" string="Add Customer Profile" type="object"/>
+                    <button class="btn-default" special="cancel" string="Cancel"/>
+                </footer>
+            </form></field>
+    </record>
+    <record id="action_authorize_shipping_partner_view" model="ir.actions.act_window">
+        <field name="name">Customer Profile</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">authorize.shipping.partner</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_authorize_shipping_partner_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

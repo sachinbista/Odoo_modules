@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_credit_card_form" model="ir.ui.view">
+        <field name="name">res.partner.form.send_credit_card_link</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//div[@name='button_box']" position="after">
+            <button name="action_send_credit_card_form" string="Send Credit Card Form" type="object"
+                    class="btn-primary"/>
+          </xpath>
+        </field>
+    </record>
+
+
+</odoo>
