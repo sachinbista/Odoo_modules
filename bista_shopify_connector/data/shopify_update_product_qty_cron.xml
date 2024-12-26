@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo noupdate="1">
+        <!-- Import Products -->
+        <record id="shopify_update_product_qty_cron" model="ir.cron">
+            <field name="name">Shopify Update Product QTY</field>
+            <field name="model_id" ref="model_shopify_config"/>
+            <field name="state">code</field>
+            <field name="code">model.action_update_product_qty_shopify()</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+</odoo>

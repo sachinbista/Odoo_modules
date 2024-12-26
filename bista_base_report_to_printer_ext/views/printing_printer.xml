@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="printing_printer_view_form_group">
+        <field name="name">printing_printer_view_form_group</field>
+        <field name="model">printing.printer</field>
+        <field name="inherit_id" ref="base_report_to_printer.printing_printer_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location']" position="after">
+                <field name="group_ids" widget="many2many_tags"/>
+                <field name="user_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

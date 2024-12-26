@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+          <record id="ir_cron_pos_reports_sales_detailss" model="ir.cron">
+            <field name="name">Pos Report Notify User</field>
+            <field name="model_id" ref="model_pos_order"/>
+            <field name="state">code</field>
+            <field name="code">model.sales_report_notify_users_mail()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

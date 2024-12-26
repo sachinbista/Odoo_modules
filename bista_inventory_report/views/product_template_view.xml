@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_sale_product_template_form_view_export_stock" model="ir.ui.view">
+            <field name="name">inherit.sale.product.template.form.view.export.stock</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pos_categ_id']" position="after">
+                    <field name="is_export_stock"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_product_template_form_view" model="ir.ui.view">
+            <field name="name">inherit.product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[last()]" position="after">
+                    <page name="product_cost_log" string="Product Cost Log"
+                          attrs="{'invisible': [('detailed_type', '=', 'service')]}">
+                        <field name="s_cost_log">
+                            <tree string="Cost Log" editable="bottom">
+                                <field name="create_date"/>
+                                <field name="s_old_cost"/>
+                                <field name="s_new_cost"/>
+                                <field name="s_shippment_cost" optional="hide"/>
+                                <field name="s_product_tmpl_id" optional="hide"/>
+                                <field name="s_user_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page name="alias_part_no" string="Alias Part Number"
+                          attrs="{'invisible': ['|',('detailed_type', '=', 'service'), ('product_variant_count', '>', 1)]}">
+                        <field name="part_no_ids">
+                            <tree string="Part Number" editable="bottom">
+                                <field name="customer_id"/>
+                                <field name="part_no"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='product_cost_log']" position="after">
+                    <page name="fabric_info" string="Fabric Information"
+                          attrs="{'invisible': ['|',('detailed_type', '=', 'service'), ('product_variant_count', '>', 1)]}">
+                        <group>
+                            <group>
+                                <field name="pattern_id"/>
+                                <field name="pattern_family_id"/>
+                                <field name="color_name_id"/>
+                                <field name="color_family_id"/>
+                                <field name="base_cloth_id"/>
+                                <field name="fabric_content_id"/>
+                                <field name="fabric_use_type"/>
+                                <field name="uv_rating"/>
+                            </group>
+                            <group>
+                                <field name="horizontal_repeat"/>
+                                <field name="vertical_repeat"/>
+                                <label for="fabric_width"/>
+                                <div>
+                                    <field name="fabric_width" class="oe_inline"/>
+                                    <span>in
+                                    </span>
+                                </div>
+                                <label for="fabric_weight"/>
+                                <div>
+                                    <field name="fabric_weight" class="oe_inline"/>
+                                    <span>oz/yd²
+                                    </span>
+                                </div>
+                                <field name="cleaning_code_id"/>
+                                <field name="abrasion"/>
+                                <field name="swatch_skus_id"/>
+                                <field name="collection_ids" widget="many2many_tags"/>
+                                <field name="prod_long_desc"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page name="continuity" string="Continuity"
+                          attrs="{'invisible': ['|',('detailed_type', '=', 'service'), ('product_variant_count', '>', 1)]}">
+                        <field name="continuity_ids">
+                            <tree string="Continuity" editable="bottom">
+                                <field name="contact_id"/>
+                                <field name="date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page name="screens" string="Screens"
+                          attrs="{'invisible': ['|',('detailed_type', '=', 'service'), ('product_variant_count', '>', 1)]}">
+                        <group>
+                            <group>
+                                <field name="screen_pp1"/>
+                                <field name="screen_pp2" attrs="{'invisible': [('screen_pp1', '=', False)]}"/>
+                                <field name="screen_pp3" attrs="{'invisible': [('screen_pp2', '=', False)]}"/>
+                                <field name="screen_pp4" attrs="{'invisible': [('screen_pp3', '=', False)]}"/>
+                                <field name="screen_pp5" attrs="{'invisible': [('screen_pp4', '=', False)]}"/>
+                                <field name="screen_pp6" attrs="{'invisible': [('screen_pp5', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="screen_pp7" attrs="{'invisible': [('screen_pp6', '=', False)]}"/>
+                                <field name="screen_pp8" attrs="{'invisible': [('screen_pp7', '=', False)]}"/>
+                                <field name="screen_pp9" attrs="{'invisible': [('screen_pp8', '=', False)]}"/>
+                                <field name="screen_pp10" attrs="{'invisible': [('screen_pp9', '=', False)]}"/>
+                                <field name="screen_pp11" attrs="{'invisible': [('screen_pp10', '=', False)]}"/>
+                                <field name="screen_pp12" attrs="{'invisible': [('screen_pp11', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='taxes_id']" position="after">
+                    <field name="msrp"/>
+                </xpath>
+
+                <xpath expr="//page[@name='sales']//group[@name='sale']" position="after">
+                    <group name="sale">
+                        <field name="is_export_stock" invisible="1"/>
+                        <group string="Export Stock"
+                               name="stock_export"
+                               attrs="{'invisible': [('is_export_stock', '=', False)]}">
+                            <field name="product_export_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id" options="{'no_create': True}"/>
+                                    <field name="available_quantity"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </xpath>
+
+                 <xpath expr="//field[@name='barcode']" position="after">
+                     <field name="upc"/>
+                 </xpath>
+            </field>
+        </record>
+
+<!--        <record id="inherit_sale_product_template_form_view" model="ir.ui.view">-->
+<!--            <field name="name">inherit.sale.product.template.form.view</field>-->
+<!--            <field name="model">product.template</field>-->
+<!--            <field name="inherit_id" ref="sale_product_configurator.product_template_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='optional_product_ids']" position="after">-->
+<!--                    <field name="is_export_stock"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!--        <record id="product_template_inherit_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">product.template.inherit.search.view</field>-->
+        <!--            <field name="model">product.template</field>-->
+        <!--            <field name="inherit_id" ref="product.product_template_search_view"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//filter[@name='consumable']" position="after">-->
+        <!--                    <filter string="Pattern" name="pattern_id" domain="[('pattern_id', '!=', False)]"/>-->
+        <!--                    <filter string="Pattern Family" name="pattern_family_id"-->
+        <!--                            domain="[('pattern_family_id', '!=', False)]"/>-->
+        <!--                    <filter string="Color Name" name="color_name_id" domain="[('color_name_id', '!=', False)]"/>-->
+        <!--                    <filter string="Color Family" name="color_family_id" domain="[('color_family_id', '!=', False)]"/>-->
+        <!--                    <filter string="Base Cloth" name="base_cloth_id" domain="[('base_cloth_id', '!=', False)]"/>-->
+        <!--                    <filter string="Fabric Content" name="fabric_content_id"-->
+        <!--                            domain="[('fabric_content_id', '!=', False)]"/>-->
+        <!--                    <filter string="Fabric Use Type" name="fabric_use_type"-->
+        <!--                            domain="[('fabric_use_type', '!=', False)]"/>-->
+        <!--                    <filter string="UV Rating" name="uv_rating" domain="[('uv_rating', '!=', False)]"/>-->
+        <!--                    <filter string="Fabric Width" name="fabric_width" domain="[('fabric_width', '!=', False)]"/>-->
+        <!--                    <filter string="Fabric Weight" name="fabric_weight" domain="[('fabric_weight', '!=', False)]"/>-->
+        <!--                    <filter string="Cleaning Code" name="cleaning_code_id"-->
+        <!--                            domain="[('cleaning_code_id', '!=', False)]"/>-->
+        <!--                    <filter string="Abrasion" name="abrasion" domain="[('abrasion', '!=', False)]"/>-->
+        <!--                    <filter string="Swatch SKUS" name="swatch_skus_id" domain="[('swatch_skus_id', '!=', False)]"/>-->
+        <!--                    <filter string="collection_ids" name="collection_ids" domain="[('collection_ids', '!=', False)]"/>-->
+        <!--                    <filter string="Horizontal Repeat" name="horizontal_repeat"-->
+        <!--                            domain="[('horizontal_repeat', '!=', False)]"/>-->
+        <!--                    <filter string="Vertical Repeat" name="vertical_repeat"-->
+        <!--                            domain="[('vertical_repeat', '!=', False)]"/>-->
+        <!--                    <filter string="Product Long Desc" name="prod_long_desc"-->
+        <!--                            domain="[('prod_long_desc', '!=', False)]"/>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="inherit_product_template_tree_view" model="ir.ui.view">
+            <field name="name">inherit.product.template.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="pattern_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="pattern_family_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="color_name_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="color_family_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="base_cloth_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="fabric_content_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="fabric_use_type" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="uv_rating" optional="hide" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="fabric_width" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="fabric_weight" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="cleaning_code_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="abrasion" optional="hide" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="swatch_skus_id" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="collection_ids" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="horizontal_repeat" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="vertical_repeat" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="prod_long_desc" optional="hide"
+                           attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                    <field name="msrp" optional="hide" attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

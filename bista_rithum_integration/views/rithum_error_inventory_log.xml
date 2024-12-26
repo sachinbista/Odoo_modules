@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rithum_error_inventory_log_view_tree" model="ir.ui.view">
+        <field name="name">rithum.error.inventory.log.tree</field>
+        <field name="model">rithum.error.inventory.log</field>
+        <field name="arch" type="xml">
+            <tree string="Error">
+                <field name="name"/>
+                <field name="error_message"/>
+                <field name="error_date"/>
+                <field name="rithum_config_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="rithum_error_inventory_log_action" model="ir.actions.act_window">
+        <field name="name">Inventory Error</field>
+        <field name="res_model">rithum.error.inventory.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+     <menuitem
+            id="menu_rithum_inventory_errors"
+            parent="menu_rithum_error_log"
+            name="Inventory Errors"
+            action="rithum_error_inventory_log_action"/>
+</odoo>

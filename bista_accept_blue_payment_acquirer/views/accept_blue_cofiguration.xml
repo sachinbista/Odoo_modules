@@ -1,0 +1,76 @@
+<odoo>
+
+    <record id="accept_blue_configuration_form_id" model="ir.ui.view">
+   <field name="name">accept.blue.form</field>
+   <field name="model">accept.blue.config</field>
+   <field name="arch" type="xml">
+       <form>
+           <header>
+<!--               <button type="object" string="Import Customer" name="import_customer_accept_blue"/>-->
+<!--                 <button type="object" string="Import Products" name="import_products_accept_blue"/>-->
+           </header>
+           <sheet>
+                 <div class="oe_button_box" name="button_box">
+                        <button name="toggle_prod_environment"
+                                attrs="{'invisible': [('prod_environment', '=', False)]}"
+                                class="oe_stat_button"
+                                type="object" icon="fa-play"
+                                help="Change the Environment">
+                            <div class="o_stat_info o_field_widget">
+                                <span class="text-success">Production</span>
+                                <span class="o_stat_text">Environment</span>
+                            </div>
+                        </button>
+                        <button name="toggle_prod_environment"
+                                attrs="{'invisible': [('prod_environment', '=', True)]}"
+                                class="oe_stat_button"
+                                type="object" icon="fa-stop"
+                                help="Change the Environment">
+                            <div class="o_stat_info o_field_widget">
+                                <span class="o_warning_text">Test</span>
+                                <span class="o_stat_text">Environment</span>
+                            </div>
+                        </button>
+                    </div>
+                 <widget name="web_ribbon" text="Production" attrs="{'invisible': [('prod_environment','=', False)]}"/>
+                <widget name="web_ribbon" text="Staging" bg_color="bg-danger" attrs="{'invisible': [('prod_environment','=', True)]}"/>
+              <group>
+                  <field name="prod_environment" invisible="1"/>
+                  <field name="name"/>
+                  <field name="api_url"/>
+                  <field name="source_key"/>
+                  <field name="pin_code"/>
+              </group>
+           </sheet>
+       </form>
+   </field>
+    </record>
+
+     <record id="accept_blue_configuration_tree_id" model="ir.ui.view">
+   <field name="name">accept.blue.tree</field>
+   <field name="model">accept.blue.config</field>
+   <field name="arch" type="xml">
+       <tree>
+                  <field name="name"/>
+                  <field name="source_key"/>
+                  <field name="pin_code"/>
+       </tree>
+   </field>
+    </record>
+
+     <record id="accept_blue_configuration_id" model="ir.actions.act_window">
+        <field name="name">Accept Blue Configuration</field>
+        <field name="res_model">accept.blue.config</field>
+       <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="accept_blue_id"
+         name="Accept Blue Configuration "
+        parent="account.menu_finance_configuration"
+         sequence="7"/>
+     <menuitem id="accept_blue_child_id"
+         name="Accept Blue Config"
+         parent="accept_blue_id"
+         action="accept_blue_configuration_id"
+         sequence="0"/>
+</odoo>

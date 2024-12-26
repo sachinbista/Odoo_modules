@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="view_package_wizard_form" model="ir.ui.view">
+            <field name="name">package.wizard.form</field>
+            <field name="model">package.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Package Wizard">
+                    <group>
+                        <field name="scan_barcode"/>
+                        <field name="package_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button name="validate_package" string="Validate Package" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

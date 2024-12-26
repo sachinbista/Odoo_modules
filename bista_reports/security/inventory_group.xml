@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="res.groups" id="group_inventory_read_user">
+            <field name="name">Inventory Readonly User</field>
+<!--            <field name="category_id" ref="category_shopify_connector"/>-->
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--ticket #11493 - New Inventory report for the specific date by excluding Customer Owned Product Location -->
+    <record id="inherit_stock_location_is_not_inventory" model="ir.ui.view">
+        <field name="name">inherit.stock.location.is.not.inventory</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='additional_info']/field[@name='company_id']"
+                   position="after">
+                <field name="s_exclude_from_inventory_report" invisible="1"/>
+                <field name="s_is_subcontract_location" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

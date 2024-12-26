@@ -1,0 +1,28 @@
+<odoo>
+
+
+    <record id="report_product_template_label" model="ir.actions.report">
+        <field name="name">Product Label (ZPL)</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">bista_zpl_labels.product_template_label_template</field>
+        <field name="report_file">bista_zpl_labels.report_product_template</field>
+        <field name="print_report_name">(object.display_name)</field>
+    </record>
+
+
+    <template id="product_template_label_template">
+        <t t-translation="off" t-esc="value"/>
+    </template>
+
+
+    <function model="ir.actions.report" name="unlink_action">
+        <value eval="[ref('product.report_product_packaging')]"/>
+    </function>
+
+    <function model="ir.actions.report" name="unlink_action">
+        <value eval="[ref('stock.label_product_packaging')]"/>
+    </function>
+
+
+</odoo>

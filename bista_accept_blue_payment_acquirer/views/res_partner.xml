@@ -1,0 +1,30 @@
+<odoo>
+ <record id="view_partner_inherited_id" model="ir.ui.view">
+        <field name="name">res.partner.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="website" position="after">
+                <field name="accept_blue_creeate_cus_id"/>
+            </field>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Credit Cards" name="credit_cards" attrs="{'invisible': [('parent_id','!=',False)]}">
+                    <field name="card_detail_id">
+                        <tree editable="bottom">
+                            <field name="is_access_token" invisible="1"/>
+                            <field name="credit_card_no" attrs="{'readonly': [('is_access_token', '=', True)], 'required': [('is_access_token', '=', False)]}" force_save="1"/>
+                            <field name="credit_card_type" readonly="1" force_save="1"/>
+                            <field name="credit_card_expiration_month" attrs="{'readonly': [('is_access_token', '=', True)], 'required': [('is_access_token', '=', False)]}" force_save="1"/>
+                            <field name="credit_card_expiration_year" attrs="{'readonly': [('is_access_token', '=', True)], 'required': [('is_access_token', '=', False)]}" force_save="1"/>
+                            <field name="credit_card_code" attrs="{'readonly': [('is_access_token', '=', True)], 'required': [('is_access_token', '=', False)]}" force_save="1"/>
+                            <field name="access_token" force_save="1" attrs="{'readonly': [('is_access_token','=', True)]}"/>
+                            <field name="credit_card_exp_status"/>
+                        </tree>
+
+                    </field>
+                </page>
+            </xpath>
+        </field>
+ </record>
+</odoo>

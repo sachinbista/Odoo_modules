@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_form_inherit_view" model="ir.ui.view">
+            <field name="name">res_partner_inherit.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']//field[@name='comment']" position="after">
+                    <field name="picking_notes" placeholder="Picking Notes..." nolabel="1"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="is_automatically_created" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

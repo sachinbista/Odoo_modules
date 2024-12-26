@@ -16,3 +16,7 @@ class ShopifyPaymentGateway(models.Model):
     code = fields.Char("Code", copy=False)
     shopify_config_id = fields.Many2one('shopify.config', "Shopify Configuration",
                                         ondelete='cascade')
+    company_id = fields.Many2one('res.company', string='Company', help='Company', default=lambda self: self.env.company)
+    pay_journal_id = fields.Many2one('account.journal', string='Payment Journal',
+                                     domain=[('type', 'in', ['cash', 'bank'])])
+

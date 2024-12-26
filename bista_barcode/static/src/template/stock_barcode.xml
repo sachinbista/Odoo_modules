@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<templates xml:space="preserve">
+
+    <div t-inherit="stock_barcode.MainComponent" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_barcode_control')]" position="inside">
+            <button t-if="env.model.displaySubmitButton" t-on-click="goToMainMenu" class="btn-lg btn btn-light text-uppercase">
+                Submit
+            </button>
+        </xpath>
+    </div>
+</templates>

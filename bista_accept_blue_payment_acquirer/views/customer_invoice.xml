@@ -1,0 +1,79 @@
+<odoo>
+
+<!--      <record id="view_account_journal_form_inherit_id" model="ir.ui.view">-->
+<!--        <field name="name">account.journal.form</field>-->
+<!--        <field name="model">account.journal</field>-->
+<!--        <field name="inherit_id" ref="account.view_account_journal_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="type" position="after">-->
+<!--                <field name="is_accept_blue_journal"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--      </record>-->
+
+
+
+
+     <record id="view_account_payment_register" model="ir.ui.view">
+        <field name="name">payment.register.inherited</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account_payment.view_account_payment_register_form_inherit_payment"/>
+        <field name="arch" type="xml">
+            <field name="payment_method_line_id" position="after">
+                <field name="parent_partner_id" invisible="1"/>
+                <field name="is_accept_blue" invisible="1"/>
+                <field name="is_direct_credit_note" invisible="1"/>
+                 <field name="credit_card_details" attrs="{'invisible': ['|',('pay_new_card', '=', True),'|',('origin_inv_id', '!=', False),'|',('is_accept_blue', '=', False),('is_direct_credit_note', '!=', False)]}"/>
+                <field name="pay_new_card" attrs="{'invisible': ['|',('origin_inv_id', '!=', False),'|',('is_accept_blue', '=', False),('is_direct_credit_note', '!=', False)]}"/>
+                <field name="origin_inv_id" invisible="1"/>
+                <field name="accept_blue_reference_no" attrs="{'invisible': ['|',('origin_inv_id','=', False),('is_accept_blue', '=', False)],'required': [('origin_inv_id','!=', False),('is_accept_blue', '!=', False)]}" options="{'no_create': True, 'no_create_edit':True}"/>
+
+<!--                <field name="accept_blue_reference_no" attrs="{'invisible': ['|',('origin_inv_id','=', False),('is_accept_blue', '=', False)]}" options="{'no_create': True, 'no_create_edit':True}"/>-->
+<!--                <field name="refund_amount" attrs="{'invisible': [('origin_inv_id','=', False)]}" />-->
+            </field>
+            <xpath expr="//form" position="inside">
+                <notebook  attrs="{'invisible': [('pay_new_card', '=', False)]}">
+                    <page string="Credit card details">
+                        <group>
+                            <field name="store_card" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                              <field name="credit_card_no" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                            <field name="credit_card_type" readonly="1" force_save="1" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                             <field name="credit_card_expiration_month" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                              <field name="credit_card_expiration_year" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                             <field name="credit_card_code" attrs="{'required': [('pay_new_card','=', True)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+ </record>
+
+
+    <record id="account_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.inher</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//notebook" position="inside">
+                 <page string="Accept Blue Transaction Details">
+                     <field name="origin_inv_id" invisible="1"/>
+                      <field name="currency_id" invisible="1"/>
+                     <field name="accept_blue_details_id">
+                         <tree editable="bottom" delete="0" create="false" edit="false">
+                          <field name="pay_ref_no"/>
+                             <field name="original_pay_ref"/>
+                        <field name="pay_type"/>
+                         <field name="pay_status"/>
+                        <field name="pay_auth_code" invisible="1"/>
+                        <field name="pay_status_code" invisible="1"/>
+                        <field name="card_no" invisible="1"/>
+                        <field name="paid_amount"/>
+                         <field name="refund_amount" invisible="1"/>
+                        <button type="object" string="Void Transactions" name="void_credit_card_transaction"/>
+                         </tree>
+                     </field>
+                 </page>
+            </xpath>
+        </field>
+ </record>
+</odoo>

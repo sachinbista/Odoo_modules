@@ -1,0 +1,160 @@
+<odoo>
+
+      <template id="inherit_account_account_payment_report" inherit_id="account.report_payment_receipt_document">
+                  <xpath expr="//div[@class='col-6' and @t-if='o.ref']" position="replace">
+        </xpath>
+          <xpath expr="//table" position="replace">
+               <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th><span>Invoice Date</span></th>
+                            <th><span>Invoice Number</span></th>
+                             <th t-if="inv.move_type in ('out_invoice','out_refund')"><span>Sale Order Ref</span></th>
+                              <th t-if="inv.move_type in ('out_invoice','out_refund')"><span>Customer Po</span></th>
+                               <th t-if="inv.move_type in ('in_invoice','in_refund')"><span>Bill Ref</span></th>
+                            <!--<th><span>Reference</span></th>-->
+                            <!-- Add a column if there are different currencies -->
+                            <th t-if="otherCurrency" class="text-end"><span>Amount In Currency</span></th>
+                            <th class="text-end"><span>Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="invoices" t-as="inv">
+                            <!-- MOVE -->
+                            <t t-if="inv.move_type != 'entry'">
+                                <tr>
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td t-if="inv.move_type in ('out_invoice','out_refund')"><span t-field="inv.sale_order_id"/></td>
+                                     <td t-if="inv.move_type in ('out_invoice','out_refund')"><span t-field="inv.sale_order_id.customer_po"/></td>
+                                      <td t-if="inv.move_type in ('in_invoice','in_refund')"><span t-field="inv.ref"/></td>
+
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><span t-field="inv.amount_total"/></td>
+                                </tr>
+                                <!-- PAYMENTS/REVERSALS -->
+                                <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">
+                                    <t t-set="payment" t-value="par[2].move_id"/>
+                                    <td><span t-field="payment.date"/></td>
+                                    <td><span t-field="payment.name"/></td>
+                                    <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+                                     <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+                                      <td t-if="inv.move_type in ('in_invoice','in_refund')"/>
+                                    <!--<td><span t-field="payment.ref"/></td>-->
+
+                                    <t t-set="amountPayment" t-value="-payment.amount_total"/>
+                                    <t t-set="amountInvoice" t-value="-par[1]"/>
+                                    <t t-set="currencyPayment" t-value="payment.currency_id"/>
+                                    <t t-set="currencyInvoice" t-value="inv.currency_id"/>
+                                    <!-- Fill the column "Amount In Currency" only if necessary -->
+                                    <td t-if="otherCurrency" class="text-end"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>
+                                    <td class="text-end"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>
+                                </tr>
+                                <!-- BALANCE -->
+                                <tr>
+                                    <td/>
+                                    <td><strong>Due Amount for <span t-field="inv.name"/></strong></td>
+                                    <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+                                     <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+                                      <td t-if="inv.move_type in ('in_invoice','in_refund')"/>
+
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><strong><span t-field="inv.amount_residual"/></strong></td>
+                                </tr>
+                            </t>
+
+                        </t>
+                          <xpath expr="//tbody/t" position="after">
+
+
+                        <tr t-foreach="o._get_reconcile_entry()" t-as="wrt_of">
+<!--                                    <td><strong><span t-foreach="o._get_reconcile_entry()" t-as="wrt_of"/></strong></td>-->
+                              <td><strong><span t-esc="wrt_of.get('inv_date')" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;MM/dd/yyyy&quot;}"/></strong></td>
+                              <td><strong><span t-esc="wrt_of.get('write_off')"/></strong></td>
+                                <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+                                      <td t-if="inv.move_type in ('in_invoice','in_refund')"/>
+                            <!--<td/>-->
+                             <!--<td/>-->
+<!--                               <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+                             <td t-if="inv.move_type in ('out_invoice','out_refund')"/>
+<!--                                      <td t-if="inv.move_type in ('in_invoice','in_refund')"/>-->
+                                    <td class="text-end"><strong><span t-esc="wrt_of.get('amount')" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong></td>
+
+                                </tr>
+
+        </xpath>
+
+                    </tbody>
+                </table>
+<!--               <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">-->
+<!--                                    <t t-set="payment" t-value="par[2].move_id"/>-->
+<!--                                    <td><span t-field="payment.date"/></td>-->
+<!--                                    <td><span t-field="payment.name"/></td>-->
+<!--                                    <td/>-->
+<!--                                    &lt;!&ndash;<td><span t-field="payment.ref"/></td>&ndash;&gt;-->
+<!--                                    <t t-set="amountPayment" t-value="-payment.amount_total"/>-->
+<!--                                    <t t-set="amountInvoice" t-value="-par[1]"/>-->
+<!--                                    <t t-set="currencyPayment" t-value="payment.currency_id"/>-->
+<!--                                    <t t-set="currencyInvoice" t-value="inv.currency_id"/>-->
+<!--                                    &lt;!&ndash; Fill the column "Amount In Currency" only if necessary &ndash;&gt;-->
+<!--                                    <td t-if="otherCurrency" class="text-end"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>-->
+<!--                                    <td class="text-end"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>-->
+<!--                                </tr>-->
+
+<!--          </xpath>-->
+<!--        <xpath expr="//tbody/t/t/tr[2]/td[3]" position="after">-->
+<!--                <td t-if="inv.move_type=='in_invoice'">-->
+
+<!--                </td>-->
+
+<!--            </xpath>-->
+<!--             <xpath expr="//tbody/t/t/tr[3]/td[3]" position="after">-->
+<!--                 <td t-if="inv.move_type=='in_invoice'">-->
+
+<!--                </td>-->
+<!--            </xpath>-->
+<!--             <xpath expr="//tbody/t/t/tr[2]/td[3]" position="after">-->
+<!--                <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+<!--                <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+
+<!--            </xpath>-->
+<!--             <xpath expr="//tbody/t/t/tr[3]/td[3]" position="after">-->
+<!--                 <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+<!--                  <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+<!--            </xpath>-->
+
+
+<!--        <xpath expr="//tbody/t" position="after">-->
+
+
+<!--                        <tr t-foreach="o._get_reconcile_entry()" t-as="wrt_of">-->
+<!--&lt;!&ndash;                                    <td><strong><span t-foreach="o._get_reconcile_entry()" t-as="wrt_of"/></strong></td>&ndash;&gt;-->
+<!--                              <td><strong><span t-esc="wrt_of.get('inv_date')" t-options="{&quot;widget&quot;: &quot;date&quot;,&quot;format&quot;: &quot;MM/dd/yyyy&quot;}"/></strong></td>-->
+<!--                              <td><strong><span t-esc="wrt_of.get('write_off')"/></strong></td>-->
+<!--                            <td/>-->
+<!--                            &lt;!&ndash;<td/>&ndash;&gt;-->
+<!--                             &lt;!&ndash;<td/>&ndash;&gt;-->
+<!--                               <td t-if="inv.move_type=='out_invoice'">-->
+
+<!--                </td>-->
+<!--                              <td class="text-end"><strong><span t-esc="wrt_of.get('inv_ref')"/></strong></td>-->
+<!--                                    <td class="text-end"><strong><span t-esc="wrt_of.get('amount')" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong></td>-->
+
+<!--                                </tr>-->
+
+        </xpath>
+    </template>
+
+
+
+</odoo>

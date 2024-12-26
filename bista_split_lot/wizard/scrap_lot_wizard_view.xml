@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="scrap_lot_wizard" model="ir.ui.view">
+        <field name="name">scrap.lot.wizard.form</field>
+        <field name="model">scrap.lot.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Scrap Wizard">
+                <sheet>
+                    <group>
+                        <field name="product_id" readonly="1"/>
+                        <field name="lot_id" readonly="1"/>
+                        <field name="qty_available" readonly="1"/>
+                        <field name="scrap_location_id"
+                            domain="[('scrap_location','=', True)]"/>
+                        <field name="lot_ids" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Scrap" name="scrap" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

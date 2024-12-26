@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="product_cost_log_tree" model="ir.ui.view">
+        <field name="name">product.cost.log.tree</field>
+        <field name="model">product.cost.log</field>
+        <field name="arch" type="xml">
+            <tree string="Product Cost Log" default_order="create_date desc"
+                  create="false" edit="false" delete="false">
+                <field name="create_date"/>
+                <field name="s_product_tmpl_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                <field name="s_product_qty_available"/>
+                <field name="s_old_cost" options="{'no_create_edit': True, 'no_create': True}"/>
+                <field name="s_new_cost" options="{'no_create_edit': True, 'no_create': True}"/>
+                <field name="s_shippment_cost" invisible="1" options="{'no_create_edit': True, 'no_create': True}"/>
+                <field name="s_user_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_cost_log_search" model="ir.ui.view">
+        <field name="name">product.cost.log.search</field>
+        <field name="model">product.cost.log</field>
+        <field name="arch" type="xml">
+            <search string="Search Product Cost Log">
+                <field name="s_product_tmpl_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_product_cost_log" model="ir.actions.act_window">
+        <field name="name">Product Cost Log</field>
+        <field name="res_model">product.cost.log</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="product_cost_log_search"/>
+    </record>
+    <menuitem action="action_product_cost_log"
+              id="menu_product_cost_log"
+              name="Product Cost Log Report"
+              parent="purchase.purchase_report"
+              sequence="4"/>
+
+</odoo>
+

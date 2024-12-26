@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_rithum_config,access_account_rithum_config,model_rithum_config,,1,1,1,1
+access_rithum_error_order_log,access_rithum_error_order_log,model_rithum_error_order_log,,1,1,1,1
+access_rithum_error_invoice_order_log,access_rithum_error_invoice_log,model_rithum_error_invoice_log,,1,1,1,1
+access_rithum_error_inventory_order_log,access_rithum_error_inventory_log,model_rithum_error_inventory_log,,1,1,1,1
+access_rithum_product_product,access_rithum_product_product,model_rithum_product_product,,1,1,1,1
+access_rithum_order_sync_wizard,access_rithum_order_sync_wizard,model_rithum_order_sync_wizard,,1,1,1,1
+access_import_single_order_wizard,access_import_single_order_wizard,model_import_single_order_wizard,,1,1,1,1

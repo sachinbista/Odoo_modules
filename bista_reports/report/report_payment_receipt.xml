@@ -1,0 +1,33 @@
+<odoo>
+    <template id="inherit_report_payment_receipt" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//th[span='Invoice Number']" position="after">
+            <th><span>Sale Order Ref</span></th>
+            <th><span>Customer PO</span></th>
+        </xpath>
+        <xpath expr="//tr[1]//span[@t-field='inv.name']" position="after">
+            <td>
+                <t t-if="inv.sale_order_id"> <span t-field="inv.sale_order_id"/></t>
+            </td>
+            <td>
+                <t t-if="inv.sale_order_id and inv.sale_order_id.customer_po"> <span t-field="inv.sale_order_id.customer_po"/></t>
+            </td>
+        </xpath>
+        <xpath expr="//tr[2]//span[@t-field='payment.name']" position="after">
+            <td> </td>
+            <td> </td>
+        </xpath>
+        <xpath expr="//tr[3]//span[@t-field='inv.name']" position="after">
+            <td> </td>
+            <td> </td>
+        </xpath>
+        <xpath expr="//div[@class='col-6' and @t-if='o.ref']" position="replace">
+        </xpath>
+        <xpath expr="//th[5]//span" position="replace">
+        </xpath>
+        <xpath expr="//td[3]//span[@t-field='payment.ref']" position="replace">
+        </xpath>
+        <xpath expr="//td[3]//span[@t-field='inv.ref']" position="replace">
+        </xpath>
+    </template>
+</odoo>
+

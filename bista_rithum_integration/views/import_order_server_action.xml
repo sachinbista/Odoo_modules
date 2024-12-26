@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="import_rithum_orders" model="ir.actions.server">
+        <field name="name">Import Orders</field>
+        <field name="state">code</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_rithum_error_order_log"/>
+        <field name="binding_model_id" ref="model_rithum_error_order_log"/>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+            if records:
+                action = records.import_rithum_order()
+        </field>
+    </record>
+</odoo>

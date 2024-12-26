@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_split_lot_wizard,split.lot.wizard,model_split_lot_wizard,base.group_user,1,1,1,1
+access_split_lot_line_wizard,split.lot.line.wizard,model_split_lot_line_wizard,base.group_user,1,1,1,1
+access_ask_scrap_wizard,ask.scrap.wizard,model_ask_scrap_wizard,base.group_user,1,1,1,1
+access_scrap_lot_wizard,scrap.lot.wizard,model_scrap_lot_wizard,base.group_user,1,1,1,1
+access_aplit_lot_user,split.lit.user,product.model_product_product,stock.group_stock_user,1,1,1,1

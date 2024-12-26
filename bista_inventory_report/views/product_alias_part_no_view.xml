@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="Product_alias_part_no_tree" model="ir.ui.view">
+            <field name="name">Product.alias.Part.number.tree</field>
+            <field name="model">product.alias.part.number</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_id"/>
+                    <field name="part_no"/>
+                    <field name="product_id"/>
+                    <field name="product_template_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="Product_alias_part_no_form" model="ir.ui.view">
+            <field name="name">Product.alias.Part.number.form</field>
+            <field name="model">product.alias.part.number</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form String="Create Part Number">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="part_no"  required="1"/>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="product_template_id" invisible="1"/>
+                                <field name="customer_id" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <separator/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bista_alias_part_no_action" model="ir.actions.act_window">
+            <field name="name">Alias Part Number</field>
+            <field name="res_model">product.alias.part.number</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Alias Part Number!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="alias_part_no_menu"
+                  name="Alias Part Number"
+                  parent="stock.menu_stock_inventory_control"
+                  action="bista_inventory_report.bista_alias_part_no_action"
+        />
+    </data>
+</odoo>

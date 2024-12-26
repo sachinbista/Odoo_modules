@@ -1,0 +1,61 @@
+<odoo>
+    <record id="view_picking_withcarrier_out_for111m" model="ir.ui.view">
+        <field name="name">delivery.stock.picking.restrict1.lot.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_locked']" position="before">
+                <field name="bs_is_inter_record" force_save="1" readonly="1" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel"
+                        attrs="{'invisible': ['|',('bs_is_inter_record', '!=', False),('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}"
+                        string="Cancel" groups="base.group_user" type="object" data-hotkey="z"/>
+            </xpath>
+            <xpath expr="//button[@name='action_set_quantities_to_reservation']" position="replace">
+                <button name="action_set_quantities_to_reservation"
+                        attrs="{'invisible': ['|',('bs_is_inter_record', '!=', False),('show_set_qty_button', '=', False)]}"
+                        string="Set quantities" type="object" groups="stock.group_stock_user" class="o_btn_validate"
+                        data-hotkey="g"/>
+            </xpath>
+            <xpath expr="//button[@name='do_print_picking']" position="replace">
+                <button name="do_print_picking" string="Print" groups="stock.group_stock_user" type="object"
+                        attrs="{'invisible': ['|',('bs_is_inter_record', '!=', False),('state', '!=', 'assigned')]}"
+                        data-hotkey="o"/>
+            </xpath>
+            <xpath expr="//button[@name='action_open_label_type']" position="replace">
+                <button string="Print Labels" type="object" name="action_open_label_type"
+                        attrs="{'invisible': [('bs_is_inter_record', '!=', False)]}"/>
+            </xpath>
+            <button name="%(stock.act_stock_return_picking)d" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_is_inter_record', '!=', False),('state', '!=', 'done')]}
+                </attribute>
+            </button>
+            <xpath expr="//button[@name='button_scrap']" position="replace">
+                <button name="button_scrap" type="object" string="Scrap"
+                        attrs="{'invisible': ['|', '&amp;','|', ('picking_type_code', '=', 'incoming'), ('state', '!=', 'done'), '&amp;', ('picking_type_code', '=', 'outgoing'), ('state', '=', 'done'),('bs_is_inter_record', '!=', False)]}"
+                        data-hotkey="y"/>
+            </xpath>
+            <xpath expr="//button[@name='action_toggle_is_locked'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('bs_is_inter_record', '!=', False),('state', 'in',
+                    ('draft','cancel')), ('is_locked', '=', False)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_toggle_is_locked'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_is_inter_record', '!=', False),('is_locked', '=',
+                    True)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_validate'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('bs_is_inter_record', '!=', False),('state', 'in',
+                    ('waiting','confirmed')), ('show_validate', '=', False)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_validate'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('bs_is_inter_record', '!=', False),('state', 'not in',
+                    ('waiting', 'confirmed')), ('show_validate', '=', False)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

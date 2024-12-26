@@ -1,0 +1,278 @@
+<odoo>
+	<data>
+		<template id="commercial_custom_layout">
+			<div class="header">
+			</div>
+
+			<div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+				<t t-raw="0"/>
+			</div>
+
+			<div class="footer" style="font-size:65%;">
+				<div class="text-center" style="padding-left:45px;padding-right:45px;">
+					<p>
+						These items are controlled by the U.S. Government and authorized for export only to the country of ultimate
+						destination for the use by the ultimate consignee or end-user(s) herein identified. They may not be resold, transferred,
+						or otherwise disposed of, to any other country or to any other person other than the authorized ultimate consignee
+						or end-user(s), either in their original form or after being incorporated into other items, without first obtaining
+						approval from the U.S. government or as otherwise authorized by U.S. law and regulations.
+					</p>
+					<span t-field="o.company_id.name"/>
+					<t t-if="o.company_id.street">
+						| <span t-field="o.company_id.street"/>
+					</t>
+					<t t-if="o.company_id.city">
+						| <span t-field="o.company_id.city"/>
+					</t>
+					<t t-if="o.company_id.zip">
+						, ID <span t-field="o.company_id.zip"/>
+					</t>
+					<t t-if="o.company_id.phone">
+						| <span t-field="o.company_id.phone"/>
+					</t>
+					<t t-if="o.company_id.phone">
+						| <span t-field="o.company_id.website"/>
+					</t>
+				</div>
+			</div>
+		</template>
+
+
+		<template id="report_commercial_invoice">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="commercial_invoice_report.report_commercial_invoice_document"/>
+			</t>
+		</template>
+		<template id="report_commercial_invoice_document">
+			<xpath expr="//div[hasclass('page')]" position="after">
+				<t t-call="web.html_container">
+					<t t-call="web.external_layout">
+<!--					<t t-call="commercial_invoice_report.commercial_custom_layout">-->
+						<div class="page">
+<!--							<br/>-->
+							<div class="oe_structure"/>
+								<div>
+								<h2 class="text-center mb32">
+									<strong>Commercial Invoice</strong>
+								</h2>
+									<t t-set="sale_id" t-value="o.get_sale_order_details(o)" />
+									<t t-set="invoice_id" t-value="o.get_partner_address_invoice_id(o)" />
+									<t t-set="shipping_id" t-value="o.get_partner_address_shipping_id(o)" />
+									<p t-esc="o.create_date.date()" t-options='{"widget": "date"}'/>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-7">
+									<div>
+										<strong>Bill to</strong>
+									</div>
+									<div>
+										<div>
+											<t t-if="sale_id.partner_id.parent_id">
+												<span t-esc="sale_id.partner_id.parent_id.name"/>
+											</t>
+											<t t-if="invoice_id">
+												<span t-esc="invoice_id.name"/>
+											</t>
+										</div>
+										<t t-if="invoice_id.street">
+											<div>
+												<span t-esc="invoice_id.street"/>
+											</div>
+										</t>
+										<t t-if="invoice_id.street2">
+											<div>
+												<span t-esc="invoice_id.street2"/>
+											</div>
+										</t>
+										<div>
+											<span t-esc="invoice_id.city"/>
+											<t t-if="invoice_id.state_id">
+												,
+												<span t-esc="invoice_id.state_id.name"/>
+											</t>
+											<![CDATA[&nbsp;]]>
+											<span t-esc="invoice_id.zip"/>
+											<t t-if="invoice_id.state_id.name">
+												<br/>
+												<span t-esc="invoice_id.country_id.name"/>
+											</t>
+										</div>
+										<!--										<t t-if="o.sale_id.partner_id.email">-->
+										<!--											<div>-->
+										<!--												Attn:-->
+										<!--												<span t-field="o.sale_id.partner_id.name"/>-->
+										<!--												<span t-field="o.sale_id.partner_id.email"/>-->
+										<!--											</div>-->
+										<!--										</t>-->
+										<t t-if="invoice_id.phone">
+											<div>
+												Tel:
+												<span t-esc="invoice_id.phone"/>
+											</div>
+										</t>
+									</div>
+								</div>
+								<div class="col-5">
+									<div>
+										<strong>Ship to</strong>
+									</div>
+									<div>
+										<div>
+											<span t-esc="shipping_id.name"/>
+										</div>
+										<t t-if="shipping_id.street">
+											<div>
+												<span t-esc="shipping_id.street"/>
+											</div>
+										</t>
+										<t t-if="shipping_id.street2">
+											<div>
+												<span t-esc="shipping_id.street2"/>
+											</div>
+										</t>
+										<div>
+											<span t-esc="shipping_id.city"/>
+											<t t-if="shipping_id.state_id">
+												,
+												<span t-esc="shipping_id.state_id.name"/>
+											</t>
+											<![CDATA[&nbsp;]]>
+											<span t-esc="shipping_id.zip"/>
+
+											<t t-if="shipping_id.country_id">
+												<br/>
+												<span t-esc="shipping_id.country_id.name"/>
+											</t>
+										</div>
+										<!--										<t t-if="o.sale_id.partner_shipping_id.email">-->
+										<!--											<div>-->
+										<!--												Attn:-->
+										<!--												<span t-field="o.sale_id.partner_shipping_id.name"/>-->
+										<!--												<span t-field="o.sale_id.partner_shipping_id.email"/>-->
+										<!--											</div>-->
+										<!--										</t>-->
+										<t t-if="shipping_id.phone">
+											<div>
+												Tel:
+												<span t-esc="shipping_id.phone"/>
+											</div>
+										</t>
+									</div>
+								</div>
+							</div>
+							<br/>
+							<table class="text-center table table-condensed" style="width:100%;">
+								<thead>
+									<tr>
+										<th class="text-center" style="background-color:#CCCCCC;border:1px solid black; vertical-align:middle;"> Customer P.O. </th>
+										<th class="text-center" style="background-color:#CCCCCC;border:1px solid black; vertical-align:middle;"> Order Number </th>
+										<th class="text-center" style="background-color:#CCCCCC;border:1px solid black; vertical-align:middle;"> Delivery Number </th>
+										<th class="text-center" style="background-color:#CCCCCC;border:1px solid black; vertical-align:middle;"> Payment Terms </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="border:1px solid black; vertical-align:middle;">
+											<t t-if="sale_id">
+												<span t-esc="sale_id.client_order_ref"/>
+											</t>
+										</td>
+										<td style="border:1px solid black; vertical-align:middle;">
+											<span t-field="o.origin"/>
+										</td>
+										<td style="border:1px solid black; vertical-align:middle;">
+											<span t-esc="o.get_name(o.name)"/>
+										</td>
+										<td style="border:1px solid black; vertical-align:middle;">
+											<span t-esc="sale_id.payment_term_id.name"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<br/>
+							<table class="text-center table table-condensed" style="width:100%;">
+								<thead class="text-center">
+									<tr>
+										<th class="text-center" style="background-color:#CCCCCC; width:7%; border:1px solid black; vertical-align:middle;"> Units </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:40%; border:1px solid black; vertical-align:middle;"> Description </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:11%; border:1px solid black; vertical-align:middle;"> Tariff Code </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:12%; border:1px solid black; vertical-align:middle;"> Country of Origin </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:10%; border:1px solid black; vertical-align:middle;"> Total Weight </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:10%; border:1px solid black; vertical-align:middle;"> Unit price </th>
+										<th class="text-center" style="background-color:#CCCCCC; width:10%; border:1px solid black; vertical-align:middle;"> Amount </th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <t t-if="o.state == 'done'"> -->
+										<t t-set="total_amount" t-value="0" />
+										<tr t-foreach="o.move_ids_without_package" t-as="line">
+											<t t-set="total_price" t-value="0" />
+											<!--										<t t-if="not line.is_delivery and line.product_uom_qty > 0">-->
+											<!-- <t> -->
+											<t t-if="int(line.quantity_done) &gt; 0">
+												<td class="text-left" style="border:1px solid black; vertical-align:middle;">
+													<span t-esc="int(line.quantity_done)"/>
+												</td>
+												<td class="text-left" style="border:1px solid black; vertical-align:middle;">
+													<span t-field="line.product_id.name"/>
+<!--													<t t-if="line.product_id.pmb_MadeOf">-->
+<!--														<br/>-->
+<!--														- Made of:-->
+<!--														<span t-field="line.product_id.pmb_MadeOf"/>-->
+<!--													</t>-->
+												</td>
+												<td class="text-left" style="border:1px solid black; vertical-align:middle;">
+													<span t-field="line.product_id.hs_code"/>
+												</td>
+												<td class="text-left" style="border:1px solid black; vertical-align:middle;">
+													<span t-field="line.product_id.ppi_CountryOfOrigin"/>
+												</td>
+												<t t-set="line_product" t-value="o.product_from_sale_lines(sale_id,line.product_id)" />
+												<td class="text-left" style="border:1px solid black; vertical-align:middle;">
+													<t t-if="line_product">
+														<span t-esc="'%.2f'% ((line.quantity_done*line.product_id.weight)*0.45359237)"/>
+														<span>kgs</span>
+													</t>
+												</td>
+												<td class="text-right" style="border:1px solid black; vertical-align:middle;">
+													<t t-if="line_product">
+														<span t-esc="line_product.price_unit" t-options="{'widget': 'monetary', 'display_currency': sale_id.currency_id}"/>
+													</t>
+													<t t-else=""></t>
+												</td>
+												<t t-if="line_product">
+													<t t-set="total_price" t-value="line_product.price_unit*line.quantity_done" />
+												</t>
+												<t t-else=""></t>
+
+												<td class="text-right" style="border:1px solid black; vertical-align:middle;">
+													<t t-if="line_product">
+														<span t-esc="total_price" t-options="{'widget': 'monetary', 'display_currency': sale_id.currency_id}"/>
+													</t>
+												</td>
+												<t t-set="total_amount" t-value="total_amount+total_price" />
+
+											</t>
+										</tr>
+										<tr>
+											<th colspan="7"  style="text-align:right;">
+												<t t-if="o.sale_id">
+													<strong>Total: <span t-esc="total_amount" t-options="{'widget': 'monetary', 'display_currency': sale_id.currency_id}" /> </strong>
+												</t>
+											</th>
+										</tr>
+									<!-- </t> -->
+								</tbody>
+							</table>
+						</div>
+<!--					</t>-->
+					</t>
+				</t>
+			</xpath>
+			<xpath expr="//div[hasclass('page')]" position="attributes">
+				<attribute name="class">hidden</attribute>
+			</xpath>
+		</template>
+	</data>
+</odoo>

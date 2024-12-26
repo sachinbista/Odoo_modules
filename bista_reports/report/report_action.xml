@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_dropship_operation_report" model="ir.actions.report">
+            <field name="name">Dropship Operation</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_reports.print_dropship_operation_report</field>
+            <field name="report_file">bista_reports.print_dropship_operation_report</field>
+            <field name="print_report_name">'Dropship Operation'</field>
+            <field name="print_report_name">'Dropship Operations - %s - %s' % (object.partner_id.name or '',
+                object.name)
+            </field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="bista_reports.paperformat_dropship_operation"/>
+        </record>
+
+        <record id="action_intercompany_operation_report" model="ir.actions.report">
+            <field name="name">ShopFabric Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_reports.print_intercompany_operation_report</field>
+            <field name="report_file">bista_reports.print_intercompany_operation_report</field>
+            <field name="print_report_name">'ShopFabric Picking'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="bista_reports.paperformat_dropship_operation"/>
+        </record>
+
+        <!-- <record id="action_picking_operation_report" model="ir.actions.report">
+            <field name="name">Picking Operations</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bista_reports.report_picking_operation_template</field>
+            <field name="report_file">bista_reports.picking_operation_report</field>
+            <field name="print_report_name">'Picking Operation'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="bista_reports.paperformat_dropship_operation"/>
+        </record> -->
+
+    </data>
+</odoo>

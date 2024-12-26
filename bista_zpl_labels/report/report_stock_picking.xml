@@ -1,0 +1,19 @@
+<odoo>
+
+
+    <record id="report_stock_picking_label" model="ir.actions.report">
+        <field name="name">Lot/Serial (ZPL)</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">bista_zpl_labels.stock_picking_label_template</field>
+        <field name="report_file">bista_zpl_labels.report_stock_picking</field>
+        <field name="print_report_name">(object.display_name)</field>
+    </record>
+
+
+    <template id="stock_picking_label_template">
+        <t t-translation="off" t-esc="value"/>
+    </template>
+
+
+</odoo>

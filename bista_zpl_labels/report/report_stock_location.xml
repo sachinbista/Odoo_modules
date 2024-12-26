@@ -1,0 +1,23 @@
+<odoo>
+
+
+    <record id="report_stock_location_label" model="ir.actions.report">
+        <field name="name">Label(ZPL)</field>
+        <field name="model">stock.location</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">bista_zpl_labels.stock_location_label_template</field>
+        <field name="report_file">bista_zpl_labels.report_stock_location</field>
+        <field name="print_report_name">(object.display_name)</field>
+    </record>
+
+
+    <template id="stock_location_label_template">
+        <t t-translation="off" t-esc="value"/>
+    </template>
+
+    <function model="ir.actions.report" name="unlink_action">
+        <value eval="[ref('stock.action_report_location_barcode')]"/>
+    </function>
+
+
+</odoo>

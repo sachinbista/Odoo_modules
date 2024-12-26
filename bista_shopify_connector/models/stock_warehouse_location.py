@@ -25,44 +25,25 @@ class StockLocation(models.Model):
                                         copy=False)
     is_shopify_return_location = fields.Boolean()
 
-    @api.onchange('location_id')
-    def onchange_location_id(self):
-        """
-            Using this method setting shopify_location and shopify_configuration
-        """
-        if self.location_id and self.location_id.shopify_location_id:
-            self.write({'shopify_location_id': self.location_id.shopify_location_id,
-                        'shopify_config_id': self.location_id.shopify_config_id.id})
-        else:
-            self.update({'shopify_location_id': False,
-                         'shopify_config_id': False})
-
     def shopify_import_location(self, shopify_config):
-        """
-            Import locations under warehouse created for this instance.
-            Create warehouse for each shopify instance.
-        """
+        """ Import locations under warehouse created for this instance.
+        Create warehouse for each shopify instance. """
         shopify_config.check_connection()
         warehouse_env = self.env['stock.warehouse']
-        error_log_env = self.env['shopify.error.log'].sudo()
+        error_log_env = self.env['shopify.error.log']
         try:
             locations = shopify.Location.find()
             # Search for warehouse for current instance
             warehouse = warehouse_env.search([
-                ('company_id', '=', shopify_config.default_company_id.id),
-                ('shopify_config_id', '=', shopify_config.id),
-                '|', ('active', '=', True), ('active', '=', False)])
+                    ('company_id', '=', shopify_config.default_company_id.id),
+                    ('shopify_config_id', '=', shopify_config.id),
+                    '|', ('active', '=', True), ('active', '=', False)])
             if not warehouse:
                 # Note: There are chances that first/last 5 digits of store ID could be same, in that case we need to
                 # use another unique column for warehouse code.
-                # warehouse_vals = {'name': shopify_config.name,
-                #                   'shopify_config_id': shopify_config.id,
-                #                   'code': shopify_config.shopify_shop_id[-5:]}
-                # Previously we are getting code from shopify config but we have commented that once so
-                # alternative of this we have passing in code as shopify configuration name.
                 warehouse_vals = {'name': shopify_config.name,
                                   'shopify_config_id': shopify_config.id,
-                                  'code': shopify_config.name}
+                                  'code': shopify_config.shopify_shop_id[-5:]}
                 warehouse = warehouse_env.create(warehouse_vals)
                 view_location = warehouse.view_location_id
                 if view_location:
@@ -105,8 +86,7 @@ class StockLocation(models.Model):
                         location_id = self.create(location_vals)
                 else:
                     # Update location name
-                    location_id.sudo().write(
-                        {'name': location_data.get('name')})
+                    location_id.sudo().write({'name': location_data.get('name')})
                 # TODO: Deactivate location
                 # view_location = warehouse and warehouse.view_location_id
                 # if view_location:
@@ -119,10 +99,10 @@ class StockLocation(models.Model):
                     time.sleep(5)
                     self.shopify_import_location(shopify_config)
             error_message = "Import Location have following error %s" % e
-            shopify_log_id = error_log_env.sudo().create_update_log(
+            shopify_log_id = error_log_env.create_update_log(
                 shopify_config_id=shopify_config,
                 operation_type='import_location')
-            error_log_env.sudo().create_update_log(
+            error_log_env.create_update_log(
                 shop_error_log_id=shopify_log_id,
                 shopify_log_line_dict={'error': [
                     {'error_message': error_message}]})

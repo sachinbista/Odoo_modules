@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zpl_label,access_zpl_label,model_zpl_label,base.group_user,1,1,1,1
+access_label_field,access_label_field,model_label_field,base.group_user,1,1,1,1
+access_print_wizard,access_print_wizard,model_print_wizard,base.group_user,1,1,1,1
+access_print_wizard_print_count,access_print_wizard_print_count,model_print_wizard_print_count,base.group_user,1,1,1,1

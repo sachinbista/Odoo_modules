@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_accept_blue_id" model="ir.cron">
+        <field name="name">Accept blue settled transaction</field>
+        <field name="model_id" ref="model_accept_blue_line"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_accept_blue_settle_transaction()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+</odoo>

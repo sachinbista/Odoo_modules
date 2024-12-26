@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ask_scrap_wizard" model="ir.ui.view">
+        <field name="name">ask.scrap.wizard.form</field>
+        <field name="model">ask.scrap.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Ask for Scrap?">
+                <p>Do you want to scrap the remaining quantities?</p>
+                <!-- <sheet>
+                    <group>
+                        <field name="product_id" invisible="1"/>
+                        <field name="lot_id" invisible="1"/>
+                        <field name="qty_available" invisible="1"/>
+                    </group>
+                </sheet> -->
+                <footer>
+                    <button name="yes" string="Yes" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="No" class="btn-secondary" name="cancel" type="object" data-hotkey="z" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

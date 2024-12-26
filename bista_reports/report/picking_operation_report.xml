@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="web.external_layout_standard">
+        <t t-if="info">
+            <t t-if="info._name == 'stock.picking'">
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                </div>
+
+                <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+                     t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                     t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                     t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <div class="pt-5">
+                        <!-- This div ensures that the address is not cropped by the header. -->
+                        <t t-call="web.address_layout"/>
+                    </div>
+                    <t t-out="0"/>
+                </div>
+
+                <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                    <div style="text-align: center;float: right;">
+                        <t t-if="info.picking_type_code != 'outgoing'">
+                            <div>
+                                <t t-if="info.qr_code_out">
+                                    <img t-attf-src="data:image/png;base64,{{ info.qr_code_out.decode()}}"
+                                         style="max-height: 100px; max-width: 100px;"/>
+                                </t>
+                            </div>
+                            <t t-foreach="info.sale_id.picking_ids" t-as="picking">
+                                <t t-if="picking.picking_type_code == 'outgoing' and not picking.state in ['cancel', 'done']">
+                                    <span t-field="picking.name"/>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+        <t t-if="not info">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;"
+                             alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-end" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6" name="company_address">
+                        <ul class="list-unstyled">
+                            <li t-if="company.is_company_details_empty">
+                                <t t-esc="company.partner_id"
+                                   t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                            </li>
+                            <li t-else="">
+                                <t t-esc="company.company_details"/>
+                            </li>
+                            <li t-if="forced_vat">
+                                <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                <span t-esc="forced_vat"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+                 t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <div class="pt-5">
+                    <!-- This div ensures that the address is not cropped by the header. -->
+                    <t t-call="web.address_layout"/>
+                </div>
+                <t t-out="0"/>
+            </div>
+
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <div t-field="company.report_footer"/>
+                    </ul>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                    <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                        <span t-field="o.name"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="print_picking_operation_report">
+        <t t-call="web.external_layout">
+            <t t-set="info" t-value="info.with_context(lang=info.partner_id.lang)"/>
+            <div class="page">
+                <table style="width:100%">
+                    <tr style="border:solid black;width:100%;">
+                        <td width="33%"
+                            style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                            <div class="row">
+                                <div class="col-3 mb4" style="padding-left:5px">
+                                    <img t-if="info.company_id.logo"
+                                         t-att-src="image_data_uri(info.company_id.logo)"
+                                         alt="Logo"
+                                         style="max-height: 30px;"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-9" name="company_address"
+                                     style="text-align: left; margin-top:10px; font-size: 12px;
+                                     padding-left:30px;">
+                                    <t t-if="info.company_id.is_company_details_empty">
+                                        <t t-esc="info.company_id.partner_id"
+                                           t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="info.company_id.company_details"/>
+                                    </t>
+                                    <t t-if="forced_vat">
+                                        <t t-esc="info.company_id.country_id.vat_label or 'Tax ID'"/>:
+                                        <span t-esc="forced_vat"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="33%"
+                            style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                            <div>
+                                <div>
+                                    <span style="padding-left:70px">Sales Order #</span>
+                                </div>
+                                <div>
+                                    <span t-if="info.origin" style="padding-left:85px;">
+                                        <t t-esc="info.origin"/>
+
+                                    </span>
+                                </div>
+                                <br/>
+                                <div>
+                                    <span style="padding-left:70px">Customer PO #</span>
+                                </div>
+                                <div>
+                                    <span t-if="info.sale_id.customer_po" style="padding-left:85px;">
+                                        <t t-esc="info.sale_id.customer_po"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="50%"
+                            style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                            <!--                        <td width="50%">-->
+
+                            <div style="margin-left:90px; text-align: center;">
+
+                                <div>
+                                    <span style="font-size: 20px;">Picking Sheet</span>
+                                </div>
+                                <t t-if="info.picking_type_code != 'outgoing'">
+                                    <div>
+                                        <t t-if="info.qr_code_pick">
+                                            <img t-attf-src="data:image/png;base64,{{ info.qr_code_pick.decode()}}"
+                                                 style="max-height: 100px; max-width: 100px;"/>
+                                        </t>
+                                    </div>
+                                    <t t-set="internal_pickings"
+                                       t-value="info.sale_id.picking_ids.filtered(lambda p: p.picking_type_code == 'internal' and not p.backorder_id and not p.state == 'cancel')"/>
+                                    <t t-if="len(internal_pickings) > 1">
+                                        <t t-if="info.picking_type_code == 'internal'">
+                                            <span t-field="info.name"/>
+                                            <div style="background-color: #dcdcdc; padding: 5px; font-weight: 600;">
+                                                <t t-esc="len(internal_pickings)"/>
+                                                Pickings
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="internal_pickings[0].name"/>
+                                            <span style="background-color: #dcdcdc; padding: 5px; font-weight: 600;">
+                                                <t t-esc="len(internal_pickings)"/>
+                                                Pickings
+                                            </span>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-if="info.picking_type_code == 'internal'">
+                                            <span t-field="info.name"/>
+                                        </t>
+                                    </t>
+                                </t>
+                                <t t-if="info.picking_type_code == 'outgoing'">
+                                    <div>
+                                        <t t-if="info.qr_code_out">
+                                            <img t-attf-src="data:image/png;base64,{{ info.qr_code_out.decode()}}"
+                                                 style="max-height: 100px; max-width: 100px;"/>
+                                        </t>
+                                    </div>
+                                    <t t-foreach="info.sale_id.picking_ids" t-as="picking">
+                                        <t t-if="picking.picking_type_code == 'outgoing' and not picking.state in ['cancel', 'done']">
+                                            <span t-field="picking.name"/>
+                                            <br/>
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table>
+                    <td width="50%"
+                        style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                        <div style="padding-left:80px; text-align: left;">
+                            <span>Bill To:</span>
+                            <br/>
+                            <div style="text-align: left;">
+                                <span t-if="info.sale_id.partner_invoice_id">
+                                    <t t-esc="info.sale_id.partner_invoice_id.name"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_invoice_id.street or info.sale_id.partner_invoice_id.street2">
+                                    <t t-esc="info.sale_id.partner_invoice_id.street"/>
+                                    <t t-esc="info.sale_id.partner_invoice_id.street2"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_invoice_id.city or info.sale_id.partner_invoice_id.state_id.name or info.sale_id.partner_invoice_id.zip">
+                                    <t t-esc="info.sale_id.partner_invoice_id.city"/>
+                                    <t t-esc="info.sale_id.partner_invoice_id.state_id.name"/>
+                                    <t t-esc="info.sale_id.partner_invoice_id.zip"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_invoice_id.country_id.name">
+                                    <t t-esc="info.sale_id.partner_invoice_id.country_id.name"/>
+                                    <br/>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="50%"
+                        style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                        <div style="padding-left:80px; text-align: left;">
+                            <span>Ship To:</span>
+                            <br/>
+                            <div style="text-align: left;">
+                                <span t-if="info.sale_id.partner_shipping_id">
+                                    <t t-esc="info.sale_id.partner_shipping_id.name"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_shipping_id.street or info.sale_id.partner_shipping_id.street2">
+                                    <t t-esc="info.sale_id.partner_shipping_id.street"/>
+                                    <t t-esc="info.sale_id.partner_shipping_id.street2"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_shipping_id.city or info.sale_id.partner_shipping_id.state_id.name or info.sale_id.partner_shipping_id.zip">
+                                    <t t-esc="info.sale_id.partner_shipping_id.city"/>
+                                    <t t-esc="info.sale_id.partner_shipping_id.state_id.name"/>
+                                    <t t-esc="info.sale_id.partner_shipping_id.zip"/>
+                                    <br/>
+                                </span>
+                                <span t-if="info.sale_id.partner_shipping_id.country_id.name">
+                                    <t t-esc="info.sale_id.partner_shipping_id.country_id.name"/>
+                                    <br/>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </table>
+                <br/>
+
+                <table style="border-collapse: collapse;border:1px solid black; width:100%">
+                    <thead style="border:1px solid black; background-color:black; color: white;">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">ShipVIA</th>
+                            <th scope="col">Incoterm</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Terms</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <tr class="" style="text-align:center;">
+                            <td class="text-center">
+                                <span t-field="info.scheduled_date" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="info.sale_id.ship_via"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="info.sale_id.incoterm"/>
+                            </td>
+                            <td cclass="text-center">
+                                <span t-field="info.weight">lbs</span>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="info.sale_id.payment_term_id.name"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="border-collapse: collapse;border:1px solid black; width:100%">
+                    <thead style="border:1px solid black; background-color:black; color: white;">
+                        <tr>
+                            <th scope="col">Required Date</th>
+                            <th scope="col">Sales Person</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <tr class="" style="text-align:center;">
+                            <td class="text-center">
+                                <span t-field="info.scheduled_date" t-options='{"widget": "date"}'/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="info.sale_id.user_id.name"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="border:1px solid black; border-collapse: collapse; width:100%">
+                    <thead style="border:1px solid black; background-color:black; color: white;">
+                        <tr>
+                            <th class="text-center">Product</th>
+                            <th class="text-center">From</th>
+                            <th class="text-center">UOM</th>
+                            <th class="text-center">QTY Req.</th>
+                            <th class="text-center">Reserved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<t t-set="taken_soln" t-value="[]"/>
+
+                        <t t-foreach="info.move_ids" t-as="line">
+                            <tr style="text-align:center;">
+                                <td>
+                                    <span t-field="line.product_id.default_code"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.location_reserve_name()"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.product_uom"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.product_uom_qty"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line.reserved_availability"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="info.get_service_type_product(line, taken_soln)"
+                                t-as="soln">
+                                <t t-set="taken_soln" t-value="taken_soln + [soln.id]" />
+                                <tr style="text-align:center;">
+                                <td>
+                               <i>     <span t-field="soln.name"/> </i>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <br/>
+                <div>
+                    <span t-if="info.sale_id.partner_id.picking_notes">
+                        <t t-esc="info.sale_id.partner_id.picking_notes"/>
+                        <br/>
+                    </span>
+                    <br/>
+                    <p t-field="info.sale_id.note" name="order_note"/>
+                        <p t-if="not is_html_empty(info.sale_id.payment_term_id.note)">
+<!--                    <span t-field="info.sale_id.payment_term_id.note"/>-->
+                </p>
+                </div>
+            </div>
+
+            <t t-set="temp" t-value="info.mark_printed_true()"></t>
+
+        </t>
+    </template>
+
+    <template id="report_picking_operation_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="info">
+                <t t-call="bista_reports.print_picking_operation_report" t-lang="info.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

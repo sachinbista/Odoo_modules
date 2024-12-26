@@ -6,7 +6,7 @@
             <field name="code">shopify.error.log</field>
             <field name="prefix">LOG-</field>
             <field name="padding">5</field>
-            <field name="company_id" eval="False" />
+            <field name="company_id" eval="False"/>
         </record>
 
         <record id="seq_shopify_queue_job" model="ir.sequence">
@@ -16,7 +16,7 @@
             <field name="padding">5</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
-            <field name="company_id" eval="False" />
+            <field name="company_id" eval="False"/>
         </record>
 
         <record id="seq_shopify_financial_workflow" model="ir.sequence">
@@ -26,7 +26,7 @@
             <field name="padding">5</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
-            <field name="company_id" eval="False" />
+            <field name="company_id" eval="False"/>
         </record>
 
         <record id="seq_shopify_payouts" model="ir.sequence">
@@ -36,7 +36,18 @@
             <field name="padding">5</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
-            <field name="company_id" eval="False" />
+            <field name="company_id" eval="False"/>
         </record>
+
+        <record id="seq_shopify_inventory_queue_job" model="ir.sequence">
+            <field name="name">Shopify Inventory vQueue Job</field>
+            <field name="code">shopify.inventory.queue.job</field>
+            <field name="prefix">QI-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
     </data>
 </odoo>

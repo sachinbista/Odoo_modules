@@ -8,7 +8,7 @@
 import pprint
 from .. import shopify
 import urllib.parse as urlparse
-from odoo import fields, models, api, tools
+from odoo import fields, models, tools
 from odoo.exceptions import AccessError, ValidationError
 from datetime import datetime, timedelta
 
@@ -30,16 +30,10 @@ class Partner(models.Model):
                                         copy=False)
 
     def create_update_shopify_customers(self, customer_dict, shopify_config_id):
-        """
-           This method will create update shopify customers
-           at odoo if customer exists on odoo else it will
-           update the address.
-           @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-       """
-        tags_env = self.env['res.partner.category'].sudo()
-        state_env = self.env['res.country.state'].sudo()
-        country_env = self.env['res.country'].sudo()
-        error_log_env = self.env['shopify.error.log'].sudo()
+        tags_env = self.env['res.partner.category']
+        state_env = self.env['res.country.state']
+        country_env = self.env['res.country']
+        error_log_env = self.env['shopify.error.log']
         shop_error_log_id = self.env.context.get('shopify_log_id', False)
         queue_line_id = self.env.context.get('queue_line_id', False)
         try:
@@ -54,7 +48,7 @@ class Partner(models.Model):
             elif cust_data.get('first_name', '') or \
                     cust_data.get('last_name', ''):
                 cust_name = cust_data.get('first_name', '') or \
-                    cust_data.get('last_name', '')
+                            cust_data.get('last_name', '')
             else:
                 cust_name = cust_data.get('email', '')
             if cust_name in (False, None, ''):
@@ -68,8 +62,8 @@ class Partner(models.Model):
                 'accept_email_marketing':
                     cust_data.get('accepts_marketing') or False,
                 'property_account_receivable_id': shopify_config_id.default_rec_account_id.id,
-                # 'property_account_payable_id': shopify_config_id.default_pay_account_id.id
-                'property_account_payable_id': shopify_config_id.default_tax_account_id.id
+                'property_account_payable_id' : shopify_config_id.default_pay_account_id.id,
+                'is_automatically_created': True
             })
             tags = cust_data.get('tags') and cust_data.get(
                 'tags').split(',') or []
@@ -142,11 +136,11 @@ class Partner(models.Model):
                     if address.get('first_name', '') and \
                             address.get('last_name', False):
                         cust_name = address.get('first_name', '') + ' ' + \
-                            address.get('last_name', '')
+                                    address.get('last_name', '')
                     elif address.get('first_name', '') or \
                             address.get('last_name', ''):
                         cust_name = address.get('first_name', '') or \
-                            address.get('last_name', '')
+                                    address.get('last_name', '')
                     else:
                         cust_name = cust_vals.get('name', '')
                     if cust_name in (False, None, ''):
@@ -211,11 +205,10 @@ class Partner(models.Model):
             #         {'error_message': "Import Customer %s Successfully" % cust_name,
             #          'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
             if queue_line_id:
-                queue_line_id.update(
-                    {'state': 'processed', 'partner_id': partner.id})
+                queue_line_id.update({'state': 'processed', 'partner_id': partner.id})
         except Exception as e:
             error_message = 'Failed to import Customers : {}'.format(e)
-            error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+            error_log_env.create_update_log(shop_error_log_id=shop_error_log_id,
                                             shopify_log_line_dict={'error': [
                                                 {'error_message': error_message,
                                                  'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
@@ -223,18 +216,15 @@ class Partner(models.Model):
             pass
 
     def fetch_all_shopify_customers(self, last_import_customer_date):
-        """
-            Fetch shopify customers from the shopify to odoo
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
+        """return: shopify customer list
+        TODO: fetch customer based on since_id"""
         try:
             shopify_customer_list = []
             page_info = False
             while 1:
                 if last_import_customer_date:
                     # fixed issued fetch customer delay one minutes.
-                    customer_date = last_import_customer_date - \
-                        timedelta(minutes=1)
+                    customer_date = last_import_customer_date - timedelta(minutes=1)
                     if page_info:
                         page_wise_customer_list = shopify.Customer().find(
                             limit=250, page_info=page_info)
@@ -252,7 +242,7 @@ class Partner(models.Model):
                 page_url = page_wise_customer_list.next_page_url
                 parsed = urlparse.parse_qs(page_url)
                 page_info = parsed.get('page_info', False) and \
-                    parsed.get('page_info', False)[0] or False
+                            parsed.get('page_info', False)[0] or False
                 shopify_customer_list = page_wise_customer_list + shopify_customer_list
                 if not page_info:
                     break
@@ -262,46 +252,33 @@ class Partner(models.Model):
             raise AccessError(e)
 
     def shopify_import_customer_by_ids(self, shopify_config,
-                                       shopify_customer_by_ids=False, queue_line=None):
-        """
-            This method is used to create the shopify
-            customers in odoo based on entered IDS.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
-        res_partner_obj = self.env['res.partner'].sudo()
+                                      shopify_customer_by_ids=False, queue_line=None):
+        # TODO: Handle multiple customer ids
+        # customer_list = []
+        # for customer in ''.join(shopify_customer_by_ids.split()).split(','):
+        #     customer_list.append(shopify.Customer().find(customer))
+        res_partner_obj = self.env['res.partner']
         shopify_config.check_connection()
-        # customer_list = shopify.Customer().find(
-        #     customer_id=str(shopify_customer_by_ids))
+        # customer_list = shopify.Customer().find(customer_id=shopify_customer_by_ids)
         customer_list = shopify.Customer().find(ids=str(shopify_customer_by_ids))
         shopify_log_id = self._context.get('shopify_log_id')
         for shopify_customer in customer_list:
             shopify_customer_dict = shopify_customer.to_dict()
             res_partner_obj.with_context(queue_line_id=queue_line,
-                                         shopify_log_id=queue_line and queue_line.shop_queue_id.shopify_log_id
-                                         or shopify_log_id).create_update_shopify_customers(
-                shopify_customer_dict, shopify_config)
+                                         shopify_log_id=queue_line and queue_line.shop_queue_id.shopify_log_id \
+                                        or shopify_log_id).create_update_shopify_customers(
+                                            shopify_customer_dict, shopify_config)
 
     def shopify_import_customers(self, shopify_config):
-        """
-            This method is used to create queue and queue line for customers.
-            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd.
-        """
-        res_partner = self.env['res.partner'].sudo()
+        """This method is used to create queue and queue line for customers"""
         shopify_config.check_connection()
         last_import_customer_date = shopify_config.last_import_customer_date or False
-        shopify_customer_list = self.fetch_all_shopify_customers(
-            last_import_customer_date)
+        shopify_customer_list = self.fetch_all_shopify_customers(last_import_customer_date)
         if shopify_customer_list:
-            for shopify_customers in tools.split_every(50, shopify_customer_list):
-                shop_queue_id = shopify_config.action_create_queue(
-                    'import_customer')
+            for shopify_customers in tools.split_every(250, shopify_customer_list):
+                shop_queue_id = shopify_config.action_create_queue('import_customer')
                 for customer in shopify_customers:
                     customer_dict = customer.to_dict()
-                    shopify_customer_id = customer_dict.get('id') or ''
-                    existing_customer = res_partner.search(
-                        [('shopify_customer_id', '=', shopify_customer_id),('active','=',False)])
-                    if existing_customer:
-                        continue
                     name = "%s %s" % (customer_dict.get('first_name', ''),
                                       customer_dict.get('last_name', ''))
                     line_vals = {
@@ -314,80 +291,3 @@ class Partner(models.Model):
                     shop_queue_id.action_create_queue_lines(line_vals)
         shopify_config.last_import_customer_date = fields.Datetime.now()
         return True
-
-    def fetch_all_shopify_customers_by_date_range(self, cust_from_date, cust_to_date):
-        """return: shopify customer list
-        TODO: fetch customer based on since_id"""
-        try:
-            shopify_customer_list = []
-            page_info = False
-            while 1:
-                if cust_from_date and cust_to_date:
-                    if page_info:
-                        page_wise_customer_list = shopify.Customer().find(
-                            limit=250, page_info=page_info)
-                    else:
-                        page_wise_customer_list = shopify.Customer().find(
-                            updated_at_max = cust_to_date,
-                            updated_at_min = cust_from_date,
-                            limit=250)
-                else:
-                    if page_info:
-                        page_wise_customer_list = shopify.Customer().find(
-                            limit=250, page_info=page_info)
-                    else:
-                        page_wise_customer_list = shopify.Customer().find(
-                            limit=250)
-                page_url = page_wise_customer_list.next_page_url
-                parsed = urlparse.parse_qs(page_url)
-                page_info = parsed.get('page_info', False) and \
-                    parsed.get('page_info', False)[0] or False
-                shopify_customer_list = page_wise_customer_list + shopify_customer_list
-                if not page_info:
-                    break
-            return shopify_customer_list
-        except Exception as e:
-            # TODO: Raise error log
-            raise AccessError(e)
-
-    def shopify_import_customer_by_date_range(self, shopify_config, customer_from_date, customer_to_date):
-        """This method is used to create queue and queue line for customers"""
-        res_partner = self.env['res.partner'].sudo()
-        shopify_config.check_connection()
-        is_customer_by_date_range = self.env.context.get(
-            'is_customer_by_date_range', False)
-        cust_from_date = customer_from_date or fields.Datetime.now()
-        cust_to_date = customer_to_date or fields.Datetime.now()
-        shopify_customer_list = self.fetch_all_shopify_customers_by_date_range(
-            cust_from_date, cust_to_date)
-        if shopify_customer_list:
-            for shopify_customers in tools.split_every(50, shopify_customer_list):
-                shop_queue_id = shopify_config.action_create_queue(
-                    'import_customer')
-                for customer in shopify_customers:
-                    customer_dict = customer.to_dict()
-                    shopify_customer_id = customer_dict.get('id') or ''
-                    existing_customer = res_partner.search(
-                        [('shopify_customer_id', '=', shopify_customer_id),('active','=',False)])
-                    if existing_customer:
-                        continue
-                    name = "%s %s" % (customer_dict.get('first_name', ''),
-                                      customer_dict.get('last_name', ''))
-                    line_vals = {
-                        'shopify_id': customer_dict.get('id') or '',
-                        'state': 'draft',
-                        'name': name and name.strip(),
-                        'record_data': pprint.pformat(customer_dict),
-                        'shopify_config_id': shopify_config.id,
-                    }
-                    shop_queue_id.action_create_queue_lines(line_vals)
-        if not is_customer_by_date_range:
-            shopify_config.last_import_customer_date = fields.Datetime.now()
-        return True
-
-    @api.model_create_multi
-    def create(self,vals_list):
-        for vals in vals_list:
-            if vals.get('shopify_customer_id'):
-                vals['active'] = False
-        return super().create(vals_list)

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="fabric_content_form_view" model="ir.ui.view">
+            <field name="name">fabric.content.form</field>
+            <field name="model">fabric.content</field>
+            <field name="arch" type="xml">
+                <form string="Fabric Content">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fabric_content_tree_view" model="ir.ui.view">
+            <field name="name">fabric.content.tree</field>
+            <field name="model">fabric.content</field>
+            <field name="arch" type="xml">
+                <tree string="Fabric Content">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fabric_content_act_window" model="ir.actions.act_window">
+            <field name="name">Fabric Content</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fabric.content</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Fabric Content.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Fabric Info"
+                  id="fabric_info_menu"
+                  parent="stock.menu_stock_config_settings"
+                  />
+        <menuitem name="Fabric Content"
+                  id="fabric_content_sub_menu"
+                  parent="bista_inventory_report.fabric_info_menu"
+                  action="fabric_content_act_window"/>
+
+    </data>
+</odoo>

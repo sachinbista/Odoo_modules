@@ -11,7 +11,7 @@ class ResUser(models.Model):
     @api.onchange('read_only')
     def set_read_only_user(self):
         ir_model_data = self.env['ir.model.data']
-        read_only_grp_id = self.env['ir.model.data']._xmlid_lookup('generic_read_only_user_app.group_read_only_user')[1]
+        read_only_grp_id = self.env['ir.model.data']._xmlid_lookup('generic_read_only_user_app.group_read_only_user')[2]
         if not self.read_only:
             self.read_only = True
             group_list = []
@@ -39,6 +39,8 @@ class IrModelAccess(models.Model):
             if mode != 'read':
                 return False
         return result
+
+
 
 class IrRule(models.Model):
     _inherit = 'ir.rule'

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='receipt.cashier']" position="replace">
+        </xpath>
+
+<!--        <xpath expr="//div[hasclass('pos-receipt')]//div[hasclass('pos-receipt-order-data')]//t[@t-else='']" position="after">-->
+<!--            <div><span>ALL SALES FINAL</span></div>-->
+<!--        </xpath>-->
+
+         <xpath expr="//div[hasclass('pos-receipt')]//div[hasclass('pos-receipt-order-data')]//t[@t-else='']" position="after">
+            <div><span style="font-weight: bold; font-size: 18px;">ALL SALES ARE FINAL</span></div>
+        </xpath>
+
+    </t>
+</templates>

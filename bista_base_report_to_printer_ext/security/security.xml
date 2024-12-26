@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<odoo>
+        <record id="base_printer_group" model="ir.rule">
+            <field name="name">User own printer</field>
+            <field name="model_id" ref="model_printing_printer"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="domain_force">[
+                '|',
+                ('user_ids', '=', False),
+                ('user_ids', '=', user.id),
+                ]
+            </field>
+        </record>
+</odoo>

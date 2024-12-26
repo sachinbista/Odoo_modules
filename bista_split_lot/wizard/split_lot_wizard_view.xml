@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <record id="split_lot_wizard_form" model="ir.ui.view">
+            <field name="name">split.lot.wizard.form</field>
+            <field name="model">split.lot.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Split Lot">
+                    <sheet>
+                        <group>
+                            <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="lot_id" options="{'no_create': True}" context="{'custom_split': True}"/>
+                            <field name="quantity" readonly="1" invisible="1"/>
+                            <field name="qty_available" readonly="1"/>
+                            <field name="dest_location_id"
+                                options="{'no_open': True, 'no_create': True}"
+                                required="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Split Lot Ids" name="split_lot_ids">
+                                <field name="split_lot_ids">
+                                    <tree editable="bottom">
+                                        <field name="lot_quantity" width="20%"/>
+                                        <field name="multiple" width="20%"/>
+                                        <field name="is_scrap_line"
+                                            width="20%"/>
+                                        <field name="split_lot_scrap_location_id"
+                                            domain="[('scrap_location','=', True)]"
+                                            attrs="{'readonly': [('is_scrap_line', '=', False)],'required': [('is_scrap_line', '=', True)]}"
+                                            width="20%"/>
+                                        <field name="total_quantity" readonly="1" width="20%"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button string="Split Lot" name="split_lot" type="object" class="oe_highlight"/>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="split_lot_wizard_form_action" model="ir.actions.act_window">
+            <field name="name">Split Lot Wizard</field>
+            <field name="res_model">split.lot.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_id" ref="split_lot_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="split_wizard_lot_menu"
+                  name="Split Lot"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  action="split_lot_wizard_form_action"/>
+    </data>
+</odoo>

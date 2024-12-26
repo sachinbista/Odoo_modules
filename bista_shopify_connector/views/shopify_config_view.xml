@@ -1,267 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_shopify_config_form" model="ir.ui.view">
+        <record id="view_shopify_config_form" model='ir.ui.view'>
             <field name="name">view.shopify.config.form</field>
             <field name="model">shopify.config</field>
             <field name="arch" type="xml">
                 <form name="shopify_config">
                     <header>
-                        <button class="oe_highlight" groups="bista_shopify_connector.group_shopify_admin" invisible="active != True" name="check_connection" string="Check Connection" type="object"/>
-                        <button class="oe_highlight" confirm="Are you sure you want to set to draft?" groups="bista_shopify_connector.group_shopify_admin" invisible="state != 'success'" name="reset_to_draft" string="Set to Draft" type="object"/>
-                        <field name="state" statusbar_visible="draft,success,fail" widget="statusbar"/>
+                        <button name="check_connection" type="object"
+                                class="oe_highlight" string="Check Connection"
+                                groups="bista_shopify_connector.group_shopify_admin"
+                                attrs="{'invisible': [('active','!=',True)]}"/>
+                        <button name="reset_to_draft" type="object"
+                                class="oe_highlight" string="Set to Draft"
+                                attrs="{'invisible': [('state','!=','success')]}"
+                                confirm="Are you sure you want to set to draft?"
+                                groups="bista_shopify_connector.group_shopify_admin"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,success,fail"/>
                     </header>
                     <sheet>
-                        <field invisible="1" name="active"/>
+                        <field name="active" invisible="1"/>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-user" invisible="shopify_customer_count &lt;= 0" name="action_shopify_customer" type="object">
-                                <field name="shopify_customer_count" string="Customers" widget="statinfo"/>
+                            <button name="action_shopify_customer" type="object"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    icon="fa-user" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_customer_count', '&lt;=', 0)]}">
+                                <field string="Customers" name="shopify_customer_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" icon="fa-product-hunt" invisible="shopify_product_count &lt;= 0" name="action_shopify_product" type="object">
-                                <field name="shopify_product_count" string="Product" widget="statinfo"/>
+                            <button name="action_shopify_product"
+                                    type="object"
+                                    icon="fa-product-hunt" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_product_count', '&lt;=', 0)]}">
+                                <field string="Product" name="shopify_product_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" icon="fa-usd" invisible="shopify_order_count &lt;= 0" name="action_shopify_order" type="object">
-                                <field name="shopify_order_count" string="Orders" widget="statinfo"/>
+                            <button name="action_shopify_order"
+                                    type="object"
+                                    icon="fa-usd" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_order_count', '&lt;=', 0)]}">
+                                <field string="Orders" name="shopify_order_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" icon="fa-pencil-square-o" invisible="shopify_invoice_count &lt;= 0" name="action_shopify_invoice" type="object">
-                                <field name="shopify_invoice_count" string="Invoice" widget="statinfo"/>
+                            <button name="action_shopify_invoice"
+                                    type="object"
+                                    icon="fa-pencil-square-o" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_invoice_count', '&lt;=', 0)]}">
+                                <field string="Invoice" name="shopify_invoice_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" icon="fa-credit-card" invisible="shopify_credit_note_count &lt;= 0" name="action_shopify_credit_note" type="object">
-                                <field name="shopify_credit_note_count" string="Credit Note" widget="statinfo"/>
+                            <button name="action_shopify_credit_note"
+                                    type="object"
+                                    icon="fa-credit-card" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_credit_note_count', '&lt;=', 0)]}">
+                                <field string="Credit Note" name="shopify_credit_note_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" icon="fa-shopping-cart" invisible="shopify_delivery_count &lt;= 0" name="action_shopify_delivery" type="object">
-                                <field name="shopify_delivery_count" string="Shipment" widget="statinfo"/>
+                            <button name="action_shopify_delivery"
+                                    type="object"
+                                    icon="fa-shopping-cart" class="oe_stat_button"
+                                    attrs="{'invisible': [('shopify_delivery_count', '&lt;=', 0)]}">
+                                <field string="Shipment" name="shopify_delivery_count"
+                                       widget="statinfo"/>
                             </button>
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-tasks" invisible="active == False" name="action_shopify_queue_operations" type="object">
-                                <span class="o_stat_text">
-                                    Queue
-                                </span>
+                            <button type="object" name="action_shopify_queue_operations"
+                                    class="oe_stat_button" icon="fa-tasks"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text">Queue</span>
                             </button>
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-history" invisible="active == False" name="action_shopify_log_operations" type="object">
-                                <span class="o_stat_text">
-                                    Error log
-                                </span>
+                            <button type="object" name="action_shopify_log_operations"
+                                    class="oe_stat_button" icon="fa-history"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text">Error log</span>
                             </button>
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-location-arrow" invisible="active == False" name="action_active_locations" type="object">
-                                <span class="o_stat_text">
-                                    Locations
-                                </span>
+                            <button type="object" name="action_active_locations"
+                                    class="oe_stat_button" icon="fa-location-arrow"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text">Locations</span>
                             </button>
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-wrench" invisible="active == False" name="schedulers_configuration_action" type="object">
-                                <span class="o_stat_text">
-                                    Schedulers
-                                </span>
+                            <button type="object" name="schedulers_configuration_action"
+                                    class="oe_stat_button" icon="fa-wrench"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text">Schedulers</span>
                             </button>
-                            <button class="oe_stat_button" groups="bista_shopify_connector.group_shopify_admin" icon="fa-play-circle" invisible="active == False" name="action_active_schedulers" type="object">
-                                <span class="o_stat_text">
-                                    Active Schedulers
-                                </span>
+                            <button type="object" name="action_active_schedulers"
+                                    class="oe_stat_button" icon="fa-play-circle"
+                                    groups="bista_shopify_connector.group_shopify_admin"
+                                    attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text">Active Schedulers</span>
                             </button>
-                            <button class="oe_stat_button" icon="fa-bell" invisible="active == False" name="shopify_archive_active" type="object">
-                                <span class="o_stat_text" style="color:#5fdba7">
-                                    Active
-                                </span>
+                            <button class="oe_stat_button"
+                                    name="shopify_archive_active" icon="fa-bell"
+                                    type="object" attrs="{'invisible': [('active','=',False)]}">
+                                <span class="o_stat_text" style="color:#5fdba7">Active</span>
                             </button>
-                            <button class="oe_stat_button" icon="fa-bell-slash" invisible="active == True" name="shopify_archive_active" type="object">
-                                <span class="o_stat_text" style="color:#e2d0a8">
-                                    Archived
-                                </span>
+                            <button class="oe_stat_button"
+                                    name="shopify_archive_active" icon="fa-bell-slash"
+                                    type="object" attrs="{'invisible': [('active','=',True)]}">
+                                <span class="o_stat_text" style="color:#e2d0a8">Archived</span>
                             </button>
                         </div>
-                        <label class="oe_edit_only" for="name"/>
+                        <label for="name" class="oe_edit_only"/>
                         <h1>
-                            <field class="oe_inline" name="name" readonly="state == 'success'"/>
+                            <field name="name" class="oe_inline"
+                                   attrs="{'readonly': [('state','=','success')]}"/>
                         </h1>
                         <group name="shopify_credentials" string="Shopify Credentials">
                             <group>
-                                <field name="shop_url" placeholder="e.g. https://my-shop.myshopify.com" readonly="state == 'success'"/>
-                                <field name="api_key" readonly="state == 'success'"/>
-                                <field name="is_create_invoice"/>
+                                <field name="shop_url"
+                                       placeholder="e.g. https://my-shop.myshopify.com"
+                                       attrs="{'readonly': [('state','=','success')]}"/>
+                                <field name="api_key"
+                                       attrs="{'readonly': [('state','=','success')]}"/>
+                                <field name="is_sync"/>
                             </group>
                             <group>
-                                <field name="password" password="1" readonly="state == 'success'"/>
-                                <field name="default_company_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="state == 'success'"/>
+                                <field name="password" password="1"
+                                       attrs="{'readonly': [('state','=','success')]}"/>
+                                <field name="default_company_id"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                       attrs="{'readonly': [('state','=','success')]}"/>
+                                <field name="shopify_location_id"/>
                             </group>
                         </group>
                         <br/>
                         <notebook>
-                            <page invisible="state != 'success'" name="shopify_workflow" string="Workflow">
-                                <!-- <field name="workflow_line_ids"><tree name="Shopify Workflow Lines" editable="bottom">
+                            <page string="Workflow" name="shopify_workflow"
+                                  attrs="{'invisible': [('state','!=','success')]}">
+                                <!-- <field name="workflow_line_ids">
+                                    <tree name="Shopify Workflow Lines" editable="bottom">
                                          <field name="pay_gateway_id"/>
                                          <field name="auto_workflow_id"/>
                                          <field name="financial_workflow_id"/>
-                                    </tree></field> -->
-                                <field name="financial_workflow_ids"><tree editable="bottom" string="Shopify Financial Workflow">
-                                        <field name="name" readonly="1"/>
-                                        <field invisible="1" name="company_id"/>
-                                        <field domain="[('company_id', '=', parent.default_company_id)]" name="auto_workflow_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
-                                        <field name="payment_gateway_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
-                                        <field name="payment_term_id" options="{'no_create': True, 'no_create_edit': True}" required="1"/>
+                                    </tree>
+                                </field> -->
+                                 <field name="financial_workflow_ids">
+                                    <tree string="Shopify Financial Workflow" editable="bottom">
+                                         <field name="name" readonly="1"/>
+                                         <field name="company_id" invisible="1"/>
+                                        <field name="auto_workflow_id" required="1" domain="[('company_id', '=', parent.default_company_id)]" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="payment_gateway_id" required="1" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="payment_term_id" required="1" options="{'no_create': True, 'no_create_edit': True}"/>
                                         <field name="financial_status" required="1"/>
-                                    </tree></field>
+                                    </tree>
+                                </field>
                             </page>
-                            <page invisible="state != 'success'" name="common_config" string="Common Configuration">
+                            <page string="Common Configuration" name="common_config"
+                                  attrs="{'invisible': [('state','!=','success')]}">
                                 <group>
                                     <group>
-                                        <field invisible="is_use_shop_seq != True" name="shopify_order_prefix"/>
-                                        <field name="sale_team_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
-                                        <field name="shipping_product_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
-                                        <field name="disc_product_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
-                                        <field name="warehouse_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
-                                        <field name="is_create_customer" widget="boolean_toggle"/>
-                                        <field name="default_customer_id" options="{'no_create': True, 'no_create_edit': True}" required="state == 'success'"/>
+                                        <field name="shopify_order_prefix"
+                                               attrs="{'invisible': [('is_use_shop_seq','!=', True)]}" invisible="1"/>
+                                        <field name="sale_team_id" attrs="{'required': [('state','=','success')]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="shipping_product_id" attrs="{'required': [('state','=','success')]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="warehouse_id" attrs="{'required': [('state','=','success')]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="is_create_customer"  widget="boolean_toggle"/>
+                                        <field name="default_customer_id" attrs="{'required': [('state','=','success')]}" options="{'no_create': True, 'no_create_edit': True}"/>
                                         <field name="sync_product" widget="radio"/>
-                                        <field name="delivery_channel_id"/>
                                     </group>
                                     <group>
                                         <field name="is_create_product" widget="boolean_toggle"/>
-                                        <field invisible="is_create_product == True" name="shopify_product_id" options="{'no_create': True, 'no_create_edit': True}" required="is_create_product == False"/>
-                                        <field name="is_sync_product_image" widget="boolean_toggle"/>
-                                        <!-- <field name="is_validate_inv_adj"
-                                        widget="boolean_toggle"/> -->
-                                        <field name="is_refund_auto_paid" widget="boolean_toggle"/>
-                                        <field name="is_fetch_unfulfillment_order" widget="boolean_toggle"/>
-                                        <field name="user_id"/>
+                                        <field name="shopify_product_id" attrs="{'invisible':[('is_create_product','=',True)],'required': [('is_create_product','=',False)]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="is_sync_product_image"
+                                               widget="boolean_toggle"/>
+                                        <!-- <field name="is_validate_inv_adj" widget="boolean_toggle"/> -->
+                                        <!--<field name="is_refund_auto_paid" widget="boolean_toggle" invisible="1"/>-->
                                         <field name="is_use_shop_seq" widget="boolean_toggle"/>
                                         <field name="is_risk_order" widget="boolean_toggle"/>
                                         <field name="is_auto_invoice_paid" widget="boolean_toggle"/>
-                                        <field invisible="1" name="is_auto_archive" widget="boolean_toggle"/>
+                                        <field name="is_auto_archive" widget="boolean_toggle" invisible="1"/>
                                     </group>
                                 </group>
                             </page>
-                            <page name="default_config" string="Account Configuration">
+
+                            <page string="Account Configuration" name="default_config">
                                 <group>
                                     <group>
-                                        <!-- <field name="analytic_account_id"
-                                            attrs="{'readonly': [('state','=','success')]}"
-                                            domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
-                                            required="0"
-                                            options="{'no_create': True, 'no_create_edit': True}" /> -->
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="pricelist_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),                                                     ('account_type','=','asset_receivable')]" name="default_rec_account_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>
-                                        <!-- Author : Yogeshwar Chaudhari -->
-                                        <!-- Date    :  21/12/2023-->
-                                        <!-- Payable is meant for vendor only and I don;t 
-                                            think that case would encounter in shopify orders-->
-                                        <!-- <field name="default_pay_account_id"
-                                            required="1"
-                                            attrs="{'readonly': [('state','=','success')]}"
-                                            domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),
+                                        <field name="analytic_account_id"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               required="1"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="pricelist_id" required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="default_rec_account_id"
+                                               required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),
+                                                    ('account_type','=','asset_receivable')]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="default_pay_account_id"
+                                               required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),
                                                     ('account_type','=','liability_payable')]"
-                                            options="{'no_create': True, 'no_create_edit': True,}" /> -->
-                                        <!--<field
-                                        name="credit_note_journal_id" required="1"
+                                               options="{'no_create': True, 'no_create_edit': True,}"/>
+                                        <!--<field name="credit_note_journal_id" required="1"
                                                attrs="{'readonly': [('state','=','success')]}"
                                                domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),
                                                ('type', '=', 'sale')]"
                                                options="{'no_create': True, 'no_create_edit': True,}"/>-->
-                                        <!-- TODO: Made invisible as we need to discuss down-payment
-                                        split workflow for multiple final invoices -->
+                                        <!-- TODO: Made invisible as we need to discuss down-payment split workflow for multiple final invoices -->
                                         <field name="is_pay_unearned_revenue" widget="boolean_toggle"/>
-                                        <field colspan="2" invisible="is_pay_unearned_revenue == False" name="shopify_tag_ids" options="{'no_create': True, 'no_create_edit': True,}" required="is_pay_unearned_revenue == True" widget="many2many_tags"/>
-                                        <field colspan="2" domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" invisible="is_pay_unearned_revenue == False" name="unearned_account_id" options="{'no_create': True, 'no_create_edit': True}" required="is_pay_unearned_revenue == True"/>
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="rounding_diff_account_id" options="{'no_create': True, 'no_create_edit': True,}" readonly="state == 'success'"/>
-                                        <field name="analytic_distribution" widget="many2many_tags"/>
+                                        <field name="shopify_tag_ids" colspan="2"
+                                               attrs="{'invisible': [('is_pay_unearned_revenue','=', False)], 'required': [('is_pay_unearned_revenue','=', True)]}" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True,}"/>
+                                        <field name="unearned_account_id" colspan="2"
+                                               attrs="{'invisible': [('is_pay_unearned_revenue','=', False)], 'required': [('is_pay_unearned_revenue','=', True)]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                         <field name="rounding_diff_account_id"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True,}"/>
                                     </group>
                                     <group>
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="default_payment_term_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>
-                                        <!-- <field name="shopify_bank_journal_id" required="1"
+                                        <field name="default_payment_term_id" required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                       <!-- <field name="shopify_bank_journal_id" required="1"
                                                 attrs="{'readonly': [('state','=','success')]}"
                                                 domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id),
                                                 ('type', '=', 'bank')]"
                                                 options="{'no_create': True, 'no_create_edit': True}"/>-->
                                         <!-- <field name="default_payment_journal" required="1"
                                                 attrs="{'readonly': [('state','=','success')]}"
-                                                domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id), ('type', '=',
-                                        'bank')]"
+                                                domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id), ('type', '=', 'bank')]"
                                                 options="{'no_create': True, 'no_create_edit': True}"/>
                                          <field name="credit_note_journal_id" required="1"
                                                 attrs="{'readonly': [('state','=','success')]}"
                                                 domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
                                                 options="{'no_create': True, 'no_create_edit': True}"/>-->
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="default_tax_account_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>
-                                        <field domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]" name="default_tax_cn_account_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state == 'success'" required="1"/>
+                                        <field name="default_tax_account_id" required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="default_tax_cn_account_id" required="1"
+                                               attrs="{'readonly': [('state','=','success')]}"
+                                               domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
+                                               options="{'no_create': True, 'no_create_edit': True}"/>
+
                                         <field name="shopify_payout_journal_id"
-                                            readonly="state == 'success'"
+                                            attrs="{'readonly': [('state','=','success')]}"
                                             domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
-                                            options="{'no_create': True, 'no_create_edit': True}" />
-                                        <!--<field
-                                        name="stock_location_id" required="0"
+                                            options="{'no_create': True, 'no_create_edit': True}"/>
+
+                                        <!--<field name="stock_location_id" required="0"
                                                attrs="{'readonly': [('state','=','success')]}"
                                                domain="['|', ('company_id', '=', False), ('company_id', '=', default_company_id)]"
                                                options="{'no_create': True, 'no_create_edit': True}"
                                                invisible="1"/>-->
                                     </group>
                                 </group>
+                                <group>
+                                    <!-- <field name="payout_ids" nolabel="1">
+                                        <tree nolabel="1" editable='bottom'>
+                                            <field name="balance_transaction_type" required="1"/>
+                                            <field name="account_id" required="1" options="{'no_create':True,'no_create_edit': True}"/>
+                                        </tree>
+                                    </field> -->
+                                </group>
                             </page>
-                            <page name="payout_config" string="Payout Configuration">
-                                        <field name="payout_ids" nolabel="1">
-                                            <tree nolabel="1" editable='bottom'>
-                                                <field name="balance_transaction_type" required="1"/>
-                                                <field name="account_id" required="1" options="{'no_create':True,'no_create_edit': True}"/>
-                                            </tree>
-                                        </field>
-                                    </page>
-                            <page invisible="state != 'success'" name="webhook" string="Webhooks">
-                                <button class="oe_left oe_highlight" name="configure" type="object">
+                            <page name="webhook" string="Webhooks" attrs="{'invisible': [('state','!=','success')]}">
+                                <button name="configure" type="object" class="oe_left oe_highlight">
                                     <span>
                                         Configure Webhooks
-                                        <i class="fa fa-gears"/>
+                                        <i class="fa fa-gears"></i>
                                     </span>
                                 </button>
-                                <button class="oe_right oe_highlight" name="webhook_delete" type="object">
+                                <button name="webhook_delete" type="object" class="oe_right oe_highlight">
                                     <span>
-                                        <i class="fa fa-trash"/>
+                                        <i class="fa fa-trash"></i>
                                         Delete Webhooks
                                     </span>
                                 </button>
-                                <field context="{'active_test': False}" mode="tree" name="webhook_ids" nolabel="1"/>
+                                <field name="webhook_ids" nolabel="1" mode="tree" context="{'active_test': False}"/>
                                 <div class="alert alert-info" role="alert" style="padding:45px;">
                                     <h5 style="color:black;">
                                         <b>
-                                            <u>
-                                                Information Of Retry Frequency:
-                                            </u>
+                                            <u>Information Of Retry Frequency:</u>
                                         </b>
                                     </h5>
                                     <b style="color:black;">
                                         <ol>
                                             <li>
-                                                As mentioned Shopify has implemented a five-second
-                                                timeout period and a retry period for webhook
-                                                subscriptions.
+                                                As mentioned Shopify has implemented a five-second timeout period and a retry period for webhook subscriptions.
                                             </li>
                                             <li>
-                                                Shopify will wait five seconds for a response for
-                                                each request to a webhook.
+                                                Shopify will wait five seconds for a response for each request to a webhook.
+                                            </li>
+                                             <li>
+                                                If there will be no response, or an error is returned, then Shopify retries the connection 19 times over the next 48 hours.
+                                            </li>
+                                             <li>
+                                                If there are 19 consecutive failures, then the webhook subscription is automatically deleted.
                                             </li>
                                             <li>
-                                                If there will be no response, or an error is
-                                                returned, then Shopify retries the connection 19
-                                                times over the next 48 hours.
+                                                A warning that the subscription will be deleted is sent to the app's emergency developer email address.
                                             </li>
                                             <li>
-                                                If there are 19 consecutive failures, then the
-                                                webhook subscription is automatically deleted.
+                                                To avoid timeouts and errors, consider deferring app processing until after the webhook response has been successfully sent.
                                             </li>
                                             <li>
-                                                A warning that the subscription will be deleted is
-                                                sent to the app's emergency developer email address.
-                                            </li>
-                                            <li>
-                                                To avoid timeouts and errors, consider deferring app
-                                                processing until after the webhook response has been
-                                                successfully sent.
-                                            </li>
-                                            <li>
-                                                If the configuration of Shopify is inactivated then
-                                                the webhooks will be set as "Inactive".
+                                                If the configuration of Shopify is inactivated then the webhooks will be set as "Inactive".
                                             </li>
                                         </ol>
                                     </b>
                                 </div>
                             </page>
-                            <page invisible="state != 'success'" name="sync_date_info" string="Sync Date Info">
+                            <page string="Sync Date Info" name="sync_date_info"
+                                  attrs="{'invisible': [('state','!=','success')]}">
                                 <group>
                                     <group>
                                         <field name="last_import_customer_date"/>
@@ -276,29 +331,12 @@
                                     </group>
                                 </group>
                             </page>
-                            <page name="graphql_url" string="GraphQL Url">
-                                <group>
-                                    <group>
-                                        <field name="graphql_url" readonly="state == 'success'"/>
-                                    </group>
-                                </group>
-                            </page>
                         </notebook>
-                        <div invisible="state != 'draft'">
+                        <div attrs="{'invisible': [('state','!=','draft')]}">
                             <span>
-                                <h3>
-                                    Support:
-                                </h3>
-                                <strong>
-                                    E-mail :
-                                </strong>
-                                sales@bistasolutions.com
-                                <br/>
-                                <strong>
-                                    Website
-                                :
-                                </strong>
-                                https://www.bistasolutions.com
+                                <h3>Support:</h3>
+                                <strong>E-mail :</strong> sales@bistasolutions.com<br/>
+                                <strong>Website :</strong> https://www.bistasolutions.com
                             </span>
                         </div>
                     </sheet>
@@ -307,8 +345,10 @@
                         <field name="activity_ids" widget="mail_activity"/>
                         <field name="message_ids" widget="mail_thread"/>
                     </div>
-                </form></field>
+                </form>
+            </field>
         </record>
+
         <record id="view_shopify_config_tree" model="ir.ui.view">
             <field name="name">view.shopify.config.tree</field>
             <field name="model">shopify.config</field>
@@ -317,8 +357,10 @@
                     <field name="name"/>
                     <field name="state"/>
                     <field name="default_company_id"/>
-                </tree></field>
+                </tree>
+            </field>
         </record>
+
         <record id="view_shopify_config_search" model="ir.ui.view">
             <field name="name">view.shopify.config.search</field>
             <field name="model">shopify.config</field>
@@ -329,21 +371,100 @@
                     <field name="shop_url"/>
                     <field name="api_key"/>
                     <field name="password"/>
-                    <filter domain="[('state','=','draft')]" name="draft" string="Draft"/>
-                    <filter domain="[('state','=','success')]" name="success" string="Success"/>
-                    <filter domain="[('state','=','fail')]" name="fail" string="Fail"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="success" string="Success" domain="[('state','=','success')]"/>
+                    <filter name="fail" string="Fail" domain="[('state','=','fail')]"/>
                     <group string="Group By">
-                        <filter context="{'group_by':'state'}" name="state" string="State"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
                     </group>
-                </search></field>
+                </search>
+            </field>
         </record>
+
         <record id="action_shopify_config" model="ir.actions.act_window">
             <field name="name">Shopify Configuration</field>
             <field name="res_model">shopify.config</field>
             <field name="view_mode">tree,form</field>
-            <!-- <field name="search_view_id"
-            ref="bista_shopify_connector.view_shopify_config_search"/> -->
+            <!-- <field name="search_view_id" ref="bista_shopify_connector.view_shopify_config_search"/> -->
         </record>
-        <menuitem action="action_shopify_config" groups="bista_shopify_connector.group_shopify_admin" id="shopify_config_menu" name="Shopify Configuration" parent="shopify_configuration_menu" sequence="1"/>
+        <menuitem id="shopify_config_menu" name="Shopify Configuration"
+                  parent="shopify_configuration_menu"
+                  action="action_shopify_config"
+                  groups="bista_shopify_connector.group_shopify_admin"
+                  sequence="1"/>
+
+        <record id="view_shopify_inventory_queue_form" model='ir.ui.view'>
+            <field name="name">view.shopify.inventory.queue.form</field>
+            <field name="model">shopify.inventory.queue</field>
+            <field name="arch" type="xml">
+                <form name="shopify Inventory Queue" create="false" edit="false">
+                    <header>
+                         <button type="object" name="update_inventory" invisible="0"
+                                    class="oe_stat_button" icon="fa-tasks"
+                                    groups="bista_shopify_connector.group_shopify_admin">
+                                <span class="o_stat_text">Update</span>
+                            </button>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,partial_processed,processed,failed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Name"/>
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="shopify_config_id"/>
+                            <field name="operation_type"/>
+                        </group>
+                        <notebook>
+                            <page string="Inventory Queue Lines" name="queue_line_inventory_ids">
+                                <field name="queue_line_inventory_ids">
+                                    <tree editable="bottom">
+<!--                                        <field name="name"/>-->
+                                        <!-- <field name="state" widget="statusbar" statusbar_visible="draft,processed,cancelled,failed"/> -->
+<!--                                        <field name="processed_date"/>-->
+<!--                                        <field name="record_data"/>-->
+                                        <field name="shopify_location_id"/>
+                                        <field name="shopify_inventory_item_id"/>
+                                        <field name="variant_qty"/>
+                                        <field name="shopify_config_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="shopify_inventory_queue_tree_view" model="ir.ui.view">
+            <field name="name">view.shopify.inventory.queue.tree</field>
+            <field name="model">shopify.inventory.queue</field>
+            <field name="arch" type="xml">
+                <tree string="Shopify Inventory Queues">
+                    <field name="shopify_config_id"/>
+                    <field name="operation_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_shopify_inventory_queue" model="ir.actions.act_window">
+            <field name="name">Shopify Inventory Queue</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.inventory.queue</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="bista_shopify_connector.shopify_inventory_queue_tree_view"/>
+        </record>
+
+         <menuitem id="shopify_inventory_queue_menu" name="Shopify Inventory Queue"
+                  parent="shopify_queues_operations_menu"
+                  action="action_shopify_inventory_queue"
+                  groups="bista_shopify_connector.group_shopify_admin"
+                  sequence="1"/>
+
+
+
     </data>
 </odoo>

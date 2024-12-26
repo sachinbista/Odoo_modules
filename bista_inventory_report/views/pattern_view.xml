@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pattern_form_view" model="ir.ui.view">
+            <field name="name">pattern.form</field>
+            <field name="model">pattern</field>
+            <field name="arch" type="xml">
+                <form string="Pattern">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pattern_tree_view" model="ir.ui.view">
+            <field name="name">pattern.tree</field>
+            <field name="model">pattern</field>
+            <field name="arch" type="xml">
+                <tree string="Pattern">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pattern_act_window" model="ir.actions.act_window">
+            <field name="name">Pattern</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pattern</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Patterns.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Pattern"
+                  id="pattern_sub_menu"
+                  parent="bista_inventory_report.fabric_info_menu"
+                  action="pattern_act_window"/>
+
+    </data>
+</odoo>

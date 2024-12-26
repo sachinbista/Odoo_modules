@@ -1,0 +1,28 @@
+<odoo>
+	<data>
+		<record id="stock_picking_form_view_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='show_reserved']" position="after">
+            		<field name="is_auto_mo_close"/>
+            	</xpath>
+            	<xpath expr="//field[@name='create_backorder']" position="after">
+            		<field name="hide_backorder" attrs="{'invisible': [('create_backorder', '!=', 'ask')]}"/>
+            	</xpath>
+            </field>
+		</record>
+
+		<record id="stock_picking_view_form_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='origin']" position="after">
+            		<field name="hide_backorder" invisible="1"/>
+            	</xpath>
+            </field>
+		</record>
+	</data>
+</odoo>

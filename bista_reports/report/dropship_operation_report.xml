@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="print_dropship_operation_report_template">
+        <t t-call="web.external_layout">
+        <t t-set="info" t-value="info.with_context(lang=info.partner_id.lang)" />
+                <div class="page">
+                    <table style="width:100%">
+                        <tr style="border:solid black;width:100%;">
+                            <td width="66.5%" style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                <div style="padding-left:130px">
+                                    <span>Ship To:</span>
+                                    <br/>
+                                    <div style="text-align: left;">
+                                        <span t-if="info.sale_id.partner_shipping_id">
+                                        <t t-esc="info.sale_id.partner_shipping_id.name"/>
+                                        <br/>
+                                    </span>
+                                    <span t-if="info.sale_id.partner_shipping_id.street or info.sale_id.partner_shipping_id.street2">
+                                        <t t-esc="info.sale_id.partner_shipping_id.street"/>
+                                        <t t-esc="info.sale_id.partner_shipping_id.street2"/>
+                                        <br/>
+                                    </span>
+                                    <span t-if="info.sale_id.partner_shipping_id.city or info.sale_id.partner_shipping_id.state_id.name or info.sale_id.partner_shipping_id.zip">
+                                        <t t-esc="info.sale_id.partner_shipping_id.city"/>
+                                        <t t-esc="info.sale_id.partner_shipping_id.state_id.name"/>
+                                        <t t-esc="info.sale_id.partner_shipping_id.zip"/>
+                                        <br/>
+                                    </span>
+                                    <span t-if="info.sale_id.partner_shipping_id.country_id.name">
+                                        <t t-esc="info.sale_id.partner_shipping_id.country_id.name"/>
+                                        <br/>
+                                    </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%" style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                <div style="margin-left:90px; text-align: center;">
+                                    <div>
+                                        <span style="font-size: 20px;">Picking Sheet</span>
+                                    </div>
+                                    <t t-if="info.picking_type_code != 'outgoing'">
+                                        <div>
+                                            <t t-if="info.qr_code_pick">
+                                                <img t-attf-src="data:image/png;base64,{{ info.qr_code_pick.decode()}}"
+                                                     style="max-height: 100px; max-width: 100px;"/>
+                                            </t>
+                                        </div>
+                                        <t t-set="internal_pickings" t-value="info.sale_id.picking_ids.filtered(lambda p: p.picking_type_code == 'internal' and not p.backorder_id and not p.state == 'cancel')"/>
+                                        <t t-if="len(internal_pickings) > 1">
+                                            <t t-if="info.picking_type_code == 'internal'">
+                                                <span t-field="info.name"/>
+                                                <div style="background-color: #dcdcdc; padding: 5px; font-weight: 600;">
+                                                    <t t-esc="len(internal_pickings)"/> Pickings
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-field="internal_pickings[0].name"/>
+                                                <span style="background-color: #dcdcdc; padding: 5px; font-weight: 600;"><t t-esc="len(internal_pickings)"/> Pickings</span>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="internal_pickings.picking_type_code == 'internal'">
+                                                <span t-field="internal_pickings.name"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-if="info.picking_type_code == 'outgoing'">
+                                        <div>
+                                            <t t-if="info.qr_code_out">
+                                                <img t-attf-src="data:image/png;base64,{{ info.qr_code_out.decode()}}"
+                                                     style="max-height: 100px; max-width: 100px;"/>
+                                            </t>
+                                        </div>
+                                        <t t-foreach="info.sale_id.picking_ids" t-as="picking">
+                                            <t t-if="picking.picking_type_code == 'outgoing' and not picking.state in ['cancel', 'done']">
+                                                <span t-field="picking.name"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                            <td width="33%" style="text-align: center;border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                Sales Order #
+                            </td>
+                            <td width="34%" style="text-align: center;border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                Customer PO #
+                            </td>
+                            <td width="33%" style="border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="33%" style="text-align: center;border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                <span t-if="info.origin">
+                                    <t t-esc="info.origin"/>
+                                </span>
+                            </td>
+                            <td width="34%" style="text-align: center;border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                                <span t-if="info.sale_id.customer_po">
+                                    <t t-esc="info.sale_id.customer_po"/>
+                                </span>
+                            </td>
+                            <td width="33%" style="text-align: center;border-top:hidden;border-bottom:hidden;border-right:hidden;border-left:hidden;">
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="border-collapse: collapse;border:1px solid black; width:100%">
+                        <thead style="border:1px solid black; background-color:black; color: white;">
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">ShipVIA</th>
+                                <th class="text-center">Incoterm</th>
+                                <th class="text-center">Weight</th>
+                                <th class="text-center">Terms</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr style="text-align:center;">
+                                <td class="text-center">
+                                    <span t-field="info.scheduled_date" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td>
+                                    <span t-field="info.sale_id.ship_via"/>
+                                </td>
+                                <td>
+                                    <span t-field="info.sale_id.ship_via"/>
+                                </td>
+                                <td>
+                                    <span t-field="info.weight"/>
+                                </td>
+                                <td>
+                                    <span t-field="info.sale_id.payment_term_id.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="border-collapse: collapse;border:1px solid black; width:100%">
+                        <thead style="border:1px solid black; background-color:black; color: white;">
+                            <tr>
+                                <th class="text-center">Required Date</th>
+                                <th class="text-center">Sales Person</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr style="text-align:center;">
+                                <td>
+                                    <span t-field="info.scheduled_date" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td>
+                                    <span t-field="info.sale_id.user_id.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="border:1px solid black; border-collapse: collapse; width:100%">
+                        <thead style="border:1px solid black; background-color:black; color: white;">
+                            <tr>
+                                <th class="text-center">Product</th>
+                                <th class="text-center">From</th>
+                                <th class="text-center">UOM</th>
+                                <th class="text-center">QTY Req.</th>
+                                <th class="text-center">Reserved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="info.move_ids" t-as="line">
+                                <tr style="text-align:center;">
+                                    <td>
+                                        <span t-field="line.product_id.default_code"/>
+                                    </td>
+                                    <td>
+                                         <span t-esc="line.location_reserve_name()"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.product_uom"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.product_uom_qty"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line.reserved_availability"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                </div>
+            <t t-set="temp" t-value="info.mark_printed_true()"></t>
+        </t>
+    </template>
+
+    <template id="print_dropship_operation_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="info">
+                <t t-call="bista_reports.print_dropship_operation_report_template" t-lang="info.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

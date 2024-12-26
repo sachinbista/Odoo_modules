@@ -1,0 +1,146 @@
+$primary: #1a9988;
+
+
+.main_layout {
+  background: lightgray;
+  min-height: 100%;
+
+  select, input {
+    width: 100%;
+    padding: 5px 10px;
+  }
+
+  .field-draggable {
+    margin-bottom: 5px;
+    border-radius: 2px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    z-index: 1 !important;
+
+    .field-value {
+      border: 1px solid lightgray;
+      padding: 3px 10px;
+      display: flex;
+      align-items: center;
+
+    }
+
+    .field-label {
+      padding: 3px 10px;
+      display: none;
+      align-items: center;
+    }
+
+    .fa {
+      padding: 5px 10px 5px 2px;
+    }
+  }
+
+  .ui-draggable-dragging {
+    border: 1px solid rgba(211, 211, 211, 0.24) !important;
+
+    h1, h2, h3, h4, h5, h6, p, span, div {
+      color: rgba(211, 211, 211, 0.24) !important;
+    }
+  }
+
+
+}
+
+.zpl-layout-left {
+  //height: 100vh;
+  background: white;
+  padding: 40px;
+  max-height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  //overflow-y: scroll;
+  //overflow-x: unset;
+
+  .field-draggable-container {
+    margin-top: 10px;
+    border-top: 1px solid gray;
+    padding: 10px 0;
+
+    .field-draggable {
+      .field-value {
+        width: 100%;
+
+        .fa {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+}
+
+.zpl-tools-container {
+  padding: 10px;
+  background: white;
+  border-bottom: 1px solid lightgrey;;
+}
+
+.zpl-layout-center {
+  padding: 20px;
+  position: relative;
+
+  // Global
+  .wrapper {
+    padding: 20px;
+    height: 100%;
+  }
+
+  .field-draggable {
+    width: fit-content !important;
+  }
+
+  .zpl-container {
+    min-height: 50%;
+    max-height: 100%;
+    width: 100%;
+    position: relative;
+
+    .zpl {
+      height: calc(100% - 30px);
+      max-height: calc(100% - 30px);
+      margin: 0 auto;
+      border: 1px dashed white;
+    }
+  }
+
+  .zpl-blue-print {
+    background: #37456f;
+    color: white;
+
+    h1, h2, h3, h4, h5, h6, p, span, div {
+      color: white !important;;
+    }
+
+    .zpl-blue {
+      border-color: white !important;
+    }
+  }
+
+  .zpl-preview {
+    width: 100%;
+    background: white;
+
+    .zpl-white {
+      border-color: #37456f !important;
+      display: flex;
+      width: fit-content;
+    }
+  }
+
+}
+
+.zpl-layout-right {
+  //height: 100vh;
+  background: white;
+  padding: 40px;
+
+}
+
+

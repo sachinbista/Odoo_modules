@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="partner_product_relation_tree" model="ir.ui.view">
+            <field name="name">partner.product.relation.tree</field>
+            <field name="model">partner.product.relation</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="contact_id"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_product_relation_form" model="ir.ui.view">
+            <field name="name">partner.product.relation.form</field>
+            <field name="model">partner.product.relation</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form String="Create Partner Product Relation">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="contact_id"/>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <separator/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

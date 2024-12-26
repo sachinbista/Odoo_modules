@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="zpl_label_group" model="ir.rule">
+        <field name="name">ZPL Label group</field>
+        <field name="model_id" ref="model_zpl_label"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[
+            '|',
+            ('user_ids', '=', False),
+            ('user_ids', '=', user.id),
+            ]
+        </field>
+    </record>
+
+</odoo>

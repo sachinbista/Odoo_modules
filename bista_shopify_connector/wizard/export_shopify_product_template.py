@@ -13,11 +13,6 @@ class ShopifyProductExport(models.TransientModel):
     _description = 'Export Shopify Product Template'
 
     def export_shopify_product_template(self):
-        """
-            This method will export the odoo
-            products into shopify.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         shopify_prod_obj = self.env['shopify.product.template']
         for rec in self:
             active_ids = rec._context.get('active_ids')

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_company_inter_change_inherit_form11">
+        <field name="name">res.company.form.inherit</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="model">res.company</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='auto_validation']" position="after">
+                <field name="auto_validate_vendor_bill"
+                       />
+                <field name="auto_validate_transfer" invisible="1"/>
+                <field name="bs_auto_validate_PO"/>
+                <field name="bs_neg_prod_id" domain="[('detailed_type', '=', 'service')]"/>
+            </xpath>
+            <field name="auto_validation" position="attributes">
+                <attribute name="attrs">{'invisible': [('rule_type', 'not in', ('sale', 'purchase',
+                    'sale_purchase'))]}
+                </attribute>
+            </field>
+            <field name="warehouse_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('rule_type', 'not in', ( 'purchase',
+                    'sale_purchase'))]}
+                </attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

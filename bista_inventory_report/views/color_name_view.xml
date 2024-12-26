@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="color_name_form_view" model="ir.ui.view">
+            <field name="name">color.name.form</field>
+            <field name="model">color.name</field>
+            <field name="arch" type="xml">
+                <form string="Color Name">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="color_name_tree_view" model="ir.ui.view">
+            <field name="name">color.name.tree</field>
+            <field name="model">color.name</field>
+            <field name="arch" type="xml">
+                <tree string="Color Name">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="color_name_act_window" model="ir.actions.act_window">
+            <field name="name">Color Name</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">color.name</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Color Name.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Color Name"
+                  id="color_name_sub_menu"
+                  parent="bista_inventory_report.fabric_info_menu"
+                  action="color_name_act_window"/>
+
+    </data>
+</odoo>

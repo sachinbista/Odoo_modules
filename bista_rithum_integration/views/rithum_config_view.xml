@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rithum_config_view_tree" model="ir.ui.view">
+        <field name="name">rithum.config.tree</field>
+        <field name="model">rithum.config</field>
+        <field name="arch" type="xml">
+            <tree string="Rithum Configuration">
+                <field name="active" invisible="1"/>
+                <field name="name"/>
+                <field name="auth_token"/>
+                <field name="rithum_customer_id"/>
+                <!--                <field name="client_id"/>-->
+                <!--                <field name="client_key"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="rithum_config_view_form" model="ir.ui.view">
+        <field name="name">irithum.config.from</field>
+        <field name="model">rithum.config</field>
+        <field name="arch" type="xml">
+            <form string="Rithum Configuration">
+                <header>
+                    <button name="action_test_connection" string="Test Connection"
+                            type="object" icon="fa-cogs" class="oe_highlight"
+                            help="Test Rithum connection"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                name="rithum_archive_active" icon="fa-bell"
+                                type="object" attrs="{'invisible': [('active','=',False)]}">
+                            <span class="o_stat_text" style="color:#5fdba7">Active</span>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="rithum_archive_active" icon="fa-bell-slash"
+                                type="object" attrs="{'invisible': [('active','=',True)]}">
+                            <span class="o_stat_text" style="color:#e2d0a8">Archived</span>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="auth_token"/>
+                        </group>
+                        <group/>
+                    </group>
+
+                    <notebook>
+                        <page string="Configuration" name="configuration">
+                            <group>
+                                <group>
+                                    <field name="company_id"/>
+                                    <field name="rithum_customer_id"/>
+                                </group>
+                                <group>
+                                    <field name="payment_term_id"/>
+                                    <field name="rithum_warehouse"/>
+                                    <field name="auto_confirm_order"/>
+                                </group>
+                            </group>
+                        </page>
+<!--                        <page string="Import" name="import">-->
+<!--                            <group>-->
+<!--                                <group>-->
+<!--                                    <button name="action_import_order" type="object" string="Import Orders"-->
+<!--                                            class="oe_highlight"/>-->
+<!--                                </group>-->
+<!--                            </group>-->
+<!--                        </page>-->
+                        <page string="Sync Date Info" name="sync_date_info"
+                              attrs="{'invisible': [('state','!=','success')]}">
+                            <group>
+                                <group>
+                                    <field name="last_import_order_date"/>
+                                </group>
+                                <group>
+                                    <field name="consider_days" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rithum_config_action" model="ir.actions.act_window">
+        <field name="name">Rithum</field>
+        <field name="res_model">rithum.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_rithum"
+            name="Rithum"
+            web_icon="bista_rithum_integration,static/description/logo.png"
+            groups="bista_rithum_integration.group_rithum_admin"
+    />
+
+    <menuitem
+            id="menu_rithum_configuration"
+            parent="menu_rithum"
+            name="Configuration"
+            sequence="100"
+    />
+
+    <menuitem
+            id="menu_rithum_configuration_setting"
+            parent="menu_rithum_configuration"
+            name="Setting"
+            action="rithum_config_action"/>
+
+</odoo>

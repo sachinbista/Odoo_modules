@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="print_wizard_form_view">
+        <field name="name">print_wizard_form_view</field>
+        <field name="model">print.wizard</field>
+        <field name="inherit_id" ref="bista_zpl_labels.print_wizard_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='select_label_group']" position="after">
+                <group string="Select Printer">
+                    <field name="printer_id" required="1" widget="radio"/>
+                </group>
+                <group groups="base.group_no_one">
+                    <field name="custom_label" widget="toggle_boolean"/>
+                    <field name="custom_label_data" attrs="{'invisible': [('custom_label','=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

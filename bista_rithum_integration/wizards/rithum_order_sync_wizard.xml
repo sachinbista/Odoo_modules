@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rithum_order_sync_wizard" model="ir.ui.view">
+        <field name="name">Rithum Order Sync Wizard</field>
+        <field name="model">rithum.order.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="message" readonly="1"/>
+                <footer>
+<!--                    <button name="sync_rithum_order" string="Sync Order" type="object" class="oe_highlight"/>-->
+                    <button name="sync_rithum_order" string="Acknowledge" type="object" class="oe_highlight"/>
+<!--                    <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

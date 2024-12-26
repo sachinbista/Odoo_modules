@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+accept_blue_config,accept.blue.config,model_accept_blue_config,,1,1,1,1
+accept_blue_credit_card,accept.blue.credit.card,model_card_details,,1,1,1,1,
+access_accept_blue_line,access.accept.blue.line,model_accept_blue_line,,1,1,1,1

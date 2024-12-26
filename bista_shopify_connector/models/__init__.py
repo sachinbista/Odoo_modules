@@ -29,3 +29,6 @@ from . import shopify_webhook
 from . import account_move
 from . import shopify_order_risk
 from . import account_bank_statement
+from . import shopify_channel
+from . import create_payment
+from . import stock_quant

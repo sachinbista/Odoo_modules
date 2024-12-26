@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bista_purchase_add_lot.access_stock_picking_add_lot_wizard,access_stock_picking_add_lot_wizard,bista_purchase_add_lot.model_stock_picking_add_lot_wizard,base.group_user,1,1,1,1
+bista_purchase_add_lot.access_stock_picking_add_lot_line_wizard,access_stock_picking_add_lot_line_wizard,bista_purchase_add_lot.model_stock_picking_add_lot_line_wizard,base.group_user,1,1,1,1
+

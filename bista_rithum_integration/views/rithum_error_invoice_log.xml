@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rithum_error_invoice_log_view_tree" model="ir.ui.view">
+        <field name="name">rithum.error.invoice.log.tree</field>
+        <field name="model">rithum.error.invoice.log</field>
+        <field name="arch" type="xml">
+            <tree string="Error">
+                <field name="name" string="Invoice number"/>
+                <field name="po_number" string="Po Number"/>
+                <field name="error_date" string="Run Date"/>
+                <field name="error_message"/>
+                <field name="rithum_config_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="rithum_error_invoice_log_action" model="ir.actions.act_window">
+        <field name="name">Invoice Error</field>
+        <field name="res_model">rithum.error.invoice.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+     <menuitem
+            id="menu_rithum_invoice_errors"
+            parent="menu_rithum_error_log"
+            name="Invoice Errors"
+            action="rithum_error_invoice_log_action"/>
+</odoo>

@@ -1,0 +1,70 @@
+<odoo>
+<!--    <record model="ir.actions.server" id="stock_move_action_back">-->
+<!--        <field name="name">Stock Move New</field>-->
+<!--        <field name="model_id" ref="model_stock_move"/>-->
+<!--        <field name="type">ir.actions.server</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">model.backorder_stock_report()</field>-->
+<!--    </record>-->
+
+<!--<menuitem action="stock_move_action_back" id="stock_move_menu_backorder" parent="stock.menu_warehouse_report" sequence="231" groups="base.group_no_one"/>-->
+
+      <record id="view_move_tree_backorder" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Moves" create="0" default_order="date desc">
+                    <field name="date" groups="base.group_no_one" decoration-danger="(state not in ('cancel','done')) and date > current_date"/>
+                    <field name="reference"/>
+                    <field name="picking_type_id" invisible="1"/>
+                    <field name="location_usage" invisible="1"/>
+                    <field name="location_dest_usage" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="location_id" options="{'no_create': True}" string="From"
+                        decoration-muted="location_usage not in ('internal','transit')"/>
+                    <field name="location_dest_id" options="{'no_create': True}" string="To"
+                        decoration-muted="location_dest_usage not in ('internal','transit')"/>
+                    <field name="origin"/>
+                    <field name="parent_id" string="Customer"/>
+                    <field name="partner_id"/>
+                    <field name="product_packaging_id" optional="hide" groups="product.group_stock_packaging"/>
+                    <field name="product_uom_qty" string="Quantity" sum="Total Quantity"
+                        decoration-danger="(location_usage in ('internal','transit')) and (location_dest_usage not in ('internal','transit'))"
+                        decoration-success="(location_usage not in ('internal','transit')) and (location_dest_usage in ('internal','transit'))"/>
+                    <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit" groups="uom.group_uom"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state" widget='badge' optional="show"
+                           decoration-danger="state=='cancel'"
+                           decoration-info="state== 'assigned'"
+                           decoration-muted="state == 'draft'"
+                           decoration-success="state == 'done'"
+                           decoration-warning="state not in ('draft','cancel','done','assigned')"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+     <record id="stock_move_action_backorder" model="ir.actions.act_window">
+            <field name="name">Stock Moves Backorder</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_id" ref="view_move_tree_backorder"/>
+            <field name="search_view_id" ref="stock.view_move_search"/>
+          <field name="domain">[('location_dest_id', '=',5)]</field>
+             <field name="context">{'search_default_future':1,'search_default_ready':1}</field>
+<!--        <field name="context">{'search_default_assigned': 1}</field>-->
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No stock move found
+              </p><p>
+                This menu gives you the full traceability of inventory
+                operations on a specific product. You can filter on the product
+                to see all the past or future movements for the product.
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="stock_move_action_backorder" id="stock_move_menu_backorder" parent="stock.menu_warehouse_report" sequence="231" groups="base.group_no_one"/>
+</odoo>

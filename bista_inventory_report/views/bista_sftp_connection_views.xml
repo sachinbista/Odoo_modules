@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="bista_sftp_connection_form_view" model="ir.ui.view">
+            <field name="name">bista_sftp_connection_form_view</field>
+            <field name="model">bista.sftp.connection</field>
+            <field name="arch" type="xml">
+                <form string="SFTP Connection">
+                    <header>
+                        <button name="test_connection"
+                            string="Test Connection"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('state', 'in', ['success','fail'])]}">
+                        </button>
+                        <button name="reset_to_draft"
+                            string="Reset To Draft"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('state', 'not in', ['fail', 'success'])]}">
+                        </button>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,success,fail"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sftp_username"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                                <field name="sftp_passwd"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                                <field name="hostname"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                            </group>
+                            <group>
+                                <field name="company_id"
+                                    options="{'no_open': True, 'no_create': True}"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                                <field name="port_no"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                                <field name="sftp_file_path"
+                                    attrs="{'readonly': [('state', 'in', ('success', 'fail'))]}"/>
+                                <field name="customer_alias"
+                                    attrs="{'invisible': [('state', 'in', ('success','fail'))]}"/>
+                                <field name="product_internal_ref"
+                                    attrs="{'invisible': [('state', 'in', ('success','fail'))]}"/>
+                                <field name="customer_id"
+                                    attrs="{'invisible': [('customer_alias', '=', False)],
+                                    'required': [('customer_alias', '=', True)], 'readonly':[('state', '!=','draft')]}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="bista_sftp_connection_tree_view" model="ir.ui.view">
+            <field name="name">bista_sftp_connection_tree_view</field>
+            <field name="model">bista.sftp.connection</field>
+            <field name="arch" type="xml">
+                <tree string="SFTP Connection">
+                    <field name="sftp_username"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bista_sftp_connection_action" model="ir.actions.act_window">
+            <field name="name">SFTP</field>
+            <field name="res_model">bista.sftp.connection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a SFTP Connection, the first step of a new Connection!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="bista_sftp_connection_menu_root"
+            name="SFTP Connection"
+            web_icon="bista_inventory_report,static/description/sftp.png"
+            action="bista_sftp_connection_action" groups="base.group_system"
+            sequence="30"/>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bista_rithum_integration_sale_order_view_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="rithum_config_id" invisible="1"/>
+                <field name="rithum_carrier_id" invisible="1"/>
+                <field name="rithum_shipping_method_id" invisible="1"/>
+                <field name="rithum_warning_accepted" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='customer_po']" position="attributes">
+                <attribute name="attrs">{'readonly': [('rithum_config_id','!=', False)]}</attribute>
+            </xpath>
+             <xpath expr="//field[@name='ship_via']" position="attributes">
+                <attribute name="attrs">{'readonly': [('rithum_config_id','!=', False)]}</attribute>
+            </xpath>
+<!--             <xpath expr="//field[@name='order_line']" position="attributes">-->
+<!--                <attribute name="attrs">{'readonly': [('rithum_config_id','!=', False)]}</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_order_search_inherit_rithum" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.ritnhum</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="customer_po" string="Customer PO"/>
+            </xpath>
+            <xpath expr="//filter[last()]" position="after">
+                <separator/>
+                <filter string="Rithum Orders" domain="[('rithum_config_id', '!=', False)]"
+                        name="rithum_sale_orders_filter"/>
+
+            </xpath>
+            <xpath expr="//group/filter[last()]" position="after">
+                <filter string="Rithum Configuration" name="Rithum Configuration" domain="[]"
+                        context="{'group_by': 'rithum_config_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

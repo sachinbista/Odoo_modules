@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_inherit_backorder_confirmation" model="ir.ui.view">
+        <field name="name">view_inherit_backorder_confirmation</field>
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pick_ids']" position="after">
+                <field name="hide_backorder" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='process_cancel_backorder']" position="attributes">
+                <attribute name="attrs">{'invisible': [('hide_backorder', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,59 @@
+.o_attention {
+  .fa:hover {
+    .o-popup {
+      display: block !important;
+    }
+  }
+
+
+  .fa {
+    color: white;
+    background: #F06050;
+    align-self: center;
+    display: flex !important;
+    padding: 3px 6px;
+    border-radius: 50%;
+    height: 15px;
+    min-width: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.8em !important;
+
+
+    .o-popup {
+      background: white;
+      color: black;
+      position: absolute;
+      bottom: 15px;
+      left: 10px;
+      font-family: Calibri;
+      box-shadow: 1px 2px 1px #8b8b8b30;
+      display: none;
+      transition: 1s ease all;
+      z-index: 1 !important;
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          padding: 5px 10px;
+          border: 1px solid lightgrey;
+        }
+      }
+    }
+
+    .o-popup-header {
+      background: #5f4c5c;
+      border: 1px solid #5f4c5c;
+      color: white;
+      padding: 5px 10px;
+      min-width: 100%;
+      width: 100px;
+
+    }
+  }
+
+}

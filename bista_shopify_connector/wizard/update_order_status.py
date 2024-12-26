@@ -14,11 +14,6 @@ class UpdateOrderStatus(models.TransientModel):
     _description = 'Update Order Status'
 
     def update_order_status_in_shopify(self):
-        """
-            This mehtod will update the order status
-            from odoo to shopify make it fulfilled or partial fulfilled.
-            @author: Nupur Soni @Bista Solutions Pvt. Ltd.
-        """
         picking_obj = self.env['stock.picking']
         if self._context.get('active_ids'):
             picking_ids = picking_obj.browse(self._context.get('active_ids'))

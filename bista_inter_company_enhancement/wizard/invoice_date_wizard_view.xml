@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_invoice_date_wizard_form" model="ir.ui.view">
+        <field name="name">view.invoice.date.wizard.form</field>
+        <field name="model">invoice.date.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <group>
+                    <label for="name"/>
+                    <field name="name" invisible="1"/>
+                    <div name="name_hint" class="text-muted">
+                       Bill Date and Accouting Date Mismatch
+                    </div>
+                </group>
+                <footer>
+                    <button string="Confirm"
+                        class="btn-primary" type="object" name="action_process"/>
+                    <button string="Cancel"
+                        class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

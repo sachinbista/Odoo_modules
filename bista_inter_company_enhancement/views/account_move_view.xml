@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_inherit_inter_company" model="ir.ui.view">
+        <field name="name">account.move.inherit.inter.company</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <div
+                        class="alert alert-info mb-0" role="alert"
+                        attrs="{'invisible': [('inter_company_invoice_parent_change', '=', False)]}">
+                    <bold>There is a change in Parent Company Invoice. Kindly review &amp; do the needful.
+                    </bold>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="inter_company_invoice_parent_change" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_inherit_inter_company" model="ir.ui.view">
+        <field name="name">account.move.filter.inherit.inter.company</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='invoice_date']" position="before">
+                <filter name="inter_company_invoice_parent_change" string="Inter Company Parent Invoice Change"
+                        domain="[('inter_company_invoice_parent_change', '=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="parent_invoice_change_inter_company" model="ir.actions.server">
+        <field name="name">Parent Invoice Change</field>
+        <field name="state">code</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_account_move"/>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="code">
+            if records:
+            action = records.action_reset_parent_invoice_change()
+        </field>
+    </record>
+
+</odoo>

@@ -7,8 +7,8 @@
 
 {
     'name': 'Shopify Connector',
-    'version': '17.0.1.0',
-    'sequence': 1,
+    'version': '16.0.0.1.0',
+    'sequence': 7,
     'category': 'Odoo Connector',
     'summary': "This Module Allows you to connect Odoo with Shopify and sync "
                "data between Odoo and Shopify",
@@ -28,21 +28,14 @@ The Shopify integrator gives you the opportunity to manage your Odoo's products
     'website': 'https://www.bistasolutions.com',
     'author': 'Bista Solutions Pvt. Ltd.',
     'images': ['static/description/banner.png'],
-    'depends': [
-        'product',
-        'sale_stock',
-        'delivery',
-        'sale',
-        'stock',
-        'stock_delivery',
-        'account_accountant'
-    ],
+    'depends': ['product', 'sale_stock', 'delivery', 'bista_inventory_report', 'bista_shipstation', 'account', 'bista_reports','account_accountant'],
     'data': [
         'security/shopify_connector_security.xml',
         'security/ir.model.access.csv',
         'data/shopify_data.xml',
         'data/ir_sequence_data.xml',
         'data/shopify_import_export_cron.xml',
+        'data/shopify_update_product_qty_cron.xml',
         'views/shopify_menuitems.xml',
         'wizard/import_export_operation_view.xml',
         'views/shopify_webhook_view.xml',
@@ -63,14 +56,13 @@ The Shopify integrator gives you the opportunity to manage your Odoo's products
         'views/res_partner_view.xml',
         'views/delivery_view.xml',
         'views/sale_order_view.xml',
-        'wizard/product_export_ready_view.xml',
         'views/inventory_views.xml',
         'views/account_invoice.xml',
         'views/account_payment_view.xml',
         'views/shopify_payout_view.xml',
         'views/shopify_tags_view.xml',
-        'views/stock_picking_view.xml',
-        'views/account_move_view.xml',
+        'views/shopify_channel_view.xml',
+        'views/create_payment_custom.xml',
         'wizard/export_shopify_product_template_view.xml',
         'wizard/export_shopify_product_variant_view.xml',
         'wizard/shopify_product_variant_sync_inventory_view.xml',
@@ -78,8 +70,11 @@ The Shopify integrator gives you the opportunity to manage your Odoo's products
         'wizard/update_shopify_product_variant.xml',
         'wizard/shopify_export_refund_view.xml',
         'wizard/update_order_status_view.xml',
-        'wizard/stock_return_picking_view.xml',
+        'wizard/product_export_ready_view.xml'
     ],
+    # 'external_dependencies': {
+    #     'python': ['ShopifyAPI'],
+    # },
     'assets': {
         'web.assets_backend': [
             '/bista_shopify_connector/static/library/lightbox/css/lightbox.css',
@@ -89,9 +84,6 @@ The Shopify integrator gives you the opportunity to manage your Odoo's products
         ],
         'web.assets_qweb': [
             'bista_shopify_connector/static/src/xml/image_multi.xml',
-        ],
-        'web.assets_backend': [
-            'bista_shopify_connector/static/src/components/tax_tools/custom_tax_tools_label.xml',
         ],
     },
     'qweb': ['static/src/xml/image_multi.xml'],

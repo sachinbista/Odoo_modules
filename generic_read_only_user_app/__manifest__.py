@@ -3,7 +3,7 @@
 {
     'name': 'Generic Read Only User Access',
     "author": "Edge Technologies",
-    'version': '1.0',
+    'version': '16.0.1.0',
     'summary': "Read only access to user limited access rights to user user limited access read only user access user read only access user restricted access restriction on user access read only user read only access login user read only access limited portal user access",
     'description': """ This app provides a functionality to make generic user access read only for a particular login user set user read only
     Restriction on user level. stop user access from the system. user restriction user read only restriction. restricated user access. limited user access limited. security restriction on user level. user security restriction.

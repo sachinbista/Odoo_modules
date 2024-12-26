@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_order_cancel" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="auto_generated" invisible="1"/>
+<!--                <field name="bs_inter_so_id" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="bs_inter_so_id" invisible="0" readonly="1" string="Inter SO Ref"/>
+            </xpath>
+
+            <xpath expr="//button[@id='create_invoice']" position="after">
+                <button id="start_new" name="bs_start_new" type="object" string="Reset to draft" class="oe_highlight"
+                        attrs="{'invisible': ['|',('bs_inter_so_id', '!=', False),('state', '=', 'draft')]}"/>
+            </xpath>
+
+            <xpath expr="//button[@id='create_invoice_percentage']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|', ('bs_inter_so_id', '!=', False),('invoice_status', '!=',
+                    'no'), ('state', '!=', 'sale')]}
+                </attribute>
+            </xpath>
+
+            <!-- <xpath expr="//button[@id='create_invoice']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',
+                    'no')]}
+                </attribute>
+            </xpath> -->
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('auto_generated', '=', True),('bs_inter_so_id', '!=',
+                    False)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',
+                    'no')]}
+                </attribute>
+            </xpath>
+<!--            <xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',-->
+<!--                    'no')]}-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',-->
+<!--                    'no')]}-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='action_quotation_send'][3]" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',-->
+<!--                    'no')]}-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='action_quotation_send'][4]" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False),('invoice_status', '!=',-->
+<!--                    'no')]}-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_order_form_with_carrier_inherit_pcl211" model="ir.ui.view">
+        <field name="name">view.order.form.with_carrier_inherit_pcl211</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_delivery_wizard']" position="replace">
+                <button
+                        string="Add shipping"
+                        name="action_open_delivery_wizard"
+                        type="object"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

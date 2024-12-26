@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="lot_inventory_adjustment" model="ir.actions.server">
+            <field name="name">Lot Inventory Adjustment</field>
+            <field name="model_id" ref="bista_inventory_adjustment.model_product_product"/>
+            <field name="binding_model_id" ref="bista_inventory_adjustment.model_product_product"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_lot_remove()</field>
+        </record>
+</odoo>

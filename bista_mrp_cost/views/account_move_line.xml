@@ -1,0 +1,12 @@
+<odoo>
+    <record id="account_move_line_analytic_account" model="ir.ui.view">
+        <field name="name">Analytic Account Field</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="analytic_account_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -8,24 +8,22 @@
             <form string="Shopify Product Template Export">
                 <span>Do you want to export the selected products on shopify?</span>
                 <footer>
-                    <button string="Export" name="export_shopify_product_template" type="object"
-                        class="btn-primary" />
-                    <button string="Cancel" class="btn-default" special="cancel" />
+                    <button string="Export" name="export_shopify_product_template" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or
-    multiple product templates -->
+    <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or multiple product templates -->
 
     <record id="shopify_product_template_export_action" model="ir.actions.act_window">
-        <field name="name">Shopify : Export Product</field>
+        <field name="name">Export Shopify Product</field>
         <field name="res_model">export.shopify.product</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="model_shopify_product_template" />
-        <field name="binding_view_types">form,list</field>
-        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]" />
+        <field name="binding_model_id" ref="model_shopify_product_template"/>
+        <field name="binding_view_types">form</field>
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]"/>
     </record>
 </odoo>

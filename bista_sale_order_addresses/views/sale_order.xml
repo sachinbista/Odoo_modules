@@ -1,0 +1,62 @@
+<odoo>
+
+    <record id="sale_order_partner_territory" model="ir.ui.view">
+        <field name="name">sale_order_partner_territory</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <label for="partner_street" string=" "/>
+                <div class="o_address_format">
+                    <field name="partner_street" placeholder="Street..." class="o_address_street"  readonly="1"/>
+                    <field name="partner_street2" placeholder="Street 2..." class="o_address_street"  readonly="1"/>
+                    <field name="partner_city" placeholder="City" class="o_address_city"  readonly="1"/>
+                    <field name="partner_state_id" class="o_address_state" placeholder="State"
+                           domain="[('country_id', '=?', partner_country_id)]"
+                           options="{'no_open': True, 'no_quick_create': True}"
+                           context="{'default_country_id': partner_country_id}"  readonly="1"/>
+                    <field name="partner_zip" placeholder="ZIP" class="o_address_zip"  readonly="1"/>
+                    <field name="partner_country_id" placeholder="Country" class="o_address_country"
+                           options='{"no_open": True, "no_create": True}'  readonly="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <label for="partner_shipping_street" string="Shipping Address"/>
+                <div class="o_address_format">
+                    <field name="partner_shipping_street" placeholder="Street..." class="o_address_street"  readonly="1"/>
+                    <field name="partner_shipping_street2" placeholder="Street 2..." class="o_address_street"  readonly="1"/>
+                    <field name="partner_shipping_city" placeholder="City" class="o_address_city"  readonly="1"/>
+                    <field name="partner_shipping_state_id"
+                           domain="[('country_id', '=?', partner_shipping_country_id)]"
+                           class="o_address_state" placeholder="State"
+                           options="{'no_open': True, 'no_quick_create': True}"
+                           context="{'default_country_id': partner_country_id}"  readonly="1"/>
+                    <field name="partner_shipping_zip" placeholder="ZIP" class="o_address_zip"  readonly="1"/>
+                    <field name="partner_shipping_country_id" placeholder="Country" class="o_address_country"
+                           options='{"no_open": True, "no_create": True}'  readonly="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='partner_invoice_id']" position="after">
+                <label for="partner_invoice_street" string="Billing Address"/>
+                <div class="o_address_format">
+                    <field name="partner_invoice_street" placeholder="Street..." class="o_address_street" readonly="1"/>
+                    <field name="partner_invoice_street2" placeholder="Street 2..." class="o_address_street"
+                           readonly="1"/>
+                    <field name="partner_invoice_city" placeholder="City" class="o_address_city" readonly="1"/>
+                    <field name="partner_invoice_state_id" class="o_address_state" placeholder="State"
+                           domain="[('country_id', '=?', partner_invoice_country_id)]"
+                           options="{'no_open': True, 'no_quick_create': True}"
+                           context="{'default_country_id': partner_country_id}"
+                           readonly="1"
+                    />
+                    <field name="partner_invoice_zip" placeholder="ZIP" class="o_address_zip" readonly="1"/>
+                    <field name="partner_invoice_country_id" placeholder="Country" class="o_address_country"
+                           options='{"no_open": True, "no_create": True}' readonly="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_transfer_validate_confirm,transfer.validate.confirm,model_transfer_validate_confirm,,1,1,1,1
+stock.access_stock_warehouse_orderpoint,stock.warehouse.orderpoint,stock.model_stock_warehouse_orderpoint,stock.group_stock_user,1,1,0,0

@@ -1,0 +1,255 @@
+<odoo>
+
+    <record id="zpl_label_form_view" model="ir.ui.view">
+        <field name="name">zpl_label_form_view</field>
+        <field name="model">zpl.label</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="model" required="1" attrs="{'readonly': [('id','!=',False)]}"/>
+                            <field name="product_label"
+                                   domain="[('model','=','stock.move.line'), ('move_type','=','product.template')]"
+                                   attrs="{'invisible': [('model','!=','stock.picking')],
+                                           'required': [('model','=','stock.picking')]}"/>
+                            <field name="lot_label"
+                                   domain="[('model','=','stock.move.line'), ('move_type','=','stock.production.lot')]"
+                                   attrs="{'invisible': [('model','!=','stock.picking')],
+                                           'required': [('model','=','stock.picking')]}"/>
+                            <field name="model_id" invisible="1"/>
+                            <field name="product_id" attrs="{'invisible': [('model','!=','product.template')]}"/>
+                            <field name="serial_id" attrs="{'invisible': [('model','!=','stock.production.lot')]}"/>
+                            <field name="move_id" attrs="{'invisible': [('model','!=','stock.move.line')]}"/>
+                            <field name="location_id" attrs="{'invisible': [('model','!=','stock.location')]}"/>
+                            <field name="move_type"
+                                   attrs="{
+                                   'invisible': [('model','!=','stock.move.line')],
+                                   'required': [('model','=','stock.move.line')]}"/>
+                            <field name="user_ids" invisible="1"/>
+                            <field name="group_ids" widget="many2many_tags"/>
+                        </group>
+                        <group attrs="{'invisible': [('model','=','stock.picking')]}">
+                            <field name="dpi" required="1"/>
+                            <field name="margin_left"/>
+                            <field name="margin_top"/>
+                        </group>
+                        <group>
+                            <field name="height" required="1"/>
+                            <field name="width" required="1"/>
+                        </group>
+                    </group>
+                    <div id="barcode_preview" string="Preview" col="12">
+                        <field name="barcode_preview" widget="image" nolabel="1" readonly="1"/>
+                        <field name="barcode_preview_serial" widget="image" nolabel="1" readonly="1"
+                               attrs="{'invisible': [('model','!=','stock.picking')]}"/>
+                    </div>
+                    <notebook class="oe_edit_only" attrs="{'invisible': [('model','=','stock.picking')]}">
+                        <page string="QR Code">
+                            <field name="qrcode_field_ids" context="{'default_name': 'qrcode', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="value" domain="[('model_id','=', model_id)]"/>
+                                    <field name="field_model_id" readonly="1" invisible="1"/>
+                                    <field name="related_field" attrs="{'readonly': [('field_model_id','=', False)]}"
+                                           domain="[('model_id','=', field_model_id)]"/>
+                                    <field name="top"/>
+                                    <field name="left"/>
+                                    <field name="magnification"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Text Fields">
+                            <field name="text_field_ids" context="{'default_name': 'text', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="value" domain="[('model_id','=', model_id)]"/>
+                                    <field name="field_model_id" invisible="1"/>
+                                    <field name="related_field" attrs="{'readonly': [('field_model_id','=', False)]}"
+                                           domain="[('model_id','=', field_model_id)]"/>
+                                    <field name="label"/>
+                                    <field name="left"/>
+                                    <field name="top"/>
+                                    <field name="font" required="1"/>
+                                    <field name="font_size"/>
+                                    <field name="max_length"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Labels">
+                            <field name="label_ids" context="{'default_name': 'label', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="label"/>
+                                    <field name="left"/>
+                                    <field name="top"/>
+                                    <field name="font" required="1"/>
+                                    <field name="font_size"/>
+                                    <field name="max_length"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                            <div>
+                                <h6>Wild Card!</h6>
+                                <p>Label can be replaced with some dynamic data, example current date or datetime</p>
+                                <p style="margin-bottom: 0"><strong>Usage</strong></p>
+                                <p style="margin-bottom: 0">In the label field you can use any of the following</p>
+                                <p style="margin-bottom: 0">For current date {date.today()}</p>
+                                <p style="margin-bottom: 0">For current datetime {datetime.now()}</p>
+                                <p style="margin-bottom: 0">Format datetime {datetime.now().strftime("%Y/%m/%d")}</p>
+                            </div>
+                        </page>
+                        <page string="Multiline Text Box">
+                            <field name="multiline_field_ids"
+                                   context="{'default_name': 'multiline', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="value" domain="[('model_id','=', model_id)]"/>
+                                    <field name="field_model_id" readonly="1" invisible="1"/>
+                                    <field name="related_field" attrs="{'readonly': [('field_model_id','=', False)]}"
+                                           domain="[('model_id','=', field_model_id)]"/>
+                                    <field name="label"/>
+                                    <field name="left"/>
+                                    <field name="top"/>
+                                    <field name="font" required="1"/>
+                                    <field name="font_size"/>
+                                    <field name="max_width"/>
+                                    <field name="max_line"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Border/Line">
+                            <field name="border_ids" context="{'default_name': 'border', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="left"/>
+                                    <field name="top"/>
+                                    <field name="bottom" string="Height"/>
+                                    <field name="right" string="Width"/>
+                                    <field name="border_width"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Image">
+                            <field name="image_ids" context="{'default_name': 'image', 'default_label_id': id}">
+                                <tree editable="bottom">
+                                    <field name="attachment"/>
+                                    <field name="left"/>
+                                    <field name="top"/>
+                                    <field name="bottom" string="Height"/>
+                                    <field name="right" string="Width"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="label_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Font Types">
+                            <img src="/bista_zpl_labels/static/img/font.png"/>
+                        </page>
+                        <page string="Label Data" groups="base.group_no_one">
+                            <field name="label" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="zpl_label_field_kanban" model="ir.ui.view">
+        <field name="name">zpl_label_field_kanban</field>
+        <field name="model">label.field</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" sample="1"
+                    default_group_by="name"
+                    quick_create_view="zpl_label_field_kanban_edit"
+                    on_create="quick_create">
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click_edit oe_kanban_card d-flex flex-column">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown"
+                                   data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content flex-grow-1">
+                                <div class="o_kanban_record_title oe_kanban_details">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div>
+                                    Margin top:
+                                    <span class="o_text_overflow" t-if="record.top"
+                                          t-esc="record.top"/>
+                                </div>
+                                <div>
+                                    Margin top:
+                                    <span class="o_text_overflow" t-if="record.left"
+                                          t-esc="record.left"/>
+                                </div>
+                                <div>
+                                    Magnification:
+                                    <span class="o_text_overflow" t-if="record.magnification"
+                                          t-esc="record.magnification"/>
+                                </div>
+                                <div>
+                                    Value Source:
+                                    <span class="o_text_overflow" t-if="record.value"
+                                          t-esc="record.value"/>
+                                </div>
+                            </div>
+                            <div class="oe_clear"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="zpl_label_tree_view" model="ir.ui.view">
+        <field name="name">zpl_label_tree_view</field>
+        <field name="model">zpl.label</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="display_name"/>
+                <field name="model"/>
+                <field name="height"/>
+                <field name="width"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zpl_label_action" model="ir.actions.act_window">
+        <field name="name">ZPL Labels</field>
+        <field name="res_model">zpl.label</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="printing_menu" name="Printing" sequence="1000" parent="stock.menu_stock_config_settings"/>
+    <menuitem id="printing_label_menu" name="Labels" sequence="1000" parent="printing_menu" action="zpl_label_action"/>
+
+</odoo>

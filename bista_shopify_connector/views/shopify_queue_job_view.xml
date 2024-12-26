@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="shopify_queue_job_form_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.form.view</field>
             <field name="model">shopify.queue.job</field>
             <field name="arch" type="xml">
-                <form create="0" edit="0" string="Shopify Queues">
+                <form string="Shopify Queues" create="0" edit="0">
                     <header>
-                        <button class="btn-primary" invisible="state in ['processed', 'failed']" name="queue_process" string="Process" type="object"/>
+                        <button name="queue_process" string="Process" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible' :[('state','in', ['processed', 'failed'])]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -29,15 +31,22 @@
                         </group>
                         <notebook>
                             <page string="Shopify Queue Line">
-                                <button class="btn btn-danger float-right" icon="fa-refresh" invisible="state not in ['partial_processed', 'failed']" name="do_failed_queue_process" string="Retry Failed Lines" type="object"/>
+                                <button string="Retry Failed Lines"
+                                        name="do_failed_queue_process" icon="fa-refresh"
+                                        type="object"
+                                        class="btn btn-danger float-right"
+                                        attrs="{'invisible': [('state','not in',['partial_processed', 'failed'])]}"/>
                                 <field name="shop_queue_line_ids" readonly="1">
-                                    <tree decoration-danger="state == 'failed'" decoration-muted="state == 'cancelled'" decoration-success="state == 'processed'" limit="50">
+                                    <tree decoration-success="state == 'processed'"
+                                          decoration-danger="state == 'failed'"
+                                          decoration-muted="state == 'cancelled'">
                                         <field name="name"/>
                                         <field name="shopify_id"/>
                                         <field name="create_date"/>
                                         <field name="processed_date"/>
                                         <field name="state"/>
-                                    </tree></field>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -46,48 +55,69 @@
                         <field name="activity_ids" widget="mail_activity"/>
                         <field name="message_ids" widget="mail_thread"/>
                     </div>
-                </form></field>
+                </form>
+            </field>
         </record>
+
         <record id="shopify_queue_job_search_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.search.view</field>
             <field name="model">shopify.queue.job</field>
             <field name="arch" type="xml">
                 <search string="Shopify Queues">
-                    <field filter_domain="['|',('shop_queue_line_ids.name', 'ilike', self),                                             ('name', 'ilike', self)]" name="name"/>
+                    <field name="name"
+                           filter_domain="['|',('shop_queue_line_ids.name', 'ilike', self),
+                                            ('name', 'ilike', self)]"/>
                     <field name="shopify_config_id"/>
                     <separator/>
-                    <filter domain="[('state', '=', 'draft')]" name="draft" string="Draft"/>
-                    <filter domain="[('state', '=', 'processed')]" name="processed" string="Processed"/>
-                    <filter domain="[('state', '=', 'partial_processed')]" name="partially_processed" string="Partial Processed"/>
-                    <filter domain="[('state', '=', 'failed')]" name="failed" string="Failed"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Processed" name="processed"
+                            domain="[('state', '=', 'processed')]"/>
+                    <filter string="Partial Processed" name="partially_processed"
+                            domain="[('state', '=', 'partial_processed')]"/>
+                    <filter string="Failed" name="failed" domain="[('state', '=', 'failed')]"/>
+
                     <group expand="0" string="Group By">
-                        <filter context="{'group_by': 'shopify_config_id'}" name="group_by_shop_config" string="Shopify Config."/>
-                        <filter context="{'group_by': 'state'}" name="group_by_state" string="State"/>
-                        <filter context="{'group_by': 'operation_type'}" name="group_by_type" string="Operation Type"/>
+                        <filter string="Shopify Config." name="group_by_shop_config"
+                                context="{'group_by': 'shopify_config_id'}"/>
+                        <filter string="State" name="group_by_state"
+                                context="{'group_by': 'state'}"/>
+                        <filter string="Operation Type" name="group_by_type" context="{'group_by': 'operation_type'}"/>
                     </group>
-                </search></field>
+                </search>
+            </field>
         </record>
+
         <record id="shopify_queue_job_tree_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.tree.view</field>
             <field name="model">shopify.queue.job</field>
             <field name="arch" type="xml">
-                <tree create="0" decoration-danger="state=='failed'" decoration-success="state=='processed'" edit="0" string="Shopify Queues">
+                <tree string="Shopify Queues" create="0" edit="0" decoration-success="state=='processed'"
+                      decoration-danger="state=='failed'">
                     <field name="name"/>
                     <field name="create_date"/>
                     <field name="shopify_config_id"/>
                     <field name="operation_type"/>
                     <field name="state"/>
-                </tree></field>
+                </tree>
+            </field>
         </record>
+
         <record id="action_shop_queue_job" model="ir.actions.act_window">
             <field name="name">Shopify Queues</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">shopify.queue.job</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_draft': 1,
-                'search_default_partially_processed': 2, 'search_default_failed': 3}</field>
+                'search_default_partially_processed': 2, 'search_default_failed': 3}
+            </field>
         </record>
-        <menuitem action="action_shop_queue_job" groups="bista_shopify_connector.group_shopify_admin" id="action_shop_queue_job_menu" name="Shopify Queues" parent="shopify_queues_operations_menu" sequence="1"/>
+
+        <menuitem id="action_shop_queue_job_menu" name="Shopify Queues"
+              parent="shopify_queues_operations_menu"
+              action="action_shop_queue_job"
+              groups="bista_shopify_connector.group_shopify_admin"
+              sequence="1"/>
+
         <record id="shopify_queue_job_line_form_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.line.form.view</field>
             <field name="model">shopify.queue.job.line</field>
@@ -101,68 +131,95 @@
                             <group>
                                 <field name="shopify_config_id"/>
                                 <field name="shopify_id"/>
-                                <field invisible="partner_id == False" name="partner_id"/>
+                                <field name="partner_id"
+                                       attrs="{'invisible':[('partner_id','=',False)]}"/>
                                 <field name="shop_queue_id"/>
-                                <field invisible="refund_id == False" name="refund_id"/>
+                                <field name="refund_id"
+                                       attrs="{'invisible':[('refund_id','=',False)]}"/>
                             </group>
                             <group>
                                 <field name="create_date"/>
                                 <field name="processed_date"/>
-                                <field invisible="order_id == False" name="order_id"/>
-                                <field invisible="product_id == False" name="product_id"/>
+                                <field name="order_id"
+                                       attrs="{'invisible':[('order_id','=',False)]}"/>
+                                <field name="product_id"
+                                       attrs="{'invisible':[('product_id','=',False)]}"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Shopify Log Lines">
                                 <field name="log_line_ids"/>
                             </page>
-                            <page name="data" string="Data">
-                                <field name="record_data" nolabel="1" options="{'mode': 'python'}" widget="ace"/>
+                            <page string="Data" name="data">
+                                <group>
+                                    <field name="record_data" widget="ace"
+                                           options="{'mode': 'python'}" nolabel="1"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
-                </form></field>
+                </form>
+            </field>
         </record>
+
         <record id="shopify_queue_job_line_search_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.line.search.view</field>
             <field name="model">shopify.queue.job.line</field>
             <field name="arch" type="xml">
                 <search string="Shopify Queue Lines">
-                    <field filter_domain="[('name', 'ilike', self)]" name="name"/>
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
                     <field name="shopify_id"/>
                     <field name="shopify_config_id"/>
                     <field name="order_id"/>
                     <field name="product_id"/>
+
                     <separator/>
-                    <filter domain="[('state', '=', 'draft')]" name="draft" string="Draft/To Process"/>
-                    <filter domain="[('state', '=', 'processed')]" name="processed" string="Processed"/>
-                    <filter domain="[('state', '=', 'cancelled')]" name="cancelled" string="Cancelled"/>
-                    <filter domain="[('state', '=', 'failed')]" name="failed" string="Failed"/>
+                    <filter string="Draft/To Process" name="draft"
+                            domain="[('state', '=', 'draft')]"/>
+                    <filter string="Processed" name="processed"
+                            domain="[('state', '=', 'processed')]"/>
+                    <filter string="Cancelled" name="cancelled"
+                            domain="[('state', '=', 'cancelled')]"/>
+                    <filter string="Failed" name="failed" domain="[('state', '=', 'failed')]"/>
+
                     <group expand="0" string="Group By">
-                        <filter context="{'group_by': 'shopify_config_id'}" name="group_by_shop_config" string="Shopify Config."/>
-                        <filter context="{'group_by': 'state'}" name="group_by_state" string="State"/>
+                        <filter string="Shopify Config." name="group_by_shop_config"
+                                context="{'group_by': 'shopify_config_id'}"/>
+                        <filter string="State" name="group_by_state"
+                                context="{'group_by': 'state'}"/>
                     </group>
-                </search></field>
+                </search>
+            </field>
         </record>
+
         <record id="shopify_queue_job_line_tree_view" model="ir.ui.view">
             <field name="name">shopify.queue.job.line.tree.view</field>
             <field name="model">shopify.queue.job.line</field>
             <field name="arch" type="xml">
-                <tree create="0" decoration-danger="state == 'failed'" decoration-muted="state == 'cancelled'" decoration-success="state == 'processed'" edit="0" string="Queue Lines">
+                <tree string="Queue Lines" decoration-muted="state == 'cancelled'"
+                      decoration-danger="state == 'failed'"
+                      decoration-success="state == 'processed'" create="0" edit="0">
                     <field name="name"/>
                     <field name="shopify_config_id"/>
                     <field name="shop_queue_id"/>
                     <field name="create_date"/>
                     <field name="processed_date"/>
                     <field name="state"/>
-                </tree></field>
+                </tree>
+            </field>
         </record>
+
         <record id="action_queue_job_line_all" model="ir.actions.act_window">
             <field name="name">Shopify Queue Lines</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">shopify.queue.job.line</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem action="action_queue_job_line_all" groups="bista_shopify_connector.group_shopify_admin" id="action_shop_queue_job_line_menu" name="Shopify Queue Lines" parent="shopify_queues_operations_menu" sequence="2"/>
+
+        <menuitem id="action_shop_queue_job_line_menu" name="Shopify Queue Lines"
+              parent="shopify_queues_operations_menu"
+              action="action_queue_job_line_all"
+              groups="bista_shopify_connector.group_shopify_admin"
+              sequence="2"/>
     </data>
 </odoo>

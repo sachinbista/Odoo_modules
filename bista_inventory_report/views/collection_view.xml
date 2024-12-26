@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="collection_form_view" model="ir.ui.view">
+            <field name="name">collection.form</field>
+            <field name="model">collection</field>
+            <field name="arch" type="xml">
+                <form string="Collection">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="collection_tree_view" model="ir.ui.view">
+            <field name="name">collection.tree</field>
+            <field name="model">collection</field>
+            <field name="arch" type="xml">
+                <tree string="Collections">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="collection_act_window" model="ir.actions.act_window">
+            <field name="name">Collections</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collection</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Collections.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Collection"
+                  id="collections_sub_menu"
+                  parent="bista_inventory_report.fabric_info_menu"
+                  action="collection_act_window"/>
+    </data>
+</odoo>

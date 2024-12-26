@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!--  Change Product Location -->
+        <record id="view_change_production_location_wizard" model="ir.ui.view">
+            <field name="name">Change Production To Produce</field>
+            <field name="model">change.production.location</field>
+            <field name="arch" type="xml">
+                <form string="Change Finished Product location">
+                    <field name="change_production_location_lines" nolabel="1">
+                        <tree string="Production Location " editable="top" create="false" default_order="mo_id desc">
+                        <field name="company_id" invisible="1"/>
+                            <field name="mo_id" readonly="1" force_save="1"/>
+                            <field name="location_dest_id"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="do_change_location" type="object" string="Validate" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_change_production_location" model="ir.actions.act_window">
+            <field name="name">Change Production location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">change.production.location</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+       
+    </data>
+</odoo>    

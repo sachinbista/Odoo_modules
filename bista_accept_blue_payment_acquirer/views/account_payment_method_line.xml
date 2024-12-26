@@ -1,0 +1,48 @@
+<odoo>
+     <record id="payment_method_line_form_view" model="ir.ui.view">
+    <field name="name">payment method line Form</field>
+    <field name="model">account.payment.method.line</field>
+    <field name="arch" type="xml">
+      <form>
+          <sheet>
+            <group>
+                <field name="payment_method_id"/>
+                  <field name="journal_id"/>
+                <field name="available_payment_method_ids" invisible="1"/>
+                <field name="payment_type"/>
+                <field name="display_name"/>
+                <field name="code"/>
+                <field name="is_accept_blue_payment"/>
+            </group>
+          </sheet>
+
+      </form>
+    </field>
+  </record>
+
+     <record id="payment_method_line_tree_view" model="ir.ui.view">
+    <field name="name">payment method line tree</field>
+    <field name="model">account.payment.method.line</field>
+    <field name="arch" type="xml">
+      <tree>
+
+          <field name="payment_type"/>
+                <field name="journal_id"/>
+                <field name="display_name"/>
+                <field name="code"/>
+      </tree>
+    </field>
+  </record>
+
+    <record id="payment_method_line_action" model="ir.actions.act_window">
+        <field name="name">Payment methods</field>
+        <field name="res_model">account.payment.method.line</field>
+       <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="payment_method_id"
+         name="Payment Methods"
+        parent="account.root_payment_menu"
+               action="payment_method_line_action"
+         sequence="1"/>
+</odoo>

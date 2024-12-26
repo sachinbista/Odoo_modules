@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="stock_route_view_form_inherit" model="ir.ui.view">
+        <field name="name">stock.route.view.form.inherit</field>
+        <field name="model">stock.route</field>
+        <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='packaging_selectable']" position="after">
+                <field name="is_intercompany_route"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

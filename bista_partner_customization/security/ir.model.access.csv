@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_partner_group,partner.group,model_partner_group,base.group_user,1,1,1,1
-access_partner_channel,partner.channel,model_partner_channel,base.group_user,1,1,1,1
-access_invoice_payment_method,invoice.payment.method,model_invoice_payment_method,base.group_user,1,1,1,1
-

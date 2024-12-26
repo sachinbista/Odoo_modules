@@ -1,0 +1,9 @@
+<odoo>
+
+    <record id="admin_maintenance" model="res.groups">
+        <field name="name">Admin Maintenance Users</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+
+</odoo>

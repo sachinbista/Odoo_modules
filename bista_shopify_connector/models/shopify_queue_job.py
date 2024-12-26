@@ -22,11 +22,6 @@ class ShopifyQueueJob(models.Model):
 
     @api.depends('shop_queue_line_ids.state')
     def _compute_queue_line_counts_and_state(self):
-        """
-           This method will compute the states
-           and counts on the line of queues.
-           @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-       """
         for q_job in self:
             shop_queue_line_ids = q_job.shop_queue_line_ids
             if all(line.state == 'processed' or line.state == 'cancelled' for line in shop_queue_line_ids):
@@ -44,14 +39,12 @@ class ShopifyQueueJob(models.Model):
                                         ondelete='cascade')
     operation_type = fields.Selection([('import_customer', 'Import Customer'),
                                        ('import_product', 'Import Product'),
-                                       ('import_order_by_ids',
-                                        'Import Order by IDs'),
+                                       ('import_order_by_ids', 'Import Order by IDs'),
                                        ('import_order', 'Import Orders'),
                                        ('import_refund', 'Import Refund'),
                                        ('import_return', 'Import Returns'),
                                        ('export_product', 'Export Product'),
-                                       ('export_stock', 'Export Stock'),
-                                       ('import_returns_refunds', 'Import Returns/Refunds')],
+                                       ('export_stock', 'Export Stock')],
                                       string="Operation Type", required=True)
     state = fields.Selection([('draft', 'Draft'),
                               ('partial_processed', 'Partial Processed'),
@@ -59,17 +52,11 @@ class ShopifyQueueJob(models.Model):
                              default='draft', string='Status',
                              compute='_compute_queue_line_counts_and_state',
                              store=True)
-    shopify_log_id = fields.Many2one(
-        'shopify.error.log', string="Shopify Logs")
+    shopify_log_id = fields.Many2one('shopify.error.log', string="Shopify Logs")
     shop_queue_line_ids = fields.One2many("shopify.queue.job.line",
                                           "shop_queue_id", string="Queue Lines")
-    webhook_queue = fields.Boolean('Is Webhook Queue?', default=False)
 
     def action_create_queue_lines(self, line_vals):
-        """
-            This method will create the queue lines.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         queue_job_line_obj = self.env['shopify.queue.job.line']
         existing_lines = self.env['shopify.queue.job.line'].sudo().search(
             [('shopify_id', '=', line_vals.get('shopify_id')),
@@ -86,20 +73,16 @@ class ShopifyQueueJob(models.Model):
     def create(self, vals):
         for val in vals:
             if val.get('name', _('New')) == _('New'):
-                val['name'] = self.env['ir.sequence'].sudo().next_by_code(
-                    'shopify.queue.job') or _('New')
+                val['name'] = self.env['ir.sequence'].next_by_code(
+                    'shopify.inventory.queue.job') or _('New')
         return super().create(vals)
 
     def queue_process(self):
-        """
-            This method will process the queue
-            based on operation type.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
+        # TODO:need to add functionality
         self.ensure_one()
         shopify_log_id = self.shopify_log_id
         if not shopify_log_id:
-            shopify_log_id = self.env['shopify.error.log'].sudo().create_update_log(
+            shopify_log_id = self.env['shopify.error.log'].create_update_log(
                 shopify_config_id=self.shopify_config_id)
             self.shopify_log_id = shopify_log_id.id
 
@@ -118,24 +101,16 @@ class ShopifyQueueJob(models.Model):
         elif self.operation_type == 'import_return':
             shopify_log_id.update({'operation_type': 'import_return'})
             self.import_shopify_return_queue_process()
-        elif self.operation_type == 'import_returns_refunds':
-            shopify_log_id.update({'operation_type': 'import_returns_refunds'})
-            self.import_returns_refunds_on_one_click()
 
         if not shopify_log_id.shop_error_log_line_ids:
             shopify_log_id.unlink()
         return True
 
     def do_failed_queue_process(self):
-        """
-            This method will process the failed queue
-            based on operation type.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         self.ensure_one()
         shopify_log_id = self.shopify_log_id
         if not shopify_log_id:
-            shopify_log_id = self.env['shopify.error.log'].sudo().create_update_log(
+            shopify_log_id = self.env['shopify.error.log'].create_update_log(
                 shopify_config_id=self.shopify_config_id)
             self.shopify_log_id = shopify_log_id.id
 
@@ -154,23 +129,15 @@ class ShopifyQueueJob(models.Model):
         elif self.operation_type == 'import_return':
             shopify_log_id.update({'operation_type': 'import_return'})
             self.import_shopify_return_failed_queue_process()
-        elif self.operation_type == 'import_returns_refunds':
-            shopify_log_id.update({'operation_type': 'import_returns_refunds'})
-            self.import_failed_returns_refunds_on_one_click()
 
         if not shopify_log_id.shop_error_log_line_ids:
             shopify_log_id.unlink()
         return True
 
     def import_shopify_customer_queue_process(self):
-        """
-            This method will create the
-            shopify customer's process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        res_partner_obj = self.env['res.partner'].sudo()
+        res_partner_obj = self.env['res.partner']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
+            lambda x: x.state == 'draft')
         for line in draft_queue_line_ids:
             customer_dict = safe_eval(line.record_data)
             res_partner_obj.with_context(queue_line_id=line,
@@ -180,14 +147,9 @@ class ShopifyQueueJob(models.Model):
         return True
 
     def import_shopify_customer_failed_queue__process(self):
-        """
-            This method will create the failed
-            shopify customer's process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        res_partner_obj = self.env['res.partner'].sudo()
+        res_partner_obj = self.env['res.partner']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
+            lambda x: x.state == 'failed')
         for line in draft_queue_line_ids:
             customer_dict = safe_eval(line.record_data)
             res_partner_obj.with_context(queue_line_id=line,
@@ -197,19 +159,13 @@ class ShopifyQueueJob(models.Model):
         return True
 
     def import_shopify_refund_queue_process(self):
-        """
-            This method will create the queue
-            shopify refund's process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        move_obj = self.env['account.move'].sudo()
+        move_obj = self.env['account.move']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'cancelled' or x.state == 'failed')
+            lambda x: x.state == 'draft')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
             # TODO: Improve code. sleep() should be called only when "Too Many requests" error is raised
-            # Fix for error "Too Many requests". 2 calls per second is allowed
-            time.sleep(1)
+            time.sleep(1) #Fix for error "Too Many requests". 2 calls per second is allowed
             move_obj.with_context(queue_line_id=line,
                                   shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_refund(
                 order_dict, self.shopify_config_id)
@@ -217,14 +173,9 @@ class ShopifyQueueJob(models.Model):
         return True
 
     def import_shopify_refund_failed_queue_process(self):
-        """
-           This method will create the queue for failed
-           shopify refund's process.
-           @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-       """
-        move_obj = self.env['account.move'].sudo()
+        move_obj = self.env['account.move']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
+            lambda x: x.state == 'failed')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
             move_obj.with_context(queue_line_id=line,
@@ -234,163 +185,75 @@ class ShopifyQueueJob(models.Model):
         return True
 
     def import_shopify_order_queue_process(self):
-        """
-            This method will create the queue for
-            shopify orders's process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        order_obj = self.env['sale.order'].sudo()
+        order_obj = self.env['sale.order']
         self.shopify_config_id.check_connection()
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
-        for line in draft_queue_line_ids:
-            order_dict = safe_eval(line.record_data)
-            if self.shopify_config_id.is_create_invoice:
-                order_obj.with_context(queue_line_id = line)._shopify_prepare_invoice_data(order_dict, self.shopify_config_id)
-            else:
-                order_obj.with_context(queue_line_id=line,
-                                       shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
-                    order_dict, self.shopify_config_id)
-            line.write({'processed_date': fields.Datetime.now()})
-        return True
-
-    def import_returns_refunds_on_one_click(self):
-        """
-            This method will create the queue for
-            shopify return  process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        order_obj = self.env['sale.order'].sudo()
-        move_obj = self.env['account.move'].sudo()
-        self.shopify_config_id.check_connection()
-        draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
-
-        # Author : Yogeshwar Chaudhari
-        # Date   : 21/12/23
-        # Client dont want return document in odoo from shopify
-        for line in draft_queue_line_ids:
-            order_dict = safe_eval(line.record_data)
-            line.write({'processed_date': fields.Datetime.now()})
-
-            order_obj.with_context(queue_line_id=line, shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
-                order_dict, self.shopify_config_id)
-
-        for line in draft_queue_line_ids:
-            order_dict = safe_eval(line.record_data)
-            line.write({'processed_date': fields.Datetime.now()})
-            time.sleep(1)
-            move_obj.with_context(queue_line_id=line, shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_refund(
-                order_dict, self.shopify_config_id)
-
-        return True
-
-    def import_failed_returns_refunds_on_one_click(self):
-        order_obj = self.env['sale.order'].sudo()
-        move_obj = self.env['account.move'].sudo()
-        self.shopify_config_id.check_connection()
-        draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
-
-        for line in draft_queue_line_ids:
-            order_dict = safe_eval(line.record_data)
-            line.write({'processed_date': fields.Datetime.now()})
-
-            order_obj.with_context(queue_line_id=line, shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
-                order_dict, self.shopify_config_id)
-
-            time.sleep(1)
-
-            move_obj.with_context(queue_line_id=line, shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_refund(
-                order_dict, self.shopify_config_id)
-
-        return True
-
-    def import_shopify_return_queue_process(self):
-        """
-           This method will create the queue for
-           shopify return  process.
-           @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-       """
-        order_obj = self.env['sale.order'].sudo()
-        draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
+            lambda x: x.state == 'draft')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
             order_obj.with_context(queue_line_id=line,
-                                   shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
+                                    shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
+                order_dict, self.shopify_config_id)
+            line.write({'processed_date': fields.Datetime.now()})
+        return True
+
+    def import_shopify_return_queue_process(self):
+        order_obj = self.env['sale.order']
+        draft_queue_line_ids = self.shop_queue_line_ids.filtered(
+            lambda x: x.state == 'draft')
+        for line in draft_queue_line_ids:
+            order_dict = safe_eval(line.record_data)
+            order_obj.with_context(queue_line_id=line,
+                                    shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
                 order_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 
     def import_shopify_order_failed_queue_process(self):
-        """
-            This method will create the queue for
-            shopify failed order  process.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
-        order_obj = self.env['sale.order'].sudo()
+        order_obj = self.env['sale.order']
         self.shopify_config_id.check_connection()
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
+            lambda x: x.state == 'failed')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
-            if self.shopify_config_id.is_create_invoice:
-                order_obj.with_context(queue_line_id = line)._shopify_prepare_invoice_data(order_dict, self.shopify_config_id)
-            else:
-                order_obj.with_context(queue_line_id=line,
-                                       shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
-                    order_dict, self.shopify_config_id)
+            order_obj.with_context(queue_line_id=line,
+                                    shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_orders(
+                order_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 
     def import_shopify_return_failed_queue_process(self):
-        """
-           This method will create the queue for
-           shopify return failed  process.
-           @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-       """
-        order_obj = self.env['sale.order'].sudo()
+        order_obj = self.env['sale.order']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
+            lambda x: x.state == 'failed')
         for line in draft_queue_line_ids:
             order_dict = safe_eval(line.record_data)
             order_obj.with_context(queue_line_id=line,
-                                   shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
+                                    shopify_log_id=line.shop_queue_id.shopify_log_id).process_return_order(
                 order_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 
     def import_shopify_product_queue_process(self):
-        """
-            This method will process the product
-            queue for the shopify.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         shop_product_template_obj = self.env['shopify.product.template']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'draft' or x.state == 'failed' or x.state == 'cancelled')
+            lambda x: x.state == 'draft')
         for line in draft_queue_line_ids:
             product_dict = safe_eval(line.record_data)
             shop_product_template_obj.with_context(queue_line_id=line,
-                                                   shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_product(
+                                         shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_product(
                 product_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
 
     def import_shopify_product_failed_queue_process(self):
-        """
-            This method will process the failed product
-            queue for the shopify.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         shop_product_template_obj = self.env['shopify.product.template']
         draft_queue_line_ids = self.shop_queue_line_ids.filtered(
-            lambda x: x.state == 'failed' or x.state == 'draft' or x.state == 'cancelled')
+            lambda x: x.state == 'failed')
         for line in draft_queue_line_ids:
             product_dict = safe_eval(line.record_data)
             shop_product_template_obj.with_context(queue_line_id=line,
-                                                   shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_product(
+                                         shopify_log_id=line.shop_queue_id.shopify_log_id).create_update_shopify_product(
                 product_dict, self.shopify_config_id)
             line.write({'processed_date': fields.Datetime.now()})
         return True
@@ -414,8 +277,7 @@ class ShopifyQueueJobLine(models.Model):
     record_data = fields.Text("Data", copy=False)
     order_id = fields.Many2one("sale.order", string="Order", copy=False,
                                default=False)
-    product_id = fields.Many2one(
-        "product.template", string="Product", copy=False)
+    product_id = fields.Many2one("product.template", string="Product", copy=False)
     partner_id = fields.Many2one("res.partner", string="Customer", copy=False)
     refund_id = fields.Many2one("account.move", string="Refund", copy=False)
     log_line_ids = fields.One2many("shopify.error.log.line", "queue_job_line_id",

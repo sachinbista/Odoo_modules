@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock.action_report_picking" model="ir.actions.report">
+        <field name="report_name">bista_reports.report_picking_operation_template</field>
+        <field name="paperformat_id" ref="bista_reports.paperformat_dropship_operation"></field>
+    </record>
+</odoo>

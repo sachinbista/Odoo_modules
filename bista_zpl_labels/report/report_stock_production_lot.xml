@@ -1,0 +1,26 @@
+<odoo>
+
+
+    <record id="stock_production_lot_label" model="ir.actions.report">
+        <field name="name">Lot/Serial (ZPL)</field>
+        <field name="model">stock.production.lot</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">bista_zpl_labels.stock_lot_label</field>
+        <field name="report_file">bista_zpl_labels.report_stock_production_lot</field>
+        <field name="print_report_name">(object.display_name)</field>
+    </record>
+
+    <template id="stock_lot_label">
+        <t t-translation="off" t-esc="value"/>
+    </template>
+
+
+    <function model="ir.actions.report" name="unlink_action">
+        <value eval="[ref('stock.label_lot_template')]"/>
+    </function>
+
+    <function model="ir.actions.report" name="unlink_action">
+        <value eval="[ref('stock.action_report_lot_label')]"/>
+    </function>
+
+</odoo>

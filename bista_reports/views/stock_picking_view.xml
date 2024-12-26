@@ -1,0 +1,103 @@
+<odoo>
+	<data>
+		<record id="bista_barcode_stock_picking_form_view_inherit" model="ir.ui.view">
+            <field name="name">bista.stock.picking.form.view.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='origin']" position='after'>
+                    <field name="qr_code_pick" invisible="1"/>
+                    <field name="qr_code_out" invisible="1"/>
+                    <field name="logo" widget="image" class="oe_avatar" invisible="1"/>
+                    <field name="is_printed"/>
+                </xpath>
+<!--                <xpath expr="//tree" position="inside">-->
+<!--                    <control>-->
+<!--                        <create string="Add a line"/>-->
+<!--                        <button name="copy_existing_operations" class="btn-link" type="object" string="Copy Existing Operations" context="{'bom_id': parent.id}"/>-->
+<!--                    </control>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree" position="inside">-->
+<!--                    <control>-->
+<!--                        <create name="add_product_control" string="Add a product"/>-->
+<!--                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>-->
+<!--                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>-->
+<!--                    </control>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+        
+        <record id="bista_is_printed_inherit_picking_view" model="ir.ui.view">
+            <field name="name">bista.is.printed.inherit.picking.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='scheduled_date']" position='after'>
+                    <field name="is_printed"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="bista_sale_order_stock_inherit_inv_user_view" model="ir.ui.view">
+            <field name="name">bista.sale.order.stock.inherit.inv.user.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='action_view_delivery']" position='replace'>
+                    <button type="object"
+                        name="action_view_delivery"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        attrs="{'invisible': [('delivery_count', '=', 0)]}" groups="stock.group_stock_user,bista_reports.group_inventory_read_user">
+                        <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_picking_form_view_inherit_inv_user" model="ir.ui.view">
+            <field name="name">stock.picking.form.view.inherit.inv.user</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_printed']" position="after">
+                    <field name="is_inv_user" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_assign']" position="attributes">
+                    <attribute name="attrs">{ 'invisible': ['|', ('is_inv_user', '=', True), ('show_check_availability', '=', False)] }</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_open_label_type']" position="attributes">
+                    <attribute name="attrs">{ 'invisible': [('is_inv_user', '=', True)] }</attribute>
+                </xpath>
+                <xpath expr="//button[@name='do_unreserve']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', '|', '|', ('is_inv_user', '=', True), ('picking_type_code', '=', 'incoming'), ('immediate_transfer', '=', True), '&amp;', ('state', '!=', 'assigned'), ('move_type', '!=', 'one'), '&amp;', ('state', 'not in', ('assigned', 'confirmed')), ('move_type', '=', 'one')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_scrap']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '&amp;', '|', ('picking_type_code', '=', 'incoming'), ('state', '!=', 'done'), '&amp;', ('picking_type_code', '=', 'outgoing'), ('state', '=', 'done'), ('is_inv_user', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_inv_user', '=', True), ('state', 'not in', ('assigned', 'confirmed', 'draft', 'waiting'))]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_validate']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('is_inv_user', '=', True), ('state', 'in', ('waiting','confirmed')), ('show_validate', '=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_set_quantities_to_reservation']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_inv_user', '=', True), ('show_set_qty_button', '=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_inv_user', '=', True), ('state', '!=', 'assigned')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_inv_user', '=', True), ('state', '!=', 'done')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('is_inv_user', '=', True), ('state', '!=', 'done')]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('is_inv_user', '=', True), ('state', 'in', ('draft','cancel')), ('is_locked', '=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

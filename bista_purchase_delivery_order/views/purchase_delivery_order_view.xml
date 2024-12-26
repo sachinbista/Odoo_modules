@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_DO_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.DO.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.view_partner_property_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='purchase']//field[@name='property_purchase_currency_id']" position="after">
+                    <field name="delivery_type_id"
+                           options="{'no_create': True}" groups="stock.group_stock_multi_locations"
+                           context="{'current_company_id':company_id}"
+                    />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

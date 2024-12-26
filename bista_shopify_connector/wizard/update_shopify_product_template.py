@@ -13,11 +13,6 @@ class ShopifyProductUpdate(models.TransientModel):
     _description = 'Update Shopify Product Template'
 
     def update_shopify_product_template(self):
-        """
-            This method is updating the shopify products
-            based on odoo on shopify.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         shopify_prod_obj = self.env['shopify.product.template']
         for rec in self:
             active_ids = rec._context.get('active_ids')

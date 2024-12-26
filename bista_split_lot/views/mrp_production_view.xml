@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="inherit_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">inherit.mrp.production.form.view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='action_cancel']" position="after">
+                    <header>
+                        <button type="object" attrs="{'invisible': [('state','!=','done')]}"
+                                name="print_label"
+                                string="Print Label"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

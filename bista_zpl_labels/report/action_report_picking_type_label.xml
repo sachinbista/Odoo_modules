@@ -1,0 +1,16 @@
+<odoo>
+
+<!--    <template id="action_report_picking_type_label" inherit_id="stock.report_generic_barcode">-->
+<!--        <xpath expr="//td" position="replace">-->
+<!--            <div style="text-align: left; font-size: 1.5em">-->
+<!--                <span t-esc="o.name"/>-->
+<!--            </div>-->
+<!--            <div style="width: 65mm !important;">-->
+<!--                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s' % ('QR', o.barcode)"-->
+<!--                     style="width:20mm;height:20mm;"/>-->
+<!--            </div>-->
+
+<!--        </xpath>-->
+<!--    </template>-->
+
+</odoo>

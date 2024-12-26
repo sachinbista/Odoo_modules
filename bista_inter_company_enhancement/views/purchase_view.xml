@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="po_line_view_multi_company" model="ir.ui.view">
+        <field name="name">purchase.order.inherit.pcl</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_create_invoice'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|',('bs_inter_so_id', '!=', False), ('state', 'not in',
+                    ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_create_invoice'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|','|',('bs_inter_so_id', '!=', False), ('state', 'not in',
+                    ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', [])]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_rfq_send'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_rfq_send'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_rfq_send'][3]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='print_quotation']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('bs_inter_so_id', '!=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="bs_inter_so_id" readonly="1" invisible="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']"
+                   position="before">
+                <field
+                        name="bs_lot_ids"
+                        context="{'default_product_template_id': product_id,'default_purc_lot_true': 'True'}"
+                        groups="stock.group_production_lot" widget="many2many_tags"
+                        options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}" readonly="1"
+                        force_save="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_form_inherit_inherit_pcl" model="ir.ui.view">
+        <field name="name">purchase.order.inherit.pcl1</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='confirm_reminder_mail']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', '|','|', ('bs_inter_so_id', '!=', False),('state', 'not in', ('purchase', 'done')), ('mail_reminder_confirmed', '=', True), ('date_planned', '=', False),
+                    ('effective_date', '!=', False)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
