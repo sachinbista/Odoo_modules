@@ -24,7 +24,8 @@
                 <attribute name="domain">[('is_company', '=', True),('company_id', 'in', (False, company_id))]</attribute>
             </xpath>
              <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
-                <attribute name="domain">[('is_company', '=', True)]</attribute>
+<!--                <attribute name="domain">[('is_company', '=', True)]</attribute>-->
+                <attribute name="domain">[('parent_id', '=', partner_id)]</attribute>
             </xpath>
 
             <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_tag_ids']" position="after">

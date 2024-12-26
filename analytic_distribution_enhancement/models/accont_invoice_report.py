@@ -33,7 +33,7 @@ class AccountInvoiceReport(models.Model):
     )
 
     partner_state_id = fields.Many2one('res.country.state', string="Partner State")
-
+    delivery_partner_state_id = fields.Many2one('res.country.state', string="Delivery Partner State")
 
     @api.model
     def _from(self):
@@ -42,12 +42,15 @@ class AccountInvoiceReport(models.Model):
                 LEFT JOIN account_analytic_line analytic_line ON analytic_line.move_line_id = line.id
                 LEFT JOIN res_partner partner ON partner.id = line.partner_id
                 LEFT JOIN res_country_state state ON state.id = partner.state_id
+                
                 LEFT JOIN product_product product ON product.id = line.product_id
                 LEFT JOIN account_account account ON account.id = line.account_id
                 LEFT JOIN product_template template ON template.id = product.product_tmpl_id
                 LEFT JOIN uom_uom uom_line ON uom_line.id = line.product_uom_id
                 LEFT JOIN uom_uom uom_template ON uom_template.id = template.uom_id
                 INNER JOIN account_move move ON move.id = line.move_id
+                LEFT JOIN res_partner shipping_partner ON shipping_partner.id = move.partner_shipping_id
+                LEFT JOIN res_country_state shipping_state ON shipping_state.id = shipping_partner.state_id
                 LEFT JOIN res_partner commercial_partner ON commercial_partner.id = move.commercial_partner_id
                 LEFT JOIN ir_property product_standard_price
                     ON product_standard_price.res_id = CONCAT('product.product,', product.id)
@@ -61,6 +64,7 @@ class AccountInvoiceReport(models.Model):
 
     def _select(self):
         query= super(AccountInvoiceReport, self)._select() + """
+            , shipping_state.id as delivery_partner_state_id
             , state.id as partner_state_id
             , analytic_line.x_plan2_id as analytic_account_id
             , line.product_group_id as product_group_id
@@ -75,6 +79,7 @@ class AccountInvoiceReport(models.Model):
 
     def _group_by(self):
         query= super(AccountInvoiceReport, self)._group_by() + """
+            , shipping_state.id as delivery_partner_state_id
             , state.id as partner_state_id
             , analytic_line.x_plan2_id
             , line.product_group_id

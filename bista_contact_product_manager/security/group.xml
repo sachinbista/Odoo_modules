@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="res.groups" id="invoice_reset_to_draft_restrict">
-        <field name="name">Remove Reset To Draft</field>
-    </record>
-
-
     <record model="res.groups" id="contact_product_edit_restriction">
         <field name="name">Contact and Product Manager</field>
         <field name="implied_ids" eval="[Command.link(ref('bista_product_manager.group_product_menu_access'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="product_category_product_data_user_access" model="ir.model.access">
+        <field name="name">Access product.category for Contact and Product Manager</field>
+        <field name="model_id" ref="product.model_product_category"/>
+        <field name="group_id" ref="bista_contact_product_manager.contact_product_edit_restriction"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record model="ir.ui.menu" id="sale.menu_product_categories">
+        <field name="groups_id"
+               eval="[(6, 0, [ref('bista_contact_product_manager.contact_product_edit_restriction')])]"/>
+    </record>
+
+
+    <record model="res.groups" id="invoice_reset_to_draft_restrict">
+        <field name="name">Add Reset To Draft</field>
         <field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
     </record>
 
@@ -51,9 +67,20 @@
         <field name="perm_unlink" eval="False"/>
     </record>
 
+    <record id="ir_model_contact_product_edit_access" model="ir.model.access">
+        <field name="name">ir.model access forContact and Product Manager</field>
+        <field name="model_id" ref="base.model_ir_model"/>
+        <field name="group_id" ref="bista_contact_product_manager.contact_product_edit_restriction"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+
 
     <record model="res.groups" id="product_cost_restriction">
-        <field name="name">Product Cost Restriction</field>
+        <field name="name">Show Product Cost</field>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 </odoo>

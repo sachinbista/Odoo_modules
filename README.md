@@ -1,3 +1,2 @@
-# Odoo_modules
+# Shopify Connector
 
-odoo worked tasks and modules

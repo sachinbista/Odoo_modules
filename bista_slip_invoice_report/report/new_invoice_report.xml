@@ -96,7 +96,9 @@
                                 <strong>PO Number:</strong>
                             </td>
                             <td style="padding-bottom: 10px;" class="text-end">
-                                <t t-esc="o.invoice_origin"/>
+                                <t t-if="o.purchase_id">
+                                    <span t-field="o.purchase_id.name"/>
+                                </t>
                             </td>
                         </tr>
 
@@ -251,17 +253,17 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <!--                                <t t-esc="line.product_id.default_code or ''"/>-->
+                                    <t t-esc="o.name"/>
                                 </td>
                                 <td>
-                                    <t t-esc="o.picking_ids.scheduled_date or ''"
+                                    <t t-esc="o.delivery_date or ''"
                                        t-options="{'widget': 'date', 'format': 'dd/MM/YYYY'}"/>
                                 </td>
                                 <td>
-                                    <!--                                  <t t-esc="o.picking_ids.scheduled_date or ''"/>-->
+                                    <t t-esc="o.invoice_incoterm_id.name"/>
                                 </td>
                                 <td>
-
+                                    <t t-esc="o.reference_number"/>
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -318,22 +320,24 @@
                     <tbody>
                         <tr t-foreach="o.invoice_line_ids" t-as="line">
                             <td>
-                                <t t-esc="line.product_id.default_code or ''"/>
+                                <t t-esc="line.product_id.barcode or ''"/>
                             </td>
                             <td class="text-start">
                                 <t t-esc="line.name"/>
                             </td>
-                            <td>
-                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Material').name"/>-->
+                            <td class="text-center">
+                                <t t-esc="line.product_id.key_ingredients or '' "/>
                             </td>
-                            <td>
-                                <!--                                <t t-esc="line.product_id.attribute_value_ids.filtered(lambda a: a.attribute_id.name == 'Colour').name"/>-->
+                            <td class="text-center">
+                                <t t-esc="line.product_id.color_name or ''"/>
                             </td>
                             <td class="text-center">
                                 <t t-esc="line.product_id.hs_code or ''"/>
                             </td>
-                            <td>
-                                <!--                                <t t-esc="line.product_id.country_of_origin_id.code or ''"/>-->
+                            <td class="text-center">
+                                <t t-if="line.product_id.country_of_origin_id">
+                                    <t t-esc="line.product_id.country_of_origin_id.name"/>
+                                </t>
                             </td>
                             <td class="text-center">
                                 <t t-esc="line.product_id.weight or ''"/>

@@ -61,7 +61,7 @@ class StockPicking(models.Model):
     shopify_order_id = fields.Char(
         "Shopify Order ID",
         help='Enter Shopify Order ID',
-        readonly=True)
+        readonly=False)
     shopify_fulfillment_service = fields.Char("Fulfillment Service.",
                                               help="Shopify service name.",
                                               copy=False)
@@ -79,6 +79,10 @@ class StockPicking(models.Model):
     picking_return_id = fields.Many2one("stock.picking", string="Return Of")
     shopify_tracking_url = fields.Char(
         string='Shopify Tracking URL', tracking=True)
+    shopify_order_number = fields.Char('Shopify Order Number', copy=False)
+    shopify_transaction_id = fields.Char(string='Shopify Transaction ID',
+                                         copy=False)
+    fulfillment_status = fields.Char('Fulfillment Status', copy=False)
 
     def _create_backorder(self):
         """

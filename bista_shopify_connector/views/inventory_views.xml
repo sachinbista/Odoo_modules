@@ -13,9 +13,13 @@
                             <group>
                                 <field name="shopify_fulfillment_id" />
                                 <field name="shopify_fulfillment_service" />
+                                <field name="shopify_config_id"/>
                             </group>
                             <group>
-                                <field name="shopify_order_id" />
+                                <field name="shopify_order_id" readonly="1"/>
+                                <field name="shopify_order_number" readonly="1"/>
+                                <field name="shopify_transaction_id" readonly="1"/>
+                                <field name="fulfillment_status" readonly="1"/>
                                 <field name="shopify_refund_id" />
                                 <field name="picking_return_id" />
                             </group>

@@ -22,8 +22,8 @@ class AccountMove(models.Model):
             new_picking_id, pick_type_id = return_wizard._create_returns()
             new_picking = self.env['stock.picking'].browse(new_picking_id)
 
-            if new_picking:
-                new_picking.button_validate()
+            # if new_picking:
+            #     new_picking.button_validate()
             self.picking_ids = [(4, new_picking.id)]
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
@@ -36,7 +36,11 @@ class AccountMove(models.Model):
 
     def action_post(self):
         if self._context.get('no_check',False):
-            return super().action_post()
+            res =  super().action_post()
+            self.reconcile_delivery()
+            if self.picking_ids:
+                self.picking_ids.origin = self.name
+            return res
         for move in self:
             credit_limit_manager = self.env.user.has_group('bista_customer_credit_limit.customer_credit_limit_manager')
             if move.partner_id.credit_check and not credit_limit_manager:
@@ -63,7 +67,23 @@ class AccountMove(models.Model):
                 picking_action = self.create_picking()
                 if isinstance(picking_action, dict):
                     return picking_action
-        return super().action_post()
+        res  = super().action_post()
+        self.reconcile_delivery()
+        if self.picking_ids:
+            self.picking_ids.origin = self.name
+        return res
+
+    def reconcile_delivery(self):
+        stock_out_account = False
+        for line in self.invoice_line_ids:
+            if not stock_out_account:
+                stock_out_account = line.product_id.categ_id.property_stock_account_output_categ_id
+            move_line = self.line_ids.filtered(lambda l: l.account_id == stock_out_account and l.product_id == line.product_id)
+            svl_id = (self.picking_ids.move_ids).stock_valuation_layer_ids.filtered(lambda l: l.product_id == line.product_id)
+            if svl_id:
+                svl_move_line = svl_id.account_move_id.line_ids.filtered(lambda l: l.account_id == stock_out_account)
+                if move_line and svl_move_line and move_line.parent_state == 'posted' and svl_move_line.parent_state == 'posted':
+                    (svl_move_line + move_line).reconcile()
 
 
     def create_picking(self):
@@ -90,14 +110,8 @@ class AccountMove(models.Model):
                         insufficient_products.append(
                             f"{line.product_id.display_name} (Available: {available_qty}, Needed: {line.quantity})")
 
-                if insufficient_stock:
-                    product_list = ', '.join(insufficient_products)
-                    context = {
-                        'active_id': self.id,
-                        'insufficient_products': product_list,
-                    },
-                    wizard = self.env['insufficient.stock.wizard'].with_context(context=context).create({
-                    })
+            if insufficient_stock:
+                    product_list = '\n'.join(insufficient_products)
                     return {
                         'name': _('Insufficient Stock'),
                         'view_mode': 'form',

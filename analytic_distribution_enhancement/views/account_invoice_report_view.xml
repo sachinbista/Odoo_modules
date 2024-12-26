@@ -8,7 +8,8 @@
             <xpath expr="//filter[@name='user']" position='after'>
                 <filter string="Partner State" name="partner_state_id"
                         context="{'group_by':'partner_state_id'}"/>
-
+                <filter string="Partner Delivery State" name="delivery_partner_state_id"
+                        context="{'group_by':'delivery_partner_state_id'}"/>
                 <filter string="Analytic Distribution" name="analytic_account_id"
                         context="{'group_by':'analytic_account_id'}"/>
                 <filter string="Product Group" name="product_group_id" context="{'group_by':'product_group_id'}"/>

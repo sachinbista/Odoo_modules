@@ -8,7 +8,9 @@ class ProductTemplate(models.Model):
     _inherit = ["multi.company.abstract", "product.template"]
     _name = "product.template"
 
-    status = fields.Selection([('active', 'Active'), ('discontinued', 'Discontinued')],
+    status = fields.Selection([('active', 'Active'), ('discontinued', 'Discontinued'),
+                               ('temporarily_unavailable', 'Temporarily Unavailable'),
+                               ('in_development ', 'In Development'),("cancelled","Cancelled")],
                               string='Status', default='active')
 
     barcode = fields.Char('UPC', compute='_compute_barcode', inverse='_set_barcode',
@@ -60,3 +62,5 @@ class ProductTemplate(models.Model):
                                     'template_id',
                                     'retailer_id',
                                     string="Retailer")
+    country_of_origin_id = fields.Many2one('res.country', string='Country Of Origin(COO)')
+

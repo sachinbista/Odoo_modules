@@ -33,6 +33,7 @@ class AccountBatchPayment(models.Model):
                 "Date": payment.date.strftime("%d/%m/%Y"),
                 "Memo": payment.ref or "",
                 "Recipient Bank Account": payment.partner_bank_id.acc_number or "",
+                "BSB": payment.partner_bank_id.aba_bsb or "",
                 "Amount": payment.amount_signed,
             })
 
@@ -57,7 +58,7 @@ class AccountBatchPayment(models.Model):
 
         # Write table headers
         header_format = workbook.add_format({"bottom": 1})
-        headers = ["Customer", "Date", "Memo", "Recipient Bank Account", "Amount"]
+        headers = ["Customer", "Date", "Memo", "Recipient Bank Account","BSB", "Amount"]
         for col, header in enumerate(headers):
             worksheet.write(6, col, header, header_format)
 
@@ -70,7 +71,8 @@ class AccountBatchPayment(models.Model):
             worksheet.write_datetime(row, 1, datetime.strptime(transaction["Date"], "%d/%m/%Y"), date_format)
             worksheet.write(row, 2, transaction["Memo"])
             worksheet.write(row, 3, transaction["Recipient Bank Account"])
-            worksheet.write(row, 4, transaction["Amount"])
+            worksheet.write(row, 4, transaction["BSB"])
+            worksheet.write(row, 5, transaction["Amount"])
 
         # Update column widths
             column_widths[1] = max(column_widths[1], len(self.name))
@@ -84,8 +86,8 @@ class AccountBatchPayment(models.Model):
 
         # Write total
         total = sum(t["Amount"] for t in transactions_data)
-        worksheet.write(len(transactions_data) + row, 3, "TOTAL")
-        worksheet.write(len(transactions_data) + row, 4, total)
+        worksheet.write(len(transactions_data) + row, 4, "TOTAL")
+        worksheet.write(len(transactions_data) + row, 5, total)
 
         # Adjust column widths based on content
         for col, width in enumerate(column_widths):

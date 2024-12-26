@@ -30,6 +30,6 @@ class InsufficientStockWizard(models.TransientModel):
     def action_cancel(self):
         context = self.env.context
         move_id = self.env['account.move'].browse(context.get('active_id'))
-        if move_id:
+        if move_id and not move_id.state =='draft':
             move_id.button_draft()
         return {'type': 'ir.actions.act_window_close'}
