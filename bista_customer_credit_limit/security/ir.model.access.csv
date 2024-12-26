@@ -1,2 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_credit_limit_wizard_user,credit.limit.wizard,model_credit_limit_wizard,base.group_user,1,1,1,1
+access_warning_wizard,warning.wizard,model_warning_wizard,base.group_user,1,1,1,1
+access_blocking_wizard,blocking.wizard,model_blocking_wizard,base.group_user,1,1,1,1
+access_warning_wizard_custom,warning.wizard.custom,model_warning_wizard_custom,base.group_user,1,1,1,1
+access_wizard_block,wizard.block,model_wizard_block,base.group_user,1,1,1,1
+access_update_saleorder,update.saleorder,model_update_saleorder,base.group_user,1,1,1,1,
+access_getsale_orderdata,getsale.orderdata,model_getsale_orderdata,base.group_user,1,1,1,1,

@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="view_warehouse_fiscal_position_field" model="ir.ui.view">
+        <field name="name">view_warehouse_fiscal_position_field</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="fiscal_position_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

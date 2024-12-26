@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    <!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+    <!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+
+        <record forcecreate= "True" id="product_delivery_freightview" model="product.product">
+            <field name="name">Delivery by Freightview</field>
+            <field name="default_code">Delivery</field>
+            <field name="type">service</field>
+            <field name="standard_price">10.0</field>
+            <field name="list_price">10.0</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Pallets_48x40</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_Pallets_60x48" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Pallets_60x48</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Pallets_other" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Pallets_other</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_Parcel_custom" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Custom</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        
+        <record forcecreate= "True" id= "freightview_package_custom_Bags" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Bags</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Bales" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Bales</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Baskets" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Baskets</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_Bundles" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Bundles</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+
+        <record forcecreate= "True" id= "freightview_package_custom_Carpets" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Carpets</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+
+        <record forcecreate= "True" id= "freightview_package_custom_Cases" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Cases</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Coils" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Coils</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Crates" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Crates</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Cylinders" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Cylinders</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Drums" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Drums</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+        <record forcecreate= "True" id= "freightview_package_custom_Jerricans" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Jerricans</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_Pails" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Pails</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>        
+        <record forcecreate= "True" id= "freightview_package_custom_Pieces" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Pieces</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>        <record forcecreate= "True" id= "freightview_package_custom_Reels" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Reels</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>        
+        <record forcecreate= "True" id= "freightview_package_custom_Rolls" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Rolls</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>        
+        
+        
+        <record forcecreate= "True" id= "freightview_package_custom_Totes" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Totes</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_TubesPipes" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">TubesPipes</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_package_custom_Unit" model= "stock.package.type">
+            <field name='package_carrier_type'>freightview</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Unit</field>
+            <!-- <field name= "shipper_package_code">02</field> -->
+            <field name= "max_weight">40</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+        <record forcecreate= "True" id= "freightview_packaging_custom" model= "product.packaging">
+            <field name= "name">Custom Packaging for Freightview</field>
+            <field name= "package_type_id" ref='freightview_package_custom'/>
+            <field name= "product_id" ref='product_delivery_freightview'/>
+            <field name='qty'>10</field>
+        </record>
+
+        <record forcecreate= "True" id="freightview_carrier_code_fxfe" model="freightview.carrier.code">
+            <field name="name">FedEx Freight</field>
+            <field name="code">fxfe</field>
+        </record>
+
+        <record forcecreate= "True" id="freightview_carrier_code_echo" model="freightview.carrier.code">
+            <field name="name">Echo Global Logistics</field>
+            <field name="code">echo</field>
+        </record>
+
+        <record forcecreate= "True" id="freightview_carrier_code_dylt" model="freightview.carrier.code">
+            <field name="name">Daylight Transport</field>
+            <field name="code">dylt</field>
+        </record>
+
+        <record forcecreate= "True" id="freightview_carrier_code_frci" model="freightview.carrier.code">
+            <field name="name">Freightquote</field>
+            <field name="code">frci</field>
+        </record>
+        
+
+
+    </data>
+</odoo>

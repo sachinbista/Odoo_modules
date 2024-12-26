@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="edi_856">
+        <Shipment xmlns="http://www.spscommerce.com/RSX">
+            <Header>
+                <ShipmentHeader>
+                  <TradingPartnerId><t t-out="partner.trading_partnerid"/></TradingPartnerId>
+                  <ShipmentIdentification><t t-out="'ASN_' + (source_so.po_number if source_so.po_number else picking.name)"/></ShipmentIdentification>
+                  <ShipDate><t t-out="(picking.scheduled_date.astimezone(timezone)).strftime('%Y-%m-%d') if picking.scheduled_date else (fields.Datetime.now()).strftime('%Y-%m-%d')"/></ShipDate>
+                  <ShipmentTime><t t-out="source_so.effective_date.strftime('%H:%M:%S') if source_so.effective_date else ''"/></ShipmentTime>
+                  <TsetPurposeCode><t t-out="source_so.tset_purpose_code"/></TsetPurposeCode>
+                  <ShipNoticeDate><t t-out="picking.create_date.strftime('%Y-%m-%d') or ''"/></ShipNoticeDate>
+                  <ShipNoticeTime><t t-out="picking.create_date.strftime('%H:%M:%S') or ''"/></ShipNoticeTime>
+                  <ASNStructureCode><t t-out="picking.asn_structure_code or '0001'"/></ASNStructureCode>
+                  <CarrierRouting><t t-out="picking.carrier_routing"/></CarrierRouting>
+                  <BillOfLadingNumber><t t-out="picking.bill_of_lading_number"/></BillOfLadingNumber>
+                  <CarrierProNumber><t t-out="picking.bill_of_lading_number"/></CarrierProNumber>
+                  <CurrentScheduledDeliveryDate><t t-out="(picking.sale_id.commitment_date.astimezone(timezone)).strftime('%Y-%m-%d') if picking.sale_id.commitment_date else ''"/></CurrentScheduledDeliveryDate>
+                  <CurrentScheduledDeliveryTime><t t-out="(picking.sale_id.commitment_date.astimezone(timezone)).strftime('%H:%M:%S') if picking.sale_id.commitment_date else ''"/></CurrentScheduledDeliveryTime>
+                </ShipmentHeader>
+                <Contacts>
+                  <t t-set="contact_name" t-value="source_so.all_contacts.split('Name: ')[1].split('\n')[0] if source_so.all_contacts and 'Name: ' in source_so.all_contacts else ''"/>
+                  <t t-set="contact_phone" t-value="source_so.all_contacts.split('Phone: ')[1].split('\n')[0] if source_so.all_contacts and 'Phone: ' in source_so.all_contacts else ''"/>
+                  <ContactTypeCode><t t-out="partner.contact_type_code or 'DI'"/></ContactTypeCode>
+                  <ContactName><t t-out="picking.contact_name or contact_name or ''"/></ContactName>
+                  <PrimaryPhone><t t-out="picking.contact_phone or contact_phone or ''"/></PrimaryPhone>
+                </Contacts>
+                <Address>
+                    <AddressTypeCode>SF</AddressTypeCode>
+                    <t t-call="base_edi.partner_address">
+                        <t t-set="partner_address" t-value="picking.company_id"/>
+                        <t t-set="is_company" t-value="True"/>
+                    </t>
+                </Address>
+                <Address>
+                    <AddressTypeCode>ST</AddressTypeCode>
+                    <t t-call="base_edi.partner_address">
+                        <t t-set="partner_address" t-value="picking.partner_id"/>
+                        <t t-set="is_company" t-value="False"/>
+                    </t>
+                </Address>
+                <CarrierInformation>
+                  <CarrierTransMethodCode><t t-out="'P'"/></CarrierTransMethodCode>
+                  <CarrierAlphaCode><t t-out="picking.carrier_alpha_code"/></CarrierAlphaCode>
+                  <CarrierRouting><t t-out="picking.carrier_routing"/></CarrierRouting>
+                </CarrierInformation>
+                <QuantityAndWeight>
+                  <t t-if="picking.move_line_ids_without_package and picking.move_line_ids_without_package[0].edi_uom.edi_code == 'CA'">
+                    <t t-set="qty_field" t-value="'move_line_ids_without_package.done_cases'"/>
+                  </t>
+                  <t t-else="">
+                    <t t-set="qty_field" t-value="'move_line_ids_without_package.qty_done'"/>
+                  </t>  
+                  <LadingQuantity><t t-out="str(len(picking.package_ids)) or '1'"/></LadingQuantity>
+                  <Weight><t t-out="str(picking.weight_edi) or '1'"/></Weight>
+                  <WeightUOM><t t-out="picking.weight_uom_name.upper() or 'KG'"/></WeightUOM>
+                  <Quantity><t t-out="str(sum(picking.mapped(qty_field))) or '0'"/></Quantity>
+                  <QuantityTotalsQualifier><t t-out="'SQT'"/></QuantityTotalsQualifier>
+                </QuantityAndWeight>
+            </Header>
+            <t t-set="line_count" t-value="0"/>
+            <OrderLevel>
+                <OrderHeader>
+                    <PurchaseOrderNumber><t t-out="source_so.po_number"/></PurchaseOrderNumber>
+                    <PurchaseOrderDate><t t-out="source_so.date_order.strftime('%Y-%m-%d')"/></PurchaseOrderDate>
+                    <Vendor><t t-out="source_so.vendor"/></Vendor>
+                </OrderHeader>
+                <t t-set="pallet_number" t-value=""/>
+                <t t-foreach="picking.move_line_ids_without_package" t-as="line">
+                    <t t-set="new_line_pallet_number" t-value="line.result_package_id.name"/>
+                    <PackLevel>
+                    <t t-if="new_line_pallet_number != pallet_number">
+                            <t t-set="pallet_number" t-value="new_line_pallet_number"/>
+                            <Pack>
+                                <PackLevelType>P</PackLevelType>
+                                <ShippingSerialID><t t-out="picking.generate_sscc(pallet_number)"/></ShippingSerialID>
+                            </Pack>
+                            <MarksAndNumbersCollection>
+                                <MarksAndNumbersQualifier1>W</MarksAndNumbersQualifier1>
+                                <MarksAndNumbers1><t t-out="pallet_number"/></MarksAndNumbers1>
+                            </MarksAndNumbersCollection>
+                    </t>
+                    <ItemLevel>
+                        <ShipmentLine>
+                            <LineSequenceNumber><t t-out="line.line_sequence_number"/></LineSequenceNumber>
+                            <BuyerPartNumber><t t-out="line.buyer_part_number"/></BuyerPartNumber>
+                            <VendorPartNumber><t t-out="line.vendor_part_number"/></VendorPartNumber>
+                            <ConsumerPackageCode><t t-out="line.product_id.barcode"/></ConsumerPackageCode>
+                            <EAN><t t-out="line.product_id.ean"/></EAN>
+                            <GTIN><t t-out="line.product_id.gtin"/></GTIN>
+                            <ProductID/>
+                            <ShipQty><t t-out="line.done_cases if line.edi_uom.edi_code == 'CA' else line.qty_done or '0'"/></ShipQty>
+                            <ShipQtyUOM><t t-out="line.edi_uom.edi_code or 'EA'"/></ShipQtyUOM>
+                        </ShipmentLine>
+                        <PhysicalDetails>
+                            <PackValue><t t-out="line.product_id.packaging_ids[0].qty if line.product_id.packaging_ids else '1'"/></PackValue>
+                            <PackSize><t t-out="line.product_id.packaging_ids[0].qty if line.product_id.packaging_ids else '1'"/></PackSize>
+                            <PackUOM><t t-out="line.product_uom_id.edi_code or 'EA'"/></PackUOM>
+                        </PhysicalDetails>
+                        <ProductOrItemDescription>
+                            <ProductCharacteristicCode>08</ProductCharacteristicCode>
+                            <t t-set="sale_line" t-value="source_so.order_line.filtered(lambda r: r.product_id == line.product_id)"/>
+                            <t t-if="len(sale_line) == 1">
+                                <t t-set="description" t-value="sale_line.name"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="description" t-value="line.product_id.description_sale or 'Item Description'"/>
+                            </t>
+                            <ProductDescription><t t-out="description"/></ProductDescription>
+                        </ProductOrItemDescription>
+                        <t t-if="line.lot_id and line.lot_id.expiration_date">
+                            <Dates>
+                                <DateTimeQualifier>036</DateTimeQualifier>
+                                <Date><t t-out="line.lot_id.expiration_date.astimezone(timezone).strftime('%Y-%m-%d')"/></Date>
+                            </Dates>
+                        </t>
+                        <t t-if="line.lot_id">
+                            <References>
+                                <ReferenceQual>LT</ReferenceQual>
+                                <ReferenceID><t t-out="line.lot_id.name"/></ReferenceID>
+                            </References>
+                        </t>
+                    </ItemLevel>
+                    <t t-set="line_count" t-value="line_count + 1"/>
+                </PackLevel>
+                </t>
+            </OrderLevel>
+            <Summary>
+                <TotalLineItemNumber><t t-out="str(line_count)"/></TotalLineItemNumber>
+            </Summary>
+        </Shipment>
+    </template>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_aquirer_form_fence_and_deck" model="ir.ui.view">
+        <field name="name">payment.provider.form.fence.and.deck</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <group>
+                    <field name="is_credit_account"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>

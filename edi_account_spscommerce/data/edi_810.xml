@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="edi_810">
+        <Invoice>
+            <Header>
+                <InvoiceHeader>
+                    <TradingPartnerId><t t-out="partner.trading_partnerid"/></TradingPartnerId>
+                    <InvoiceNumber><t t-out="('INV%s' % source_so.po_number[:12]) if source_so and source_so.po_number else invoice.name"/></InvoiceNumber>
+                    <TsetPurposeCode><t t-out="invoice.tset_purpose_code"/></TsetPurposeCode>
+                    <InvoiceDate><t t-out="invoice.invoice_date and invoice.invoice_date.strftime('%Y-%m-%d')"/></InvoiceDate>
+                    <InvoiceTime><t t-out="invoice.invoice_date and invoice.invoice_date.strftime('%H:%M:%S')"/></InvoiceTime>
+                    <PurchaseOrderDate><t t-out="source_so.date_order and source_so.date_order.strftime('%Y-%m-%d')"/></PurchaseOrderDate>
+                    <PurchaseOrderNumber><t t-out="source_so.po_number"/></PurchaseOrderNumber>
+                    <Department><t t-out="source_so.department"/></Department>
+                    <Vendor><t t-out="source_so.vendor"/></Vendor>
+                    <t t-set="ship_date" t-value="source_so.commitment_date or source_so.requested_pickup_date or source_so.additional_date or source_so.expected_date or fields.Date.today()" />
+                    <ShipDate><t t-out="ship_date.strftime('%Y-%m-%d')"/></ShipDate>
+                </InvoiceHeader>
+                <t t-if="invoice.customer_payment_terms">
+                    <t t-set="terms_list" t-value="[term.split(':') for term in invoice.customer_payment_terms.splitlines()]"/>
+                </t>
+                <t t-else="">
+                    <t t-set="text_payment_terms" t-value="''"/>
+                </t>
+                <PaymentTerms>
+                    <TermsType><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Terms Type'][0] if text_payment_terms else ''"/></TermsType>
+                    <TermsBasisDateCode><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Basis Date Code'][0] if text_payment_terms else ''"/></TermsBasisDateCode>
+                    <TermsDiscountPercentage><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Discount Percentage'][0] if text_payment_terms else ''"/></TermsDiscountPercentage>
+                    <TermsDiscountDate><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Discount Date'][0] if text_payment_terms else (invoice.invoice_date + datetime.timedelta(days=30)).strftime('%Y-%m-%d')"/></TermsDiscountDate>
+                    <TermsDiscountDueDays><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Discount Due Days'][0] if text_payment_terms else '30'"/></TermsDiscountDueDays>
+                    <TermsNetDueDate><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Net Due Date'][0]  if text_payment_terms else (invoice.invoice_date + datetime.timedelta(days=30)).strftime('%Y-%m-%d')"/></TermsNetDueDate>
+                    <TermsNetDueDays><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Net Due Days'][0] if text_payment_terms else ''"/></TermsNetDueDays>
+                    <TermsDescription><t t-out="[i[1].strip() for i in terms_list if i[0] == 'Terms Description'][0] if text_payment_terms else 'Net 30'"/></TermsDescription>
+                </PaymentTerms>
+                <Dates>
+                    <DateTimeQualifier>002</DateTimeQualifier>
+                    <Date><t t-out="date.strftime('%Y-%m-%d')"/></Date>
+                </Dates>
+                <FOBRelatedInstruction>
+                    <FOBPayCode><t t-out="[i[1].strip() for i in terms_list if i[0] == 'FOB Pay Code'][0] if 'FOB Pay Code' in text_payment_terms else ''"/></FOBPayCode>
+                    <FOBLocationQualifier><t t-out="[i[1].strip() for i in terms_list if i[0] == 'FOB Location Qualifier'][0] if 'FOB Location Qualifier' in text_payment_terms else ''"/></FOBLocationQualifier>
+                    <FOBLocationDescription><t t-out="[i[1].strip() for i in terms_list if i[0] == 'FOB Location Description'][0] if 'FOB Location Description' in text_payment_terms else ''"/></FOBLocationDescription>
+                </FOBRelatedInstruction>
+                <CarrierInformation>
+                    <CarrierTransMethodCode>U</CarrierTransMethodCode>
+                    <CarrierAlphaCode>FDEG</CarrierAlphaCode>
+                    <CarrierProNumber>CN</CarrierProNumber>
+                    <BillOfLadingNumber>CN</BillOfLadingNumber>
+                </CarrierInformation>
+                <QuantityTotals>
+                    <t t-set="uom_code" t-value="lines[0].product_uom_id.edi_code"/>
+                    <t t-set="qty_field_name" t-value="'qty_cases' if uom_code == 'CA' else 'quantity' or '0'"/>
+                    <QuantityTotalsQualifier>SQT</QuantityTotalsQualifier>
+                    <Quantity><t t-out="str(float(ceil(sum(lines.mapped(qty_field_name))))) or '1'"/></Quantity>
+                    <QuantityUOM><t t-out="uom_code or 'EA'"/></QuantityUOM>
+                </QuantityTotals>
+                <t t-if="source_so.partner_invoice_id">
+                    <Address>
+                        <AddressTypeCode>BT</AddressTypeCode>
+                        <t t-call="base_edi.partner_address">
+                            <t t-set="partner_address" t-value="source_so.partner_invoice_id"/>
+                            <t t-set="is_company" t-value="False"/>
+                        </t>
+                    </Address>
+                </t>
+                <t t-if="source_so.partner_shipping_id">
+                    <Address>
+                        <AddressTypeCode>ST</AddressTypeCode>
+                        <t t-call="base_edi.partner_address">
+                            <t t-set="partner_address" t-value="source_so.partner_shipping_id"/>
+                            <t t-set="is_company" t-value="False"/>
+                        </t>
+                    </Address>
+                </t>
+                <t t-if="source_so.company_id">
+                    <Address>
+                        <AddressTypeCode>RI</AddressTypeCode>
+                        <t t-call="base_edi.partner_address">
+                            <t t-set="partner_address" t-value="source_so.company_id"/>
+                            <t t-set="is_company" t-value="True"/>
+                        </t>
+                    </Address>
+                </t>
+                <References>
+                    <ReferenceQual>MR</ReferenceQual>
+                    <ReferenceID><t t-out="invoice.merch_type_code"/></ReferenceID>
+                </References>
+                <t t-foreach="source_so.charges_allowances" t-as="charge">
+                    <ChargesAllowances>
+                        <AllowChrgIndicator><t t-out="charge.indicator"/></AllowChrgIndicator>
+                        <AllowChrgCode><t t-out="charge.code"/></AllowChrgCode>
+                        <AllowChrgAmt><t t-out="charge.amount"/></AllowChrgAmt>
+                        <AllowChrgPercentQual><t t-out="charge.percent_qualifier"/></AllowChrgPercentQual>
+                        <AllowChrgPercent><t t-out="charge.percent"/></AllowChrgPercent>
+                        <AllowChrgHandlingCode><t t-out="charge.handling_code"/></AllowChrgHandlingCode>
+                    </ChargesAllowances>
+                </t>
+            </Header>
+            <t t-set="line_count" t-value="0"/>
+            <t t-foreach="lines" t-as="line">
+                <LineItem>
+                    <InvoiceLine>
+                    <LineSequenceNumber><t t-out="line.line_sequence_number"/></LineSequenceNumber>
+                    <BuyerPartNumber><t t-out="line.buyer_part_number"/></BuyerPartNumber>
+                    <VendorPartNumber><t t-out="line.vendor_part_number"/></VendorPartNumber>
+                    <t t-set="barcode" t-value="line.sale_line_ids[0].consumer_package_code if line.sale_line_ids else line.product_id.barcode"/>
+                    <ConsumerPackageCode><t t-out="barcode[:13] if barcode else ''"/></ConsumerPackageCode>
+                    <EAN><t t-out="line.product_id.ean"/></EAN>
+                    <GTIN><t t-out="line.product_id.gtin"/></GTIN>
+                    <ProductID>
+                        <PartNumber><t t-out="line.part_number"/></PartNumber>
+                    </ProductID>
+                    <InvoiceQty><t t-out="str(float(ceil(line.qty_cases))) if line.product_uom_id.edi_code == 'CA' else str(line.quantity) or '0'"/></InvoiceQty>
+                    <InvoiceQtyUOM><t t-out="line.product_uom_id.edi_code or 'EA'"/></InvoiceQtyUOM>
+                    <PurchasePrice><t t-out="str(round((line.case_price if line.partner_id.price_in_cases else line.price_unit), 2)) or '0'"/></PurchasePrice>
+                    </InvoiceLine>
+                    <PhysicalDetails>
+                    <PackSize><t t-out="str(line.product_id.packaging_ids[0].qty) if line.product_id.packaging_ids else '1'"/></PackSize>
+                    <PackValue><t t-out="str(line.product_id.packaging_ids[0].qty) if line.product_id.packaging_ids else '1'"/></PackValue>
+                    <PackUOM><t t-out="'EA'"/></PackUOM>
+                    </PhysicalDetails>
+                    <Taxes>
+                    <TaxTypeCode><t t-out="line.tax_ids[0].edi_taxcode if (line.tax_ids and line.tax_ids[0].edi_taxcode) else 'LS'"/></TaxTypeCode>
+                    <TaxAmount><t t-out="str(round(line.price_subtotal * sum(line.tax_ids.mapped('amount')) / 100, 2)) or ''"/></TaxAmount>
+                    <RelationshipCode><t t-out="'A'"/></RelationshipCode>
+                    </Taxes>
+                    <ProductOrItemDescription>
+                    <ProductCharacteristicCode><t t-out="'08'"/></ProductCharacteristicCode>
+                    <ProductDescription><t t-out="line.name or 'Item Description'"/></ProductDescription>
+                    </ProductOrItemDescription>
+                </LineItem>
+                <t t-set="line_count" t-value="line_count + 1"/>
+            </t>
+            <Summary>
+                <TotalAmount><t t-out="round(invoice.amount_residual, 2) or '0'"/></TotalAmount>
+                <TotalLineItemNumber><t t-out="line_count or '0'"/></TotalLineItemNumber>
+                <TotalSalesAmount><t t-out="round(invoice.amount_total, 2) or '0'"/></TotalSalesAmount>
+                <TotalTermsDiscountAmount><t t-out="str(round(source_so.amount_undiscounted - source_so.amount_untaxed, 2)) or '0'"/></TotalTermsDiscountAmount>
+            </Summary>
+        </Invoice>
+    </template>
+</odoo>

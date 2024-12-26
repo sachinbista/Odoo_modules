@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+    <!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+    
+
+
+
+    <record model="ir.cron" id="scheduler_evaluate_mail">
+        <field name="name">Freightview Shipping Scheduler</field>
+        <field name="active" eval="True"/>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="code">is_run_cron = True;limit = 50;model.evaulate_freightview_shipping_cron(is_run_cron,limit)
+    </field>
+    </record>
+
+
+</odoo>

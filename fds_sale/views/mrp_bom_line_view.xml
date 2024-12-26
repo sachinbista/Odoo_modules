@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_bom_view_form_fds_sale" model="ir.ui.view">
+        <field name="name">mrp.bom.fds.sale</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_tmpl_id']" position="after">
+                <field name="abbreviated_description" attrs="{'column_invisible': [('parent.type','not in',('phantom'))]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

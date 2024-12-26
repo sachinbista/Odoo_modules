@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="edi_855">
+        <OrderAck>
+            <Header>
+                <OrderHeader>
+                    <TradingPartnerId><t t-out="partner_id.trading_partnerid"/></TradingPartnerId>
+                    <PurchaseOrderNumber><t t-out="order.po_number"/></PurchaseOrderNumber>
+                    <TsetPurposeCode><t t-out="order.tset_purpose_code"/></TsetPurposeCode>
+                    <PurchaseOrderDate><t t-out="order.date_order.strftime('%Y-%m-%d')"/></PurchaseOrderDate>
+                    <AcknowledgementNumber><t t-out="order.name"/></AcknowledgementNumber>
+                    <AcknowledgementType><t t-out="order.acknowledgement_type or 'AC'"/></AcknowledgementType>
+                </OrderHeader>
+                <Dates>
+                    <DateTimeQualifier><t t-out="order.date_time_qualifier"/></DateTimeQualifier>
+                    <Date><t t-out="date.strftime('%Y-%m-%d')"/></Date>
+                </Dates>
+                <Address>
+                    <AddressTypeCode>SF</AddressTypeCode>
+                    <t t-call="base_edi.partner_address">
+                        <t t-set="partner_address" t-value="order.company_id"/>
+                        <t t-set="is_company" t-value="True"/>
+                    </t>
+                </Address>
+                <t t-if="order.partner_shipping_id">
+                <Address>
+                    <AddressTypeCode>ST</AddressTypeCode>
+                    <t t-call="base_edi.partner_address">
+                        <t t-set="partner_address" t-value="order.partner_shipping_id"/>
+                        <t t-set="is_company" t-value="False"/>
+                    </t>
+                </Address>
+                </t>
+            </Header>
+            <t t-set="line_count" t-value="0"/>
+            <t t-foreach="order.order_line" t-as="line">
+                <t t-if="not line.display_type">
+                    <LineItem>
+                        <OrderLine>
+                            <LineSequenceNumber><t t-out="line.line_sequence_number or '1'"/></LineSequenceNumber>
+                            <BuyerPartNumber><t t-out="line.buyer_part_number"/></BuyerPartNumber>
+                            <VendorPartNumber><t t-out="line.vendor_part_number"/></VendorPartNumber>
+                            <ConsumerPackageCode><t t-out="line.consumer_package_code or line.product_id.barcode or ''"/></ConsumerPackageCode>
+                            <EAN><t t-out="line.product_id.ean"/></EAN>
+                            <GTIN><t t-out="line.product_id.gtin"/></GTIN>
+                            <ProductID>
+                                <PartNumber><t t-out="line.part_number"/></PartNumber>
+                            </ProductID>
+                            <OrderQty><t t-out="str(float(ceil(line.qty_cases))) if line.product_uom.edi_code in ['CA', 'PL'] else str(line.product_uom_qty) or '1'"/></OrderQty>
+                            <OrderQtyUOM><t t-out="line.product_uom.edi_code or 'EA'"/></OrderQtyUOM>
+                            <t t-if="order.partner_id.price_in_cases">
+                                <t t-set="price" t-value="line.price_cases"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="price" t-value="line.price_unit"/>
+                            </t>
+                            <PurchasePrice><t t-out="str(round(price, 2)) or '0'"/></PurchasePrice>
+                        </OrderLine>
+                        <LineItemAcknowledgement>
+                            <ItemStatusCode><t t-out="line.item_status_code or 'IB'"/></ItemStatusCode>
+                            <ItemScheduleQty><t t-out="str(float(ceil(line.qty_cases))) if line.product_uom.edi_code in ['CA', 'PL'] else str(line.product_uom_qty) or '1'"/></ItemScheduleQty>
+                            <ItemScheduleUOM><t t-out="line.product_uom.edi_code or 'EA'"/></ItemScheduleUOM>
+                            <ItemScheduleQualifier>068</ItemScheduleQualifier>
+                            <t t-set="date" t-value="order.commitment_date or order.requested_pickup_date or order.additional_date or fields.Datetime.now()"/>
+                            <ItemScheduleDate><t t-out="date.strftime('%Y-%m-%d') or 'Not provided'"/></ItemScheduleDate>
+                        </LineItemAcknowledgement>
+                        <ProductOrItemDescription>
+                            <ProductCharacteristicCode>08</ProductCharacteristicCode>
+                            <ProductDescription><t t-out="line.name or line.product_id.description or line.product_id.description_sale or 'Item Description'"/></ProductDescription>
+                        </ProductOrItemDescription>
+                        <PhysicalDetails>
+                            <PackSize><t t-out="line.product_packaging_id.qty"/></PackSize>
+                        </PhysicalDetails>
+                    </LineItem>
+                </t>
+                <t t-set="line_count" t-value="line_count + 1"/>
+            </t>
+            <Summary>
+                <TotalLineItemNumber><t t-out="line_count"/></TotalLineItemNumber>
+            </Summary>
+        </OrderAck>
+    </template>
+</odoo>

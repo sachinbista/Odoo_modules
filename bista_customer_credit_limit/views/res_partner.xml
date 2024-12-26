@@ -1,23 +1,61 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record id="view_res_partner_form_inherit" model="ir.ui.view">
         <field name="name">view.res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page name="credit_limit" string="Credit Limits" >
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+
+                <!--                <field name="company_id" groups="base.group_multi_company" readonly="1"/>-->
+                <page name="credit_limit" string="Credit Limits">
                     <group name="container_row_credit">
                         <group>
-                            <field name="credit_check" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
-                            <field name="credit_check" groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
-                        </group>
+                            <field name="credit_check"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="lock_all_transaction"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <field name="lock_all_transaction"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_check"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <!--                            <field name="recalculate_credit_limit" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>-->
+                            <!--                            <field name="recalculate_credit_limit" groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>-->
 
-                        <group string="Blocking Limit" invisible="credit_check == False">
-                            <field name="credit_blocking" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
-                            <field name="credit_blocking" groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
-                            <field name="credit_blocking_message" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
-                            <field name="credit_blocking_message" groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                             <field string="Payment Terms" name="property_payment_term_id"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+
+                            <field string="Payment Terms" name="property_payment_term_id"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <button type="object" name="refresh_limit" string="Refresh Limit" invisible="1"/>
+                        </group>
+                        <group string="Credit Warning">
+                            <field name="credit_warning"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_warning"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <field name="credit_warning_message"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_warning_message"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <field name="credit_warning_threshold"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_warning_threshold"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                        </group>
+                        <group string="Blocking Limit">
+                            <field name="credit_blocking"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_blocking"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <field name="credit_blocking_message"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_blocking_message"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
+                            <field name="credit_blocking_threshold"
+                                   groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                            <field name="credit_blocking_threshold"
+                                   groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>
                         </group>
                     </group>
                 </page>
@@ -25,5 +63,47 @@
             </xpath>
         </field>
     </record>
+
+
+    <record id="view_partner_property_form_inherit_credit_limit" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+               <xpath expr="//field[@name='credit_limit']" position="replace">
+                    <field name="credit_limit" invisible="1"/>
+               </xpath>
+
+             <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+
+<!--            <xpath expr="//field[@name='property_payment_term_id']" position="replace">-->
+<!--                <field string="Payment Terms" name="property_payment_term_id"-->
+<!--                       groups="bista_customer_credit_limit.customer_credit_limit_manager"/>-->
+
+<!--                <field string="Payment Terms" name="property_payment_term_id"-->
+<!--                       groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>-->
+
+<!--            </xpath>-->
+
+        </field>
+    </record>
+
+<!--    <record id="view_order_form_inherited_payment_term_inherit" model="ir.ui.view">-->
+<!--        <field name="name">sale.order.form</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='payment_term_id']" postion="replace">-->
+<!--&lt;!&ndash;                 <field name="payment_term_id" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                 <field name="payment_term_id"&ndash;&gt;-->
+<!--&lt;!&ndash;                 groups="!bista_customer_credit_limit.customer_credit_limit_manager" readonly="1"/>&ndash;&gt;-->
+
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
 
 </odoo>

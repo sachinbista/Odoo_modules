@@ -1,0 +1,25 @@
+<odoo>
+
+    <record id="view_sale_advance_payment_inv_quick_pay" model="ir.ui.view">
+        <field name="name">view_sale_advance_payment_inv_quick_pay</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='advance_payment_method']" position="after">
+                <field name="quick_pay" widget="boolean_toggle"/>
+                <field name="company_id" invisible="1"/>
+                <field name="journal_id"
+                       domain="[('company_id', '=', company_id), ('type', 'in', ('bank', 'cash'))]"
+                       attrs="{'invisible': [('quick_pay','=',False)],'required': [('quick_pay','=',True)]}"/>
+                <field name="available_payment_method_ids" invisible="1"/>
+                <field name="payment_method_id"
+                       domain="[('id','in', available_payment_method_ids)]"
+                       attrs="{'invisible': [('quick_pay','=',False)],
+                       'required': [('quick_pay','=',True)]}"/>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

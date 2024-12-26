@@ -1,0 +1,39 @@
+<odoo>
+
+    <record id="view_picking_form_so_ship_together" model="ir.ui.view">
+        <field name="name">view_picking_form_so_ship_together</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="ship_together"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="vpicktree_so_ship_together" model="ir.ui.view">
+        <field name="name">vpicktree_so_ship_together</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="ship_together"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_mrp_production_work_order_search_so_ship_together" model="ir.ui.view">
+        <field name="name">view_mrp_production_work_order_search_so_ship_together</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="ship_together"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

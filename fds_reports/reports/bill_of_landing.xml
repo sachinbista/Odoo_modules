@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_bill_of_landing_document_main">
+
+        <style>
+            td, th {
+                padding: 10px !important;
+            }
+            td {
+                font-weight: lighter !important;
+            }
+            .note {
+                background: #DDDDDD !important;
+                font-weight: bold !important;
+            }
+            tbody td {
+                padding: 4px !important;
+            }
+        </style>
+
+        <div class="oe_structure"/>
+
+        <div class="row mb-2">
+            <div class="col-5">
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5">
+                <span><strong>Carrier Type: </strong></span>
+                <span t-field="o.carrier_id"/>
+            </div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="row" style="margin-bottom: 10px; padding-bottom: 5px">
+            <div class="col-5">
+                <table class="table table-bordered"  t-if="o.sale_id and o.sale_id.partner_invoice_id">
+                    <thead>
+                        <th style="background: lightgrey; text-align: left;">Customer Address:</th>
+                    </thead>
+                    <tbody>
+                        <tr><td><div t-esc=" o.sale_id.partner_invoice_id.name"/> </td></tr>
+                        <tr><td><div t-field=" o.sale_id.partner_invoice_id.street"/> </td></tr>
+                        <tr t-if=" o.sale_id.partner_invoice_id.street2"><td><div t-field=" o.sale_id.partner_invoice_id.street2"/> </td></tr>
+                        <tr><td><t t-esc='" ".join([ o.sale_id.partner_invoice_id.city or "",  o.sale_id.partner_invoice_id.state_id.name or "",  o.sale_id.partner_invoice_id.zip or ""])'/> </td></tr>
+                        <tr><td><div t-field=" o.sale_id.partner_invoice_id.country_id"/> </td></tr>
+                        <tr  t-if=" o.sale_id.partner_invoice_id.phone">
+                            <td>
+                                <div>
+                                    <span class="fa fa-phone"/>
+                                    <span t-field=" o.sale_id.partner_invoice_id.phone"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5">
+                <table class="table table-bordered"  t-if="o.partner_id">
+                    <thead>
+                        <th style="background: lightgrey; text-align: left;">Delivery Address:</th>
+                    </thead>
+                    <tbody>
+                        <tr><td><div t-esc="o.partner_id.name"/> </td></tr>
+                        <tr><td><div t-field="o.partner_id.street"/> </td></tr>
+                        <tr t-if="o.partner_id.street2"><td><div t-field="o.partner_id.street2"/> </td></tr>
+                        <tr><td><t t-esc='" ".join([o.partner_id.city or "", o.partner_id.state_id.name or "", o.partner_id.zip or ""])'/> </td></tr>
+                        <tr><td><div t-field="o.partner_id.country_id"/> </td></tr>
+                        <tr  t-if="o.partner_id.phone">
+                            <td>
+                                <div>
+                                    <span class="fa fa-phone"/>
+                                    <span t-field="o.partner_id.phone"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="row">
+            <div class="col-12">
+                <span><strong>PO#/Job Name: </strong></span>
+                <span> <t t-esc="o.customer_po_number"/> </span>
+            </div>  
+        </div>
+
+        <!-- Section 3 -->
+        <div class="row">
+            <div class="col-12">
+                <span><strong>Tracking Number:</strong></span>
+                <span> <t t-esc="o.carrier_tracking_ref"/> </span>
+            </div>  
+        </div>
+        
+
+        <!-- Section data -->
+        <div class="mt-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background: lightgrey;">
+                        <th>PRODUCT</th>
+                        <th>ORDERED</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="o.move_box_pallet_ids" t-as="line">
+                        <tr>
+                            <td><span t-field="line.product_id"/></td>
+                            <td class="text-center"><span t-field="line.product_uom_qty"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    
+    </template>
+
+    <!-- FDS Bill of Landing -->
+    <template id="report_bill_of_landing_document_fds">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())" />
+                <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+
+                <div class="page">
+                    <t t-call="fds_reports.report_bill_of_landing_document_main"/>
+                </div>        
+            </t>
+        </t>
+    </template>
+    <template id="report_bill_of_landing">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fds_reports.report_bill_of_landing_document_fds" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+    <record id="action_report_bill_of_landing" model="ir.actions.report">
+        <field name="name">FDS Bill Of Landing</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fds_reports.report_bill_of_landing</field>
+        <field name="report_file">fds_reports.report_bill_of_landing</field>
+        <field name="print_report_name">'FDS Bill of Landing  - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Flatbed bill of landing -->
+    <template id="report_flatbed_bill_of_landing_document_fds">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())" />
+                <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+
+                <div class="page">
+                    <t t-call="fds_reports.report_bill_of_landing_document_main"/>
+
+                    <hr class="mt-4"/>
+                    <div class="row" style="margin-top: 25px">                
+                        <div class="col-8">
+                            <div class="row">
+                                <div style="font-size: 14px;" class="col-3">Shipper Signature: </div>
+                                <div class="col-9" style="border-bottom: 1px solid #938686; width: 210px; margin-left: 5px;"></div>
+                            </div>
+                            <div class="mt-4 row">
+                                <div style="font-size: 14px" class="col-3">Name/Title: </div>
+                                <div class="col-9" style="border-bottom: 1px solid #938686; width: 210px; margin-left: 5px; display: inline-block;"></div>
+                            </div>
+                        </div>
+                        <div id="total" class="col-4">
+                            <div class="row">
+                                <div style="font-size: 14px" class="col-3">Date: </div>
+                                <div class="col-9" style="border-bottom: 1px solid #938686; width: 210px; margin-left: 5px; display: inline-block;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px">                
+                        <div class="col-8">
+                            <div class="row">
+                                <div style="font-size: 14px" class="col-3">Carrier Signature: </div>
+                                <div class="col-9" style="border-bottom: 1px solid #938686; width: 210px; margin-left: 5px; display: inline-block;"></div>
+                            </div>
+                            <div class="mt-4 row">
+                                <div style="font-size: 14px" class="col-3">Name/Phone: </div>
+                                <div class="col-9" style="border-bottom: 1px solid #938686; width: 210px; margin-left: 5px; display: inline-block;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+            </t>
+        </t>
+    </template>
+    <template id="report_flatbed_bill_of_landing">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="fds_reports.report_flatbed_bill_of_landing_document_fds" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+    <record id="action_report_flatbed_bill_of_landing" model="ir.actions.report">
+        <field name="name">FDS Flatbed Bill Of Landing</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fds_reports.report_flatbed_bill_of_landing</field>
+        <field name="report_file">fds_reports.report_flatbed_bill_of_landing</field>
+        <field name="print_report_name">'FDS Flatbed Bill of Landing  - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="box_and_pallet_tree">
+        <field name="name">Box and Pallet</field>
+        <field name="model">fds.box_and_pallet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product"/>
+                <field name="box_pallet"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="box_and_pallet_form">
+        <field name="name">Box and Pallet</field>
+        <field name="model">fds.box_and_pallet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product" style="width:300px"/>
+                        <field name="box_pallet" style="width:50px"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="box_and_pallet_action" model="ir.actions.act_window">
+        <field name="name">Box and Pallet</field>
+        <field name="res_model">fds.box_and_pallet</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <data noupdate="0">
+        <menuitem id="menu_box_and_pallet" name="Box and Pallet" parent="stock.menu_stock_inventory_control" action="box_and_pallet_action" sequence="3"/>
+    </data>
+</odoo>

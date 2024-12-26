@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="partner_address">
+        <t t-if="is_company">
+            <LocationCodeQualifier><t t-out="partner_address.partner_id.location_code_qualifier or '9'"/></LocationCodeQualifier>
+            <AddressLocationNumber><t t-out="partner_address.partner_id.address_location_number"/></AddressLocationNumber>
+        </t>
+        <t t-else="">
+            <LocationCodeQualifier><t t-out="partner_address.location_code_qualifier or '9'"/></LocationCodeQualifier>
+            <AddressLocationNumber><t t-out="partner_address.address_location_number"/></AddressLocationNumber>
+        </t>
+        <AddressName><t t-out="partner_address.name or 'Address Name'"/></AddressName>
+        <Address1><t t-out="partner_address.street"/></Address1>
+        <Address2><t t-out="partner_address.street2"/></Address2>
+        <City><t t-out="partner_address.city"/></City>
+        <State><t t-out="partner_address.state_id.code"/></State>
+        <PostalCode><t t-out="partner_address.zip"/></PostalCode>
+        <Country><t t-out="partner_address.country_id.code"/></Country>
+    </template>
+</odoo>

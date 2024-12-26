@@ -1,0 +1,23 @@
+<odoo>
+    <record id="res_config_settings_view_form_inherit_auto_email" model="ir.ui.view">
+        <field name="name">res_config_settings_view_form_inherit.auto.email</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='budget_management']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="Payment Reminder">
+                    <div class="o_setting_right_pane">
+                        <label for="notify_user_ids" class="mt16"/>
+                        <div class="text-muted">
+                            Payment Notify User
+                        </div>
+                        <div class="content-group">
+                            <field name="notify_user_ids" widget="many2many_tags"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

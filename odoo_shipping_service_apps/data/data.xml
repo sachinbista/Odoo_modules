@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Copyright (c) 2018-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+  <!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+  <data noupdate="1">
+    <record id="base.user_root" model="res.users">
+      <field name="groups_id" eval="[
+            (4, ref('base.group_multi_currency')),
+            (4, ref('stock.group_tracking_lot')),
+            (4, ref('stock.group_stock_manager')),
+            (4, ref('product.group_stock_packaging')), 
+            (4, ref('product.group_sale_pricelist')),           
+        ]" />
+    </record>
+    <record forcecreate="True" id="shipping_partner" model="res.partner">
+      <field name="name">Shipping</field>
+    </record>
+    <record forcecreate="True" id="shipping_category" model="product.category">
+      <field name="name">Shipping</field>
+    </record>
+    <record id="odoo_shipping_services_config_settings" model="res.config.settings">
+      <field name="group_stock_tracking_lot" eval="True" />
+    </record>
+    <function model="res.config.settings" name="execute">
+      <value model="res.config.settings" search="[('id', '=', ref('odoo_shipping_services_config_settings'))]" />
+    </function>
+  </data>
+</odoo>

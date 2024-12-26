@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="portal.signature_form" name="Ask Signature">
+        <div class="o_portal_signature_form"
+            t-att-data-call-url="call_url"
+            t-att-data-default-name="default_name"
+            t-att-data-default-po="default_po"
+            t-att-data-mode="mode"
+            t-att-data-send-label="send_label"
+            t-att-data-signature-ratio="signature_ratio"
+            t-att-data-signature-type="signature_type"
+            t-att-data-font-color="font_color"
+            />
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_view_move_form_inherit_fds_crm" model="ir.ui.view">
+        <field name="name">account.view.move.form.inherit.fds.crm</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="before">
+                <field name="customer_po_number"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

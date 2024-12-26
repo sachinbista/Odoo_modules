@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'paperformat_us')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="base.paperformat_us" model="report.paperformat">
+        <field name="margin_top">33</field>
+        <field name="header_spacing">30</field>
+        <field name="margin_bottom">10</field>
+    </record>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'paperformat_us')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'paperformat_euro')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="base.paperformat_euro" model="report.paperformat">
+        <field name="margin_top">33</field>
+        <field name="header_spacing">30</field>
+        <field name="margin_bottom">10</field>
+    </record>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'paperformat_euro')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+</odoo>

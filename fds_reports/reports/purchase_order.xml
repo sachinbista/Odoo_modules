@@ -1,0 +1,225 @@
+<odoo>
+
+    <template id="purchase_order_main">
+        <style>
+            td, th {
+                padding: 10px !important;
+            }
+            td {
+                font-weight: lighter !important;
+            }
+            .note {
+                background: #DDDDDD !important;
+                font-weight: bold !important;
+            }
+            tbody td {
+                padding: 4px !important;
+            }
+        </style>
+        <div class="oe_structure"/>
+
+        <!-- Section 1 -->
+        <div class="row" style="margin-bottom: 10px; padding-bottom: 5px">
+            <div class="col-5">
+                <table class="table table-bordered"  t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                    <t t-set="shipping_partner" t-value="o.picking_type_id and o.picking_type_id.warehouse_id.partner_id"/>
+                    <thead>
+                        <th style="background: lightgrey; text-align: left;">Shipping Address:</th>
+                    </thead>
+                    <tbody>
+                        <tr><td><div t-esc="shipping_partner.name"/> </td></tr>
+                        <tr><td><div t-field="shipping_partner.street"/> </td></tr>
+                        <tr t-if="shipping_partner.street2"><td><div t-field="shipping_partner.street2"/> </td></tr>
+                        <tr><td><t t-esc='" ".join([shipping_partner.city or "", shipping_partner.state_id.name or "", shipping_partner.zip or ""])'/> </td></tr>
+                        <tr><td><div t-field="shipping_partner.country_id"/> </td></tr>
+                        <tr  t-if="shipping_partner.phone">
+                            <td>
+                                <div>
+                                    <span class="fa fa-phone"/>
+                                    <span t-field="shipping_partner.phone"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5">
+                <table class="table table-bordered"  t-if="o.partner_id">
+                    <thead>
+                        <th style="background: lightgrey; text-align: left;">Vendor:</th>
+                    </thead>
+                    <tbody>
+                        <tr><td><div t-esc="o.partner_id.name"/> </td></tr>
+                        <tr><td><div t-field="o.partner_id.street"/> </td></tr>
+                        <tr t-if="o.partner_id.street2"><td><div t-field="o.partner_id.street2"/> </td></tr>
+                        <tr><td><t t-esc='" ".join([o.partner_id.city or "", o.partner_id.state_id.name or "", o.partner_id.zip or ""])'/> </td></tr>
+                        <tr><td><div t-field="o.partner_id.country_id"/> </td></tr>
+                        <tr  t-if="o.partner_id.phone">
+                            <td>
+                                <div>
+                                    <span class="fa fa-phone"/>
+                                    <span t-field="o.partner_id.phone"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Section 2 -->
+        <div class="row">  
+            <div class="col-5">
+                <span><strong>Purchaser: </strong></span>
+                <span t-field="o.user_id" /> 
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5">
+                <div t-if="o.origin">
+                    <span><strong>SO#: </strong></span>
+                    <span t-field="o.origin" /> 
+                </div>
+                <div>
+                    <span><strong>Customer Name: </strong></span>
+                    <span t-field="o.customer_po_id" /> 
+                </div>
+                <div>
+                    <span><strong>Job/PO Name: </strong></span>
+                    <span t-field="o.customer_po_number" /> 
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+    <!-- PO with pricing -->
+    <template id="report_purchase_order_quotation_template" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            <div class="page">
+
+                <t t-call="fds_reports.purchase_order_main" />
+
+                <!-- Section Data -->
+                <div class="mt-4">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background: lightgrey;">
+                                <th>DESCRIPTION</th>
+                                <th>QUANTITY</th>
+                                <th>UNIT PRICE</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                    <t t-if="not line.display_type">
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-center"><span t-field="line.product_uom_qty"/></td>
+                                        <td class="text-center"><span t-field="line.price_unit"  t-options='{"widget": "float", "precision": 2, "nogrouping": True}'/></td>
+                                        <td class="text-center"><span t-field="line.price_subtotal"/></td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_section'">
+                                        <td name="td_section_line"  colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_note'">
+                                        <td name="td_note_line" colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="3" class="text-end" style="background: lightgrey;">TOTAL</td>
+                                <td class="text-center"> <span t-field="o.amount_total"/> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </xpath>
+    </template>
+
+    <!-- PO No Pricing -->
+    <template id="report_purchaseorder_no_pricing_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <t t-set="address">
+                <div t-field="o.partner_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+            </t>
+            <t t-if="o.dest_address_id">
+                <t t-set="information_block">
+                    <strong>Shipping address:</strong>
+                    <div t-if="o.dest_address_id">
+                        <div t-field="o.dest_address_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
+                    </div>
+
+                </t>
+            </t>
+            <div class="page">
+
+                <t t-call="fds_reports.purchase_order_main" />
+
+                <!-- Section data -->
+                <div class="mt-4">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="background: lightgrey;">
+                                <th>DESCRIPTION</th>
+                                <th>QUANTITY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                    <t t-if="not line.display_type">
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-center"><span t-field="line.product_uom_qty"/></td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_section'">
+                                        <td name="td_section_line"  colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_note'">
+                                        <td name="td_note_line" colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="report_purchaseorder_no_pricing">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="fds_reports.report_purchaseorder_no_pricing_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_purchase_order_no_pricing" model="ir.actions.report">
+        <field name="name">Purchase Order No Pricing</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fds_reports.report_purchaseorder_no_pricing</field>
+        <field name="report_file">fds_reports.report_purchaseorder_no_pricing</field>
+        <field name="print_report_name">
+            (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+            'Purchase Order - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

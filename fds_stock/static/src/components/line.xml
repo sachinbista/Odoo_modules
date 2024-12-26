@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="stock_barcode.LineComponent" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@name='quantity']" position="after">
+            <div name="box_pallet">
+                <i class="fa fa-fw fa-list"/>
+                <span t-attf-class="o_barcode_scanner_qty text-monospace badge #{' '}">
+                    <span>Box/Pallet:</span> <span class="qty-done d-inline-block text-left" t-esc="line.box_and_pallet"/>
+                    <span>/ Loose:</span> <span t-esc="line.loose"/>
+                </span>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

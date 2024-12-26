@@ -1,0 +1,39 @@
+<odoo>
+    <template id="report_delivery_merge_move" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@name='stock_move_table']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']" position="after">
+            <table class="table table-sm" t-if="o.state!='done'" name="stock_move_merge_table">
+                <thead>
+                    <tr>
+                        <th name="th_sm_product"><strong>Product</strong></th>
+                        <th name="th_sm_ordered"><strong>Ordered</strong></th>
+                        <th name="th_sm_quantity"><strong>Delivered</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="aggregated_lines" t-value="o.move_lines._get_aggregated_product_quantities()"/>
+                    <tr t-foreach="aggregated_lines" t-as="line">
+                        <td>
+                            <span t-esc="aggregated_lines[line]['name']"/>
+                            <t t-if="aggregated_lines[line]['description']">
+                                <span t-esc="aggregated_lines[line]['description']"/>
+                            </t>
+                        </td>
+                        <td name="move_aggregated_qty_ordered">
+                            <span t-esc="aggregated_lines[line]['qty_ordered']"
+                                t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                            <span t-esc="aggregated_lines[line]['product_uom']"/>
+                        </td>
+                        <td name="move_aggregated_qty_done">
+                            <span t-esc="aggregated_lines[line]['qty_done']"
+                                t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"/>
+                            <span t-esc="aggregated_lines[line]['product_uom']"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fds.box_and_pallet,fds.box_and_pallet,model_fds_box_and_pallet,base.group_user,1,1,1,1
+access_fds.move_box_and_pallet,fds.move_box_and_pallet,model_fds_move_box_and_pallet,base.group_user,1,1,1,1
+access_set_package_value,access.set.package.value,model_set_package_value,stock.group_stock_user,1,1,1,0
+

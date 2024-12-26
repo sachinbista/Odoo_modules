@@ -1,0 +1,35 @@
+<odoo>
+    <record id="view_account_payment_filter_wizard" model="ir.ui.view">
+        <field name="name">view_account_payment_filter_wizard_form</field>
+        <field name="model">account.payment.filter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Filter Payments">
+                <group>
+                    <field name="date"/>
+                </group>
+                <footer>
+                    <button string="Filter Payments" name="filter_payments" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_payment_filter_wizard" model="ir.actions.act_window">
+        <field name="name">Filter Payments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.payment.filter.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="action_account_payment_bista_payments" model="ir.actions.act_window">
+        <field name="name">Account Payments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="custom_view_payment_tree"/>
+        <field name="context">{'create':False,'edit':False}</field>
+    </record>
+    <menuitem name="Payments" id="menu_payments" parent="account.menu_finance_reports" sequence="5"/>
+    <menuitem name="Filter Payments" id="menu_filter_payments" sequence="5" parent="bista_payments.menu_payments" action="action_payment_filter_wizard"/>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_product_view_form_fds_stock" model="ir.ui.view">
+        <field name="name">product.product.fds.stock</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="route_from_categ_ids" position="after">
+                <field name="transfer_sequence" />
+            </field>
+        </field>
+    </record>
+</odoo>

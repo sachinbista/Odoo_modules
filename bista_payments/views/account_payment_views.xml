@@ -1,0 +1,25 @@
+<odoo>
+    <record id="custom_view_payment_tree" model="ir.ui.view">
+        <field name="name">account.payment.tree</field>
+        <field name="model">account.payment</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+             <tree>
+                 <field name="create_date" string='Date' widget="date"/>
+                 <field name="warehouse_id"/>
+                 <field name="sale_order_id_payment"/>
+<!--                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>-->
+                 <field name="partner_id"/>
+                 <field name="payment_method_name"/>
+                 <field name="amount_total" string='Amount Company Currency Signed' decoration-bf="1"/>
+                 <field name="__last_update"/>
+                 <field name="write_uid"/>
+                 <field name="state"
+                    decoration-success="state == 'sale' or state == 'done'"
+                    decoration-info="state == 'draft' or state == 'sent'"
+                    widget="badge" string="Status"/>
+                 <field name="journal_id"/>
+             </tree>
+        </field>
+    </record>
+</odoo>

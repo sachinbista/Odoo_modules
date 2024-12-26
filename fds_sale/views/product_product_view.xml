@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_product_view_form_fds_stock" model="ir.ui.view">
+        <field name="name">product.product.fds.stock</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <group name="description" position="after">
+                <group string="Abbreviated Description" name="abbreviated-description">
+                    <field colspan="2" name="abbreviated_description" nolabel="1" placeholder="This note is added to sale order lines."/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

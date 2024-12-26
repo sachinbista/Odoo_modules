@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_res_partner_credit_tree" model="ir.ui.view">
+        <field name="name">res.partner.credit.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Customers Credit Information">
+                <field name="name"/>
+                <field name="credit_blocking_threshold" string="Blocking Limit"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_partner_credit" model="ir.actions.act_window">
+        <field name="name">Customers Credit</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_res_partner_credit_tree"/>
+        <field name="domain">[('credit_blocking_threshold', '&lt;=', 0 )]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View customer credit information here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_res_partner_credit"
+              name="Customers Credit"
+              parent="bista_order_report.menu_sale_report_main"
+              action="action_res_partner_credit"
+              sequence="42"/>
+</odoo>

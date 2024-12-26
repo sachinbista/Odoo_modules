@@ -1,0 +1,35 @@
+<odoo>
+
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">view.res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Credit Limits">
+                    <group name="container_row_credit">
+                        <group>
+                            <field name="credit_check"/>
+                            <field name="recalculate_credit_limit"/>
+
+                            <button type="object"
+                                    name="refresh_limit" string="Refresh Limit"
+                                    attrs="{'invisible': [('recalculate_credit_limit', '=', False)]}"/>
+                        </group>
+                        <group string="Credit Warning" attrs="{'invisible': [('credit_check', '=', False)]}">
+                            <field name="credit_warning"/>
+                            <field name="credit_warning_message"/>
+                            <field name="credit_warning_threshold"/>
+                        </group>
+                        <group string="Blocking Limit" attrs="{'invisible': [('credit_check', '=', False)]}">
+                            <field name="credit_blocking"/>
+                            <field name="credit_blocking_message"/>
+                            <field name="credit_blocking_threshold"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

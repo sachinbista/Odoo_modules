@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_order_payment_requires_bista" model="ir.ui.view">
+        <field name="name">sale.view.order.fds.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_information']//field[@name='reference']" position="after">
+                <field name="fds_payment_require"/>
+            </xpath>
+        </field>
+    </record>
+
+        <record id="view_sale_order_search_inherit_sale_payment_require" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.sale.payment</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_create_date']" position="after">
+                <filter string="Payment Required" name="payment_require" domain="[('fds_payment_require', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

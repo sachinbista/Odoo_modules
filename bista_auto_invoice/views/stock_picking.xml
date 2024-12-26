@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_picking_form_inherit_confirm" model="ir.ui.view">
+        <field name="name">view.stock.picking.form.inherit.confirm</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <div class="alert alert-danger text-center o_form_header" role="status"
+                     attrs="{'invisible': [('invoice_warning', '=', False)]}">
+                    <strong>
+                        <field name="invoice_warning"/>
+                    </strong>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']//button[@name='action_show_details']"
+                   position="before">
+                <field name="invoiced" widget="boolean_toggle" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

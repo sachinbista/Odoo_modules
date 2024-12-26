@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+    <!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+    <record id="stock_picking_freightview_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.freightview.view.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="odoo_shipping_service_apps.view_picking_form"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="freightview_rate_url" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}" widget="url" />
+                <!-- <field name="freightview_shipment_id" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}"/> -->
+                <!-- <field name="freightview_pickup_status" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}"/> -->
+                <!-- <field name="freightview_tracking_status" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}"/> -->
+                <field name="freightview_shipmentDetailsUrl" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}"/>                
+                <field name="freightview_activity_status" readonly="1" attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}"/>                
+                <field name="freightview_shipment_type" attrs="{'invisible':[('delivery_type', '!=', 'freightview')], 'readonly':[('freightview_activity_status', '!=', 'draft')]}"/>                
+                
+            </xpath>
+            <xpath expr="/form/header/button[last()]" position="after">
+                <button name="action_get_freightview_bookUrl"
+                        string="Freightview Book URL"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':['|',('freightview_activity_status','not in',['draft']),('delivery_type','not in', ['freightview'])]}"/>
+
+                <button name="action_get_freightview_shipping_detail"
+                        string="Fetch Shipping Details"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible':['|',('freightview_activity_status','in',['draft','delivered','canceled']),('delivery_type','not in', ['freightview'])]}"/>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

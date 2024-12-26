@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_committed_quotations" name="My Preliminary Quotations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Preliminary Quotations</t>
+            </t>
+            <t t-if="committed_quotations" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Quotation #</th>
+                        <th class="">Purchase Order</th>
+                        <th class="text-end">Quotation Date</th>
+                        <th class="text-end">Valid Until</th>
+                        <th class="text-center"/>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="committed_quotations" t-as="quotation">
+                    <tr>
+                        <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>
+                        <td class=""><span t-field="quotation.client_order_ref"/></td>
+                        <td class="text-end"><span t-field="quotation.date_order"/></td>
+                        <td class="text-end"><span t-field="quotation.validity_date"/></td>
+                        <td class="text-center">
+                            <span t-if="quotation.state == 'cancel'" class="badge rounded-pill text-bg-secondary">
+                                <i class="fa fa-fw fa-remove"/> Cancelled</span>
+                            <span t-if="quotation.is_expired" class="badge rounded-pill text-bg-secondary">
+                                <i class="fa fa-fw fa-clock-o"/> Expired</span>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="quotation.amount_total"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+            <p t-else="">There are currently no quotations for your account.</p>
+        </t>
+    </template>
+
+    <template id="portal_my_estimate_quotations" name="My Estimate Quotations">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Estimate Quotations</t>
+            </t>
+            <t t-if="quotations" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Quotation #</th>
+                        <th class="">Purchase Order</th>
+                        <th class="text-end">Quotation Date</th>
+                        <th class="text-end">Valid Until</th>
+                        <th class="text-center"/>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="quotations" t-as="quotation">
+                    <tr>
+                        <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>
+                        <td class=""><span t-field="quotation.client_order_ref"/></td>
+                        <td class="text-end"><span t-field="quotation.date_order"/></td>
+                        <td class="text-end"><span t-field="quotation.validity_date"/></td>
+                        <td class="text-center">
+                            <span t-if="quotation.state == 'cancel'" class="badge rounded-pill text-bg-secondary">
+                                <i class="fa fa-fw fa-remove"/> Cancelled</span>
+                            <span t-if="quotation.is_expired" class="badge rounded-pill text-bg-secondary">
+                                <i class="fa fa-fw fa-clock-o"/> Expired</span>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="quotation.amount_total"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+            <p t-else="">There are currently no quotations for your account.</p>
+        </t>
+    </template>
+
+    <template id="portal_my_home_fds_sale" name="Show more Quotations" inherit_id="sale.portal_my_home_sale">
+        <xpath expr="//t[@t-call='portal.portal_docs_entry'][1]" position="before">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Estimation</t>
+                <t t-set="url" t-value="'/my/equotes'"/>
+                <t t-set="placeholder_count" t-value="'estimate_quotation_count'"/>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_docs_entry'][2]" position="after">
+            <t t-if="partner.can_commit_quotation" t-call="portal.portal_docs_entry">
+                <t t-set="title">Preliminary Quotations</t>
+                <t t-set="url" t-value="'/my/cquotes'"/>
+                <t t-set="placeholder_count" t-value="'committed_quotation_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_menu_sale" inherit_id="sale.portal_my_home_menu_sale">
+        <xpath expr="//li[@t-if][3]" position="replace">
+            <li t-if="page_name == 'equote' or sale_order and sale_order.state in ('draft')" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+                <a t-if="sale_order" t-attf-href="/my/equotes?{{ keep_query() }}">Estimate</a>
+                <t t-else="">Estimate</t>
+            </li>
+            <li t-if="page_name == 'cquote' or sale_order and sale_order.state in ('committed')" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+                <a t-if="sale_order" t-attf-href="/my/cquotes?{{ keep_query() }}">Preliminary Quotations</a>
+                <t t-else="">Preliminary Quotations</t>
+            </li>
+            <li t-if="page_name == 'order' or sale_order and sale_order.state not in ('draft', 'sent', 'cancel', 'committed')" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+                <a t-if="sale_order" t-attf-href="/my/orders?{{ keep_query() }}">Sales Orders</a>
+                <t t-else="">Sales Orders</t>
+            </li>
+        </xpath>
+    </template>
+
+    <!-- Action Commit -->
+    <template id="sale_order_portal_template" inherit_id="sale.sale_order_portal_template">
+        <xpath expr="//a[@t-elif='sale_order._has_to_be_paid(True)']" position="after">
+            <!-- <t t-set="can_commit" t-value="sale_order.state in ('draft', 'sent') and user.partner_id.can_commit_quotation"/> -->
+            <t t-set="can_edit" t-value="sale_order.state in ('draft', 'sent', 'committed')"/>
+            <a t-if="can_edit" role="button" class="btn btn-primary btn-block mb8" t-attf-href="/my/orders/{{sale_order.id}}/edit?access_token={{sale_order.access_token}}">
+                <i class="fa fa-pencil"/> Edit
+            </a>
+            <!-- <a t-if="can_commit" role="button" class="btn btn-primary btn-block mb8" data-bs-toggle="modal" data-bs-target="#modalcommit" href="#">
+                <i class="fa fa-check"/> Commit Quotation
+            </a> -->
+        </xpath>
+
+        <!-- <xpath expr="//div[@id='modalaccept']" position="after">
+            <t t-set="can_commit" t-value="sale_order.state in ('draft', 'sent')"/>
+            <div t-if="can_commit" role="dialog" class="modal fade" id="modalcommit">
+                <div class="modal-dialog">
+                    <form id="decline" method="POST" t-attf-action="/my/orders/#{sale_order.id}/commit?access_token=#{sale_order.access_token}" class="modal-content">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <header class="modal-header">
+                            <h4 class="modal-title">Commit This Quotation</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </header>
+                        <main class="modal-body" id="commit-dialog">
+                            <p>
+                                <span>By commit this proposal, I agree to the following terms:</span>
+                                <ul>
+                                    <li>
+                                        <span>Accepted on the behalf of:</span> <b t-field="sale_order.partner_id.commercial_partner_id"/>
+                                    </li>
+                                    <li>
+                                        <span>For an amount of:</span> <b data-id="total_amount" t-field="sale_order.amount_total"/>
+                                    </li>
+                                    <li t-if="sale_order.payment_term_id">
+                                        <span>With payment terms:</span> <b t-field="sale_order.payment_term_id.note"/>
+                                    </li>
+                                </ul>
+                            </p>
+                        </main>
+                        <footer class="modal-footer">
+                            <button type="submit" t-att-id="sale_order.id" class="btn btn-primary">
+                                <i class="fa fa-check"></i> Commit
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </xpath> -->
+
+        <xpath expr="//div[@id='modaldecline']" position="after">
+            <div t-if="message == 'cant_commit'" class="alert alert-danger alert-dismissible d-print-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                Your order is not in a state to be committed or You are not allowed to commit.
+            </div>
+            <div t-if="message == 'edit_successful'" class="alert alert-success alert-dismissible d-print-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                Update Successful.
+            </div>
+        </xpath>
+    </template>
+
+    <template id="sale_order_portal_content_inherit_fds_sale"
+        name="Hide Committed Delivery Orders"
+        inherit_id="sale_stock.sale_order_portal_content_inherit_sale_stock">
+        <xpath expr="//div[@name='delivery_order']" position="attributes">
+            <attribute name="t-if">picking.picking_type_id != sale_order.warehouse_id.commit_type_id</attribute>
+        </xpath>
+    </template>
+
+    <template id="fds_sale_portal_my_orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//t[@t-call='portal.portal_table']//thead//tr//th[1]" position="after">
+            <th class="">Purchase Order</th>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_table']//thead//tr//th[last()]" position="after">
+            <th class="">Status</th>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_table']//t[@t-foreach='orders']//tr//td[1]" position="after">
+            <td class="">
+                <span t-field="order.client_order_ref"/>
+            </td>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_table']//t[@t-foreach='orders']//tr//td[last()]" position="after">
+            <td class="">
+                <t t-raw="order.get_do_pick_status()"/>
+            </td>
+        </xpath>
+    </template>
+
+    <template id="fds_sale_portal_my_quotations" inherit_id="sale.portal_my_quotations">
+        <xpath expr="//t[@t-call='portal.portal_table']//thead//tr//th[1]" position="after">
+            <th class="">Purchase Order</th>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_table']//t[@t-foreach='quotations']//tr//td[1]" position="after">
+            <td class="">
+                <span t-field="quotation.client_order_ref"/>
+            </td>
+        </xpath>
+    </template>
+
+    <template id="fds_sale_sale_order_portal_content" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//div[@id='informations']//div[@t-if='invoices']" position="after">
+            <div class="row" id="fds_sale_client_order_ref">
+                <div class="mb-3 col-6">
+                    <strong>Purchase Order:</strong>
+                    <span t-field="sale_order.client_order_ref" />
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

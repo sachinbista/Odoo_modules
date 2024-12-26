@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_partner_view_fds_sale" model="ir.ui.view">
+        <field name="name">res.partner.view.fds.sale</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_payment_term_id" position="after">
+                <field name="can_commit_quotation" />
+            </field>
+        </field>
+    </record>
+</odoo>

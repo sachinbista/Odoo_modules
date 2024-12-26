@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asn_label" model="ir.actions.report">
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">edi_stock_spscommerce.asn_label_zpl</field>
+        <field name="report_file">edi_stock_spscommerce.asn_label_zpl</field>
+        <field name="name">ASN Label (ZPL)</field>
+        <field name="model">stock.picking</field>
+        <field name="print_report_name">object._get_report_filename()</field>
+    </record>
+</odoo>

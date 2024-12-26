@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_edi_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.edi.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="payment_term_id" position="before">
+                    <field name="all_contacts"/>
+                </field>
+            </data>
+            <!-- <xpath expr="//field[@name='partner_id']" position="before">
+                
+            </xpath> -->
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+            <page name="edi_fields" string="EDI">
+                <group name="first_group">
+                    <group name="first_group_left">
+                        <field name="vendor"/>
+                        <field name="department"/>
+                        <field name="po_number"/>
+                        <field name="backorder_origin"/>
+                        <field name="edi_status"/>
+                        <field name="edi_date"/>
+                        <field name="tset_purpose_code"/>
+                        <field name="primary_PO_type_code"/>
+                        <field name="date_time_qualifier"/>
+                        <field name="commitment_date"/>
+                        <field name="requested_pickup_date"/>
+                        <field name="additional_date"/>
+                        <!-- <field name="FOB_pay_code"/>
+                        <field name="FOB_location_qualifier"/>
+                        <field name="FOB_location_description"/> -->
+                        <field name="carrier_trans_method_code"/>
+                        <field name="carrier_routing"/>
+                        <field name="reference_qual"/>
+                        <field name="reference_id"/>
+                        <field name="description"/>
+                        <field name="charges_allowances" widget="many2many_tags"/>
+                        <field name="total_line_item_number"/>
+                        <field name="acknowledgement_type"/>
+                    </group>
+                    <group name="first_group_right">
+                        <field name="addresses"/>
+                        <field name="customer_payment_terms"/>
+
+                    </group>
+                </group>
+            </page>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="before">
+              <field name="note_code"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom_qty']" position="after">
+                <field name="qty_cases" optional="hide"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom']" position="after">
+                <field name="line_sequence_number" optional="hide"/>
+                <field name="part_number" optional="hide"/>
+                <field name="vendor_part_number" optional="hide"/>
+                <field name="buyer_part_number" optional="hide"/>
+                <field name="pack_size" optional="hide"/>
+                <field name="payment_terms" optional="hide"/>
+                <field name="charges_allowances" optional="hide"/>
+                <field name="item_status_code" optional="hide"/>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='price_unit']" position="after">
+                <field name="edi_unit_price" optional="hide"/>
+                <field name="case_price" optional="hide"/>
+                <field name="edi_price" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <menuitem id="sale_order_edi"
+        parent="sale.sale_order_menu"
+        sequence="10"
+        action="action_sale_order_edi"/>
+</odoo>

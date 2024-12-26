@@ -1,0 +1,69 @@
+<odoo>
+
+    <record id="sale_stock_order_form_warehouse" model="ir.ui.view">
+        <field name="name">sale_stock_order_form_warehouse</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='warehouse_id']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="commitment_date" string="Deadline Date"/>
+                <field name="warehouse_id"
+                       options="{'no_create': True}"
+                       groups="stock.group_stock_multi_warehouses"
+                       force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_order_form_inherit_fds_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.fds.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='client_order_ref']" position="replace"></xpath>
+            <data>
+                <field name="payment_term_id" position="before">
+                    <field name="client_order_ref" string="Customer PO #"/>
+                </field>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_with_onboarding_fds_sale" model="ir.ui.view">
+        <field name="name">sale.view.quotation.tree.with.onboarding.fds.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="client_order_ref" optional="hide" string="Customer PO #"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree_fds_sale" model="ir.ui.view">
+        <field name="name">sale.view.order.tree.fds.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="client_order_ref" optional="hide" string="Customer PO #"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_view_sales_order_filter_fds_sale" model="ir.ui.view">
+        <field name="name">sale.view.sales.order.filter.fds.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="client_order_ref" string="Customer PO #"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

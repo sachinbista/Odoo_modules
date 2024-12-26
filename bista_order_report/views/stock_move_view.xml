@@ -1,0 +1,40 @@
+<odoo>
+    <record id="stock_move_list_view" model="ir.ui.view">
+        <field name="name">stock.move.list.view</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Move">
+                <field name="reference" string="Delivery Reference"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="create_date" string="Order Date"/>
+                <field name="date_deadline" string="Shipment Date"/>
+                <field name="origin" string="Sales Order"/>
+                <field name="state_id" string="State"/>
+                <field name="product_id" string="Product"/>
+                <field name="product_uom_qty" string="Order Qty"/>
+                <field name="quantity_done" string="Delivered Qty"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="delivered_subtotal" string="Delivered Subtotal" sum="Total" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="stock_move_action_view" model="ir.actions.act_window">
+        <field name="name">Stock Move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_move_list_view"/>
+        <field name="domain"> [("state", "=", "done")]</field>
+        <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Stock Move.
+                </p>
+            </field>
+    </record>
+
+    <menuitem name="Stock Move Report"
+                  id="stock_move_sub_menu"
+                  parent="stock.menu_warehouse_report"
+                  action="stock_move_action_view"/>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="sale_product_price_entry_view_form" model="ir.ui.view">
+        <field name="name">sale.product.price.entry.view.form</field>
+        <field name="model">sale.product.price.entry</field>
+        <field name="arch" type="xml">
+            <form js_class="product_price_entry_form">
+                <group>
+                    <field name="product_template_id" class="oe_product_price_entry_product_template_id" options="{'no_open': True}" readonly="1"/>
+                    <field name="product_id" class="oe_product_price_entry_product_template_id" options="{'no_open': True}" readonly="1"/>
+                    <field name="price_enrty" invisible="1" />
+                </group>
+                <footer>
+                    <button string="Add" class="btn-primary o_sale_product_price_entry_add" special="add" data-hotkey="g"/>
+                    <button string="Save" class="btn-primary o_sale_product_price_entry_edit" style="display: none;" special="save" data-hotkey="v"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_product_price_entry_action" model="ir.actions.act_window">
+        <field name="name">Set a product price entry</field>
+        <field name="res_model">sale.product.price.entry</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="sale_product_price_entry_view_form"/>
+    </record>
+
+</odoo>

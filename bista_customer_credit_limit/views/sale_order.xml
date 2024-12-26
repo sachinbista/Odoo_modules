@@ -1,0 +1,63 @@
+<odoo>
+
+    <record id="view_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">view.sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+<!--             <header>-->
+<!--                <button name="%(action_sale_line_wizard)d" string="Override Credit" type="action"-->
+<!--                        class="btn-primary" groups="bista_customer_credit_limit.customer_credit_limit_manager"-->
+<!--                attrs="{'invisible': ['|',('state', '!=', 'sale'),('flag','!=',True)]}"/>-->
+<!--            </header>-->
+
+            <xpath expr="//page[@name='other_information']//field[@name='company_id']" position="before">
+                <field name="credit_warning_threshold"/>
+                <field name="credit_blocking_threshold"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/div[1]" position="after">
+                    <field name="warning_message"
+                           style="color:Red; font-size: 13px; text-align: center; font-weight: bold;" readonly="1"
+                           attrs="{'invisible': [('state', 'not in', ['sale'])]}"/>
+                </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="company_currency_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='delivery_status']" position="after">
+                <field name="flag" invisible="1"/>
+                <field name="update_flag" invisible="1"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="block_order"/>
+            </xpath>
+
+<!--            <xpath expr="//form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']" position="attributes">-->
+<!--                <attribute name="attrs">{'readonly': [('flag', '=', True)]}</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='payment_term_id']" position="replace">
+                <field name="payment_term_id" groups="bista_customer_credit_limit.customer_credit_limit_manager"/>
+                <field name="payment_term_id" groups="!bista_customer_credit_limit.customer_credit_limit_manager"
+                       readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_sale_order_block_filter_inherit" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <filter string="Credit held" name="blocked_order"
+                domain="[('block_order', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_form_inherit_fds_crm" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.fds.crm</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="replace"></xpath>
+            <field name="requisition_id" position="after">
+                <field name="origin" string="Sales Order #"/>
+                <field name="customer_po_id" />
+                <field name="customer_po_number" />
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

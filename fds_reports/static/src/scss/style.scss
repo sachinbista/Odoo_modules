@@ -1,0 +1,74 @@
+.page {
+
+    .control_destination {
+      font-size: 12px
+    }
+  
+    .field_cards {
+      margin-bottom: 5px;
+    }
+  
+    .product_part_col {
+      width: 15% !important;
+  
+    }
+  
+    .column_sequence {
+      width: 30px !important;
+      max-width: 30px;
+      text-align: center !important;
+    }
+  
+  
+  }
+  
+  
+  .fds_layout_header {
+  
+    .company_address {
+      margin: 0 10px !important;
+  
+    }
+  
+  }
+  
+  .o_report_layout_standard {
+    font-family: "Roboto", "Odoo Unicode Support Noto", sans-serif;
+  
+  
+    #total strong {
+      color: black;
+    }
+  
+    #informations strong {
+      color: black;
+    }
+  
+    h2 span {
+      color: black;
+    }
+  
+    table {
+      overflow-x: visible !important;
+      thead {
+        color: black;
+        tr th {
+          border-top: 1px solid black !important;
+        }
+  
+      }
+  
+      tbody {
+        tr:last-child td {
+          border-bottom: 1px solid black;
+        }
+  
+      }
+    }
+  
+    .o_total {
+      background: none !important;
+    }
+  }
+  
+  

@@ -1,0 +1,64 @@
+<odoo>
+
+    <record id="view_warning_wizard_form" model="ir.ui.view">
+        <field name="name">view.warning.wizard.form</field>
+        <field name="model">warning.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <field name="sale_id" invisible="1"/>
+                <field name="name"/>
+                <footer>
+                    <button string="Continue" class="btn-primary" type="object" name="action_confirm"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_blocking_wizard_form" model="ir.ui.view">
+        <field name="name">view.blocking.wizard.form</field>
+        <field name="model">blocking.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <field name="sale_id" invisible="1"/>
+                <field name="name"/>
+                <footer>
+                    <button string="Continue" class="btn-primary" type="object" name="action_confirm_order"/>
+                    <button string="Cancel" class="btn-default" type="object" name="action_cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warning_wizard_custom_form" model="ir.ui.view">
+        <field name="name">view.warning.wizard.custom.form</field>
+        <field name="model">warning.wizard.custom</field>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <field name="sale_id" invisible="1"/>
+                <field name="name"/>
+                <footer>
+                    <button string="Cancel" class="btn-primary" type="object" name="check_action"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_blocking_wizard_warning_form" model="ir.ui.view">
+        <field name="name">view.block.wizard.form</field>
+        <field name="model">wizard.block</field>
+        <field name="arch" type="xml">
+            <form string="Alert!">
+                <!--<field name="sale_id" invisible="1"/>-->
+                <field name="name"/>
+                <footer>
+                    <button string="Continue" class="btn-primary" type="object" name="action_update_order_line" context="{'pass':True}"/>
+                    <button string="Cancel" class="btn-primary" type="object" name="action_wizard_close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+</odoo>

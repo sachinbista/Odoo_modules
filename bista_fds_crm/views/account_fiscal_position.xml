@@ -1,0 +1,15 @@
+<odoo>
+
+    <record id="view_account_position_form_no_overwrite_field" model="ir.ui.view">
+        <field name="name">view_account_position_form_no_overwrite_field</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="no_overwrite" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

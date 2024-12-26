@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_template_account_invoice" model="mail.template">
+        <field name="name">Account Invoice</field>
+        <field name="email_from">{{ (object.company_id.partner_id.email) }}</field>
+        <field name="subject">{{ object.company_id.name }} Invoice Reminder</field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html">${body_html}</field>
+    </record>
+
+
+</odoo>

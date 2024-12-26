@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+  <!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+  
+  <record id="view_delivery_carrier_form_freightview" model="ir.ui.view">
+      <field name="name">delivery.carrier.form.provider.freightview</field>
+      <field name="model">delivery.carrier</field>
+      <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='Delivery Setting']" position="after">
+              <group string="Freightview Shipping Infomation " attrs="{'invisible':[('delivery_type', '!=', 'freightview')]}">
+                    <!-- <field name="freightview_bearer_token" widget="char" readonly="1"/> -->
+                    <!-- <field name="freightview_bearer_token_expiry" widget="date" readonly="1"/> -->
+                    <field name="freightview_carrier_ids" widget="many2many_tags"/>
+                    <field name="freightview_timeout"/>
+                    <field name="freightview_origin_type"/>
+                    <field name="freightview_destination_type"/>                    
+                    <!-- <field name="freightview_charges"/>        -->
+                    <field name="freightClass"/>       
+                                 
+
+              </group>  
+          </xpath>
+          <xpath expr="//notebook" position='inside'>
+              <page string="Freightview Credentials" attrs="{'invisible': [('delivery_type', '!=', 'freightview')]}">
+                <group>
+                    <group name="freightview.v1.settings" string="Freightview Credentials (v1)">
+                        <field name="freightview_user_api_key" password= "1" attrs="{'required': [('delivery_type', '=', 'freightview')]}"/>
+                        <field name="freightview_account_api_key" password= "1" attrs="{'required': [('delivery_type', '=', 'freightview')]}"/>
+                    </group>
+                    <group name="freightview.v2.settings" string="Freightview Credentials (v2)">
+                        <field name="freightview_client_id" attrs="{'required': [('delivery_type', '=', 'freightview')]}"/>
+                        <field name="freightview_client_secret" password= "1" attrs="{'required': [('delivery_type', '=', 'freightview')]}"/>
+                        <field name="freightview_grant_type" attrs="{'required': [('delivery_type', '=', 'freightview')]}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+            </page>
+        </xpath>
+    </field>
+</record>
+
+
+
+
+    <record id="freightview_carrier_code_form" model="ir.ui.view">
+        <field name="name">freightview.carrier.code.view.form</field>
+        <field name="model">freightview.carrier.code</field>
+        <field name="arch" type="xml">
+            <form string="Freightview Carrier Codes">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="freightview_carrier_code_tree" model="ir.ui.view">
+        <field name="name">freightview.carrier.code.view.tree</field>
+        <field name="model">freightview.carrier.code</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Freightview Carrier Codes">
+                <field name="name"/>
+               <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_freightview_carrier_code">
+            <field name="name">Freightview Carrier Codes</field>
+            <field name="res_model">freightview.carrier.code</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="freightview_carrier_code_tree"/>
+    </record>
+
+
+    <menuitem
+        id="menu_delivery_freightview"
+        name="Freightview Services"
+        parent="stock.menu_stock_config_settings"/>
+         
+         <menuitem
+            id="menu_delivery_freightview_carrier_codes"
+            name="Freightview Carrier Codes"
+            parent="menu_delivery_freightview"
+            action="action_freightview_carrier_code"/>
+
+</odoo>

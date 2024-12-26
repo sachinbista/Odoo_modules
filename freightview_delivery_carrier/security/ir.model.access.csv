@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_freightview_service_users,delivery.carrier.freightview.service,model_freightview_carrier_code,,1,0,0,0
+access_freightview_service_admin,delivery.carrier.freightview.service,model_freightview_carrier_code,stock.group_stock_manager,1,1,1,1
+
+

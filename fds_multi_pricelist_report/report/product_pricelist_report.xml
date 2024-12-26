@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="multi_pricelist_reprot" inherit_id="product.report_pricelist_page">
+        <xpath expr="//thead//tr" position="replace">
+            <t t-set="len_pricelists" t-value="len(pricelists)"/>
+            <tr>
+                <th>Products</th>
+                <th groups="uom.group_uom">UoM</th>
+                <t t-foreach="quantities" t-as="qty">
+                    <th t-att-colspan="len_pricelists" class="text-end"><t t-esc="qty"/></th>
+                </t>
+            </tr>
+            <tr>
+                <th></th>
+                <th groups="uom.group_uom"></th>
+                <t t-foreach="quantities" t-as="qty">
+                    <t t-foreach="pricelists" t-as="pricelist">
+                        <th class="text-end"><t t-esc="pricelist.display_name"/></th>
+                    </t>
+                </t>
+            </tr>
+        </xpath>
+        <xpath expr="//tbody//t[@t-foreach='products']//tr//t[@t-foreach='quantities']//td" position="replace">
+            <t t-foreach="pricelists" t-as="pricelist">
+                <td class="text-end">
+                    <t t-esc="product['price'][qty][pricelist]" t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"/>
+                </td>
+            </t>
+        </xpath>
+        <xpath expr="//tbody//t[contains(@t-if, 'is_product_tmpl')]//tr//t[@t-foreach='quantities']//td" position="replace">
+            <t t-foreach="pricelists" t-as="pricelist">
+                <td class="text-end">
+                    <t t-esc="variant['price'][qty][pricelist]" t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+</odoo>

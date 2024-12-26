@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_form_payment_require_inherit" model="ir.ui.view">
+        <field name="name">edi.base.view.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="customer_po_required" groups="sales_team.group_sale_manager"/>
+                    <field name="customer_po_required" groups="!sales_team.group_sale_manager" readonly="1"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

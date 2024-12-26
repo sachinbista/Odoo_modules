@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="38.049" height="28.536" viewBox="0 0 38.049 28.536">
-  <g id="invoice-svgrepo-com" transform="translate(0 -8)">
-    <rect id="Rectangle_55" data-name="Rectangle 55" width="9" height="1" transform="translate(11 27)" fill="#f2512e"/>
-    <rect id="Rectangle_56" data-name="Rectangle 56" width="15" height="1" transform="translate(11 23)" fill="#f2512e"/>
-    <rect id="Rectangle_57" data-name="Rectangle 57" width="15" height="1" transform="translate(11 19)" fill="#f2512e"/>
-    <rect id="Rectangle_58" data-name="Rectangle 58" width="15" height="1" transform="translate(11 16)" fill="#f2512e"/>
-    <path id="Path_69" data-name="Path 69" d="M37.454,8H.595A.594.594,0,0,0,0,8.595v4.162a.594.594,0,0,0,.595.595H4.756V36.536l5.351-2.378,4.756,2.378,4.162-2.378,4.162,2.378,4.756-2.378,5.351,2.378V13.351h4.162a.594.594,0,0,0,.595-.595V8.595A.594.594,0,0,0,37.454,8Zm-32.7,4.162H1.189V9.189H4.756ZM32.1,34.707l-3.679-1.635-.513-.228-.5.251-4.187,2.094-3.609-2.062-.59-.337-.59.337-3.609,2.062-4.187-2.094-.5-.251-.513.228L5.945,34.707V9.189H32.1ZM36.86,12.162H33.293V9.189H36.86Z" fill="#212121"/>
-  </g>
-</svg>
