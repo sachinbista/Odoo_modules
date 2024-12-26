@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_statements_form_view_bista_batch_payment_report" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_followup.customer_statements_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+<!--                    <button name="customer_statement_excel_report" string="Print Excel Report" type="object"/>-->
+                    <button name="%(bista_account_followup.action_customer_statement_wizard)d"
+                            string="Download Customer Statement"
+                            type="action"
+                            class="btn-primary" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

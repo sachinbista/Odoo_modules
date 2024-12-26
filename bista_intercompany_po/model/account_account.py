@@ -44,6 +44,13 @@ class AccountMove(models.Model):
     internal_order_ref = fields.Char(string="Order Reference/Owner's reference")
     reference_number = fields.Char(string="Reference Number")
 
+    def action_post(self):
+        res = super().action_post()
+        if (self.move_type == 'out_invoice' and self.name == self.payment_reference and
+                self.reference_number):
+            self.payment_reference = self.reference_number
+        return res
+
 
     @api.onchange('partner_id')
     def _onchange_partner_update_lines(self):

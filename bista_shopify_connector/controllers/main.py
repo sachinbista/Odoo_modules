@@ -71,7 +71,8 @@ class Main(http.Controller):
                 #             picking.name)
                 #             move.sudo().message_post(body=move_msg)
             else:
-                move.with_user(user).create_update_shopify_refund(res, shopify_config)
+                _logger.info("Started Process Of Updating Orders Via Webhook")
+                move.with_user(user).create_creditnote_from_shopify_refund(res, shopify_config)
                 # request.env["account.move"].sudo(
                 # ).create_update_shopify_refund(res, shopify_config)
             _logger.info("Started Process Of Updating Orders Via Webhook->")

@@ -8,6 +8,7 @@ from odoo import models, fields, api, _, tools
 from odoo.exceptions import AccessError, ValidationError
 from .. import shopify
 import urllib.parse as urlparse
+from datetime import datetime, timedelta
 import pprint
 from odoo.exceptions import UserError
 import requests
@@ -41,6 +42,31 @@ class AccountMove(models.Model):
     is_manual_shopify_payment = fields.Boolean('Manual Shopify Payment', default=False)
     is_manual_odoo_refund = fields.Boolean('Manual Odoo Refund To Shopify', default=False)
     shopify_order_number = fields.Char('Shopify Order Number', copy=False)
+    delivery_state_id = fields.Many2one(
+        'res.country.state',
+        string='Delivery State',
+        compute='_compute_delivery_state',
+        store=True,
+        readonly=True
+    )
+
+    @api.depends('partner_shipping_id')
+    def _compute_delivery_state(self):
+        for move in self:
+            if move.partner_shipping_id and move.partner_shipping_id.state_id:
+                move.delivery_state_id = move.partner_shipping_id.state_id
+            else:
+                move.delivery_state_id = False
+
+    # @api.onchange('fiscal_position_id')
+    # def _onchange_fiscal_position(self):
+    #     for line in self.invoice_line_ids:
+    #         if line.product_id:
+    #             product_taxes = line.product_id.taxes_id.filtered(
+    #                 lambda t: t.company_id == self.company_id)
+    #             mapped_taxes = self.fiscal_position_id.map_tax(product_taxes)
+    #             line.tax_ids = mapped_taxes
+
 
     @api.model_create_multi
     def create(self, vals):
@@ -149,6 +175,522 @@ class AccountMove(models.Model):
         shopify_config.sudo().write({'last_import_order_date':fields.Datetime.now()})
         return True
 
+    def create_creditnote_from_shopify_refund(self, order_data, shopify_config):
+        """
+            Create refunds from shopify queue line data
+            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
+        """
+        _logger.info("Started Process Of creating creditnote Via Webhook->")
+        shopify_config.check_connection()
+        tax_env = self.env['account.tax'].sudo()
+        shopify_prd_var_env = self.env['shopify.product.product'].sudo()
+        shopify_prd_map_env = self.env['shopify.product.mapping'].sudo()
+        partner_env = self.env['res.partner'].sudo()
+        product_env = self.env['product.product'].sudo()
+        currency_env = self.env['res.currency'].sudo()
+        error_log_env = self.env['shopify.error.log'].sudo()
+        shop_error_log_id = self.env.context.get('shopify_log_id', False)
+        queue_line_id = self.env.context.get('queue_line_id', False)
+        company_id = shopify_config.default_company_id.id
+        shopify_cust_id = shopify_config.default_customer_id.id
+        shipping_product = self.env.ref(
+            'bista_shopify_connector.shopify_shipping_product')
+        is_partially_refunded = False
+        shop_order_id = str(order_data.get('id'))
+        get_refunds = shopify.Refund.find(order_id=shop_order_id)
+        sale_obj = self.env['sale.order'].sudo()
+        order_number = order_data.get('order_number')
+        move = self
+        if not get_refunds:
+            error_message = "Facing a problem while importing return.\n"\
+                "Please make sure while importing a return you have to do a refund first of the order then you will be able to import the return."
+                # "Please make sure while doing return you should have to refund then go for return."
+            error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                            shopify_log_line_dict={'error': [
+                                                {'error_message': error_message,
+                                                 'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+            queue_line_id and queue_line_id.sudo().write({'state': 'failed'})
+            return True
+        refunds = isinstance(get_refunds, list) and get_refunds or isinstance(get_refunds, dict) or []
+        _logger.info("Refunds: %s", refunds)
+        if not refunds:
+            # TODO: Generate error log here if necessary
+            error_message = "Facing a problem while importing return.\n"\
+                "Please make sure while importing a return you have to do a refund first of the order then you will be able to import the return."
+                # "Please make sure while doing return you should have to refund then go for return."
+            error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                            shopify_log_line_dict={'error': [
+                                                {'error_message': error_message,
+                                                 'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+            queue_line_id and queue_line_id.write({'state': 'failed'})
+            return True
+
+        try:
+            if not self.is_manual_shopify_payment:
+                for refund in refunds:
+                    trans = refund.attributes.get('transactions')
+                    for transaction in trans:
+                        refund_transaction_data = transaction.attributes
+                        refund_trans_id = refund_transaction_data.get('id')
+                        shopify_transaction = self.search([('shopify_transaction_id','=',refund_trans_id)])
+                        if shopify_transaction:
+                            pass
+                        else:
+                            refund_dict = refund.attributes
+                            order_id = refund_dict.get('order_id')
+
+                            fulfillment_status = order_data.get('fulfillment_status')
+
+                            if order_data.get('financial_status') == "partially_refunded":
+                                is_partially_refunded = True
+
+                            # refund_journal_id = auto_workflow_id and auto_workflow_id.credit_note_journal_id or None
+                            refund_journal_id = shopify_config.shopify_payout_journal_id
+                            order_name = order_data.get('name')
+                            taxes_included = order_data.get('taxes_included')
+                            currency = order_data.get('currency')
+                            tcurrency_id = currency_env.search(
+                                [('name', '=', currency)], limit=1)
+                            customer = order_data.get('customer')
+                            cust = shopify_config.default_customer_id
+                            unearned_account_id = False
+                            if fulfillment_status not in ('partial', 'fulfilled'):
+                                unearned_account_id = shopify_config.unearned_account_id
+
+                            shipping_id = False
+                            billing_id = False
+                            if customer:
+                                cust_id = customer.get('id')
+                                partner = partner_env.search([('shopify_customer_id', '=',
+                                                               cust_id),('active','=',False)], limit=1)
+                                partner_id = partner and partner.id
+                                if not partner:
+                                    partner_env.shopify_import_customer_by_ids(shopify_config, shopify_customer_by_ids=cust_id,
+                                                                               queue_line=self._context.get('queue_line_id'))
+                                    partner = partner_env.search(
+                                        [('shopify_customer_id', '=', cust_id),('active','=',False)], limit=1)
+                                    partner_id = partner and partner.id or shopify_cust_id
+                            else:
+                                partner_id = shopify_cust_id
+                                partner = shopify_config.default_customer_id
+
+                            # Start Prepare vals for shipping lines
+                            line_vals_dict = {}
+                            shipping_total = 0.0
+                            ship_tax_price = 0.0
+                            for shipping_line_data in order_data.get('shipping_lines'):
+                                line_prod_name = shipping_line_data.get(
+                                    'title').encode('utf-8')
+                                if shipping_line_data.get('handle'):
+                                    handle_str = " / " + shipping_line_data.get(
+                                        'handle').encode('utf-8')
+                                    line_prod_name += handle_str
+                                shipping_total += round(
+                                    float(shipping_line_data.get('price', 0.0)), 2)
+                                line_prod_price = shipping_line_data.get('price') or 0
+                                shipping_tax_ids = []
+
+                                line_vals_dict.update({
+                                    'product_id': shipping_product.id,
+                                    'name': 'Shipping refund',
+                                    'display_type': 'product',
+                                    'price_unit': 0.0,
+                                    'quantity': 1,
+                                    'tax_ids': [(6, 0, shipping_tax_ids)],
+                                    'account_id': refund_journal_id.default_account_id.id,
+                                })
+                            # end shipping line
+                            app_index = []
+                            trans = refund_dict.get('transactions')
+                            if not trans:
+                                error_message = "Facing a problems while importing refund.\n" \
+                                                "shopify order id!: %s transactions not found in Odoo" % (
+                                                    order_id or '')
+                                error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                                                shopify_log_line_dict={'error': [
+                                                                    {'error_message': error_message,
+                                                                     'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+                                queue_line_id and queue_line_id.write({'state': 'failed'})
+                                return True
+                            kind_list = []
+                            transaction_list = []
+                            for transaction in trans:
+                                refund_transaction_data = transaction.attributes
+                                status = refund_transaction_data.get('status')
+                                transaction_list.append(refund_transaction_data.get('id'))
+                                if status == 'success':
+                                    kind_list.append(refund_transaction_data.get('kind'))
+                            if 'refund' not in kind_list:
+                                return True
+                            refund_id = refund_dict.get('id')
+                            note = refund_dict.get('note')
+
+                            # for order adjustment
+                            order_adj_des = False
+                            ship_adj_des = False
+                            ship_adj_amt = 0.0
+                            for oa in refund_dict.get('order_adjustments'):
+                                ord_adj_data = oa.attributes
+                                kind = ord_adj_data.get('kind')
+                                if kind == 'refund_discrepancy':
+                                    order_adj_des = True
+                                elif kind == 'shipping_refund':
+                                    ship_adj_des = True
+                                    ship_adj_amt += abs(float(ord_adj_data.get('amount')))
+                                    if taxes_included:
+                                        ship_adj_amt += abs(float(ord_adj_data.get('tax_amount')))
+                            # end order adjustment
+                            # start code refunds line
+                            if refund_dict.get('refund_line_items') and not order_adj_des:
+                                line_lst = []
+                                product_missing = False
+                                subtotal = 0.0
+                                # end shipping order adjustment
+                                for refund_lines in refund_dict.get('refund_line_items'):
+                                    prd_id = False
+                                    refund_lines_data = refund_lines.attributes
+                                    ref_line_qty = refund_lines_data.get('quantity')
+                                    line = refund_lines_data.get('line_item')
+                                    if not line:
+                                        continue
+                                    line_data = line.attributes
+                                    name = line_data.get('name')
+                                    sku = line_data.get('sku')
+                                    restock_type = refund_lines_data.get('restock_type')
+                                    var_id = line_data.get('variant_id')
+                                    shopify_variant_id = line_data.get('variant_id')
+                                    shopify_product_id = line_data.get('product_id')
+                                    refund_line_id = refund_lines_data.get('id')
+                                    line_item_id = refund_lines_data.get('line_item_id')
+                                    description = line_data.get('name')
+
+                                    price_unit = float(line_data.get('price'))
+                                    qty = int(ref_line_qty)  # line_data.get('quantity')
+                                    shopify_variant = shopify.Variant().find(shopify_variant_id)
+                                    barcode = ""
+                                    if shopify_variant:
+                                        variant_data = shopify_variant.to_dict()
+                                        barcode = variant_data.get("barcode")
+                                    # TODO - Check with Ashvin whether we need this or not
+                                    shopify_product_product_id = sale_obj.get_product(
+                                        shopify_variant_id, shopify_product_id, shopify_config, sku, barcode)
+                                    product_id = shopify_product_product_id.product_variant_id if shopify_product_product_id else False
+
+                                    credit_note = False
+                                    credit_notes = self.search([
+                                        ('state', '!=', 'cancel'),
+                                        ('shopify_order_id', '=', str(order_id)), '|',
+                                        ('shopify_transaction_id', '=', str(refund_id)),
+                                        ('shopify_transaction_id', 'in', transaction_list),
+                                        ('shopify_config_id', '=', shopify_config.id),
+                                        # ('sale_order_id', '=', order.id),
+                                        ('move_type', '=', 'out_refund')])
+                                    for cr in credit_notes:
+                                        if cr.invoice_line_ids.filtered(lambda l: l.refund_id == str(refund_line_id) or l.shopify_transaction_id == str(refund_line_id)):
+                                            credit_note = cr.id
+                                            break
+                                    if credit_note:
+                                        queue_line_id and queue_line_id.write(
+                                            {'state': 'processed', 'refund_id': credit_note or False})
+                                        continue
+                                    # if var_id:
+                                    #     domain = [('shopify_product_id', '=', var_id)]
+                                    #     prd = shopify_prd_var_env.search(domain, limit=1)
+                                    #     prd_id = prd.product_variant_id.id
+                                    # if not prd_id and sku:
+                                    #     domain = [('default_code', '=', sku)]
+                                    #     prd = product_env.search(domain, limit=1)
+                                    #     prd_id = prd and prd.id or False
+                                    # if not prd_id:
+                                    #     domain = [('shopiy_product_name', '=', name)]
+                                    #     prd = shopify_prd_map_env.search(domain, limit=1)
+                                    #     if prd:
+                                    #         prd_id = prd.product_variant_id \
+                                    #             and prd.product_variant_id.id \
+                                    #             or False
+                                    # if not prd_id:
+                                    #     domain = [('shopify_name', '=', name)]
+                                    #     prd = product_env.search(domain, limit=1)
+                                    #     prd_id = prd and prd.id or False
+                                    # if not prd_id:
+                                    #     product_missing = True
+                                    #     error_message = "Refund for order %s is imported as " \
+                                    #                     "product %s : %s not found." % (
+                                    #                         order_name, name, sku)
+                                    #     error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                    #                                     shopify_log_line_dict={'error': [
+                                    #                                         {'error_message': error_message,
+                                    #                                          'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+                                    #     queue_line_id and queue_line_id.write({'state': 'failed'})
+
+                                    # uom_id = prd.product_variant_id.uom_id.id
+                                    uom_id = product_id.uom_id.id
+                                    # inline discount code
+                                    if line_data.get(
+                                        'discount_allocations') and line_data.get(
+                                            'quantity') > 0:
+                                        for disc_data in line_data.get(
+                                                'discount_allocations'):
+                                            discount_data = disc_data.attributes
+                                            price_unit = price_unit - (float(
+                                                discount_data.get(
+                                                    'amount')) / line_data.get(
+                                                'quantity') or 0)
+                                            app_index.append(discount_data.get(
+                                                'discount_application_index'))
+                                    total = qty * price_unit
+                                    subtotal += total
+                                    tax_ids = []
+                                    if str(refund_lines_data.get(
+                                            'total_tax')) not in ['0.0', '0.00']:
+                                        for tax_line in line_data.get(
+                                                'tax_lines'):
+                                            rate = float(
+                                                tax_line.attributes.get('rate',
+                                                                        0.0))
+                                            tax_calc = rate * 100
+                                            country_code = partner and partner.country_id and partner.country_id.code + ' ' or ''
+                                            name = rate and tax_line.attributes.get('title') + ' ' + country_code + str(
+                                                round(tax_calc, 4)) or tax_line.attributes.get('title')
+                                            # if taxes_included:
+                                            #     name += " Price_included"
+                                            shopify_tax = tax_env.search([
+                                                ('name', '=', name),
+                                                ('type_tax_use', '=', 'sale'),
+                                                ('amount', '=', float(tax_calc)),
+                                                # ('price_include', '=', taxes_included),
+                                                ('company_id', '=', company_id)
+                                                ],limit=1)
+                                            if not shopify_tax:
+                                                tax_vals = {
+                                                    'name': name,
+                                                    'amount': float(tax_calc),
+                                                    'price_include': 'true',
+                                                    'type_tax_use': 'sale',
+                                                    'company_id': company_id
+                                                }
+                                                _logger.info("tax_vals: %s", tax_vals)
+                                                shopify_tax = tax_env.create(tax_vals)
+                                            # Set default tax account in tax repartition
+                                            # line
+                                            lines = shopify_tax.invoice_repartition_line_ids.filtered(
+                                                lambda i: i.repartition_type == 'tax')
+                                            if lines and shopify_config.default_tax_account_id:
+                                                lines.account_id = shopify_config.default_tax_account_id.id
+                                            lines = shopify_tax.refund_repartition_line_ids.filtered(
+                                                lambda i: i.repartition_type == 'tax')
+                                            if lines and shopify_config.default_tax_account_id:
+                                                lines.account_id = shopify_config.default_tax_account_id.id
+                                            if shopify_tax:
+                                                tax_ids.append(shopify_tax.id)
+                                    inv_line_vals = (
+                                        {
+                                        'product_id': product_id.id,
+                                        'name': description,
+                                        'price_unit': price_unit,
+                                        'product_uom_id': uom_id,
+                                        'quantity': qty,
+                                        'tax_ids': tax_ids and [(6, 0, tax_ids)] or [(6, 0, [])],
+                                        'refund_id': refund_line_id,
+                                        'restock_type': restock_type,
+                                        'display_type': 'product',
+                                        'account_id': refund_journal_id.default_account_id.id,})
+                                    line_lst.append((0, 0, inv_line_vals))
+                                # end code refunds line
+                                if line_lst and not product_missing:
+                                    # for added shipping order adjustment
+                                    if line_vals_dict:
+                                        if ship_adj_des:
+                                            line_vals_dict['price_unit'] = ship_adj_amt
+                                            line_lst.append((0, 0, line_vals_dict))
+                                    created_order_at = refund_dict.get('created_at')
+                                    local_datetime = shopify_config.convert_shopify_datetime_to_utc(
+                                        created_order_at)
+                                    partner_id = partner_id or cust.id
+                                    _logger.info("partner_id: %s", partner_id)
+                                    if move:
+                                        partner_id = move.partner_id.id
+                                    if move:
+                                        ref = 'Reversal of: %s' % move.name
+                                    else:
+                                        ref = 'Refund for: %s' % order_name
+                                    vals = {
+                                        'move_type': 'out_refund',
+                                        'ref': ref,
+                                        'invoice_origin': order_name,
+                                        'invoice_date': str(local_datetime),
+                                        'partner_id': partner_id,
+                                        'shopify_order_id': order_id,
+                                        'shopify_transaction_id': refund_id,
+                                        'currency_id': tcurrency_id.id,
+                                        'invoice_line_ids': line_lst,
+                                        'narration': note,
+                                        'company_id': company_id,
+                                        'shopify_config_id': shopify_config.id,
+                                        'journal_id': refund_journal_id.id,
+                                        'partner_shipping_id': partner_id,
+                                        'fulfillment_status': fulfillment_status,
+                                        'reversed_entry_id': move.id if move else False,
+                                        'shopify_order_number': order_number,
+                                    }
+                                    # Added below condition to stop extra credit-note creation while doing refund from odoo to shopify.
+                                    exit_credit_notes = self.search([
+                                        ('state', '!=', 'cancel'),
+                                        ('shopify_transaction_id', '=', str(refund_id)),
+                                        ('move_type', '=', 'out_refund')])
+                                    if not exit_credit_notes:
+                                        _logger.info("create credit note : %s", vals)
+                                        exist_move = self.create(vals)
+                                        _logger.info("Credit note successfully created: %s", exist_move)
+                                        exist_move.post_credit_note_return_picking()
+                                        if shopify_config.is_refund_auto_paid:
+                                            shopify_transactions = shopify.Transaction().find(
+                                                order_id=str(shop_order_id))
+
+                                            for transaction in shopify_transactions:
+                                                transaction_dict = transaction.to_dict()
+                                                amount = transaction_dict.get('amount')
+                                                gateway = transaction_dict.get('gateway')
+                                                transaction_id = transaction_dict.get('transaction',
+                                                                                      {}).get('id') or transaction_dict.get('id')
+                                                transaction_type = transaction_dict.get('transaction', {}).get(
+                                                    'kind') or transaction_dict.get('kind')
+                                                status = transaction_dict.get('transaction', {}).get(
+                                                    'status') or transaction_dict.get('status')
+                                                msg = transaction_dict.get('message')
+                                                # if transactions are completed create payment else continue
+                                                if transaction_type not in ['refund'] or status != 'success':
+                                                    continue
+                                                if transaction_type in ['sale', 'refund', 'capture'] and status == 'success':
+                                                    reg_payment = self.env['account.payment.register'].with_context(
+                                                        active_model='account.move', active_ids=[exist_move.id]).create(
+                                                        {
+                                                            'payment_date': exist_move.date,
+                                                            'communication': exist_move.name,
+                                                            'amount': amount,
+                                                        }
+                                                    )._create_payments()
+                                                    if reg_payment:
+                                                        reg_payment.write({
+                                                            'shopify_order_id': shop_order_id,
+                                                            'shopify_transaction_id': transaction_id or False,
+                                                            'shopify_gateway': gateway or False,
+                                                            'shopify_note': msg,
+                                                            'shopify_name': order_name,
+                                                            'shopify_config_id': shopify_config.id,
+                                                        })
+                                        queue_line_id and queue_line_id.write(
+                                            {'state': 'processed', 'refund_id': exist_move.id})
+                                    else:
+                                        pass
+                            else:
+                                line_list = []
+                                vals = {}
+
+                                transaction_id = ''
+                                for transaction in trans:
+                                    refund_transaction_data = transaction.attributes
+                                    transaction_id = refund_transaction_data.get('id')
+                                    credit_note = False
+                                    # Check if credit note exists or not
+                                    credit_notes = self.search([
+                                        ('state', '!=', 'cancel'),
+                                        ('shopify_order_id', '=', str(order_id)), '|',
+                                        ('shopify_transaction_id', '=', str(refund_id)),
+                                        ('shopify_transaction_id', '=', str(transaction_id)),
+                                        ('shopify_config_id', '=', shopify_config.id),
+                                        ('move_type', '=', 'out_refund')])
+                                    for refund_lines in refund_dict.get('refund_line_items'):
+                                        refund_line_id = refund_lines_data.get('id')
+                                        for cr in credit_notes:
+                                            if cr.invoice_line_ids.filtered(
+                                                    lambda l: l.shopify_transaction_id == str(transaction_id) or l.shopify_transaction_id == str(refund_line_id)):
+                                                credit_note = cr.id
+                                                break
+                                    if credit_note:
+                                        queue_line_id and queue_line_id.write(
+                                            {'state': 'processed', 'refund_id': credit_note or False})
+                                        continue
+                                    msg = refund_transaction_data.get('message')
+                                    status = refund_transaction_data.get('status')
+                                    kind = refund_transaction_data.get('kind')
+                                    tcurrency = refund_transaction_data.get('currency')
+                                    tcurrency_id = currency_env.search(
+                                        [('name', '=', tcurrency)], limit=1)
+                                    rt_amount = refund_transaction_data.get('amount')
+                                    amount = isinstance(rt_amount, str) and float(rt_amount) \
+                                        or rt_amount
+                                    if status == 'success' and kind == 'refund' \
+                                            and not credit_note:
+                                        is_invoice_found = False
+                                        if not is_invoice_found:
+                                            line_list.append((0, 0, {
+                                                'name': note or msg,
+                                                'account_id': refund_journal_id.default_account_id.id,
+                                                'quantity': 1,
+                                                'price_unit': amount,
+                                                'display_type': 'product',
+                                                'shopify_transaction_id': str(transaction_id), }))
+                                local_datetime = shopify_config.convert_shopify_datetime_to_utc(refund_dict.get(
+                                    'created_at'))
+                                vals.update({
+                                    'shopify_config_id': shopify_config.id,
+                                    'invoice_date': str(local_datetime),
+                                    'partner_id': partner_id or cust.id,
+                                    'journal_id': refund_journal_id.id,
+                                    'currency_id': tcurrency_id.id,
+                                    'move_type': 'out_refund',
+                                    'shopify_transaction_id': refund_id,
+                                    'shopify_order_id': order_id,
+                                    'invoice_line_ids': line_list,
+                                    'invoice_origin': order_name or '',
+                                    'is_partially_refunded': is_partially_refunded,
+                                    'shopify_adj_amount': order_adj_des,
+                                    'fulfillment_status': fulfillment_status,
+                                    'reversed_entry_id': move.id if move else False,
+                                })
+                                if line_list:
+                                    try:
+                                        credit_note = credit_note.create(vals)
+                                        _logger.info("Credit note successfully created: %s", credit_note)
+                                        credit_note.post_credit_note_return_picking()
+                                        if shopify_config.is_refund_auto_paid:
+                                            payment_id = self.env['account.payment'].search([
+                                                ('shopify_config_id', '=', shopify_config.id),
+                                                ('shopify_transaction_id', '=', str(transaction_id)),
+                                                ('payment_type', '=', 'outbound'),
+                                                ("state", '!=', 'cancelled')])
+                                            # for reconciled credit note
+                                            for rinv in credit_note:
+                                                move_lines = payment_id.move_id.invoice_line_ids.filtered(
+                                                    lambda line: line.account_type in (
+                                                        'asset_receivable',
+                                                        'liability_payable') and not line.reconciled)
+                                                for line in move_lines:
+                                                    rinv.js_assign_outstanding_line(line.id)
+                                        queue_line_id and queue_line_id.write(
+                                            {'state': 'processed', 'refund_id': credit_note.id})
+                                    except Exception as e:
+                                        error_message = "Facing a problems while importing " \
+                                            "refund order!: %s : %s" % (
+                                                         '', e)
+                                        error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                                                        shopify_log_line_dict={'error': [
+                                                                            {'error_message': error_message,
+                                                                             'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+                                        queue_line_id and queue_line_id.write({'state': 'failed'})
+                            shopify_config.sudo().write({'last_import_order_date':fields.Datetime.now()})
+                return True
+            else:
+                pass
+        except Exception as e:
+            error_message = f"Facing a problems while importing refund order!: {e}"
+            error_log_env.sudo().create_update_log(shop_error_log_id=shop_error_log_id,
+                                            shopify_log_line_dict={'error': [
+                                                {'error_message': error_message,
+                                                 'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+            queue_line_id and queue_line_id.write({'state': 'failed'})
+
     def create_update_shopify_refund(self, order_data, shopify_config):
         """
             Create refunds from shopify queue line data
@@ -189,6 +731,7 @@ class AccountMove(models.Model):
         # refunds = isinstance(get_refunds, list) and get_refunds[0] \
         #     or isinstance(get_refunds, dict) or []
         refunds = isinstance(get_refunds, list) and get_refunds or isinstance(get_refunds, dict) or []
+        _logger.info("Refunds: %s", refunds)
         if not refunds:
             # TODO: Generate error log here if necessary
             error_message = "Facing a problem while importing return.\n"\
@@ -554,6 +1097,7 @@ class AccountMove(models.Model):
                                     local_datetime = shopify_config.convert_shopify_datetime_to_utc(
                                         created_order_at)
                                     partner_id = partner_id or cust.id
+                                    _logger.info("partner_id: %s", partner_id)
                                     if move:
                                         # invoice_id = order.invoice_ids.filtered(lambda move: move.move_type == 'out_invoice')
                                         # partner_id = invoice_id and invoice_id[0].partner_id.id
@@ -572,9 +1116,13 @@ class AccountMove(models.Model):
                                         #             'tax_ids': [(6,0, line.tax_ids.ids)]
                                         #         }
                                         #         line_lst.append((0, 0, line_data))
+                                    if move:
+                                        ref = 'Reversal of: %s' % move.name
+                                    else:
+                                        ref = 'Refund for: %s' % order_name
                                     vals = {
                                         'move_type': 'out_refund',
-                                        'ref': 'Reversal of: %s' % move.name,
+                                        'ref': ref,
                                         'invoice_origin': order_name,
                                         'invoice_date': str(local_datetime),
                                         # billing_id and billing_id.id or partner_id,
@@ -591,7 +1139,7 @@ class AccountMove(models.Model):
                                         'partner_shipping_id': partner_id,
                                         'fulfillment_status': fulfillment_status,
                                         # 'sale_order_id': order.id,
-                                        'reversed_entry_id': move.id,
+                                        'reversed_entry_id': move.id if move else False,
                                     }
                                     # Added below condition to stop extra credit-note creation while doing refund from odoo to shopify.
                                     exit_credit_notes = self.search([
@@ -600,14 +1148,19 @@ class AccountMove(models.Model):
                                         # ('sale_order_id', '=', order.id),
                                         ('move_type', '=', 'out_refund')])
                                     if not exit_credit_notes:
+                                        _logger.info("create credit note : %s", vals)
                                         exist_move = self.create(vals)
+                                        _logger.info("Credit note successfully created: %s", exist_move)
                                         exist_move.post_credit_note_return_picking()
                                         if shopify_config.is_refund_auto_paid:
                                             # for existing move create payment for refunds
                                             # exist_move.action_post()
 
+                                            # shopify_transactions = shopify.Transaction().find(
+                                            #     order_id=str(move.shopify_order_id))
                                             shopify_transactions = shopify.Transaction().find(
-                                                order_id=str(move.shopify_order_id))
+                                                order_id=str(shop_order_id))
+
                                             for transaction in shopify_transactions:
                                                 transaction_dict = transaction.to_dict()
                                                 amount = transaction_dict.get('amount')
@@ -743,13 +1296,14 @@ class AccountMove(models.Model):
                                     'is_partially_refunded': is_partially_refunded,
                                     'shopify_adj_amount': order_adj_des,
                                     'fulfillment_status': fulfillment_status,
-                                    'reversed_entry_id': move.id,
+                                    'reversed_entry_id': move.id if move else False,
                                 })
                                 if line_list:
                                     try:
                                         # credit_note = self.with_context(
                                         #     custom_context).create(vals)
                                         credit_note.create(vals)
+                                        _logger.info("Credit note successfully created: %s", credit_note)
                                         credit_note.post_credit_note_return_picking()
                                         if shopify_config.is_refund_auto_paid:
                                             # credit_note.action_post()
@@ -793,6 +1347,86 @@ class AccountMove(models.Model):
                                                 {'error_message': error_message,
                                                  'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
             queue_line_id and queue_line_id.write({'state': 'failed'})
+
+    def create_shopify_invoice_payment(self,order_dict, shopify_config):
+
+        currency_obj = self.env['res.currency'].sudo()
+        error_log_env = self.env['shopify.error.log'].sudo()
+        financial_status = order_dict.get('financial_status')
+        shop_order_id = order_dict.get('id')
+        order_name = order_dict.get('name')
+        shop_error_log_id = self.env.context.get('shopify_log_id', False)
+        queue_line_id = self.env.context.get('queue_line_id', False)
+        payment_obj = self.env['account.payment'].sudo()
+        auto_workflow_id = self.env['shopify.workflow.process'].sudo().search([
+            ('company_id', '=', shopify_config.default_company_id.id)], limit=1)
+        if not auto_workflow_id:
+            _logger.info("Workflow not found for company %s" % (shopify_config.default_company_id.name))
+            return
+        if not auto_workflow_id.register_payment:
+            _logger.info("Autowork flow Register Payment not set for company %s" % (shopify_config.default_company_id.name))
+            return
+        journal_id = auto_workflow_id.pay_journal_id
+        payment_method_line_id = auto_workflow_id.payment_method_line_id
+        if not journal_id:
+            error_message = 'Payment journal not found!'
+            error_log_env.sudo().create_update_log(
+                shop_error_log_id=shop_error_log_id,
+                shopify_log_line_dict={'error': [
+                    {'error_message': error_message,
+                     'queue_job_line_id': queue_line_id and queue_line_id.id or False}]})
+        payment_method_id = auto_workflow_id.in_pay_method_id
+        if self and financial_status in ('paid', 'partially_paid',
+                                                'refunded', 'partially_refunded'):
+            transactions = []
+            # try: TODO: need to add time sleep for resolved multiple call error
+            transactions = shopify.Transaction.find(order_id=shop_order_id)
+            # except Exception as e:
+            #     if e and e.response.code == 429 and e.response.msg == "Too Many Requests":
+            #         time.sleep(5)
+            #         transactions = shopify.Transaction.find(
+            #             order_id=shop_order_id)
+            # payment_date = self.invoice_date or False
+            for transaction in transactions:
+                transaction_data = transaction.attributes
+                transaction_id = transaction_data.get('id')
+
+                status = transaction_data.get('status')
+                kind = transaction_data.get('kind')
+                msg = transaction_data.get('message')
+                gateway = transaction_data.get('gateway')
+                amount = transaction_data.get('amount')
+                self.shopify_transaction_id = transaction_id
+                if status == 'success' and kind in ['sale', 'capture','authorization']:
+
+                    reg_payment = self.env['account.payment.register'].with_context(
+                        active_model='account.move', active_ids=[self.id]).create(
+                        {
+                            'journal_id':journal_id.id,
+                            'payment_date': self.invoice_date,
+                            'communication': self.name,
+                            'amount': amount,
+                            'payment_method_line_id': payment_method_line_id.id,
+                        }
+                    )._create_payments()
+                    if reg_payment:
+                        reg_payment.write({
+                            'shopify_order_id': shop_order_id,
+                            'shopify_transaction_id': transaction_id or False,
+                            'shopify_gateway': gateway or False,
+                            'shopify_note': msg,
+                            'shopify_name': order_name,
+                            'shopify_config_id': shopify_config.id,
+                        })
+
+                        # move_lines = payment.line_ids.filtered(
+                        #     lambda line: line.account_type in (
+                        #         'asset_receivable',
+                        #         'liability_payable') and not line.reconciled)
+                        # for line in move_lines:
+                        #     invoice.js_assign_outstanding_line(line.id)
+
+            # return True
     
     def shopify_refund(self, credit_note_id, reason):
         shopify_shipping_product_id = credit_note_id.shopify_config_id.shipping_product_id
@@ -908,6 +1542,21 @@ class AccountMoveLine(models.Model):
     shopify_gateway = fields.Char(string='Shopify Gateway', related='payment_id.shopify_gateway', copy=False)
     shopify_order_id = fields.Char(string='Shopify Order ID', related='payment_id.shopify_order_id', copy=False)
     shopify_name = fields.Char(string='Shopify Order', related='payment_id.shopify_name', copy=False)
+    delivery_state_id = fields.Many2one(
+        'res.country.state',
+        string='Delivery State',
+        compute='_compute_delivery_state',
+        store=True,
+        readonly=True
+    )
+
+    @api.depends('move_id.partner_shipping_id')
+    def _compute_delivery_state(self):
+        for line in self:
+            if line.move_id and line.move_id.delivery_state_id:
+                line.delivery_state_id = line.move_id.delivery_state_id
+            else:
+                line.delivery_state_id = False
 
     @api.constrains('account_id', 'display_type')
     def _check_payable_receivable(self):

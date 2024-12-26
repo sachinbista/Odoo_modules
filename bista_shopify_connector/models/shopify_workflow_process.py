@@ -41,6 +41,8 @@ class ShopifyWorkflowProcess(models.Model):
     in_pay_method_id = fields.Many2one('account.payment.method',
                                        string="Payment Method",
                                        domain=[('payment_type', '=', 'inbound')])
+    payment_method_line_id = fields.Many2one('account.payment.method.line',
+                                             string='Payment Method',copy=False)
 
     @api.onchange('confirm_order')
     def onchange_confirm_order(self):

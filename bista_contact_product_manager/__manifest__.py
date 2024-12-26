@@ -15,6 +15,7 @@
     'data': [
 
         'security/group.xml',
+        'security/ir.model.access.csv',
         'views/account_move_view.xml',
         'views/product_inherit_view.xml',
     ],

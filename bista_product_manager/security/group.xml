@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <record id="product_category_product_data_user_access" model="ir.model.access">
-        <field name="name">Access product.category for Contact and Product Manager</field>
-        <field name="model_id" ref="product.model_product_category"/>
-        <field name="group_id" ref="bista_contact_product_manager.contact_product_edit_restriction"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_unlink" eval="False"/>
-    </record>
+    <!--    <record id="product_category_product_data_user_access" model="ir.model.access">-->
+    <!--        <field name="name">Access product.category for Contact and Product Manager</field>-->
+    <!--        <field name="model_id" ref="product.model_product_category"/>-->
+    <!--        <field name="group_id" ref="bista_contact_product_manager.contact_product_edit_restriction"/>-->
+    <!--        <field name="perm_read" eval="True"/>-->
+    <!--        <field name="perm_write" eval="True"/>-->
+    <!--        <field name="perm_create" eval="True"/>-->
+    <!--        <field name="perm_unlink" eval="False"/>-->
+    <!--    </record>-->
 
 
     <record model="ir.ui.menu" id="sale.report_sales_team">
@@ -28,9 +28,9 @@
     </record>
 
 
-    <record model="ir.ui.menu" id="sale.menu_product_categories">
-        <field name="groups_id" eval="[(6, 0, [ref('bista_contact_product_manager.contact_product_edit_restriction')])]"/>
-    </record>
+    <!--    <record model="ir.ui.menu" id="sale.menu_product_categories">-->
+    <!--        <field name="groups_id" eval="[(6, 0, [ref('bista_contact_product_manager.contact_product_edit_restriction')])]"/>-->
+    <!--    </record>-->
 
     <!-- First, define the group that will have access to the product menu -->
     <record id="group_product_menu_access" model="res.groups">
@@ -70,6 +70,16 @@
         <field name="group_id" ref="bista_product_manager.group_product_edit_access"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="ir_model_product_data_user_access" model="ir.model.access">
+        <field name="name">ir.model access for Product Data User</field>
+        <field name="model_id" ref="base.model_ir_model"/>
+        <field name="group_id" ref="bista_product_manager.group_product_edit_access"/>
+        <field name="perm_read" eval="True"/>
+         <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="False"/>
     </record>
 

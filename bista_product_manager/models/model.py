@@ -11,6 +11,7 @@ class IrUiMenu(models.Model):
         specific_group = self.env.ref('bista_product_manager.group_product_edit_access')
         admin_user = self.env.ref('base.group_system')
         product_menu = self.env.ref('bista_product_manager.product_menu_root')
+        product_menu = self.env.ref('bista_product_manager.product_menu_root')
         if specific_group in user.groups_id and admin_user not in user.groups_id:
             # Return only the Product menu
             return self.search([('id','=',product_menu.id)])

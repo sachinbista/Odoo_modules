@@ -1,5 +1,6 @@
 from odoo import fields, models, api, _
 from datetime import datetime
+from odoo.exceptions import UserError
 
 
 class AccountMoveLine(models.Model):
@@ -12,6 +13,13 @@ class AccountMoveLine(models.Model):
         string="Pricelist Rule",
         help="Pricelist rule applied to this line"
     )
+
+    original_cost = fields.Float(string="Original Cost",compute="_compute_original_cost")
+
+    @api.depends('quantity','price_unit')
+    def _compute_original_cost(self):
+        for line in self:
+            line.original_cost= line.quantity * line.price_unit
 
     @api.depends('product_id', 'quantity', 'move_id.pricelist_id')
     def _compute_pricelist_item_id(self):
@@ -35,6 +43,9 @@ class AccountMoveLine(models.Model):
     @api.onchange('product_id', 'quantity', 'move_id.pricelist_id')
     def _onchange_apply_pricelist(self):
         for line in self:
+            if line.product_id and line.move_id.move_type in ['out_invoice']:
+                if not line.pricelist_item_id:
+                    raise UserError(_("No pricelist rule found for this product."))
             if line.pricelist_item_id:
                 price = line.pricelist_item_id._compute_price(
                     product=line.product_id,

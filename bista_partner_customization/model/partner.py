@@ -14,6 +14,7 @@ class Partner(models.Model):
     debtor_timw_to_pay = fields.Char(string='Average debtor days/time to pay')
     insured_amount = fields.Char(string='Insured Amount')
     certificate_expiry_date = fields.Date('Resale certificate expiry date')
+    group_id = fields.Many2one('partner.group',string='Groups')
     group_ids = fields.Many2many('partner.group',string='Groups')
     invoice_type = fields.Selection([('email', 'Email'),
                                      ('portal', 'Portal'),
@@ -44,4 +45,6 @@ class invoice_payment_method(models.Model):
 
     name = fields.Char('Payment Method')
     desc = fields.Html('Descriptions')
+    payment_method_id = fields.Many2one('payment.method',string='Payment Provider',
+                                          domain="[('active', '=', True)]")
     

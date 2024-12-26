@@ -262,7 +262,29 @@ class SaleOrder(models.Model):
         if odoo_product:
             ShopifyProductProduct = self.env['shopify.product.product']
             shopify_product_product_id = ShopifyProductProduct.sudo().search(
-                [('product_variant_id', '=', odoo_product.id)], limit=1)
+                [('product_variant_id', '=', odoo_product.id),
+                 ('shopify_config_id','=',shopify_config.id)], limit=1)
+            if not shopify_product_product_id:
+                shopifyProductTemplate_id = shopifyProductTemplate.sudo().search([
+                    ('shopify_prod_tmpl_id','=',str(shopify_product_id)),
+                    ('shopify_config_id', '=', shopify_config.id)
+                ])
+                if not shopifyProductTemplate_id:
+                    shopifyProductTemplate_id = shopifyProductTemplate.sudo().create({
+                        'shopify_prod_tmpl_id': shopify_product_id,
+                        'shopify_config_id': shopify_config.id,
+                        'product_tmpl_id': odoo_product.product_tmpl_id.id,
+                        'shopify_published': True,
+                    })
+
+                shopify_product_product_id = ShopifyProductProduct.sudo().create(
+                    {'product_variant_id': odoo_product.id,
+                     'product_template_id': odoo_product.product_tmpl_id.id,
+                     'shopify_product_id': shopify_variant_id,
+                     'default_code': odoo_product.default_code,
+                     'barcode': odoo_product.barcode,
+                     'shopify_product_template_id': shopifyProductTemplate_id.id,
+                     'shopify_config_id': shopify_config.id})
         else:
             if shopify_config.is_create_product:
                 shopifyProductTemplate.shopify_import_product_by_ids(
@@ -2741,7 +2763,8 @@ class SaleOrder(models.Model):
             existing_order_id = account_move_obj.search([
                 ('shopify_order_id', '=', shopify_order_id),
                 ('shopify_config_id', '=', shopify_config.id),
-                ('company_id', '=', shopify_config.default_company_id.id)], limit=1)
+                ('company_id', '=', shopify_config.default_company_id.id),
+                ('state', '=', 'posted')], limit=1)
             if existing_order_id:
                 return
 
@@ -2750,7 +2773,7 @@ class SaleOrder(models.Model):
             fulfillment_status = order_dict.get('fulfillment_status')
             vals = {
                 "move_type": 'out_invoice',
-                'partner_id': partner_id.id,
+                'partner_id': shopify_config.default_customer_id.id,
                 'partner_shipping_id': partner_id.id,
                 'shopify_order_id': shopify_order_id,
                 'shopify_config_id': shopify_config.id,
@@ -2775,7 +2798,12 @@ class SaleOrder(models.Model):
                 qty = line.get('quantity')
                 price_unit = line.get('price')
                 sku = line.get('sku')
-                barcode = line.get('barcode')
+                shopify_variant = shopify.Variant().find(shopify_variant_id)
+                barcode = ""
+                if shopify_variant:
+                    variant_data = shopify_variant.to_dict()
+                    barcode = variant_data.get("barcode")
+                # barcode = line.get('barcode')
                 price_qty = float(price_unit) * float(qty)
                 if shopify_variant_id:
                     shopify_product_product_id = self.get_product(
@@ -2865,7 +2893,24 @@ class SaleOrder(models.Model):
             vals.update({"invoice_line_ids": order_line_vals})
 
             invoice = account_move_obj.create(vals)
-            invoice.with_context(insufficient_stock_skip=True).action_post()
+            # invoice._onchange_fiscal_position()
+
+            if invoice:
+                invoice.with_context(insufficient_stock_skip=True).action_post()
+                for picking in invoice.picking_ids:
+                    vals={
+                        'shopify_order_id': invoice.shopify_order_id,
+                        'shopify_order_number': invoice.shopify_order_number,
+                        'shopify_transaction_id': invoice.shopify_transaction_id,
+                        'fulfillment_status': invoice.fulfillment_status,
+                    }
+                    picking.write(vals)
+                invoice.create_shopify_invoice_payment(order_dict, shopify_config)
+
+                queue_line_id and queue_line_id.update({
+                        'state': 'processed',
+                })
+
 
         except Exception as e:
             error_message = 'Failed to import Orders : {}'.format(e)

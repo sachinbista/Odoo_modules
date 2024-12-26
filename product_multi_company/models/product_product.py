@@ -19,8 +19,9 @@ class ProductProduct(models.Model):
         readonly=False,
         store=True,
     )
-
-    status = fields.Selection([('active', 'Active'), ('discontinued', 'Discontinued')],
+    status = fields.Selection([('active', 'Active'), ('discontinued', 'Discontinued'),
+                               ('temporarily_unavailable', 'Temporarily Unavailable'),
+                               ('in_development', 'In Development'),("cancelled","Cancelled")],
                               string='Status',
                               tracking=True,
                               default='active')
@@ -34,3 +35,7 @@ class ProductProduct(models.Model):
     product_display_name_36 = fields.Char(string="Product Display Name - 36 Character", size=36)
     product_display_name_20 = fields.Char(string="Product Display Name - 20 Character", size=20)
     product_display_name_short = fields.Char(string="Product Display Name - Shortened")
+    country_of_origin_id = fields.Many2one('res.country',
+                                           related='product_tmpl_id.country_of_origin_id',
+                                           readonly=False,
+                                           string='Country Of Origin(COO)')

@@ -3,10 +3,10 @@
 
     <!-- Mail template are declared in a NOUPDATE block
          so users can freely customize/delete them -->
-    <data noupdate="0">
+    <data>
         <!--Email template -->
         <record id="email_template_edi_invoice" model="mail.template">
-            <field name="name">Slip X {{ object.partner_id.name }} - Invoice from Slip </field>
+            <field name="name">Invoice from Slip</field>
             <field name="model_id" ref="account.model_account_move"/>
             <field name="email_from">{{ (object.invoice_user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
             <field name="partner_to">{{ object.partner_id.id }}</field>
@@ -55,7 +55,7 @@
 
             <!--Email template -->
             <record id="email_template_edi_invoice_overdue" model="mail.template">
-                <field name="name">Slip X {{ object.partner_id.name }} - Overdue invoice  {{ object.name }}</field>
+                <field name="name">Overdue invoice</field>
                 <field name="model_id" ref="account.model_account_move"/>
                 <field name="email_from">{{ (object.invoice_user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
                 <field name="partner_to">{{ object.partner_id.id }}</field>
@@ -107,7 +107,7 @@
 
         <!-- Credit note template -->
         <record id="email_template_edi_credit_note" model="mail.template">
-            <field name="name">Slip X {{ object.partner_id.name }} - Credit Note </field>
+            <field name="name">Credit Note</field>
             <field name="model_id" ref="account.model_account_move"/>
             <field name="email_from">{{ (object.invoice_user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
             <field name="partner_to">{{ object.partner_id.id }}</field>
@@ -155,7 +155,7 @@
         </record>
 
         <record id="email_template_followup_2" model="mail.template">
-            <field name="name">Slip X {{object.partner_id.name}} - Overdue Account Statement</field>
+            <field name="name">Overdue Account Statement</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="email_from">{{ object._get_followup_responsible().email_formatted }}</field>
             <field name="partner_to">{{ object.id }}</field>
@@ -195,7 +195,7 @@
         </record>
 
         <record id="email_template_followup_3" model="mail.template">
-            <field name="name">Slip X {{object.partner_id.name}} - Statement of Account</field>
+            <field name="name">Statement of Account</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="email_from">{{ object._get_followup_responsible().email_formatted }}</field>
             <field name="partner_to">{{ object.id }}</field>

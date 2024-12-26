@@ -75,7 +75,7 @@ class AccountMoveLine(models.Model):
 
     def _prepare_procurement_group_vals(self):
         return {
-            'name': self.move_id.name,
+            'name': self.move_id.name or self.move_id.display_name,
             'move_type': 'direct',
             # 'sale_id': self.order_id.id,
             'partner_id': self.move_id.partner_id.id,
@@ -163,7 +163,7 @@ class AccountMoveLine(models.Model):
 
         # Skip any checks related to available stock quants
         invoice_ids = self.mapped('move_id')
-        for invoice in invoice_ids:
+        for invoice in invoice_ids.filtered(lambda i: i.move_type != 'out_refund'):
             if not invoice.shopify_order_id:
                 pickings_to_confirm = invoice.picking_ids.filtered(lambda p: p.state not in ['cancel', 'done'])
                 if pickings_to_confirm:

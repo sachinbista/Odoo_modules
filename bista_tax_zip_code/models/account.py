@@ -28,11 +28,21 @@ class AccountMove(models.Model):
                 tax_id = AccountTax.search(
                     [('type_tax_use', '=', 'sale'), ('amount', '=', estimated_county_rate)], limit=1
                 )
-        for line in self.invoice_line_ids:
-            if tax_id:
-                line.tax_ids = tax_id
-            else:
-                line.tax_ids = False
+        # country_ids = self.fiscal_position_id.country_group_id.country_ids.ids
+        # shipping_country_id = self.partner_shipping_id.state_id.country_id
+        # for line in self.invoice_line_ids:
+        #     line.price_unit = line.product_id.lst_price
+        #     if tax_id:
+        #         line.tax_ids = tax_id
+        #     else:
+        #         line.tax_ids = False
+        #
+        #     if (line.product_id and self.fiscal_position_id and
+        #             self.fiscal_position_id.country_group_id.name == "European Union"
+        #             and shipping_country_id.id in country_ids):
+        #         for fiscal_tax_line in self.fiscal_position_id.tax_ids.filtered(lambda t: t.tax_src_id.is_for_exemption):
+        #             deduct_tax_amount = line.product_id.lst_price * (1 - fiscal_tax_line.tax_dest_id.amount / 100)
+        #             line.price_unit = deduct_tax_amount
 
 
 class AccountMoveLine(models.Model):
@@ -40,6 +50,9 @@ class AccountMoveLine(models.Model):
 
     def _get_computed_taxes(self):
         tax_ids = super()._get_computed_taxes()
+        # fiscal_position_id = self.move_id.fiscal_position_id
+        # country_id = self.move_id.partner_shipping_id.state_id.country_id
+        # country_ids = fiscal_position_id.country_group_id.country_ids.ids
         for line in self:
             move_id = line.move_id
             if not move_id.partner_id.tax_exemption and move_id.move_type in ('out_invoice', 'out_refund'):
@@ -61,13 +74,19 @@ class AccountMoveLine(models.Model):
                         [('type_tax_use', '=', 'sale'), ('amount', '=', estimated_county_rate)], limit=1)
                     if tax_id:
                         tax_ids = tax_id
-            elif move_id.partner_id.tax_exemption:
-                partner_exempted_ids = move_id.partner_id.mapped('tax_to_exempted_ids').ids
-                product_tax = tax_ids.children_tax_ids.ids
-                if any(partner_exempted_ids):
-                    tax_to_apply_after_exemption = [i for i in product_tax if i not in partner_exempted_ids]
-                    if any(tax_to_apply_after_exemption):
-                        tax_ids = self.env['account.tax'].browse(tax_to_apply_after_exemption)
+            # elif move_id.partner_id.tax_exemption:
+            #     partner_exempted_ids = move_id.partner_id.mapped('tax_to_exempted_ids').ids
+            #     product_tax = tax_ids.children_tax_ids.ids
+            #     if any(partner_exempted_ids):
+            #         tax_to_apply_after_exemption = [i for i in product_tax if i not in partner_exempted_ids]
+            #         if any(tax_to_apply_after_exemption):
+            #             tax_ids = self.env['account.tax'].browse(tax_to_apply_after_exemption)
+            #
+            # if (line.product_id and fiscal_position_id and
+            #         fiscal_position_id.country_group_id.name == "European Union"
+            #         and country_id.id in country_ids):
+            #     for fiscal_tax_line in fiscal_position_id.tax_ids.filtered(lambda t: t.tax_src_id.is_for_exemption):
+            #         line.price_unit = line.product_id.lst_price * (1 - fiscal_tax_line.tax_dest_id.amount / 100)
         return tax_ids
 
     # def _compute_tax_ids(self):

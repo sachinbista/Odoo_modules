@@ -23,7 +23,7 @@
     'version': "17.0",
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'stock', 'account', 'purchase', 'product', 'point_of_sale'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [

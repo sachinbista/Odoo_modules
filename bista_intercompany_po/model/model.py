@@ -87,7 +87,7 @@ class PurchaseOrder(models.Model):
             company_partner = self.company_id.secound_company_id.partner_id
 
         if company == self.company_id.secound_company_id:
-            partner_default = self.env['res.partner'].search([('default_partner','=',True)])
+            # partner_default = self.env['res.partner'].search([('default_partner','=',True)])
             company_partner = self.inter_company_vendor_id
 
 

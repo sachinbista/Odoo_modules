@@ -19,7 +19,18 @@ class AccountMove(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
         help="If you change the pricelist, only newly added lines will be affected.")
 
+    tax_id = fields.Many2one('account.tax', string='Tax')
 
+    @api.model_create_multi
+    def create(self,vals_list):
+        for vals in vals_list:
+            if vals.get("partner_shipping_id"):
+                partner_shipping_id = self.env['res.partner'].browse(vals.get("partner_shipping_id"))
+                if partner_shipping_id.country_id:
+                    country_tax_id = self.env['country.tax'].search([('country_id', '=', partner_shipping_id.country_id.id)],limit=1)
+                    if country_tax_id:
+                        vals['tax_id'] = country_tax_id.tax_id.id
+        return super(AccountMove, self).create(vals_list)
 
     @api.depends('partner_id', 'company_id')
     def _compute_pricelist_id(self):
@@ -31,3 +42,16 @@ class AccountMove(models.Model):
                 continue
             order = order.with_company(order.company_id)
             order.pricelist_id = order.partner_id.property_product_pricelist
+
+    def action_update_prices(self):
+        self.ensure_one()
+        is_tax_exempt = False
+        if self.tax_id:
+            is_tax_exempt = True
+        for line in self.invoice_line_ids:
+            pricelist = self.env['product.pricelist'].browse(line.move_id.pricelist_id.id)
+            if pricelist:
+                product_price = pricelist._get_product_price(line.product_id,line.quantity)
+                if is_tax_exempt:
+                    tax_amount = (self.tax_id.amount/100)+1
+                    line.price_unit = (product_price/tax_amount)

@@ -5,6 +5,8 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     uom_id = fields.Many2one('uom.uom',string="Unit of Measure")
+    start_ship_date = fields.Date(string="Start Ship Date")
+    cancel_date = fields.Date(string="Cancel Date")
 
     @api.model_create_multi
     def create(self, vals_list):

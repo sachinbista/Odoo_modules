@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_product_template_group,product.template,model_product_template,bista_product_manager.group_product_edit_access,1,1,0,0
 access_product_product_group,product.product,model_product_product,bista_product_manager.group_product_edit_access,1,1,0,0
+access_product_pricelist_bista_user,product.pricelist,product.model_product_pricelist,bista_product_manager.group_product_edit_access,1,1,1,0

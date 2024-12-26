@@ -23,7 +23,11 @@
                 'in_payment'])]}"
                 groups="account.group_account_invoice,bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user"
                         class="oe_highlight"/> -->
-                <button class="oe_highlight" groups="account.group_account_invoice" invisible="shopify_transaction_id != False or move_type != 'out_refund' or state != 'posted' or payment_state not in ['paid', 'in_payment']" name="action_open_refund_wizard" string="Refund in Shopify" type="object"/>
+
+<!--                <button class="oe_highlight" groups="account.group_account_invoice" invisible="shopify_transaction_id != False or move_type != 'out_refund' or state != 'posted' or payment_state not in ['paid', 'in_payment']" name="action_open_refund_wizard" string="Refund in Shopify" type="object"/>-->
+                <button class="oe_highlight" groups="account.group_account_invoice"
+                        invisible="1" string="Refund in Shopify"
+                        name="action_open_refund_wizard" type="object"/>
             </xpath>
             <xpath expr="//form/sheet/notebook" position="inside">
                 <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="move_type not in ['out_invoice', 'out_refund'] or shopify_order_id == False" string="Shopify">
@@ -41,6 +45,7 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_tag_ids']" position="after">
+                <field name="delivery_state_id"/>
                 <field name="sale_order_id" optional="hide"/>
                 <field name="shopify_order_id" optional="hide"/>
                 <field name="shopify_note" optional="hide"/>

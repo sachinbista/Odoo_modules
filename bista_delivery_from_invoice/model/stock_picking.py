@@ -24,6 +24,14 @@ class StockPicking(models.Model):
                                  'location_dest_id': move_id.company_id.return_pickng_type.default_location_dest_id.id,
                                  'internal_order_ref':move_id.internal_order_ref
                                  })
+                if move_id.shopify_order_id and move_id.move_type in ['out_invoice','out_refund']:
+                    vals.update({
+                        'shopify_order_id': self.shopify_order_id,
+                        'shopify_config_id': self.shopify_config_id.id,
+                        'shopify_transaction_id': self.shopify_transaction_id,
+                        'fulfillment_status': self.fulfillment_status,
+                        'shopify_order_number': self.shopify_order_number,
+                    })
                 vals.update({'move_id': move})
         return super().create(vals_list)
 

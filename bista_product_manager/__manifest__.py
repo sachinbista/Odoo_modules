@@ -11,7 +11,7 @@
     'images': ['static/description/icon.png'],
     'version': '17.0.1.0',
     'support': '',
-    'depends': ['base','sale','product','stock','mrp','base_setup','sale_management','purchase','sales_team'],
+    'depends': ['base','sale','product'],
     'data': [
         'security/group.xml',
         'security/ir.model.access.csv',

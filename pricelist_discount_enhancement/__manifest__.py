@@ -16,7 +16,10 @@
     # Dependencies
     'depends': ['sale', 'product'],
     'data': [
+        'security/ir.model.access.csv',
         'views/account_move_view.xml',
+        'views/product_pricelist_view.xml',
+        'views/country_tax_view.xml',
 
     ],
 
