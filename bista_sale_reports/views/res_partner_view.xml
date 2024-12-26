@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit_sale_reports" model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="title" position="after">
+                    <field name="short_code"/>
+                </field>
+<!--                <field name="category_id" position="after">-->
+
+<!--                    <label for="birthday_month" string="Birthday"/>-->
+<!--                    <div class="o_address_format">-->
+<!--                        <field name="birthday_month" style="width:30%;"-->
+<!--                               attrs="{'required':[('birthday_day', '!=', 0)]}"/>-->
+<!--                        <span style="margin-right:5px;"></span>-->
+<!--                        <field name="birthday_day" style="width:30%;"-->
+<!--                               attrs="{'required':[('birthday_month', '!=', False)]}"/>-->
+<!--                    </div>-->
+
+<!--                    <label for="anniversary_month" string="Anniversary"/>-->
+<!--                    <div>-->
+<!--                        <field name="anniversary_month" style="width:30%;"-->
+<!--                               attrs="{'required':[('anniversary_day', '!=', 0)]}"/>-->
+<!--                        <span style="margin-right:5px;"></span>-->
+<!--                        <field name="anniversary_day" style="width:30%;"-->
+<!--                               attrs="{'required':[('anniversary_month', '!=', False)]}"/>-->
+<!--                    </div>-->
+
+<!--                    <label for="propose_month" string="Proposal"/>-->
+<!--                    <div>-->
+<!--                        <field name="propose_month" style="width:30%;" attrs="{'required':[('propose_day', '!=', 0)]}"/>-->
+<!--                        <span style="margin-right:5px;"></span>-->
+<!--                        <field name="propose_day" style="width:30%;"-->
+<!--                               attrs="{'required':[('propose_month', '!=', False)]}"/>-->
+<!--                    </div>-->
+
+<!--                    <label for="completion_perc"/>-->
+<!--                    <div>-->
+<!--                        <field name="completion_perc"/>-->
+<!--                    </div>-->
+<!--                </field>-->
+            </field>
+        </record>
+    </data>
+</odoo>

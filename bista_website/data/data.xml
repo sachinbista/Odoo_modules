@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_gift_card_message" model="product.template">
+            <field name="name">Gift Card Message</field>
+            <field name="is_published" eval="True"/>
+            <field name="list_price">0</field>
+        </record>
+    </data>
+  <data>
+    <record id="trade_up_website_page" model="website.page">
+        <field name="url">/appraisals</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.appraisals_page"/>
+    </record>
+    <record id="jewelry_repair_website_page" model="website.page">
+        <field name="url">/expert-jewelry-repair</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.jewelry_repair_page"/>
+    </record>
+    <record id="watch_repair_website_page" model="website.page">
+        <field name="url">/expert-watch-repair</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_repair_page"/>
+    </record>
+    <record id="diamond_buy_back_website_page" model="website.page">
+        <field name="url">/diamond-buyback-program</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.diamond_buy_back_page"/>
+    </record>
+    <record id="gift_cards_website_page" model="website.page">
+        <field name="url">/gift-cards</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.gift_cards_page"/>
+    </record>
+    <record id="sell_your_jewelry_website_page" model="website.page">
+        <field name="url">/sell-your-jewelry</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.sell_your_jewelry_page"/>
+    </record>
+    <record id="sell_your_diamond_website_page" model="website.page">
+        <field name="url">/sell-your-diamond</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.sell_your_diamond_page"/>
+    </record>
+      <record id="sell_your_gold_website_page" model="website.page">
+        <field name="url">/sell-your-gold</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.sell_your_gold_page"/>
+    </record>
+    <record id="sell_your_watch_website_page" model="website.page">
+        <field name="url">/sell-your-watch</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.sell_your_watch_page"/>
+    </record>
+    <record id="free_return_website_page" model="website.page">
+        <field name="url">/free-returns</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.free_return_page"/>
+    </record>
+    <record id="watch_maintenance_schedules_website_page" model="website.page">
+        <field name="url">/watch-maintenance-schedules</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_maintenance_schedules_page"/>
+    </record>
+     <record id="watch-service_website_page" model="website.page">
+        <field name="url">/watch-service-guide</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_service_guide_page"/>
+    </record>
+      <record id="winding_your_automatic_watch_website_page" model="website.page">
+        <field name="url">/winding-your-automatic-watch</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.winding_your_automatic_watch_page"/>
+    </record>
+      <record id="watch_routine_care_website_page" model="website.page">
+        <field name="url">/watch-routine-care</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_routine_care_page"/>
+    </record>
+      <record id="watch_water_resistance_website_page" model="website.page">
+        <field name="url">/water-resistance</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_water_resistance_page"/>
+    </record>
+      <record id="watch_things_to_avoid_website_page" model="website.page">
+        <field name="url">/things-to-avoid</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_things_to_avoid_page"/>
+    </record>
+      <record id="lifetime_warranty_main_website_page" model="website.page">
+        <field name="url">/lifetime-warranty-main</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.lifetime_warranty_main_page"/>
+    </record>
+      <record id="free_lifetime_warranty_website_page" model="website.page">
+        <field name="url">/free-lifetime-warranty</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.free_lifetime_warranty_page"/>
+    </record>
+      <record id="complimentary_cleaning_and_inspection_website_page" model="website.page">
+        <field name="url">/complimentary-cleaning-and-inspection</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.complimentary_cleaning_and_inspection_page"/>
+    </record>
+      <record id="free_engraving_website_page" model="website.page">
+        <field name="url">/free-engraving</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.free_engraving_page"/>
+    </record>
+      <record id="free_resizing_website_page" model="website.page">
+        <field name="url">/free-resizing</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.free_resizing_page"/>
+    </record>
+      <record id="jewelry_insurance_website_page" model="website.page">
+        <field name="url">/insurance</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.jewelry_insurance_page"/>
+    </record>
+      <record id="engraving_services_website_page" model="website.page">
+        <field name="url">/engraving-services</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.engraving_services_page"/>
+    </record>
+      <record id="jewelry_service_guide_website_page" model="website.page">
+        <field name="url">/jewelry-service-guide</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.jewelry_service_guide_page"/>
+    </record>
+      <record id="diamond_glossary_website_page" model="website.page">
+        <field name="url">/diamond-glossary</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.diamond_glossary_page"/>
+    </record>
+      <record id="jewelry_glossary_website_page" model="website.page">
+        <field name="url">/jewelry-glossary</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.jewelry_glossary_page"/>
+    </record>
+      <record id="watch_glossary_website_page" model="website.page">
+        <field name="url">/watch-glossary</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_glossary_page"/>
+    </record>
+      <record id="learn_about_diamond_website_page" model="website.page">
+        <field name="url">/learn-about-diamond</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.learn_about_diamond_page"/>
+    </record>
+      <record id="learn_about_jewelry_website_page" model="website.page">
+        <field name="url">/learn-about-jewelry</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.learn_about_jewelry_page"/>
+    </record>
+      <record id="learn_about_watches_website_page" model="website.page">
+        <field name="url">/learn-about-watches</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.learn_about_watches_page"/>
+    </record>
+      <record id="watch_valuation_website_page" model="website.page">
+        <field name="url">/watch-valuation</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_valuation_page"/>
+    </record>
+      <record id="watch_appraisal_website_page" model="website.page">
+        <field name="url">/watch-appraisal</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_appraisal_page"/>
+    </record>
+      <record id="watch_restoration_website_page" model="website.page">
+        <field name="url">/watch-restoration</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_restoration_page"/>
+    </record>
+      <record id="watch_extended_warranty_website_page" model="website.page">
+        <field name="url">/watch-extended-warranty</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.watch_extended_warranty_page"/>
+    </record>
+      <record id="diamond_certification_website_page" model="website.page">
+        <field name="url">/diamond-certification</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.diamond_certification_page"/>
+    </record>
+      <record id="diamond_recutting_website_page" model="website.page">
+        <field name="url">/diamond-recutting</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="bista_website.diamond_recutting_page"/>
+    </record>
+  </data>
+</odoo>

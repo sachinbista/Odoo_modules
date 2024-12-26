@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_pos_order_salesperson_enhancement">
+            <field name="name">pos.order.salesperson</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name='other_users' widget="many2many_tags"/>
+                </xpath>
+
+
+            </field>
+        </record>
+</odoo>

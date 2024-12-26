@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_order_merge,purchase_order_merge,bi_purchase_order_merge.model_purchase_order_merge,,1,1,1,1
+access_merge_same_vendor_purchase_order_wizard,merge_same_vendor_purchase_order_wizard,bi_purchase_order_merge.model_merge_same_vendor_purchase_order_wizard,,1,1,1,1
+access_purchase_orderline_merge_wizard,purchase_orderline_merge_wizard,bi_purchase_order_merge.model_purchase_orderline_merge_wizard,,1,1,1,1
+

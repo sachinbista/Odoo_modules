@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_../../workspace/darakjain/bista_website_../../workspace/darakjain/bista_website,../../workspace/darakjain/bista_website.../../workspace/darakjain/bista_website,model_../../workspace/darakjain/bista_website_../../workspace/darakjain/bista_website,base.group_user,1,1,1,1

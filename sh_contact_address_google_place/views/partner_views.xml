@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- partner view inherit to place google fields-->
+	<record id="sh_contact_address_google_form_view_inherit" model="ir.ui.view">
+		<field name="name">sh.contact.address.google.form.view.inherit</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//div[hasclass('o_address_format')]" position='replace'>
+				<div class="o_address_format">
+					<div class='d-block'>
+						<field name="is_address_editable" invisible="1"/>
+						<field name="sh_contact_google_location"
+							   placeholder="Enter Location" widget="sh_address_auto_complete"
+							   class="oe_edit_only mb-4" style='width: 85% !important;border: 1px solid #7a569f;border-radius: 4px;font-size: 1.4rem;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);'/>
+						<button name="compute_address_editable" type="object" icon="fa-pencil" title="Edit Address Details"/>
+					</div>
+					<field name="street" force_save="1" placeholder="Street..." class="o_address_street" attrs="{'readonly': [('is_address_editable', '!=', True)]}"/>
+					<field name="street2" force_save="1" placeholder="Street 2..." class="o_address_street" attrs="{'readonly': [('is_address_editable', '!=', True)]}"/>
+					<field name="city" force_save="1" placeholder="City" class="o_address_city" attrs="{'readonly': [('is_address_editable', '!=', True)]}"/>
+					<field name="state_id" force_save="1" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" attrs="{'readonly': [('is_address_editable', '!=', True)]}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+					<field name="zip" force_save="1" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('is_address_editable', '!=', True)]}"/>
+					<div name="partner_address_country" class="d-flex justify-content-between">
+						<field name="country_id" force_save="1" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('is_address_editable', '!=', True)]}"/>
+					</div>
+				</div>
+			</xpath>
+			 <xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='street']" position="before">
+				 <div class='d-block'>
+					<field name="sh_contact_google_location"
+						   placeholder="Enter Location" widget="sh_address_auto_complete"
+						   class="oe_edit_only mb-4"
+						   style='width: 85% !important;border: 1px solid #7a569f;border-radius: 4px;font-size: 1.4rem;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);'/>
+					 <button name="compute_address_editable" type="object" icon="fa-pencil" title="Edit Address Details"/>
+				</div>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='country_id']" position="after">
+				<field name="sh_contact_place_text" placeholder="Enter text" style="visibility: hidden;"/>
+				<field name="sh_contact_place_text_main_string" placeholder="Enter text" style="visibility: hidden;"/>
+				<field name="is_address_editable" invisible="1"/>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='street']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='street2']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='city']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='state_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='zip']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<xpath expr="//field[@name='child_ids']/form//div[hasclass('o_address_format')]/field[@name='country_id']" position="attributes">
+				<attribute name="attrs">{'readonly': [('is_address_editable', '!=', True)]}</attribute>
+			 </xpath>
+			<field name="country_id" position="after">
+				<field name="sh_contact_place_text" placeholder="Enter text" style="visibility: hidden;"/>
+				<field name="sh_contact_place_text_main_string" placeholder="Enter text" style="visibility: hidden;"/>
+			</field>
+		</field>
+	</record>
+</odoo>

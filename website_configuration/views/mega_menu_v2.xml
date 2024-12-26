@@ -1,0 +1,1630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="darakjian_engagement_mega_menu" name="Darakjian Mega Menu Style 1" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <t t-set="engagement_ring_category"
+               t-value="request.env['product.public.category'].sudo().search([('name','=','Engagement Ring')],limit=1)"/>
+            <t t-set="engagement_ring_child_category"
+               t-value="request.env['product.public.category'].sudo().search([('parent_id.name','=','Engagement Ring')],limit=5)"/>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid"
+                                     src="/website_configuration/static/src/img/EngagementRings.png"/>
+                            </div>
+                        </a>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/best-seller" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable mb-3"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;0&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+
+                        <div class="w-100 menu_seprater_div"/>
+
+                        <!-- attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <!-- second attribute -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                        <div class="w-100 menu_seprater_div"/>
+                        <!-- third attribute -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;2&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        READY TO SHIP JEWELRY
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3">
+                                    <a t-if="engagement_ring_category"
+                                        t-att-href="'/shop/category/%s' %engagement_ring_category.id"
+                                        class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/web/image/product.public.category/#{engagement_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="engagement_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/website_configuration/static/src/img/setting.png"/>
+                                        Engagement Rings
+                                    </a>
+                                    <t t-set="eternity_ring_category"
+                                        t-value="request.env['product.public.category'].sudo().search([('name','=','Eternity Rings')],limit=1)"/>
+                                    <a t-if="eternity_ring_category" t-att-href="'/shop/category/%s' %eternity_ring_category.id"
+                                        class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/web/image/product.public.category/#{eternity_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="eternity_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/website_configuration/static/src/img/Eternity_Rings.png"/>
+                                        Eternity Rings
+                                    </a>
+                                    <t t-set="anniversary_ring_category"
+                                        t-value="request.env['product.public.category'].sudo().search([('name','=','Anniversary Rings')],limit=1)"/>
+                                    <a t-if="anniversary_ring_category"
+                                        t-att-href="'/shop/category/%s' %anniversary_ring_category.id"
+                                        class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/web/image/product.public.category/#{anniversary_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="anniversary_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/website_configuration/static/src/img/Anniversary_Rings.png"/>
+                                        Anniversary Rings
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/website_configuration/static/src/img/Diamond_Studs.png"/>
+                                        Diamond Studs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                                t-attf-src="/website_configuration/static/src/img/Tennis_Bracelets.png"/>
+                                        Tennis Bracelets
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100 text-uppercase" data-name="Menu Item">
+                                        View all Ready to Ship
+                                    </a>
+                                </nav>
+                            
+                            </div>
+                        </section>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        Appraisals
+                                    </a>
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        Valuations
+                                    </a>
+                                    <a href="/expert-jewelry-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                        data-name="Menu Item">
+                                        Repairs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Restoration
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Service Schedule
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Find Your Ring Size
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Diamond Guarantee
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/24" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="menu_bottom_btns_div mt16 mb16">
+                    <a href="/sell-your-jewelry" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Engagement Ring
+                    </a>
+                    <a href="/sell-your-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Diamond
+                    </a>
+                    <a href="/learn-about-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Learn about Diamonds
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_wedding_mega_menu" name="Darakjian Mega Menu Style 2" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <t t-set="wedding_category"
+                   t-value="request.env['product.public.category'].sudo().search([('name','=','Wedding')],limit=1)"/>
+                <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid"
+                                     src="/website_configuration/static/src/img/WeddingRings.png"/>
+                            </div>
+                        </a>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <!-- Women -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;0&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                        <!-- Men -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;1&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <!-- Metal: attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Diamond Jewelry
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            src="/website_configuration/static/src/img/Diamond_Studs.png"/>
+                                        Diamond Studs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            src="/website_configuration/static/src/img/Diamond_Pendants.png"/>
+                                        Diamond Pendants
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            src="/website_configuration/static/src/img/Tennis_Bracelets.png"/>
+                                        Tennis Bracelets
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+
+                        <!-- Designer: attrib second -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        READY TO SHIP JEWELRY
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3">
+                                    <a t-if="engagement_ring_category"
+                                    t-att-href="'/shop/category/%s' %engagement_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{engagement_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="engagement_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/setting.png"/>
+                                        Engagement Rings
+                                    </a>
+                                    <t t-set="eternity_ring_category"
+                                    t-value="request.env['product.public.category'].sudo().search([('name','=','Eternity Rings')],limit=1)"/>
+                                    <a t-if="eternity_ring_category" t-att-href="'/shop/category/%s' %eternity_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{eternity_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="eternity_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Eternity_Rings.png"/>
+                                        Eternity Rings
+                                    </a>
+                                    <t t-set="anniversary_ring_category"
+                                    t-value="request.env['product.public.category'].sudo().search([('name','=','Anniversary Rings')],limit=1)"/>
+                                    <a t-if="anniversary_ring_category"
+                                    t-att-href="'/shop/category/%s' %anniversary_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{anniversary_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="anniversary_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Anniversary_Rings.png"/>
+                                        Anniversary Rings
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100 text-uppercase" data-name="Menu Item">
+                                        View all Ready to Ship
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appraisals
+                                    </a>
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Valuations
+                                    </a>
+                                    <a href="/expert-jewelry-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Repairs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Restoration
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Service Schedule
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Find Your Ring Size
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Diamond Guarantee
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/25" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="menu_bottom_btns_div mt16 mb16">
+                    <a href="/sell-your-jewelry" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Engagement Ring
+                    </a>
+                    <a href="/sell-your-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Diamond
+                    </a>
+                    <a href="/learn-about-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Learn about Diamonds
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_diamond_mega_menu" name="Darakjian Mega Menu Style 3" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid"
+                                     src="/website_configuration/static/src/img/DiamondRings.png"/>
+                            </div>
+                        </a>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <!-- attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                        <!-- attrib second -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;0&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+
+                        <!-- attrib third -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;2&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+
+                        <!-- attrib fourth -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;3&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        READY TO SHIP JEWELRY
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3">
+                                    <a t-if="engagement_ring_category"
+                                    t-att-href="'/shop/category/%s' %engagement_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{engagement_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="engagement_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/setting.png"/>
+                                        Engagement Rings
+                                    </a>
+                                    <t t-set="eternity_ring_category"
+                                    t-value="request.env['product.public.category'].sudo().search([('name','=','Eternity Rings')],limit=1)"/>
+                                    <a t-if="eternity_ring_category" t-att-href="'/shop/category/%s' %eternity_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{eternity_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="eternity_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Eternity_Rings.png"/>
+                                        Eternity Rings
+                                    </a>
+                                    <t t-set="anniversary_ring_category"
+                                    t-value="request.env['product.public.category'].sudo().search([('name','=','Anniversary Rings')],limit=1)"/>
+                                    <a t-if="anniversary_ring_category"
+                                    t-att-href="'/shop/category/%s' %anniversary_ring_category.id"
+                                    class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/web/image/product.public.category/#{anniversary_ring_category.id}/dr_category_icon"/>
+                                        <t t-esc="anniversary_ring_category.name"/>
+                                    </a>
+                                    <a t-else="" href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Anniversary_Rings.png"/>
+                                        Anniversary Rings
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Diamond_Studs.png"/>
+                                        Diamond Studs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        <img class="menu_link_image img img-fluid"
+                                            t-attf-src="/website_configuration/static/src/img/Tennis_Bracelets.png"/>
+                                        Tennis Bracelets
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appraisals
+                                    </a>
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Valuations
+                                    </a>
+                                    <a href="/expert-jewelry-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Repairs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Restoration
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Service Schedule
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Find Your Ring Size
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Diamond Guarantee
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/26" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="menu_bottom_btns_div mt16 mb16">
+                    <a href="/sell-your-jewelry" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Engagement Ring
+                    </a>
+                    <a href="/sell-your-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Diamond
+                    </a>
+                    <a href="/learn-about-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Learn about Diamonds
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_jewelry_mega_menu" name="Darakjian Mega Menu Style 4" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-6 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col  hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid"
+                                     src="/website_configuration/static/src/img/jewellery.png"/>
+                            </div>
+                        </a>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <!-- category first -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;0&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+                        <!-- category second -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;1&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+<!-- 
+                        <h6 class="mb-1 text-uppercase">
+                            <a href="#">
+                                Necklaces
+                            </a>
+                        </h6>
+                        <nav class="nav flex-md-column md-min-height-145 mb-3">
+                            <t t-set="necklaces_ring_category"
+                               t-value="request.env['product.public.category'].sudo().search([('parent_id.name','=','Necklaces')], limit=5)"/>
+                            <t t-if="necklaces_ring_category" t-foreach="necklaces_ring_category" t-as="child_id">
+                                <a t-att-href="'/shop/category/%s' %child_id.id"
+                                   class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                   data-name="Menu Item">
+                                    <img class="menu_link_image img img-fluid"
+                                         t-attf-src="/web/image/product.public.category/#{child_id.id}/dr_category_icon"/>
+                                    <t t-esc="child_id.name"/>
+                                </a>
+                            </t>
+                            <a t-att-href="'/shop/category/%s' % necklaces_ring_category[0].parent_id.id"
+                               class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                View All Necklaces
+                            </a>
+                        </nav> -->
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <!-- category third -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;2&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+                        <!-- category fourth -->
+                        <section
+                                class="s_tp_mega_menu_category_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white tp-snippet-shiftless-enable"
+                                data-tp-snippet-id="s_tp_mega_menu_category_snippet"
+                                data-fetch-from-menu="1"
+                                style="background-image: none;"
+                                data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;categoryPosition&quot;:&quot;3&quot;}"
+                                data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_category_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_category_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"/>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+                        <!-- attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                        <!-- attrib second -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col hr_vr_menu">
+                        <!-- attrib third -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;2&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Gifts
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Anniversary Gifts
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Birthstones Gifts
+                                    </a>
+                                    <a href="/gift-cards" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Gift Cards
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Gifts Under $1000
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Gifts Under $500
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Top 20 Gifts
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 6 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appraisals
+                                    </a>
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Valuations
+                                    </a>
+                                    <a href="/expert-jewelry-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Repairs
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Restoration
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Service Schedule
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Find Your Ring Size
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Diamond Guarantee
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/27" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="menu_bottom_btns_div mt16 mb16">
+                    <a href="/sell-your-jewelry" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Jewelry
+                    </a>
+                    <a href="/sell-your-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Diamond
+                    </a>
+                    <a href="/learn-about-jewelry" class="menu_bottom_btn btn btn-primary mr8">
+                        Learn about Jewelry
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_watches_mega_menu" name="Darakjian Mega Menu Style 5" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid" src="/website_configuration/static/src/img/watch.png"/>
+                            </div>
+                        </a>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <!-- Brand: attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Shop by Functions
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Time
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Day Date
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Chronograph
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Calendar
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Vintage Watches
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100 text-uppercase" data-name="Menu Item">
+                                        View all Function
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Shop by Gender
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Mens Watches
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Women Watches
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Children's Watches
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                        <!-- Metal: attrib second -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+   
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Watch Accessories
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Winders
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Boxes
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Rolls
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Straps
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Watch Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/expert-watch-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Repair
+                                    </a>
+                                    <a href="/watch-valuation" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Valuation
+                                    </a>
+                                    <a href="/watch-appraisal" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Appraisal
+                                    </a>
+                                    <a href="/watch-restoration" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Restoration
+                                    </a>
+                                    <a href="/watch-extended-warranty" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Extended Warranty
+                                    </a>
+                                    <a href="/watch-maintenance-schedules" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Maintenance
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/free-returns" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Sales &amp; Returns
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/29" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="menu_bottom_btns_div mt16 mb16">
+                    <a href="/sell-your-watch" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Watch
+                    </a>
+                    <a href="/sell-your-diamond" class="menu_bottom_btn btn btn-primary mr8">
+                        Sell Your Diamond
+                    </a>
+                    <a href="/learn-about-watches" class="menu_bottom_btn btn btn-primary mr8">
+                        Learn about Watches
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_accessories_mega_menu" name="Darakjian Mega Menu Style 6" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-5 row-cols-md-2 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <a href="#">
+                            <div class="s_shop_offer_4 mb-3">
+                                <img class="img img-fluid"
+                                     src="/website_configuration/static/src/img/GIFTS.png"/>
+                            </div>
+                        </a>
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 pt-idea-abound">
+                                    <a href="#">
+                                        IDEAS ABOUND
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Best Sellers
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Recently Purchased
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Favorites
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Custom Designed
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Customer Reviews
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <!-- Brand: attrib first -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;0&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Leather Goods
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Wallets
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Belts
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Briefcases
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Shop by Gender
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Men's
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Women's
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Children's
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                        <!-- Metal: attrib second -->
+                        <section class="s_tp_mega_menu_attribute_snippet tp-mega-menu-snippet mb-3 tp-droggol-dynamic-snippet bg-white o_colored_level tp-snippet-shiftless-enable" 
+                            data-tp-snippet-id="s_tp_mega_menu_attribute_snippet"
+                            data-fetch-from-menu="1"
+                            data-related-category="-1"
+                            style="background-image: none;" 
+                            data-selection-info="{&quot;selectionType&quot;:&quot;manual&quot;,&quot;recordsIDs&quot;:[-1],&quot;attributePosition&quot;:&quot;1&quot;}" 
+                            data-ui-config-info="{&quot;style&quot;:&quot;s_tp_hierarchical_attribute_nav_style&quot;,&quot;childOrder&quot;:&quot;sequence&quot;,&quot;productListing&quot;:&quot;newArrived&quot;,&quot;limit&quot;:5,&quot;activeActions&quot;:[&quot;limit&quot;,&quot;&quot;,&quot;style&quot;,&quot;background&quot;,&quot;&quot;,&quot;label&quot;]}">
+                            <div class="s_tp_mega_menu_attribute_snippet_wrapper container" style="padding:0px;">
+                                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Watch Accessories
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Winders
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Boxes
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Watch Rolls
+                                    </a>
+                                    <a href="#" class="d-inline nav-link px-0 py-1 w-50 w-md-100" data-name="Menu Item">
+                                        Straps
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Watch Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/expert-watch-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Repair
+                                    </a>
+                                    <a href="/watch-valuation" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Valuation
+                                    </a>
+                                    <a href="/watch-appraisal" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Appraisal
+                                    </a>
+                                    <a href="/watch-restoration" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Restoration
+                                    </a>
+                                    <a href="/watch-extended-warranty" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Extended Warranty
+                                    </a>
+                                    <a href="/watch-maintenance-schedules" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Maintenance
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 5 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/free-returns" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Sales &amp; Returns
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/29" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="darakjian_services_mega_menu" name="Darakjian Mega Menu Style 7" groups="base.group_user">
+        <section class="s_mega_menu_prime_custom darakjian_style_1 bg-white">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-lg-4 pt-3">
+                    <!-- Section No 1 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Jewelery Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appraisals &amp; Valuations
+                                    </a>
+                                    <a href="/expert-jewelry-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Jewelry Repairs
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 2 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Diamond Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/appraisals" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appraisals &amp; Valuations
+                                    </a>
+                                    <a href="/diamond-certification" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Certification
+                                    </a>
+                                    <a href="/diamond-recutting" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Diamond Recutting
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 3 -->
+                    <div class="col hr_vr_menu">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        Watch Services
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/expert-watch-repair" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Repair
+                                    </a>
+                                    <a href="/watch-valuation" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Valuation
+                                    </a>
+                                    <a href="/watch-appraisal" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Appraisal
+                                    </a>
+                                    <a href="/watch-restoration" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Restoration
+                                    </a>
+                                    <a href="/watch-extended-warranty" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Extended Warranty
+                                    </a>
+                                    <a href="/watch-maintenance-schedules" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Watch Maintenance
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Section No 4 -->
+                    <div class="col">
+                        <section style="" class="">
+                            <div class="container px-0">
+                                <h6 class="mb-1 text-uppercase">
+                                    <a href="#">
+                                        DARAKJIAN PROMISE
+                                    </a>
+                                </h6>
+                                <nav class="nav flex-md-column md-min-height-145 mb-3 list-unstyled tp-list-dot">
+                                    <a href="/free-returns" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Sales &amp; Returns
+                                    </a>
+                                    <a href="/diamond-buyback-program" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Buy Back
+                                    </a>
+                                    <a href="/appointment/2" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Trade-In/Up
+                                    </a>
+                                    <a href="/appointment/30" class="d-inline nav-link px-0 py-1 w-50 w-md-100"
+                                    data-name="Menu Item">
+                                        Appointment
+                                    </a>
+                                </nav>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="snippet_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='MegaMenuLayout']/we-select/we-button[last()]" position="after">
+            <t t-set="_label">Menu - Engagement</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_engagement_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Wedding</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_wedding_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Diamond</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_diamond_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Jewelry</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_jewelry_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Watches</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_watches_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Gift</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_accessories_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+            <t t-set="_label">Menu - Services</t>
+            <we-button t-att-data-select-label="_label"
+                       data-select-template="website_configuration.darakjian_services_mega_menu"
+                       data-img="/theme_prime/static/src/img/options/s_mega_menu_prime_3.png" t-out="_label"/>
+        </xpath>
+    </template>
+
+</odoo>

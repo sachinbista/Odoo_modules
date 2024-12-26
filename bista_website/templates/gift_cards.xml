@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="gift_cards_page" name="Gift Cards">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Gift Cards</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p style="text-align: justify;">
+                                <u>
+                                    <b>Darakjian Personalized Gift Cards Enclosed</b>
+                                </u>
+                            </p>
+                            <p style="text-align: justify;">
+                                Send a free personalized gift card with your jewelry order. Select “Free Gift Card” on the order review page and craft your personal message. We’ll print your message on a card and include it with your jewelry.
+                            </p>
+                            <p style="text-align: justify;">
+                                <u>
+                                    <b>Darakjian Gift Card</b>
+                                </u>
+                            </p>
+                            <p style="text-align: justify;">
+                                A Darakjian gift certificate is perfect for any occasion. The certificate arrives in our signature Darakjian packaging, and is redeemable by phone. Please contact us to place an order for a gift certificate amount not
+                                listed on the website. Darakjian does not collect sales tax on purchases of gift certificates.
+                            </p>
+                            <p style="text-align: justify;">
+                                Gift certificates are non-transferable, cannot be redeemed for cash, and cannot be returned for a cash refund. Any unused portion of the gift certificate will remain available for future purchases under the same gift
+                                certificate number. Darakjian is not responsible for lost or stolen gift certificates.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

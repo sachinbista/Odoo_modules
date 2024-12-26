@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_event_user,res_partner_event_user,model_res_partner_event,base.group_user,1,1,1,1
+access_res_partner_relation_user,res_partner_relation_user,model_res_partner_relation,base.group_user,1,1,1,1
+access_res_partner_communication_mode_user,res_partner_communication_mode_user,model_res_partner_communication_mode,base.group_user,1,1,1,1
+access_res_partner_event_dates_user,res_partner_event_dates_user,model_res_partner_event_dates,base.group_user,1,1,1,1
+access_res_partner_activity_history_user,res_partner_activity_history_user,model_res_partner_activity_history,base.group_user,1,1,1,1

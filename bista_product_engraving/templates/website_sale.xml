@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="engraving_product_inherit" inherit_id="website_sale.product">
+        <!-- <xpath expr="//div[@id='product_details']" position="inside">
+            <t t-call="bista_product_engraving.engraving_base_template"/>
+        </xpath> -->
+        <xpath expr="//div[@id='product_detail_main']//p[hasclass('css_not_available_msg')]" position="before">
+            <div id="engrave-section" class="engrave-section">
+                <!-- <div t-if="product.has_engrave_feature" class="show-engraving-checkbox  engraving-opt">
+                    <label>Add Engraving </label>
+                    <div class="engraving-cbox">
+                        <label class="engrave-cbox-input">
+                            <input type="radio" value="1" id="showEngravYes" name="showEngrav"/>
+                            <span>Yes</span>
+                        </label>
+                        <label class="engrave-cbox-input">
+                            <input type="radio" value="0" id="showEngravNo" name="showEngrav" checked="checked" />
+                            <span>No</span>
+                        </label>
+                    </div>
+
+                </div> -->
+                <div t-if="product.has_engrave_feature" class="engrave-content" id="engrave-content">
+                    <div id="engrave-text-style" class="engraving-type-tab">
+                        <div class="engrave-heading">
+                            <strong>Engrave</strong>
+                            Text &amp; Style 
+                            <span class="more-info-tooltip">
+                                <button type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="right" 
+                                    t-att-title="combination_info['tooltip_title']">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="choose-engrave-style">
+                            <div class="fil-engrave-detail">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 choose-engrave-text">
+                                        <input type="text" name="engrave_msg"
+                                            class="form-control input-text engraving_text required-entry" 
+                                            placeholder="Type your Text to Engrave here.." t-att-maxlength="combination_info['max_char_limit']" autocomplete="off"
+                                            />
+            
+
+                                    </div>
+
+                                    <div class="col-12 col-md-6 choose-engrave-font">
+                                        <div class="btn-group dropdown engrave-select">
+                                            <input type="hidden" name="selectedfontstyle" id="selectedfontstyle" value="" style="display: inline-block;"/>
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="engraveFontid" title="Please select category.">
+                                                <span class="filter-option pull-left">Font Style</span>
+                                                <span class="select-arrow"></span>
+                                            </button>
+                                            <t t-set="available_font_ids" t-value="combination_info['available_font_ids']"/>
+                                            <ul class="dropdown-menu menu-right" role="listbox" style="top:0px;" aria-labelledby="engraveFontid">
+                                                
+                                                <t t-foreach="available_font_ids" t-as="font_id">
+                                                    <li>
+                                                        <a class="dropdown-item font-style-list" t-att-data-value="font_id.font_class">
+                                                            <span t-att-class="font_id.font_class"><t t-esc="font_id.name"/></span>
+                                                        </a>
+                                                    </li>
+                                                    
+                                                </t>
+                               
+                                            </ul>
+                                            <!-- <div class="dropdown-menu dropdown-menu-right" id="dropdown_fonts" style="overflow: hidden auto; height: 300px;" aria-labelledby="engraveFontid">
+                                                <ul class="dropdown-item inner" role="listbox" style="top:0px;">
+                                                    <li data-original-index="1">
+                                                        <a class="font-style-list" data-value="santasSleighfull-sdeluxe">
+                                                            <span class="santasSleighfull-sdeluxe">SantasSleighfull-sdeluxe</span>
+                                                        </a>
+                                                    </li>
+                                                    <li data-original-index="1">
+                                                        <a class="font-style-list" data-value="guardians">
+                                                            <span class="guardians">Guardians</span>
+                                                        </a>
+                                                    </li>
+                                                    <li data-original-index="1">
+                                                        <a class="font-style-list" data-value="monotype-corsiva">
+                                                            <span class="monotype-corsiva">Monotype-corsiva</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div> -->
+                                            <div id="font_error" style="display:none; font-size:12px; color:red;">
+                                                Please select any type of font style.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="row">
+                                    <div class="col-12 engraving-preview">
+                                        <span id="preview-spain" style="">
+                                            <div class="engraving-preview-text" style="overflow: auto;width: 100%;">
+                                                <div class="container">
+                                                    <div class="" id="engravingPreview" style="font-size:25px;display: inline;"></div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>

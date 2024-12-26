@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="lifetime_warranty_main_page" name="Lifetime warranty">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_heading_6 pt16 pb16 o_colored_level" data-snippet="s_heading_6" data-name="Heading - 6" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 pb0 pt48">
+                                <h3 class="tp-underline-title pb-3">Lifetime Warranty<br /></h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.&amp;nbsp;Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.
+                        </p>
+                    </div>
+                </section>
+                <section class="s_icon_block_8 pt16 pb16 o_colored_level" data-snippet="s_icon_block_8" data-name="Icon Block - 8" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <h5>Darakjian 5-Year Extented Warranty Plan<br /></h5>
+                                    <p class="o_default_snippet_text">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Orci varius natoque penatibus et magnis. nascetur ridiculus mus.</p>
+                                    <a href="/free-lifetime-warranty" data-bs-original-title="" title="">Read More</a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <h5>Complimentary Cleaning And Inspection Services<br /></h5>
+                                    <p class="o_default_snippet_text">Suspendisse potenti. Cras a dui et nisl egestas ornare eu quis odio. Sed bibendum in ante. Suspendisse potenti. Cras a dui et nisl. Sed bibendum in ante.</p>
+                                    <a href="/complimentary-cleaning-and-inspection" data-bs-original-title="" title="">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="free_lifetime_warranty_page" name="Free Lifetime Warranty">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_heading_6 pt16 pb16 o_colored_level" data-snippet="s_heading_6" data-name="Heading - 6" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 pt32">
+                                <h3 class="tp-underline-title pb-3">Free Lifetime Warranty<br /></h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_text_block o_colored_level pt0 pb0" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <span style="font-size: 16px;">
+                                <strong><font class="text-black">Lifetime Warranty:</font><br /></strong>
+                            </span>
+                            <br />
+                            <font class="text-black">
+                                We are committed to ensuring the quality of your purchase; we stand behind everything that we sell and warrant that all items will be free from any manufacturing defects at the time of delivery. We will repair and
+                                maintain your jewelry for a lifetime. This warranty does not apply to our collection of Pre-owned, estate and vintage jewelry, since these pieces were not manufactured by Darakjian.
+                            </font>
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                All of our jewelry is manufactured using the highest quality materials and is inspected prior to shipment. Our lifetime warranty offers free prong tightening, re-polishing, rhodium plating and cleaning services. Please
+                                note that slight irregularities and variations in craftsmanship or natural characteristics, or internal inclusions, visible or otherwise, in colored gemstones are unique and individual to each item. These characteristics
+                                are considered as part of the character of the item, and should not be considered a defect.
+                            </font>
+                            <br />
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                <span style="font-size: 15px; font-style: normal; font-weight: 400; background-color: rgb(248, 249, 251);" class="text-black">
+                                    Some examples of common jewelry issues that would not be considered manufacturing defects include:
+                                </span>
+                            </font>
+                        </p>
+                        <ul>
+                            <li><font class="text-black">Discoloration of precious metals caused by chemicals, make-up, immersion in pools and hot tubs, or bathing.</font></li>
+                            <li>
+                                <font class="text-black">
+                                    <span style="font-size: 15px; font-style: normal; font-weight: 400; background-color: rgb(248, 249, 251);" class="text-black">
+                                        Precious metals, and especially prongs, wear down over time and may require restoration work as part of normal wear.
+                                    </span>
+                                </font>
+                            </li>
+                            <li>
+                                <font class="text-black">
+                                    <span style="font-size: 15px; font-style: normal; font-weight: 400; background-color: rgb(248, 249, 251);" class="text-black">
+                                        Prongs catching, wearing out, or bending over time due to everyday wear or normal damage, allowing a gemstone to fall out.
+                                    </span>
+                                </font>
+                            </li>
+                            <li>
+                                <font class="text-black">
+                                    <span style="font-size: 15px; font-style: normal; font-weight: 400; background-color: rgb(248, 249, 251);" class="text-black">Loss of a gemstone caused by damage from everyday wear or from other damage</span>
+                                </font>
+                            </li>
+                        </ul>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                <span style="font-size: 15px; font-style: normal; font-weight: 400; background-color: rgb(248, 249, 251);" class="text-black">
+                                    To take advantage of these services, you can either mail your jewelry to our store, or bring the item(s) in to our retail store located at 101 Willits, Birmingham, MI 48009 to receive your complimentary jewelry
+                                    maintenance and repairs.<br />
+                                </span>
+                            </font>
+                            <font class="text-black">
+                                In the event that there is ever a problem with your jewelry or you are in need of other services that are not covered under our lifetime warranty, you can bring or mail your jewelry to our store for evaluation. Once
+                                inspected, should charges apply, you will be notified prior to any work being done to service your jewelry.
+                            </font>
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                Please Contact Us if you have any questions or would like to return your item(s) to take advantage of our free lifetime warranty or request additional repair work needed to service your Darakjian jewelry.
+                            </font>
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                *To send us your ring, U.S. customers may purchase a fully insured shipping label for $30. International customers will be subject to return shipping cost applicable to their order. We will ship your item back to you
+                                free of charge.
+                            </font>
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                <span style="font-size: 16px;"><strong>Darakjian 5-Year Extended Warranty Plan:</strong></span>
+                            </font>
+                        </p>
+                        <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                            <font class="text-black">
+                                Protect your purchase with the Darakjian Extended Service Plan. At Darakjian, we are committed to providing excellent service and building lasting relationships. We stand behind our quality and craftsmanship as strongly
+                                as we stand behind our social mission. Our five-year Extended Warranty Plan provides additional peace of mind beyond our complimentary manufacturing warranty by protecting and upholding the quality of your Darakjian
+                                jewelry. When you purchase our 5-year Extended Warranty Plan, Darakjian will provide full inspection and cleaning for your new jewelry as well as covered repairs that may become necessary due to normal wear. Please call
+                                us at 1.888.843.6659 for more information.
+                            </font>
+                        </p>
+                    </div>
+                </section>
+                <section class="s_icon_block_8 pt16 o_colored_level pb0" data-snippet="s_icon_block_8" data-name="Icon Block - 8" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <span class="fa fa-rocket fa-3x text-o-color-1 mb-4" />
+                                    <h5 class="o_default_snippet_text">Creative ideas</h5>
+                                    <p class="o_default_snippet_text">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Orci varius natoque penatibus et magnis. nascetur ridiculus mus.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <span class="fa fa-magic fa-3x text-o-color-1 mb-4" />
+                                    <h5 class="o_default_snippet_text">Excellent features</h5>
+                                    <p class="o_default_snippet_text">Suspendisse potenti. Cras a dui et nisl egestas ornare eu quis odio. Sed bibendum in ante. Suspendisse potenti. Cras a dui et nisl. Sed bibendum in ante.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_icon_block_8 pt16 pb16 o_colored_level" data-snippet="s_icon_block_8" data-name="Icon Block - 8" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <span class="fa fa-rocket fa-3x text-o-color-1 mb-4" />
+                                    <h5 class="o_default_snippet_text">Creative ideas</h5>
+                                    <p class="o_default_snippet_text">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Orci varius natoque penatibus et magnis. nascetur ridiculus mus.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 py-3 col-lg-6">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100">
+                                    <span class="fa fa-magic fa-3x text-o-color-1 mb-4" />
+                                    <h5 class="o_default_snippet_text">Excellent features</h5>
+                                    <p class="o_default_snippet_text">Suspendisse potenti. Cras a dui et nisl egestas ornare eu quis odio. Sed bibendum in ante. Suspendisse potenti. Cras a dui et nisl. Sed bibendum in ante.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="complimentary_cleaning_and_inspection_page" name="COMPLIMENTARY CLEANING &amp; INSPECTION SERVICE">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image" data-name="Text - Image" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/61433/Louis%20Moinet%20event.jpg" class="img img-fluid mx-auto" alt="Clarico-Image-Text" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h2 class="te_s_it_heading text-uppercase">complimentary cleaning &amp;amp; inspection service</h2>
+                                <div class="s_hr text-left pb32 pt8" data-name="Separator" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    At Darakjian Jewelers, we take great pride in our exquisite collection of diamonds, jewelry, and watches. Therefore, we proudly offer complimentary cleaning and inspection of the pieces you own. This service will be
+                                    completed thoroughly by our own on-site jeweler while you wait. We extend friendly reminders; offer scheduled appointments or just a welcome visit into our showroom to provide you the immediate assistance you may
+                                    need.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    We recommend having your diamond ring cleaned and inspected every three months or if it undergoes any potential trauma. Inspections may help prevent the loss of a stone and extend the life of your jewelry. This
+                                    cleaning and inspection service is free of charge to all Darakjian customers on their Darakjian jewelry. The customer only pays for shipping, and Darakjian pays for return shipping. Repairs to your ring mounting can
+                                    also be done at this time at cost.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    <span style="font-weight: bolder;">
+                                        <u>Conditions And Exclusions</u>
+                                    </span>
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    The foregoing Manufacturer Warranty and Complimentary Services are available only to the person who purchased the covered product from Darakjian.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">Maintenance, repair, sizing or other service performed by someone other than Darakjian will void your Manufacturer Warranty.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Fine jewelry is not impervious to normal wear, activities or trauma. This is particularly true for rings since hands are regularly subjected to considerable abuse. We do not provide warranties for damage due to
+                                    normal wear, product loss, loss of stones or theft. Damage or loss that results from failure to obtain repairs necessary to maintain the integrity of the product is also not covered.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">Some examples of common jewelry issues that would not be considered manufacturing defects include:</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">&amp;nbsp; &amp;nbsp; • Discoloration due to exposure to chemicals, make-up, swimming pools, hot tubs or bathing.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    &amp;nbsp; &amp;nbsp; • Prongs and precious metals, in general, wear over time and may require “building up” or restoration work as normal wear.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    &amp;nbsp; &amp;nbsp; • Bent, caught or worn out prongs(s) allowing a stone to fall out or be lost due to normal wear or other damage.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">&amp;nbsp; &amp;nbsp; • Lost stone or a stone has fallen out due to chipping or breaking caused by normal wear or other damage.</p>
+                                <div class="s_btn text-left pt16 pb16" data-name="Button" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_icon_block_8 pt16 o_colored_level pb0" data-snippet="s_icon_block_8" data-name="Icon Block - 8" style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-md-6 py-3 col-lg-4">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100" style=""><h5>Engagement Ring &amp; Diamond Care<br/></h5><p>Stop into Darakjian Jewelers at any time and we will clean your jewelry at your request, making each item look and feel like the first time that you wore it.<br/></p>
+                                    <a href="#" data-bs-original-title="" title="" aria-describedby="popover16138">Learn More</a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 py-3 col-lg-4">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100"><h5>Jewelry Care<br/></h5><p class="o_default_snippet_text">Suspendisse potenti. Cras a dui et nisl egestas ornare eu quis odio. Sed bibendum in ante. Suspendisse potenti. Cras a dui et nisl. Sed bibendum in ante.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div><div class="col-12 col-md-6 py-3 col-lg-4">
+                                <div class="card tp-editor-bg-color-n-shadow p-4 h-100"><h5>Watch Care<br/></h5><p class="o_default_snippet_text">Suspendisse potenti. Cras a dui et nisl egestas ornare eu quis odio. Sed bibendum in ante. Suspendisse potenti. Cras a dui et nisl. Sed bibendum in ante.</p>
+                                    <a href="#" class="o_default_snippet_text">Learn More</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

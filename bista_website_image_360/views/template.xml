@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_image_360" name='product 360 Modal' inherit_id="website_sale.product">
+        <xpath expr="//section[@id='product_detail']/div[last()]" position="before">
+            <div class="col-md-12 my-2" t-if="product.display_360_image and product.product_image_360_ids">
+                <span t-attf-class="img_360_view" t-attf-style="cursor: pointer;" data-toggle="modal"
+                      data-bs-target="#product360Modal" data-bs-toggle="modal">
+                    <img style="width:25px;" class="img img-responsive" alt="default 360 image"
+                         t-attf-src="/bista_website_image_360/static/src/image/download.jpeg"/>
+                </span>
+                <div id="product360Modal" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered tp-custom-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="menu" id="image_360">
+                                <ul class="list list-unstyled">
+                                    <t t-foreach="product.product_image_360_ids" t-as="wimg">
+                                        <li>
+                                            <t t-if="wimg.image_s3_url">
+                                                <img t-att-src="wimg.image_s3_url"
+                                                     class="img img-fluid product_detail_img" itemprop="image"
+                                                     t-att-alt="wimg.name"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-field="wimg.image"
+                                                      t-options='{"widget": "image","class":"product_detail_img", "alt-field": "name"}'/>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

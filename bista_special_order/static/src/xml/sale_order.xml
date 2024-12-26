@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="bi_pos_import_sale_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+		<t t-name="createsale" owl="1">
+			<span class="control-button create_so odoo-theme-color">
+				<i class="fa fa-shopping-cart"></i>
+				<span>Create Sales Orderrrrrrr</span>
+			</span>
+		</t>
+    <t t-name="ReturnOrderPopup" t-inherit="pos_orders_all.SODetail" t-inherit-mode="extension" owl="1">
+
+		<div role="dialog" class="modal-dialog">
+			<Draggable>
+				<div class="popup bi-popup-width">
+					<header class="title drag-handle">
+						Order Details
+					</header>
+					<main class="body traceback" style="font-family: 'Lato-Reg';">
+						<t t-set="order" t-value="props.order || []"/>
+						<table style='width:100%'>
+							<tr class="popup-tr">
+								<td style='width:20%; '><strong>Order Number:</strong>
+								</td>
+								<td style='width:30%; '>
+									<span t-esc="order['name']"/>
+								</td>
+								<td style='width:20%; '><strong>Order Date:</strong>
+								</td>
+								<td style='width:30%; '>
+									<span t-esc="order['date_order']" />
+								</td>
+							</tr>
+							<tr class="popup-tr">
+								<td style='width:20%; '><strong>Customer:</strong>
+								</td>
+								<td style='width:30%; '
+									t-if="order['partner_id']">
+
+									<span t-esc="order['partner_id'][1] or ''"/>
+
+								</td>
+								<td style='width:20%; '><strong>Total Amount:</strong>
+								</td>
+								<td style='width:30%; '>
+									<span t-esc="env.pos.format_currency(order['amount_total'])" />
+								</td>
+							</tr>
+							<tr class="popup-tr">
+								<td style='width:20%; '><strong>Company:</strong>
+								</td>
+								<td style='width:30%;' t-if="order['company_id']">
+									<span t-esc="order['company_id'][1]"/>
+								</td>
+								<td style='width:20%; '><strong>Sale Person:</strong>
+								</td>
+								<td style='width:30%;' t-if="order['user_id']">
+									<span t-esc="order['user_id'][1]" />
+								</td>
+							</tr>
+						</table>
+						<br/>
+						<table style='width:100%'>
+							<thead>
+								<tr class="orderline-table-head">
+									<th style='width:25%; padding-left: 10px; '>Product</th>
+									<th style='width:25%; padding-left: 10px; '>Quantity</th>
+									<th style='width:25%; padding-left: 10px; '>Price</th>
+									<th style='width:25%; padding-left: 10px; '>Subtotal</th>
+									<th style='width:25%; padding-left: 10px; '>Special</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="orderline-table" t-foreach="props.orderline || []" t-as="line1" t-key="line1.id">
+									<td style='width:25%; padding-left: 10px; '><span t-if="line1['product_id']" t-esc='line1.product_id[1]' /></td>
+									<td style='width:25%; padding-left: 10px; '><span t-esc='line1.product_uom_qty' /></td>
+									<td style='width:25%; padding-left: 10px; '><span t-esc='line1.price_unit' /></td>
+									<td style='width:25%; padding-left: 10px; '><span t-esc='line1.price_subtotal' /></td>
+									<td style='width:25%; padding-left: 10px; '>
+									<input type="checkbox"
+										   style='width: 25px; height: 15px; min-height: 12px; box-shadow: 0px 0px 0px -2px '
+										   t-att-checked="line1.is_special" onclick="return false;"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</main>
+					<footer class="footer">
+						<div class="button cancel odoo-theme-color" t-on-click="back">
+							Close
+						</div>
+					</footer>
+				</div>
+			</Draggable>
+		</div>
+	</t>
+
+</templates>
+
+

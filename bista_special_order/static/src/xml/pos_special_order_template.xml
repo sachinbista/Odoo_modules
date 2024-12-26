@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Inherit Orderline screen-->
+
+<templates id="special_order_template" inherit_id="point_of_sale.template" xml:space="preserve">
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//li[hasclass('info')]" position="inside">
+               <div style="text-align: right;" t-if="props.line.quantity > 0">
+                    <input type="checkbox" name="is_special"
+                           class="check_is_special" t-att-checked="props.line.is_special"/>
+                   Is Special
+                </div>
+        </xpath>
+    </t>
+</templates>

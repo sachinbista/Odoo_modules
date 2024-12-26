@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_image_360,product.image.360.user,model_product_image_360,,1,1,1,1
+access_product_image_360_sale_user,product.image sale User,model_product_image_360,sales_team.group_sale_salesman_all_leads,1,1,1,1
+access_product_image_360_sale_user_own,product.image sale own,model_product_image_360,sales_team.group_sale_salesman,1,1,1,1

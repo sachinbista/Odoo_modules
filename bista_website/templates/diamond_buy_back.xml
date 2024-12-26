@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="diamond_buy_back_page" name="Diamond Buyback Program">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image pt32" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row aos-init align-items-stretch" data-aos="align-items-stretch">
+                            <div class="col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/76168/Loose%20Diamonds.jpg" class="img img-fluid mx-auto" alt="Clarico-Image-Text" data-original-title="" title="" aria-describedby="tooltip228443" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb0 col-lg-9">
+                                <h1>DIAMOND BUYBACK PROGRAM</h1>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p class="mb16">
+                                    In the event that the return period has passed for your purchase, Darakjian offers our customers a buyback program that allows customers to sell a loose diamond or piece of diamond jewelry for a cash offer based on
+                                    current market value. We consider diamonds that are 0.30-carat and larger (at least one diamond in a piece of jewelry must be that size) and extends a minimum guaranteed cash offer, sight-unseen, that is issued
+                                    immediately upon receipt and inspection of the diamond. Darakjian will provide you a free insured shipping kit to get the diamond to them and requires a GIA report, number, or as much information as possible about
+                                    the stone.
+                                </p>
+                                <div class="s_btn text-left pt4 pb24" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button" data-original-title="" title="" aria-describedby="tooltip119301">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch aos-init" data-aos="align-items-stretch">
+                            <section class="col-md-4 s_col_no_bgcolor col-lg-4">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">lifetime upgrade program</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-md-4 s_col_no_bgcolor col-lg-4">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">Diamond price match</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-md-4 s_col_no_bgcolor col-lg-4">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">diamond promise</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

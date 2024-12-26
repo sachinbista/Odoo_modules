@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="search_template_user">
+        <button t-if="options.get('user')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_user_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-users"/>
+            Users
+        </button>
+        <ul class="dropdown-menu o_filter_menu" role="menu">
+            <li class="o_account_report_search js_account_user_m2m"/>
+        </ul>
+    </template>
+
+    <template id="search_template_customer_limit">
+        <button t-if="options.get('customer_limit')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_customer_limit_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-arrows-v"/>
+            Customer Limit
+        </button>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <div class="o_account_report_search" data-filter='customer_limit'>
+                <input t-att-value="options['customer_limit'].get('limit')" type="number"
+                       class="js_account_customer_limit_input"/>
+                <br/>
+                <button type="button" class="btn btn-primary js_account_report_customer_limit"
+                        data-filter="customer_limit">Apply</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="search_template_details">
+        <button t-if="options.get('details')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_details_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-list"/>
+            Details:
+        </button>
+        <div class="dropdown-menu o_filter_menu" role="menu">
+            <t t-foreach="options['details']" t-as="details_list">
+                <a role="menuitem" class="dropdown-item js_account_reports_choice_filter"
+                   t-att-title="details_list.get('name')" t-att-data-id="details_list.get('id')" data-filter="details">
+                    <t t-esc="details_list.get('name')"/>
+                </a>
+            </t>
+        </div>
+    </template>
+
+    <template id="search_template_order_type">
+        <button t-if="options.get('order_type')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_order_type_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-sort"/>
+            Sorting:
+        </button>
+        <div class="dropdown-menu o_filter_menu" role="menu">
+            <t t-foreach="options['order_type']" t-as="order_list">
+                <a role="menuitem" class="dropdown-item js_account_reports_choice_filter"
+                   t-att-title="order_list.get('name')" t-att-data-id="order_list.get('id')" data-filter="order_type">
+                    <t t-esc="order_list.get('name')"/>
+                </a>
+            </t>
+        </div>
+    </template>
+
+    <template id="search_template_product_category">
+        <button t-if="options.get('category')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle account_product_category_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-sitemap"/>
+            Categories
+        </button>
+        <ul class="dropdown-menu o_filters_menu" role="menu">
+            <li class="o_account_report_search js_account_category_m2m"/>
+        </ul>
+    </template>
+
+
+    <template id="search_template_months">
+        <button t-if="options.get('months')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-filter"/>
+            Months:
+            <t t-set="months" t-value="'None'"/>
+            <t t-set="months_selected" t-value="''"/>
+            <t t-foreach="options['months']" t-as="month_list">
+                <t t-if="month_list.get('selected') == True">
+                    <t t-set="months" t-value="''"/>
+                    <t t-esc="month_list.get('name')"/>
+                </t>
+            </t>
+            <t t-esc="months"/>
+        </button>
+        <div class="dropdown-menu o_filters_menu" role="menu">
+            <t t-foreach="options['months']" t-as="month_list">
+                <a t-att-title="month_list.get('name')"
+                   t-att-data-id="month_list.get('id')"
+                   role="menuitem"
+                   class="dropdown-item js_account_report_choice_filter"
+                   data-filter="months">
+                    <t t-out="month_list.get('name')"/>
+                </a>
+            </t>
+        </div>
+    </template>
+
+    <template id="inherit_search_template" inherit_id="account_reports.search_template">
+        <xpath expr="." position="inside">
+            <div class="btn-group dropdown o_account_reports_filter_user"
+                 t-if="options.get('user')">
+                <t t-call="bista_sale_reports.search_template_user"/>
+            </div>
+            <div class="btn-group dropdown o_account_reports_filter_customer_limit"
+                 t-if="options.get('customer_limit')">
+                <t t-call="bista_sale_reports.search_template_customer_limit"/>
+            </div>
+            <div class="btn-group dropdown o_account_reports_filter_details"
+                 t-if="options.get('details')">
+                <t t-call="bista_sale_reports.search_template_details"/>
+            </div>
+            <div class="btn-group dropdown o_account_reports_filter_order_type"
+                 t-if="options.get('order_type')">
+                <t t-call="bista_sale_reports.search_template_order_type"/>
+            </div>
+            <div class="btn-group o_dropdown o_account_reports_filter_product_category"
+                 t-if="options.get('category')">
+                <t t-call="bista_sale_reports.search_template_product_category"/>
+            </div>
+            <div class="btn-group dropdown o_account_reports_filter_months"
+                 t-if="options.get('months')">
+                <t t-call="bista_sale_reports.search_template_months"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

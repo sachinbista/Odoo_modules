@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_picking_form_inherit_parcel_pro" model="ir.ui.view">
+        <field name="name">view.picking.form.inherit.parcelpro</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='carrier_id']" position="after">
+                <field name="service_description"  attrs="{'invisible':[('carrier_id','=',False)]}"/>
+                <field name="shipping_cost" attrs="{'invisible':[('carrier_id','=',False)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

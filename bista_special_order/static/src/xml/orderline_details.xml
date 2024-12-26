@@ -1,0 +1,13 @@
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderlineDetails" t-inherit="point_of_sale.OrderlineDetails" t-inherit-mode="extension" owl="1">
+       <xpath expr="//ul[hasclass('info-list')]/li[hasclass('info')]" position="inside">
+            <t t-if="props.line.is_special">
+                <label style="float:right;">Is Special</label>
+                <input type="checkbox"
+                       style='width: 25px; height: 15px; min-height: 12px; box-shadow: 0px 0px 0px -2px;float:right;'
+                       t-att-checked="props.line.is_special" onclick="return false;" string="Is Special"/>
+            </t>
+        </xpath>
+    </t>
+</templates>

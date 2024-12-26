@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="free_engraving_page" name="Free Engraving">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image pt16 pb16" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3 pb72">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/61433/Louis%20Moinet%20event.jpg" class="img img-fluid mx-auto" alt="Clarico-Image-Text" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h2 class="te_s_it_heading text-uppercase">free engraving</h2>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Many of our rings can be engraved for no additional charge with a personalized message on the interior of the ring. Our website enables you to add a personalized message to your selected wedding ring.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">For engagement rings, please contact us for assistance.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    <br />
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">Please note: engraved rings are not eligible for return, resize, or exchange. Engraving may take 3 additional days for delivery.</p>
+                                <p class="mb16">
+                                    <br />
+                                </p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title mb16 te_three_columns_heading">oiver 40 fonts</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title mb16 te_three_columns_heading">24-hour turnaround</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title mb16 te_three_columns_heading">done on-site</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="engraving_services_page" name="Engraving Services">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Engraving Services</h2>
+            </div>
+        </t>
+    </template>
+</odoo>

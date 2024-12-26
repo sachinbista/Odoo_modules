@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bista_product_engraving_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']/group[@name='sale']" position="inside">
+                <group name="engrave" string="Engrave">
+                    
+                    <!-- <field name="minimum_charges" string="Minimum charges"/> 
+                    <field name="minimum_charges_char_limit" string="Upto character"/> -->
+
+                    <field name="has_engrave_feature"/>
+                    
+                    <field name="minimum_charges" widget='monetary' options="{'currency_field': 'cost_currency_id'}" string="Minimum charges" attrs="{'invisible': [('has_engrave_feature', '=', False)]}"/> 
+                    <field name="minimum_charges_char_limit" string="Upto letter" attrs="{'invisible': [('has_engrave_feature', '=', False)]}"/>
+
+                    <!-- <div style="display:flex;">
+                        <span style="margin-right:5px">Upto</span>
+                        <field name="minimum_charges_char_limit" class="oe_inline" style="width: 80% !important;"/>
+                        <span style="margin"> Letter it'll be </span>
+                        <field name="minimum_charges" class="oe_inline" style="width: 80% !important;"/>
+                    </div> -->
+   
+                    <field name="charges_per_char" widget='monetary' options="{'currency_field': 'cost_currency_id'}" attrs="{'invisible': [('has_engrave_feature', '=', False)]}" string="Charges for Extra letter"/>
+                    <field name="max_char_limit" string="Maximum letter limit" attrs="{'invisible': [('has_engrave_feature', '=', False)]}"/>
+                    <field 
+                        name="restrict_font_ids" 
+                        widget="many2many_tags"
+                        options="{'no_quick_create':True, 'no_create_edit': True}"
+                        attrs="{'invisible': [('has_engrave_feature', '=', False)]}"/>
+                  
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

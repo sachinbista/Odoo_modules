@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_sale_reports" name="Sale Reports" parent="sale.sale_menu_root" sequence="45"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_sales_performance_report" model="ir.actions.client">
+        <field name="name">Sales Performance Report</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.sales_performance_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_sales_performance_report" name="Sales Performance Report"
+              action="action_sales_performance_report" parent="bista_sale_reports.menu_sale_reports" sequence="1"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_client_ranking_report" model="ir.actions.client">
+        <field name="name">Client Ranking</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_ranking_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_ranking_report" name="Client Ranking"
+              action="action_client_ranking_report" parent="bista_sale_reports.menu_sale_reports" sequence="2"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_client_history_report" model="ir.actions.client">
+        <field name="name">Client History</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_history_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_history_report" name="Client History"
+              action="action_client_history_report" parent="bista_sale_reports.menu_sale_reports" sequence="3"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_client_by_category_report" model="ir.actions.client">
+        <field name="name">Client By Category</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_by_category_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_by_category_report" name="Client By Category"
+              action="action_client_by_category_report" parent="bista_sale_reports.menu_sale_reports" sequence="4"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_client_by_vendor_report" model="ir.actions.client">
+        <field name="name">Client By Vendor</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_by_vendor_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_by_vendor_report" name="Client By Vendor"
+              action="action_client_by_vendor_report" parent="bista_sale_reports.menu_sale_reports" sequence="5"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+    <record id="action_client_by_price_point_report" model="ir.actions.client">
+        <field name="name">Client By Price Point</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_by_price_point_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_by_price_point_report" name="Client By Price Point"
+              action="action_client_by_price_point_report" parent="bista_sale_reports.menu_sale_reports" sequence="6"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+
+    <record id="action_client_birthday_list_report" model="ir.actions.client">
+        <field name="name">Client Birthday List</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.client_birthday_list_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_client_birthday_list_report" name="Client Birthday List"
+              action="action_client_birthday_list_report" parent="bista_sale_reports.menu_sale_reports" sequence="7"
+              groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+
+    <record id="action_vendor_sell_thru_by_sku_internal_report" model="ir.actions.client">
+        <field name="name">Vendor Sell Thru by Sku (Internal)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.vendor_sell_thru_internal_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_action_vendor_sell_thru_by_sku_internal" name="Vendor Sell Thru by Sku (Internal)"
+              action="action_vendor_sell_thru_by_sku_internal_report" parent="bista_sale_reports.menu_sale_reports"
+              sequence="8" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+
+    <record id="action_vendor_sell_thru_by_sku_ext_report" model="ir.actions.client">
+        <field name="name">Vendor Sell Thru by Sku (External)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.vendor_sell_thru_ext_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_action_vendor_sell_thru_by_sku_ext" name="Vendor Sell Thru by Sku (External)"
+              action="action_vendor_sell_thru_by_sku_ext_report" parent="bista_sale_reports.menu_sale_reports"
+              sequence="9" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+
+
+    <record id="action_category_sell_thru_by_sku_report" model="ir.actions.client">
+        <field name="name">Category Sell Thru by Sku</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_sale_reports.category_sell_thru_by_sku_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_action_category_sell_thru_by_sku_report" name="Category Sell Thru by Sku"
+              action="action_category_sell_thru_by_sku_report" parent="bista_sale_reports.menu_sale_reports"
+              sequence="10" groups="sales_team.group_sale_manager,sales_team.group_sale_salesman_all_leads"/>
+</odoo>
+
+
+

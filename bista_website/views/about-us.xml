@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'), ('name','=','aboutus')]"/>
+        </function>
+        <value eval="{'noupdate': False}"/>
+    </function>
+
+    <template id="aboutus_inherit" name="About Us Darakjian" inherit_id="website.aboutus">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure">
+                <section class="as-offer-services1">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>About Us</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p style="text-align: justify; ">Ohanes "John" Darakjian (known to his friends as JD), an
+                                Armenian immigrant whose life embodied the American dream, built Darakjian Jewelers on
+                                four basic principles: hard work, customer service, honesty, and integrity. These are
+                                the core values we still hold to this day.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-flag-usa"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>The Journey Begins - 1956</h2>
+                                        <p>Ohanes "John" Darakjian decided to immigrate from Aleppo, Syria to America.
+                                            The journey took him from Aleppo to Kuwait, Portugal, Brazil and after a few
+                                            years, landed him in Detroit, Michigan, where he decided to build his life
+                                            and his business.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-store"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>1964 - October 14</h2>
+                                        <p>After years of working for local jewelry stores doing repairs and custom
+                                            jewelry for a few years, JD opened his first jewelry store—Darakjian
+                                            Jewelers—in the landmark Metropolitan Building located at 33 John R Street
+                                            in Suite 1210, Detroit, MI.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-store"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Darakjian Jewelers Grows - 1970s</h2>
+                                        <p class="o_default_snippet_text">Darakjian Jewelers built a client base of 150
+                                            stores by concentrating our efforts on custom orders and repairs. At the
+                                            time, JD himself often worked 20-hour days stating, "You can’t sacrifice
+                                            business for a time; you have to sacrifice time for business. The harder you
+                                            work, the better your life will be."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-store"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>1980s - Darakjian Jewelers Grows To 2 Stores</h2>
+                                        <p class="o_default_snippet_text">Darakjian Jewelers opened two stores during
+                                            the 1980s and became a noticeable presence in the community. A true family
+                                            man, JD raised his two sons while building his business and brand. Darakjian
+                                            Jewelers expanded and opened a state-of-the-art jewelry store in Southfield,
+                                            Michigan where JD himself trained dozens of employees and built a solid
+                                            reputation in the area.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-store"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Darakjian Jewelers Opens Flagship Store - 1993</h2>
+                                        <p>Darakjian Jewelers opens the flagship store on Northwestern Highway.
+                                            Keeping with his business and family values, John Darakjian opens a single
+                                            location by combining the two locations operating in the Southfield area.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-store"/>
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>2013 - Darakjian Jewelers moves to 101 Willits, Birmingham</h2>
+                                        <p>With the majority of our clients being residents of the Bloomfield Hills and
+                                            Birmingham area, Darakjian Jewelers decided to move to Birmingham to better
+                                            serve our clients.
+                                        </p>
+                                        <p>
+                                            <br/>
+                                        </p>
+                                        <p>Today, Darakjian Jewelers is known throughout the United States and Europe.
+                                            We’ve become ambassadors of the most prestigious brands of watches and
+                                            jewelry in the world while maintaining our roots as a service-oriented local
+                                            business. In store and online, we help our guests daily to celebrate and
+                                            commemorate the important moments of their lives
+                                            <br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+
+    <record id="about-us-record" model="website.page">
+        <field name="url">/about-us</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="aboutus_inherit"/>
+    </record>
+
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'website'), ('name','=','aboutus')]"/>
+        </function>
+        <value eval="{'noupdate': True}"/>
+    </function>
+
+</odoo>

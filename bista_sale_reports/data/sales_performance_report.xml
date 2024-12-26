@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="sales_performance_report" model="account.report">
+            <field name="name">Sales Performance report</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_period_comparison" eval="False"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_user" eval="True"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="custom_handler_model_id" ref="model_sales_performance_report_handler"/>
+            <field name="column_ids">
+                <record id="sales_performance_report_amount_ptd" model="account.report.column">
+                    <field name="name">PTD</field>
+                    <field name="expression_label">amount_ptd</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">1</field>
+                </record>
+                <record id="sales_performance_report_amount_plan_one" model="account.report.column">
+                    <field name="name">Plan</field>
+                    <field name="expression_label">amount_plan_one</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">2</field>
+                </record>
+                <record id="sales_performance_report_percent_plan_one" model="account.report.column">
+                    <field name="name">% Plan</field>
+                    <field name="expression_label">percent_plan_one</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">3</field>
+                </record>
+                <record id="sales_performance_report_amount_lptd" model="account.report.column">
+                    <field name="name">LPTD</field>
+                    <field name="expression_label">amount_lptd</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">4</field>
+                </record>
+                <record id="sales_performance_report_percent_inc_dec_one" model="account.report.column">
+                    <field name="name">Inc/(Dec)</field>
+                    <field name="expression_label">percent_inc_dec_one</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">5</field>
+                </record>
+                <record id="sales_performance_report_amount_ytd" model="account.report.column">
+                    <field name="name">YTD</field>
+                    <field name="expression_label">amount_ytd</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">6</field>
+                </record>
+                <record id="sales_performance_report_amount_plan_two" model="account.report.column">
+                    <field name="name">Plan</field>
+                    <field name="expression_label">amount_plan_two</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">7</field>
+                </record>
+                <record id="sales_performance_report_percent_plan_two" model="account.report.column">
+                    <field name="name">% Plan</field>
+                    <field name="expression_label">percent_plan_two</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">8</field>
+                </record>
+                <record id="sales_performance_report_amount_lytd" model="account.report.column">
+                    <field name="name">LYTD</field>
+                    <field name="expression_label">amount_lytd</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">9</field>
+                </record>
+                <record id="sales_performance_report_percent_inc_dec_two" model="account.report.column">
+                    <field name="name">Inc/(Dec)</field>
+                    <field name="expression_label">percent_inc_dec_two</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">10</field>
+                </record>
+                <record id="sales_performance_report_amount_llytd" model="account.report.column">
+                    <field name="name">LLYTD</field>
+                    <field name="expression_label">amount_llytd</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">11</field>
+                </record>
+                <record id="sales_performance_report_percent_inc_dec_three" model="account.report.column">
+                    <field name="name">Inc/(Dec)</field>
+                    <field name="expression_label">percent_inc_dec_three</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">12</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>

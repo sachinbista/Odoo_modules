@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_report_aged_inventory_pivot" model="ir.ui.view">
+            <field name="name">aged.inventory.report.pivot</field>
+            <field name="model">aged.inventory.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Aged Inventory Analysis">
+                    <field name="product_id" type="row"/>
+                    <field name="in_date" type="row"/>
+                    <field name="expiry_date" type="row"/>
+                    <field name="age" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_report_aged_inventory_graph" model="ir.ui.view">
+            <field name="name">aged.inventory.report.graph</field>
+            <field name="model">aged.inventory.report</field>
+            <field name="arch" type="xml">
+                <graph string="Aged Inventory Analysis">
+                    <field name="product_id" type="col"/>
+                    <field name="age" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_aged_inventory_search" model="ir.ui.view">
+            <field name="name">aged.inventory.report.search</field>
+            <field name="model">aged.inventory.report</field>
+            <field name="arch" type="xml">
+                <search string="Aged Inventory Analysis">
+                    <field name="product_id"/>
+                    <group expand='0' string='Filters'>
+                         <filter name='internal_loc' string="Internal Locations" domain="[('location_id.usage','=', 'internal')]"/>
+                        <separator/>
+                    </group>
+                    <group expand="1" string="Group By">
+                        <filter name="Product" string="Product" context="{'group_by':'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_aged_inventory" model="ir.actions.act_window">
+            <field name="name">Aged Inventory Analysis</field>
+            <field name="res_model">aged.inventory.report</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">pivot,graph</field>
+            <field name="search_view_id" ref="view_report_aged_inventory_search"/>
+            <field name="context">{'search_default_internal_loc': 1, 'group_by': ['product_id']}</field>
+        </record>
+
+        <menuitem id="menu_report_aged_inventory" name="Aged Inventory" parent="stock.menu_warehouse_report" sequence="140" action="action_report_aged_inventory"/>
+    </data>
+</odoo>

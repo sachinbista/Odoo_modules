@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sell_your_jewelry_page" name="SELL YOUR JEWELRY">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="pb64 col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/34373/Armen%20YouTube.PNG" class="img img-fluid mx-auto" alt="Image-Text" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h1>SELL YOUR JEWELRY</h1>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Darakjian Jewelers understands that Jewelry is a style driven industry.&amp;nbsp; Whether your jewelry is Classic, Traditional, Out of date, Contemporary or an Antique, it’s&amp;nbsp;the condition of your jewelry
+                                    that will help determine the factor of the price.&amp;nbsp;
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    <br />
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    We will have your jewelry complimentary cleaned to look it’s best before assessing it.&amp;nbsp; What may look badly damaged to you may not be that insignificant of a problem for us.&amp;nbsp; We welcome you to stop
+                                    into our Showroom and meet with our finest Graduate Gemologist/Jeweler, who can provide the support &amp;amp; assistance you need.
+                                </p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">Appraisal &amp;amp; valuation</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">instant payment</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">150% TRADE-IN VALUE GUARANTEE<br /></h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="sell_your_diamond_page" name="SELL YOUR DIAMOND">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image pt32 pb32" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/bista_website/static/src/img/Loose Diamonds.jpg" class="img img-fluid mx-auto" alt="Image-Text" data-original-title="" title="" aria-describedby="tooltip381794" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h1>SELL YOUR DIAMOND</h1>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    If you’re looking to sell your diamond, then allow Darakjian Jewelers to assist you.&amp;nbsp; We welcome you in to meet our professionals who will spend quality time with you during this process in giving you the
+                                    best fair value. Our Gemologist uses the GIA grading standards, which includes “The Four Cs”.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    CARAT refers to weight
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">COLOR refers to how white in color the diamond is.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">CLARITY is the presence, types and severity of any internal flaws.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">CUT refers to the physical dimensions of the diamond.&amp;nbsp;</p>
+
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Our experience and reputation for loyalty, dedication and commitment, makes it effortless for us to assist our Guests with their needs. We look forward to doing business with you!
+                                </p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">diamond evaluation</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">diamond appraisal</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">diamond auction placement</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="sell_your_watch_page" name="SELL YOUR WATCH">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image pt32 pb32" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/bista_website/static/src/img/IMG_0704.jpeg" class="img img-fluid mx-auto" alt="Image-Text" data-original-title="" title="" aria-describedby="tooltip153707" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h1>SELL YOUR WATCH</h1>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Whether you’re an experienced Watch collector or Novice, Darakjian Jewelers&amp;nbsp;will help you maximize the value of your Timepiece when you’re ready to sell it.
+                                </p>
+
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    In our 50 years of business, we ‘re known to be Michigan’s only authorized representatives who carry most of the world’s exclusive brands of Timepieces. Our knowledge and experience has given us the opportunity to
+                                    travel Domestically and Internationally and purchase many collectable and unique timepieces. We take great pride in providing the answers to the many questions and concerns that our Customers may have regarding the
+                                    value of your pre-owned timepiece. “Just remember……time may be ticking fast, but we can adjust the movement to the condition or complication of the desired deal you wish to make”!&amp;nbsp;
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">Other services we offer will include watch appraisals, watch restoration and auction placements.&amp;nbsp;</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">All transactions are confidential, safe and secure!</p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">Watch appraisals</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">watch repair &amp;amp; service</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">watch restoration</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="sell_your_gold_page" name="SELL YOUR GOLD">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="pb64 col-lg-3">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/34373/Armen%20YouTube.PNG" class="img img-fluid mx-auto" alt="Image-Text" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-9">
+                                <h1>SELL YOUR GOLD</h1>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Many of us have many reasons for selling our Gold. At Darakjian Jewelers, you will meet with our own Graduate Gemologist/Jeweler, who will gladly take the time and discuss your options with you.
+                                    We purchase estate gold jewelry, used &amp; broken chains, necklaces &amp; charms, rings, earrings, bands, bracelets, as well as dental gold and much more.
+                                    For your convenience, we will gladly assist in removing any stones from your jewelry item at no extra charge.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    <br />
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Darakjian Jewelers will Guarantee to give you the best price value towards any of your items.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    <br />
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Our mission is to assist our Customers the finest quality service they deserve.  We welcome you to visit our Showroom for more details.
+                                </p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">Appraisal &amp;amp; valuation</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">150% TRADE-IN VALUE GUARANTEE<br /></h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">instant payment</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

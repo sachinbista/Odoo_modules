@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="AdditionalSalespersonPopup" owl="1">
+            <Draggable>
+               <div class="popup popup-text" style="top: 150.5px;left: 236px;height: 345px;transform: none;min-width:fit-content">
+                    <header class="title drag-handle">
+                        <t t-esc="props.title"/>
+                    </header>
+                   <div align="center">
+                       <fieldset class="fieldset-group">
+                            <legend class="fieldset-legend">Add Additional Salesperson</legend>
+                           <ul class="checkbox" style="margin-block-start: 0em !important;
+                                                      margin-inline-start: 1em  !important; text-align: justify; width: max-content;">
+
+                               <t t-foreach="props.list" t-as="item" t-key="item.id">
+                                    <li style="pointer-events:none ; display: inline-block !important;">
+                                        <input type="checkbox"
+                                                   class="form-check-input"
+                                                   t-att-value='item.id'
+                                                   name="flexCheckChecked" t-att-checked="item.is_selected"
+                                                   style="pointer-events:all"
+                                            />
+
+                                        <label class="form-check-label" for="flexCheckChecked"><t t-esc="item.name"/></label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </fieldset>
+                    </div>
+                   <footer class="footer">
+                       <div class="button confirm highlight" t-on-click="confirm">
+                            <t t-esc="props.confirmText"/>
+                        </div>
+                       <div class="button cancel" t-on-click="cancel">
+                            <t t-esc="props.cancelText"/>
+                        </div>
+                    </footer>
+                </div>
+            </Draggable>
+    </t>
+
+</templates>

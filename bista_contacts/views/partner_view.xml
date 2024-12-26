@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_communication_mode_view_form" model="ir.ui.view">
+        <field name="name">Events</field>
+        <field name="model">res.partner.communication.mode</field>
+        <field name="arch" type="xml">
+            <form string="Communication Mode">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_communication_mode_view_tree" model="ir.ui.view">
+        <field name="name">Communication Mode</field>
+        <field name="model">res.partner.communication.mode</field>
+        <field name="arch" type="xml">
+            <tree string="Communication Mode" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_communication_mode_action" model="ir.actions.act_window">
+        <field name="name">Communication Mode</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.communication.mode</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create communication mode for customer
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="res_partner_communication_mode_menu" name="Communication Mode"
+        action="res_partner_communication_mode_action" parent="contacts.res_partner_menu_config"
+        sequence="5"/>
+
+    <record id="bista_custom_view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//div[@name="button_box"]/button[1]' position="before">
+                <button type="object" class="oe_stat_button" icon="fa-address-card"
+                    name="action_view_activity_history"
+                    context="{'default_partner_id': active_id}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Activity History</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@id='company']" position="replace">
+                <field id="company" class="text-break" name="name" default_focus="1"
+                           placeholder="e.g. Lumber Inc" attrs="{'required' : [('type', '=', 'contact')], 'invisible': [('is_company','=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@id='individual']" position="replace">
+                <field id="individual" class="text-break" name="name" default_focus="1" invisible="1"
+                       placeholder="e.g. Brandom Freeman" attrs="{'required' : [('type', '=', 'contact')], 'invisible': [('is_company','=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="replace">
+                <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..."
+                       domain="[('is_company', '=', True)]" invisible="1"
+                       context="{'default_is_company': True, 'show_vat': True, 'default_user_id': user_id}"
+                       attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="communication_mode_id"/>
+                <field name="notification_method"/>
+            </xpath>
+            <xpath expr="//field[@name='title']" position="replace">
+                <field name="title" options="{&quot;no_open&quot;: True}"
+                       placeholder="e.g. Mister" attrs="{'invisible': [('is_company', '=', True)]}"
+                       invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='function']" position="replace">
+                <field name="function"
+                       placeholder="e.g. Sales Director"
+                       attrs="{'invisible': [('is_company','=', True)]}"
+                       invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="replace">
+                <field name="phone" context="{'phone_change': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='mobile']" position="replace">
+                <field name="mobile" context="{'mobile_change': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="replace">
+                <field name="website" string="Website"
+                       widget="url" placeholder="e.g. https://www.odoo.com" invisible="1"/>
+                <field name="card_completion_per" invisible="1"/>
+                <field name="card_completion_percent" widget="progressbar"/>
+                <label for="birth_month" string="Birthday"/>
+                <div>
+                    <field name="birth_month" class="oe_inline" placeholder="Month"/>
+                    <field name="birth_day" class="oe_inline" placeholder="Day"/>
+                    <field name="birth_year" class="oe_inline" placeholder="Year"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="replace">
+                <field name="category_id" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"
+                       placeholder="e.g. &quot;B2B&quot;, &quot;VIP&quot;, &quot;Consulting&quot;, ..."
+                       invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']" position="inside">
+                <field name="no_marketing"/>
+                <field name="purchase_order_amount" invisible="1"/>
+                <field name="sale_order_amount" invisible="1"/>
+                <field name="customer_rank"/>
+                <field name="supplier_rank"/>
+            </xpath>
+            <xpath expr="//page[@name='contact_addresses']" position="replace">
+                <page string="Contacts &amp; Addresses" name="contact_addresses" autofocus="autofocus">
+                        <div id="o_partner_chart_container" class="d-lg-flex"> <!-- These two div are used to position org_chart -->
+                        <div id="o_partner_chart_main" class="flex-grow-1">
+                            <field name="child_ids" mode="kanban"
+                                   context="{'default_parent_id': active_id, 'default_street': street,
+                                   'default_street2': street2, 'default_city': city, 'default_state_id': state_id,
+                                   'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang,
+                                   'default_user_id': user_id, 'default_type': 'contact',
+                                   'default_customer_rank': customer_rank,
+                                   'default_supplier_rank': supplier_rank}">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="color"/>
+                                    <field name="name"/>
+                                    <field name="title"/>
+                                    <field name="type"/>
+                                    <field name="email"/>
+                                    <field name="parent_id"/>
+                                    <field name="is_company"/>
+                                    <field name="function"/>
+                                    <field name="phone"/>
+                                    <field name="street"/>
+                                    <field name="street2"/>
+                                    <field name="zip"/>
+                                    <field name="city"/>
+                                    <field name="country_id"/>
+                                    <field name="mobile"/>
+                                    <field name="state_id"/>
+                                    <field name="image_128"/>
+                                    <field name="avatar_128"/>
+                                    <field name="lang"/>
+                                    <!-- fields in form x2many view to diminish requests -->
+                                    <field name="comment"/>
+                                    <field name="display_name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <t t-set="color" t-value="kanban_color(record.color.raw_value)"/>
+                                            <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
+                                                <div class="o_kanban_image">
+                                                    <img alt="Contact image" t-att-src="kanban_image('res.partner', 'avatar_128', record.id.raw_value)"/>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                    <div t-if="record.function.raw_value"><field name="function"/></div>
+                                                    <div t-if="record.email.raw_value"><field name="email" widget="email"/></div>
+                                                    <div t-if="record.type.raw_value != 'contact'">
+                                                        <div>
+                                                            <field name="zip"/><t t-if="record.city"> </t>
+                                                            <field name="city"/>
+                                                        </div>
+                                                        <field t-if="record.state_id.raw_value" name="state_id"/><t t-if="record.country_id"> </t>
+                                                        <field name="country_id"/>
+                                                    </div>
+                                                    <div t-if="record.phone.raw_value">Phone: <t t-esc="record.phone.value"/></div>
+                                                    <div t-if="record.mobile.raw_value">Mobile: <t t-esc="record.mobile.value"/></div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form string="Contact / Address">
+                                    <sheet>
+                                        <field name="type" required="1" widget="radio" options="{'horizontal': true}"/>
+                                        <field name="parent_id" invisible="1"/>
+                                        <div class="text-muted oe_edit_only">
+                                            <p class="mb-0" attrs="{'invisible': [('type', '!=', 'contact')]}">
+                                                <span>Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).</span>
+                                            </p>
+                                            <p class="mb-0" attrs="{'invisible': [('type', '!=', 'invoice')]}">
+                                                <span>Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.</span>
+                                            </p>
+                                            <p class="mb-0" attrs="{'invisible': [('type', '!=', 'delivery')]}">
+                                                <span>Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.</span>
+                                            </p>
+                                            <p class="mb-0" attrs="{'invisible': [('type', '!=', 'private')]}">
+                                                <span>Private addresses are only visible by authorized users and contain sensitive data (employee home addresses, ...).</span>
+                                            </p>
+                                            <p class="mb-0" attrs="{'invisible': [('type', '!=', 'other')]}">
+                                                <span>Other address for the company (e.g. subsidiary, ...)</span>
+                                            </p>
+                                        </div>
+                                        <hr/>
+                                        <group>
+                                            <group>
+                                                <field name="relation_partner_id"
+                                                   domain="[('parent_id', '=', False)]"
+                                                   options="{'no_open': True, 'no_quick_create': True, 'no_create': True}"/>
+                                                <field name="name" string="Contact Name" attrs="{'required' : [('type', '=', 'contact')]}" invisible="1"/>
+                                                <field name="title" options="{'no_open': True}" placeholder="e.g. Mr." attrs="{'invisible': [('type','!=', 'contact')]}" invisible="1"/>
+                                                <field name="function" placeholder="e.g. Sales Director" attrs="{'invisible': [('type','!=', 'contact')]}" invisible="1"/>
+                                                <label for="street" string="Address" attrs="{'invisible': [('type','=', 'contact')]}"/>
+                                                <div attrs="{'invisible': [('type','=', 'contact')]}">
+                                                    <div class="o_address_format" name="div_address">
+                                                        <field name="street" placeholder="Street..." class="o_address_street" force_save="1"/>
+                                                        <field name="street2" placeholder="Street 2..." class="o_address_street" force_save="1"/>
+                                                        <field name="city" placeholder="City" class="o_address_city" force_save="1"/>
+                                                        <field name="state_id" class="o_address_state" placeholder="State" force_save="1" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                                        <field name="zip" placeholder="ZIP" class="o_address_zip" force_save="1"/>
+                                                        <field name="country_id" placeholder="Country" class="o_address_country" force_save="1" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                                    </div>
+                                                </div>
+                                            </group>
+                                            <group>
+                                                <field name="relation_id"
+                                                   options="{'no_open': True, 'no_quick_create': True}"
+                                                   attrs="{'required': [('relation_partner_id','!=', False)]}"/>
+                                                <field name="email" widget="email"/>
+                                                <field name="phone" context="{'phone_change': True}"/>
+                                                <field name="mobile" context="{'mobile_change': True}"/>
+                                                <field name="company_id" invisible="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="comment" placeholder="Internal notes..." nolabel="1" colspan="2"/>
+                                        </group>
+                                        <field name="lang" invisible="True"/>
+                                        <field name="user_id" invisible="True"/>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </div>
+                        <div id="o_partner_right" class="col-lg-4 px-0 ps-lg-5 pe-lg-0">
+                            <separator string="Relation Chart"/>
+                            <field name="subordinate_ids" widget="contact_org_chart"/>
+                        </div>
+                    </div>
+                </page>
+            </xpath>
+            <xpath expr="//notebook" positon="inside">
+                <page name="event_dates" string="Event Dates">
+                    <group>
+                        <field name="child_all_count" invisible="1"/>
+                        <field name="relation_partner_id" invisible="1"/>
+                        <field name="relation_id" invisible="1"/>
+                    </group>
+                    <field name="event_dates_ids">
+                        <tree editable="bottom">
+                            <field name="event_id" required="1"/>
+                            <field name="other_event"/>
+                            <field name="month" required="1"/>
+                            <field name="day"/>
+                            <field name="year"/>
+                            <field name="active"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_res_partner_view_purchase_buttons" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.res_partner_view_purchase_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(purchase.act_res_partner_2_purchase_order)d']" position="replace">
+                <button class="oe_stat_button" name="%(purchase.act_res_partner_2_purchase_order)d" type="action"
+                        groups="purchase.group_purchase_user"
+                        icon="fa-credit-card" attrs="{'invisible': [('customer_rank', '>', 0), ('supplier_rank', '=', 0)]}">
+                        <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="purchase_order_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <span> - </span>
+                            <field name="purchase_order_count"/>
+                        </span>
+                        <span class="o_stat_text">Purchases</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_res_partner_view_sale_buttons" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_sale_order']" position="replace">
+                <button class="oe_stat_button" type="object" name="action_view_sale_order"
+                    groups="sales_team.group_sale_salesman"
+                    icon="fa-usd" attrs="{'invisible': [('supplier_rank', '>', 0), ('customer_rank', '=', 0)]}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="sale_order_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <span> - </span>
+                            <field name="sale_order_count"/>
+                        </span>
+                        <span class="o_stat_text">Sales</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_account_partner_view_buttons" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_partner_invoices']" position="attributes">
+                <attribute name="attrs">{'invisible': [('supplier_rank', '>', 0), ('customer_rank', '=', 0)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_partner_view_purchase_account_buttons" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(purchase.act_res_partner_2_supplier_invoices)d']" position="replace">
+                <button class="oe_stat_button" name="%(purchase.act_res_partner_2_supplier_invoices)d" type="action"
+                    groups="account.group_account_invoice"
+                    icon="fa-pencil-square-o" help="Vendor Bills" attrs="{'invisible': [('customer_rank', '>', 0), ('supplier_rank', '=', 0)]}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="vendor_bill_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <span> - </span>
+                            <field name="supplier_invoice_count"/>
+                        </span>
+                        <span class="o_stat_text">Vendor Bills</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="point_of_sale.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_pos_order']" position="replace">
+                <button class="oe_stat_button" type="object" name="action_view_pos_order"
+                    groups="point_of_sale.group_pos_user"
+                    context="{'default_partner_id': active_id}"
+                    attrs="{'invisible': [('pos_order_count', '=', 0)]}"
+                    icon="fa-shopping-bag">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="pos_order_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <span> - </span>
+                            <field name="pos_order_count"/>
+                        </span>
+                        <span class="o_stat_text">PoS Orders</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_view_partners_form_crm1" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="crm.view_partners_form_crm1"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_opportunity']" position="replace">
+                <button class="oe_stat_button o_res_partner_tip_opp" type="object"
+                    name="action_view_opportunity"
+                    icon="fa-star"
+                    groups="sales_team.group_sale_salesman"
+                    context="{'default_partner_id': active_id, 'default_type':'opportunity'}"
+                    attrs="{'invisible': [('supplier_rank', '>', 0), ('customer_rank', '=', 0)]}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="crm_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <span> - </span>
+                            <field name="opportunity_count"/>
+                        </span>
+                        <span class="o_stat_text">Opportunities</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_view_partners_form_website" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="website_partner.view_partners_form_website"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_published']" position="replace">
+                <field name="is_published" widget="website_redirect_button" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bista_custom_res_partner_view_purchase_buttons_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase_stock.res_partner_view_purchase_buttons_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(purchase_stock.action_purchase_vendor_delay_report)d']" position="replace">
+                <button class="oe_stat_button" name="%(purchase_stock.action_purchase_vendor_delay_report)d" type="action"
+                    groups="purchase.group_purchase_user"
+                    icon="fa-truck"
+                    context="{'search_default_partner_id': id}"
+                    attrs="{'invisible': [('customer_rank', '>', 0), ('supplier_rank', '=', 0)]}">
+                    <div class="o_form_field o_stat_info">
+                        <div class="o_row" attrs="{'invisible': [('on_time_rate', '&lt;', 0)]}">
+                            <span class="o_stat_value">
+                                <field string="On-time Rate" name="on_time_rate" widget="integer"/>
+                            </span>
+                            <span class="o_stat_value">%</span>
+                        </div>
+                        <div class="o_stat_value" attrs="{'invisible': [('on_time_rate', '&gt;=', 0)]}">
+                            No data yet
+                        </div>
+                        <span class="o_stat_text">On-time Rate</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="contacts.action_contacts" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'default_is_company': False, 'default_customer_rank': 1}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Contact in your address book
+          </p><p>
+            Odoo helps you track all activities related to your contacts.
+          </p>
+        </field>
+    </record>
+
+    <record id="base.action_partner_form" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'default_is_company': False, 'res_partner_search_mode': 'customer', 'default_customer_rank': 1}</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Contact in your address book
+          </p><p>
+            Odoo helps you track all activities related to your contacts.
+          </p>
+        </field>
+    </record>
+
+    <record id="base.action_partner_customer_form" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'default_is_company': False, 'res_partner_search_mode': 'customer', 'default_customer_rank': 1}</field>
+        <field name="filter" eval="True"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new customer in your address book
+          </p><p>
+            Odoo helps you easily track all activities related to a customer.
+          </p>
+        </field>
+    </record>
+
+    <record id="account.res_partner_action_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': False, 'default_customer_rank': 1}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new customer in your address book
+          </p><p>
+            Odoo helps you easily track all activities related to a customer.
+          </p>
+        </field>
+    </record>
+
+    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+        <field name="name">Vendors</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'default_is_company': False, 'res_partner_search_mode': 'supplier', 'default_supplier_rank': 1}</field>
+        <field name="filter" eval="True"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new vendor in your address book
+          </p><p>
+            Odoo helps you easily track all activities related to a vendor.
+          </p>
+        </field>
+    </record>
+
+    <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
+        <field name="name">Vendors</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_supplier': 1,'res_partner_search_mode': 'supplier', 'default_is_company': False, 'default_supplier_rank': 1}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new supplier in your address book
+          </p><p>
+            Odoo helps you easily track all activities related to a supplier.
+          </p>
+        </field>
+    </record>
+
+    <record id="purchase.act_res_partner_2_purchase_order" model="ir.actions.act_window">
+        <field name="name">RFQs and Purchases</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('purchase.purchase_order_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('purchase.purchase_order_view_kanban_without_dashboard')}),
+        ]"/>
+        <field name="context">{'search_default_partner_id': active_id, 'default_partner_id': active_id}</field>
+        <field name="domain">[('state', '!=', 'cancel')]</field>
+        <field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                This vendor has no purchase order. Create a new RfQ
+            </p><p>
+                The request for quotation is the first step of the purchases flow. Once
+                converted into a purchase order, you will be able to control the receipt
+                of the products and the vendor bill.
+            </p>
+        </field>
+    </record>
+
+    <record id="purchase.act_res_partner_2_supplier_invoices" model="ir.actions.act_window">
+        <field name="name">Vendor Bills</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="domain">[('move_type','in',('in_invoice', 'in_refund')), ('state', '!=', 'cancel')]</field>
+        <field name="context">{'search_default_partner_id': active_id, 'default_move_type': 'in_invoice', 'default_partner_id': active_id}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Record a new vendor bill
+            </p><p>
+                Vendors bills can be pre-generated based on purchase
+                orders or receipts. This allows you to control bills
+                you receive from your vendor according to the draft
+                document in Odoo.
+            </p>
+        </field>
+    </record>
+
+    <record id="bista_custom_product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.inherit.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_published']" position="replace">
+                <field name="is_published" widget="website_redirect_button"
+                       attrs="{'invisible': [('sale_ok','=',False)]}" style="width: 16.66%;"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

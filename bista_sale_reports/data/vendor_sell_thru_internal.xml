@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="vendor_sell_thru_internal_report" model="account.report">
+            <field name="name">Vendor Sell Thru by Sku (Internal)</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_partner" eval="True"/>
+            <field name="filter_user" eval="True"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="custom_handler_model_id" ref="model_vendor_sell_through_internal_handler"/>
+            <field name="column_ids">
+
+            </field>
+        </record>
+    </data>
+</odoo>

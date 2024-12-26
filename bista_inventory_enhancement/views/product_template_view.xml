@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_inventory_adjustment_inherit" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='taxes_id']" position="after">
+                <field name="inventory_adjustment_date" readonly="1" attrs="{'invisible': [('product_variant_count', '>', 1),
+                 ('is_product_variant', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_inventory_adjustment_list_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="inventory_adjustment_date" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_view_search_inherit_bista" model="ir.ui.view">
+        <field name="name">product.template.search.view.inherit.bista</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="LAST COUNTED [90 DAYS+]" name="inventory_adjustment_date"
+                        domain="['|', ('inventory_adjustment_date', '&lt;=', (context_today() - datetime.timedelta(days=90)).strftime('%Y-%m-%d')),('inventory_adjustment_date', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="inventory_adjustment_date_group" string="LAST COUNTED [90 DAYS+]" domain="[]"
+                            context="{'group_by': 'inventory_adjustment_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_product_variant_adjustment_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='additional_product_tag_ids']" position="before">
+                <field name="inventory_adjustment_date" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

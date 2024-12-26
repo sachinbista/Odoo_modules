@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem
+        action="action_consignment_report_all"
+        id="consignment_report_menu"
+        parent="stock.menu_warehouse_report" sequence="200"/>
+</odoo>

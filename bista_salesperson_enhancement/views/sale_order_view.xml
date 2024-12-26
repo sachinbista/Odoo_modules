@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="salesperson_enhancement_sale_order_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit.salesperson</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='order_details']//field[@name='payment_term_id']" position="after">
+                <field name="other_users" widget="many2many_tags"/>
+                <field name="user_count" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

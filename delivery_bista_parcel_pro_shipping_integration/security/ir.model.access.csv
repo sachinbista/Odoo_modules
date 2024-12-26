@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+delivery_bista_parcel_pro_shipping_integration.access_parcelpro_service,access_parcelpro_service,delivery_bista_parcel_pro_shipping_integration.model_parcelpro_service,base.group_user,1,1,1,0
+
+

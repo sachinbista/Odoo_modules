@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<templates id="template" xml:space="preserve">
+  <t t-name="AdditonalSalesperson" owl="1">
+    <div class="control-button">
+      <i class="fa fa-users"/>
+        <span> </span>
+        <span>Additional SP</span>
+    </div>
+  </t>
+
+    <!--Inherit Order screen-->
+    <t t-name="Chrome" t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[hasclass('orderlines')]" position="after">
+            <t t-if="order">
+                 <div class="sales-person-container"
+                      style="padding:5px;margin-left:10px; color:black; font-weight:bolder;">
+
+                        <t t-if="order.get_sales_person_names()">
+                          Sales Person :<t t-esc="order.get_sales_person_names()"/>
+                        </t>
+                 </div>
+             </t>
+
+        </xpath>
+    </t>
+
+</templates>

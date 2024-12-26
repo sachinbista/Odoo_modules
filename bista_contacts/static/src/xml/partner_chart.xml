@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-name="bista_contacts.partner_org_chart_partner" owl="1">
+    <t t-set="is_self" t-value="partner.id == view_partner_id"/>
+
+    <section t-if="partner_type == 'self'" t-attf-class="o_org_chart_entry_self_container #{managers.length &gt; 0 ? 'o_org_chart_has_managers' : ''}">
+        <div t-attf-class="o_org_chart_entry o_org_chart_entry_#{partner_type} d-flex position-relative py-2 overflow-visible #{managers.length &gt; 0 ? 'o_treeEntry' : ''}">
+            <t t-call="bista_contacts.partner_org_chart_partner_content">
+                <t t-set="is_self" t-value="is_self"/>
+            </t>
+        </div>
+    </section>
+
+    <div t-else="" t-attf-class="o_org_chart_entry o_org_chart_entry_#{partner_type} o_treeEntry d-flex position-relative py-2 overflow-visible">
+        <t t-call="bista_contacts.partner_org_chart_partner_content">
+            <t t-set="is_self" t-value="is_self"/>
+        </t>
+    </div>
+</t>
+
+<t t-name="bista_contacts.partner_org_chart_partner_content" owl="1">
+    <div class="o_media_left position-relative">
+        <!-- NOTE: Since by the default on not squared images odoo add white borders,
+            use bg-images to get a clean and centred images -->
+        <a t-if="! is_self"
+            class="o_media_object d-block rounded-circle o_partner_redirect"
+            t-att-style="'background-image:url(\'/web/image/res.partner/' + partner.id + '/avatar_1024/\')'"
+            t-att-alt="partner.name"
+            t-att-data-partner-id="partner.id"
+            t-att-href="partner.link"
+            t-on-click.prevent="() => this._onPartnerRedirect(partner.id)"/>
+        <div t-if="is_self"
+            class="o_media_object d-block rounded-circle border border-info"
+            t-att-style="'background-image:url(\'/web/image/res.partner/' + partner.id + '/avatar_1024/\')'"/>
+    </div>
+
+    <div class="d-flex flex-grow-1 align-items-center justify-content-between position-relative px-3">
+        <a t-if="!is_self" t-att-href="partner.link" class="o_partner_redirect d-flex flex-column" t-att-data-partner-id="partner.id" t-on-click.prevent="() => this._onPartnerRedirect(partner.id)">
+            <b class="o_media_heading m-0 fs-6" t-esc="partner.name"/>
+            <small class="text-muted fw-bold" t-if="partner.relation">Relation: <t t-esc="partner.relation"/></small>
+            <small class="text-muted fw-bold" t-if="partner.email">Email: <t t-esc="partner.email"/></small>
+            <small class="text-muted fw-bold" t-if="partner.phone">Phone: <t t-esc="partner.phone"/></small>
+            <small class="text-muted fw-bold" t-if="partner.mobile">Mobile: <t t-esc="partner.mobile"/></small>
+        </a>
+        <div t-if="is_self" class="d-flex flex-column">
+            <h5 class="o_media_heading m-0" t-esc="partner.name"/>
+            <small class="text-muted fw-bold" t-if="partner.relation">Relation: <t t-esc="partner.relation"/></small>
+            <small class="text-muted fw-bold" t-if="partner.email">Email: <t t-esc="partner.email"/></small>
+            <small class="text-muted fw-bold" t-if="partner.phone">Phone: <t t-esc="partner.phone"/></small>
+            <small class="text-muted fw-bold" t-if="partner.mobile">Mobile: <t t-esc="partner.mobile"/></small>
+        </div>
+<!--        <button t-if="partner.indirect_sub_count &gt; 0"-->
+<!--                class="btn p-0 fs-3"-->
+<!--                tabindex="0"-->
+<!--                t-att-data-partner-name="partner.name"-->
+<!--                t-att-data-partner-id="partner.id"-->
+<!--                t-att-data-partner-dir-subs="partner.direct_sub_count"-->
+<!--                t-att-data-partner-ind-subs="partner.indirect_sub_count"-->
+<!--                data-bs-trigger="focus"-->
+<!--                data-bs-toggle="popover"-->
+<!--                t-on-click="(event) => this._onOpenPopover(event, partner)">-->
+<!--            <a href="#"-->
+<!--                t-attf-class="badge rounded-pill bg-white border {{partner.indirect_sub_count &lt; 10 ? 'px-2' : 'px-1' }}"-->
+<!--                t-esc="partner.indirect_sub_count"-->
+<!--                />-->
+<!--        </button>-->
+
+    </div>
+</t>
+
+<t t-name="bista_contacts.partner_org_chart" owl="1">
+    <!-- NOTE: Desidered behaviour:
+            The maximun number of people is always 7 (including 'self'). Managers have priority over suburdinates
+            Eg. 1 Manager + 1 self = show just 5 subordinates (if availables)
+            Eg. 0 Manager + 1 self = show 6 subordinates (if available)
+
+        -->
+    <t t-set="partner_count" t-value="0"/>
+    <div t-if='managers.length &gt; 0' class="o_org_chart_group_up position-relative">
+        <div t-if='managers_more' class="o_org_chart_more pe-3">
+            <a href="#" t-att-data-partner-id="managers[0].id" class="o_partner_more_managers d-block bg-100 px-3" t-on-click.prevent="() => this._onPartnerMoreManager(managers[0].id)">
+                <i class="fa fa-angle-double-up" role="img" aria-label="More managers" title="More managers"/>
+            </a>
+        </div>
+
+        <t t-foreach="managers" t-as="partner" t-key="partner_index">
+            <t t-set="partner_count" t-value="partner_count + 1"/>
+            <t t-call="bista_contacts.partner_org_chart_partner">
+                <t t-set="partner_type" t-value="'manager'"/>
+            </t>
+        </t>
+    </div>
+
+    <t t-if="children.length || managers.length" t-call="bista_contacts.partner_org_chart_partner">
+        <t t-set="partner_type" t-value="'self'"/>
+        <t t-set="partner" t-value="self"/>
+    </t>
+
+    <t t-if="!children.length &amp;&amp; !managers.length">
+        <div class="alert alert-info" role="alert">
+            <p><b>No hierarchy position.</b></p>
+            <p>This contact has no parent or subordinate.</p>
+            <p>In order to get an contact chart, set a parent and save the record.</p>
+        </div>
+    </t>
+
+    <div t-if="children.length" t-attf-class="o_org_chart_group_down position-relative #{managers.length &gt; 0 ? 'o_org_chart_has_managers' : ''}">
+        <t t-foreach="children" t-as="partner" t-key="partner_index">
+            <t t-set="partner_count" t-value="partner_count + 1"/>
+            <t t-if="partner_count &lt; 20">
+                <t t-call="bista_contacts.partner_org_chart_partner">
+                    <t t-set="partner_type" t-value="'sub'"/>
+                </t>
+            </t>
+        </t>
+
+        <t t-if="(children.length + managers.length) &gt; 19">
+            <div class="o_org_chart_entry o_org_chart_more d-flex overflow-visible">
+                <div class="o_media_left position-relative">
+                    <a href="#"
+                        t-att-data-partner-id="self.id"
+                        t-att-data-partner-name="self.name"
+                        class="o_org_chart_show_more o_partner_sub_redirect btn btn-link ps-2"
+                        t-on-click.prevent="_onPartnerSubRedirect">See All</a>
+                </div>
+            </div>
+        </t>
+    </div>
+</t>
+
+<t t-name="bista_contacts.partner_orgchart_partner_popover" owl="1">
+    <div class="popover o_org_chart_popup" role="tooltip">
+        <div class="tooltip-arrow">
+
+        </div>
+        <h3 class="popover-header">
+            <div class="d-flex align-items-center">
+                <span class="flex-shrink-0" t-att-style='"background-image:url(\"/web/image/res.partner/" + props.partner.id + "/avatar_1024/\")"'/>
+                <b class="flew-grow-1"><t t-esc="props.partner.name"/></b>
+                <a href="#" class="ms-auto o_partner_redirect" t-att-data-partner-id="props.partner.id" t-on-click.prevent="() => this._onPartnerRedirect(props.partner.id)"><i class="fa fa-external-link" role="img" aria-label='Redirect' title="Redirect"></i></a>
+            </div>
+        </h3>
+        <div class="popover-body">
+            <table class="table table-sm table-borderless mb-0">
+                <tbody>
+                    <tr>
+                        <td class="text-end"><b t-esc="props.partner.direct_sub_count"/></td>
+                        <td>
+                            <a href="#" class="o_partner_sub_redirect" data-type='direct'
+                                    t-att-data-partner-name="props.partner.name" t-att-data-partner-id="props.partner.id"
+                                    t-on-click.prevent="_onPartnerSubRedirect">
+                                <b>Direct subordinates</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-end">
+                            <b t-esc="props.partner.indirect_sub_count - props.partner.direct_sub_count"/>
+                        </td>
+                        <td>
+                            <a href="#" class="o_partner_sub_redirect" data-type='indirect'
+                                    t-att-data-partner-name="props.partner.name" t-att-data-partner-id="props.partner.id"
+                                    t-on-click.prevent="_onPartnerSubRedirect">
+                                Indirect subordinates</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-end"><b t-esc="props.partner.indirect_sub_count"/></td>
+                        <td>
+                            <a href="#" class="o_partner_sub_redirect" data-type='total'
+                                    t-att-data-partner-name="props.partner.name" t-att-data-partner-id="props.partner.id"
+                                    t-on-click.prevent="_onPartnerSubRedirect">
+                                Total</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</t>
+
+</templates>

@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+
+            <record id="product_product_delivery_parcel_pro" model="product.product">
+              <field name="name">Parcel Pro</field>
+              <field name="default_code">Delivery_pro</field>
+              <field name="type">service</field>
+              <field name="categ_id" ref="delivery.product_category_deliveries"/>
+              <field name="sale_ok" eval="True"/>
+              <field name="purchase_ok" eval="False"/>
+              <field name="list_price">0.0</field>
+              <field name="invoice_policy">order</field>
+            </record>
+
+        <record id="delivery_carrier_parcel_pro" model="delivery.carrier">
+            <field name="name">Parcel Pro</field>
+            <field name="product_id" ref="delivery_bista_parcel_pro_shipping_integration.product_product_delivery_parcel_pro"/>
+            <field name="delivery_type">parcelpro</field>
+        </record>
+
+    </data>
+</odoo>

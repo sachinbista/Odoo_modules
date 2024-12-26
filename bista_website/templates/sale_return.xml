@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="free_return_page" name="Sale &amp; Return">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_text_image pt32 pb32" data-snippet="s_text_image">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-2">
+                                <div class="t_img_hover_1">
+                                    <img src="/web/image/34373/Armen%20YouTube.PNG" class="img img-fluid mx-auto" alt="Clarico-Image-Text" data-original-title="" title="" aria-describedby="tooltip372699" />
+                                </div>
+                            </div>
+                            <div class="pt16 pb16 col-lg-10">
+                                <h2 class="text-uppercase te_s_it_heading">30-day money back guarantee</h2>
+                                <div class="s_hr text-left pb32 pt8" data-snippet="s_hr">
+                                    <hr class="border-600 aos-init s_hr_solid w-25 mr-auto s_hr_4px border-alpha aos-animate" data-aos="s_hr_4px" />
+                                </div>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Our commitment to you does not end at delivery. Items may be returned or exchanged within 30 days from when they were shipped, free-of-charge and no questions asked.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    At Darakjian, we offer complimentary 30-day returns, so that you can make sure your purchase is just right. If for any reason you are not satisfied with your purchase, simply return it within 30 days for an exchange
+                                    or full refund. We take pride that our jewelry is produced with exceptional standards!
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Darakjian is proud to offer free return shipping on all ring, loose diamond, and loose gemstone orders. We will provide the free FedEx return-shipping label, so that your return process is seamless and easy.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Please note that returned items must be in their original, unworn condition and accompanied by all original documentation. If an item is returned for a refund or canceled during production, your next purchase will
+                                    qualify for exchange. Alterations to orders currently in process void the complimentary resize, return and exchange policies. If you have a special request for a later delivery date, our 30-day return/exchange period
+                                    begins on the date that your order was first available to ship. Similarly, if you plan on picking up your ring from one of our showrooms, our 30 day return/exchange period begins on the date that your order is
+                                    available for pick up.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Please retain all packing materials. Claims for damaged or missing items must be reported immediately or within five days of receipt of your order. Darakjian is not responsible for lost or damaged returned shipments.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    Note: Two complimentary returns are allowed per customer, per year. Please note that to be eligible for return, items must be in their original purchase condition, including all product documentation, and shipped
+                                    back to us within 30 days.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">Our diamond buyback program is an option if you are outside of our return window.</p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">
+                                    To expedite an exchange for a different product, we recommend returning the original item for a refund and placing a new order. Please allow two weeks for your refund to be processed.
+                                </p>
+                                <p style="font-family: Poppins, sans-serif; line-height: 27px; text-align: justify;">If a package or item delivered to you arrives damaged, please refuse the shipment or call us immediately at 1.888.843.6659.</p>
+                                <div class="s_btn text-left pt16 pb16" data-snippet="s_btn">
+                                    <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">how to return an item</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">refund process</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">non-refundable items</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="oe_structure" />
+                <section class="s_three_columns pb32" data-snippet="s_three_columns">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">International returns</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">returning a gift</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                            <section class="col-lg-4 col-md-4 s_col_no_bgcolor">
+                                <div class="te_slide_border te_3_column_center_heading border">
+                                    <section class="card-body text-center">
+                                        <h4 class="card-title te_three_columns_heading">cancel or change an order</h4>
+                                        <p class="card-text te_three_columns_para o_default_snippet_text">
+                                            Lorem ipsum dolor sit amet, eam et reque justo quidam, te est audire persius. Duis meis quas vim ex, ius no oblique. Ornatus <em class="o_default_snippet_text" /> cu.
+                                        </p>
+                                        <div class="s_btn text-left pb0 pt16 text-center" data-name="Button" data-snippet="s_btn">
+                                            <a href="#" class="btn btn-primary te_theme_button o_default_snippet_text">Know more </a>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

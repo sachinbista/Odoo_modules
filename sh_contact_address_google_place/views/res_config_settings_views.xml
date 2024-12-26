@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="sh_contact_address_google_place_res_config_settings" model="ir.ui.view">
+        <field name="name">sh.contact.address.google.place.res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invite_users']" position="inside">
+                <div>
+                	<!-- Google Api key -->
+	                <h2>Google API Key</h2>
+	                <div class="row mt16 o_settings_container">
+	                    <div class="col-12 col-lg-12 o_setting_box" style="width:100%">
+	                        <div class="o_setting_left_pane" >
+	                        	<field name="sh_is_enable_google_api_key"/>
+	                        </div>
+	                        <div class="o_setting_right_pane">
+	                            <label for="sh_is_enable_google_api_key"/>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-12 col-lg-12 o_setting_box" style="width:100%" attrs="{'invisible': [('sh_is_enable_google_api_key','=',False)]}">
+	                        <div class="o_setting_left_pane" ></div>
+	                        <div class="o_setting_right_pane">
+		                        <div class="content-group">
+		                        	 <label for='sh_google_api_key' class='mr-3'></label>
+		                             <field name='sh_google_api_key' class="oe_inline" attrs="{'invisible': [('sh_is_enable_google_api_key','=',False)],'required': [('sh_is_enable_google_api_key', '=', True)] }"/>
+								</div>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+			</xpath>
+		</field>
+	</record>
+</odoo>
+                

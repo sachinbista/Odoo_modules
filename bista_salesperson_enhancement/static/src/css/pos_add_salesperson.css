@@ -1,0 +1,82 @@
+.fieldset-group {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1.25em;
+  padding: .125em;
+  width: 90%;
+  display: flex;
+}
+
+.fieldset-legend {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  margin-left: 30px;
+  font-size: 90%;
+  color: black;
+}
+
+.pos ul.checkbox {
+  margin: 0;
+  padding: 0;
+  font-size: 80%;
+  list-style: none;
+  max-height: 10em; /* Set the maximum height */
+  overflow-y: auto; /* Add scrollbars if needed */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Divide into two columns, with flexible sizing */
+
+}
+
+.pos ul.checkbox li {
+  margin: 10;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border: 1px transparent solid;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  width: 110%;
+}
+
+.pos ul.checkbox li input {
+  margin-right: .25em;
+  box-shadow: none;
+  min-height: 10px;
+  width: 10%;
+}
+
+.pos ul.checkbox li .checkbox-label {
+  margin-left: 20px;
+  flex: 1; /* Allow label to take remaining space */
+}
+
+.pos ul.checkbox li:hover,
+.pos ul.checkbox li.focus {
+  background-color: lightyellow;
+  border: 1px gray solid;
+  width: 100%;
+}
+
+.pos ul.checkbox {
+  position: relative;
+}
+
+.pos ul.checkbox::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  z-index: 1;
+}
+
+.pos ul.checkbox::-webkit-scrollbar {
+  margin-right: .25em;
+  width: 3px;
+}
+
+
+

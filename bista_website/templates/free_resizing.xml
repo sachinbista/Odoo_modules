@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="free_resizing_page" name="Free Resizing">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt16 pb16">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>1 Year Free Resizing</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p style="text-align: justify;">
+                                We will resize your ring once for free within the first year of your purchase, including free return shipping within the U.S. and Canada for the first resize. International customers pay a small return-shipping fee of $50.
+                                If more than one resize is needed or outside of the first year, a $25 fee applies to resize white, yellow, and rose gold rings, and $50 for platinum. The return-shipping fee is $30 for US customers and $50 for international
+                                customers. We do not charge to ship the ring back to you, so that service is always free.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">
+                                During the resize process small amounts of metal will be added or removed to increase or decrease the size to adjust for the new size needed. As a result, your ring may be slightly thicker or thinner when completed. This is
+                                a minor difference, and may or may not be discernible to you. Your resized ring will be inspected by quality assurance to ensure that our high standards are met, and that your ring has been fitted to the size that you need.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">
+                                *Some rings cannot be resized. This may be due to a size restriction, falling outside of the recommended range, or due to the design style. During our 30-day return policy you will not be charged if your ring needs to be
+                                remanufactured. Outside our 30-day return policy and during our 1 Year Free Resizing policy a fee will apply if your ring must be remanufactured. It is important to know that your new ring may not look ‘exactly’ like the
+                                original, as minor variations can occur. Upon receipt and inspection of your ring you will be notified prior to any work being done to discuss the charge to replace your ring (Effective 03/11/2019).
+                            </p>
+                            <p style="text-align: justify;">Please Contact Us if you have any questions about this policy, your ring, or would like to take advantage of this s</p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

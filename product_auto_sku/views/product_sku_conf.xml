@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    	<record id="product_auto_sku_view" model="ir.ui.view">
+            <field name="name">Product Sku Configuration</field>
+            <field name="model">product.auto.sku</field>
+            <field name="arch" type="xml">
+                <form string="Product Sku Configuration" create="false">
+                    <header>
+                        <button name="re_generate_sku" string="Generate SKU" type="object" class="oe_highlight" 
+                                colspan="2" help="Generates Sku For Existing Products Without Sku or default_code field"/>
+                        <button name="re_generate_sku_all" string="Re-Generate SKU For All" type="object" class="oe_highlight" 
+                                colspan="2" help="Generates Sku For Existing Products With and Without Sku or default_code field (overwrites sku or defualt_code field for all products)"/>
+                    </header>
+                	<sheet>
+                            <group>
+                                <field name="pro_name"/>
+                                <field name="sku_by_supplier"/>
+                                <field name="sku_by_product"/>
+                                <field name="sku_by_attribute"/>
+                                <field name="sequence"/>
+                                <field name="hyphens"/>
+                                <field name="enable"/>
+<!--                                <field name="service_product_apply"/>-->
+                         </group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+	     <record id= "product_sku_tree" model="ir.ui.view">
+	        <field name="name">Product Sku Configuration</field>
+	        <field name="model">product.auto.sku</field>
+	        <field name="arch" type="xml">
+	            <tree string="Product Sku Configuration" create="false">
+	                 <field name="pro_name"/>
+	                
+	            </tree>
+	        </field>
+	    </record>
+
+		<record id="auto_product_action" model="ir.actions.act_window">
+			<field name="name">Product Sku Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">product.auto.sku</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" ref="product_sku_tree"/>
+		</record>
+
+		 <record id="inherit_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="supplier_rank" invisible="1"/>
+                </field>
+<!--                <xpath expr="/form/sheet/notebook/page[3]/group/group[2]" position="inside">-->
+<!--                	<field name="short_name" attrs="{'invisible':[('supplier_rank','!=', 1)]}"/>-->
+<!--                </xpath> -->
+
+                <xpath expr="/form/sheet/notebook/page[@name='internal_notes']/field[@name='comment']" position="after">
+                	<field name="short_name" attrs="{'invisible':[('supplier_rank','!=', 1)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="inherit_product_product_form_view" model="ir.ui.view">
+            <field name="name">product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="pro_sequence" invisible="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+		<menuitem id="auto_sku_menu" name="Product Sku Configuration" parent="base.menu_custom"/>
+    	<menuitem parent="auto_sku_menu" action="auto_product_action" id="sku_conf_menu"/>
+
+
+    </data>
+</openerp>

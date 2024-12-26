@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Inherit Orderline screen-->
+
+<templates id="consignment_movement_template" inherit_id="point_of_sale.template" xml:space="preserve">
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//li[hasclass('info')]" position="inside">
+            <t t-set="bs_consignment" t-value="this.env.pos.config.pos_consignment_movement"/>
+            <t t-set="is_checked" t-value="this.props.line.consignment_move"/>
+            <t t-if="bs_consignment == true">
+               <div style="text-align: right;" t-if="props.line.quantity > 0">
+                    <input type="checkbox" name="consignment_move"
+                           class="check_consignment_move" t-att-checked="is_checked" t-on-click="selectConsignment" default="false"/>
+                   From Consignment
+
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

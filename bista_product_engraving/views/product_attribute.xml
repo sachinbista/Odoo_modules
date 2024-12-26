@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <record id="bista_product_attribute_view_form_inherit" model="ir.ui.view">
+        <field name="name">bista.product.attribute.view.form.inherit</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="droggol_theme_common.product_attribute_view_form_inherit_droggol_theme_common"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ecommerce']//field[@name='dr_radio_image_style']" position="after">
+                <field name="is_engrave"/>
+                <field name="engrave_style" widget="radio" attrs="{'invisible': [('is_engrave', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

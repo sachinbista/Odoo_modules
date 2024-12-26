@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rapaport_api_shape_tree" model="ir.ui.view">
+        <field name="name">rapaport.api.shape.tree</field>
+        <field name="model">rapaport.api.shape</field>
+        <field name="arch" type="xml">
+            <tree string="Shape">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_rapaport_api_color_tree" model="ir.ui.view">
+        <field name="name">rapaport.api.color.tree</field>
+        <field name="model">rapaport.api.color</field>
+        <field name="arch" type="xml">
+            <tree string="Color">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_rapaport_api_clarity_tree" model="ir.ui.view">
+        <field name="name">rapaport.api.clarity.tree</field>
+        <field name="model">rapaport.api.clarity</field>
+        <field name="arch" type="xml">
+            <tree string="Clarity">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_rapaport_api_shape" model="ir.actions.act_window">
+        <field name="name">Shape</field>
+        <field name="res_model">rapaport.api.shape</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="action_rapaport_api_color" model="ir.actions.act_window">
+        <field name="name">Color</field>
+        <field name="res_model">rapaport.api.color</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="action_rapaport_api_clarity" model="ir.actions.act_window">
+        <field name="name">Clarity</field>
+        <field name="res_model">rapaport.api.clarity</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="our-founders" name="our-founders">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="s_banner parallax s_parallax_is_fixed pt96 pb96 o_colored_level"
+                         data-scroll-background-ratio="1" data-snippet="s_banner" data-name="Banner"
+                         style="background-image: none;">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                    <div class="container">
+                        <div class="row s_nb_column_fixed">
+                            <div class="jumbotron rounded o_cc o_cc1 pb32 o_colored_level pt32 offset-lg-3 col-lg-7"
+                                 data-name="Box" style="">
+                                <h1 style="text-align: center;">
+                                    <i class="fa fa-diamond"/>
+                                </h1>
+                                <h1 style="text-align: center;">
+                                    <font>
+                                        <span style="font-size: 36px;">Our Founders</span>
+                                    </font>
+                                    <br/>
+                                </h1>
+                                <p class="lead" style="text-align: center;">This is a simple hero unit, a simple
+                                    jumbotron-style component for
+                                    calling extra attention to featured content or information.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_team_5 pb16 pt16 o_colored_level" data-snippet="s_team_5" data-name="Team 5"
+                         style="background-image: none;">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor">
+                            <div class="col-12 col-sm-6 col-lg-4 py-2">
+                                <div class="card h-100 tp-editor-bg-color-n-shadow bg-o-color-1"
+                                     style="border-width: 0px !important;">
+                                    <img class="card-img-top mx-auto" src="/web/image/theme_prime.s_team_square_01"
+                                         alt="Team Image 01" loading="lazy" data-original-id="1656"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_team_square_01.png"
+                                         data-mimetype="image/png"/>
+                                    <div class="py-3 px-2 text-center">
+                                        <h5 class="card-title o_default_snippet_text">Ralph Edwards</h5>
+                                        <p class="card-text o_default_snippet_text">Founder</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4 py-2">
+                                <div class="card h-100 tp-editor-bg-color-n-shadow bg-o-color-1"
+                                     style="border-width: 0px !important;">
+                                    <img class="card-img-top mx-auto" src="/web/image/theme_prime.s_team_square_02"
+                                         alt="Team Image 02" loading="lazy" data-original-id="1657"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_team_square_02.png"
+                                         data-mimetype="image/png"/>
+                                    <div class="py-3 px-2 text-center">
+                                        <h5 class="card-title o_default_snippet_text">Robert Fox</h5>
+                                        <p class="card-text">Office manager</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4 py-2">
+                                <div class="card h-100 tp-editor-bg-color-n-shadow bg-o-color-1"
+                                     style="border-width: 0px !important;">
+                                    <img class="card-img-top mx-auto" src="/web/image/theme_prime.s_team_square_03"
+                                         alt="Team Image 03" loading="lazy" data-original-id="1658"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_team_square_03.png"
+                                         data-mimetype="image/png"/>
+                                    <div class="py-3 px-2 text-center">
+                                        <h5 class="card-title o_default_snippet_text">Danny Bailey</h5>
+                                        <p class="card-text o_default_snippet_text">Receptionist</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <record id="our-founders-record" model="website.page">
+        <field name="url">/our-founders</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="our-founders"/>
+    </record>
+</odoo>

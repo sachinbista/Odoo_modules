@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="pos_orders_return_template" inherit_id="pos_orders_all.pos_orders_reprint_template" xml:space="preserve">
+    <t t-name="ReturnOrderPopup" t-inherit="pos_orders_all.ReturnOrderPopup" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('popup')]" position="replace">
+        <div class="popup" style="min-width: 50%;">
+			<header class="title drag-handle">
+				Return Products
+			</header>
+            <main class="body traceback" style="font-family: 'Lato-Reg';">
+				<table class='reorder-product-list'
+                       style='width:100%;    text-align: center;line-height: 30px;'>
+					<thead>
+						<tr class="orderline-table-head">
+							<th>Product</th>
+                            <th>Ordered Qty</th>
+                            <th>Remain Qty</th>
+                            <th>Return Qty</th>
+						</tr>
+					</thead>
+                    <tbody class='return-product-list-contents'>
+						<t t-set="bs_special_refund" t-value="this.env.pos.config.bs_special_refund"/>
+
+						<tr class="orderline-table" t-foreach="props.orderlines || []" t-as="item"
+                            t-key="item.id">
+							<t t-if="bs_special_refund == false">
+							<t t-if="item.is_special==false">
+							<td><t t-esc='item.product_id[1]'/></td>
+                                <td><t t-esc='item.qty' /></td>
+                                <td><t t-esc='item.qty - item.return_qty' /></td>
+                                <td class="entered_item_qty">
+								<input type="text" style="margin: 5px;" class="input-field"
+                                       t-att-line-id='item.id' t-att-qty-id='item.qty' name="qty"
+                                       t-att-return-qty='item.return_qty'>
+								</input>
+							</td>
+							</t>
+							</t>
+							<t t-else="">
+								<td><t t-esc='item.product_id[1]'/></td>
+                                <td><t t-esc='item.qty' /></td>
+                                <td><t t-esc='item.qty - item.return_qty' /></td>
+                                <td class="entered_item_qty">
+								<input type="text" style="margin: 5px;" class="input-field"
+                                       t-att-line-id='item.id' t-att-qty-id='item.qty' name="qty"
+                                       t-att-return-qty='item.return_qty'>
+								</input>
+							</td>
+							</t>
+						</tr>
+					</tbody>
+				</table>
+			</main>
+            <footer class="footer">
+				<div class="button cancel odoo-theme-button" t-on-click="cancel">Close</div>
+                <div class="button confirm odoo-theme-button" t-on-click="do_returnOrder">Return-Order</div>
+					</footer>
+				</div>
+		</xpath>
+    </t>
+</templates>

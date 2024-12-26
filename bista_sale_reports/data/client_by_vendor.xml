@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="client_by_vendor_report" model="account.report">
+            <field name="name">Client By Vendor</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_partner" eval="True"/>
+            <field name="filter_user" eval="True"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="custom_handler_model_id" ref="model_client_by_vendor_report_handler"/>
+            <field name="column_ids">
+                <!--                <record id="client_by_vendor_report_vendor_name" model="account.report.column">-->
+                <!--                    <field name="name">Vendor/ Client</field>-->
+                <!--                    <field name="expression_label">vendor_name</field>-->
+                <!--                    <field name="figure_type">none</field>-->
+                <!--                    <field name="sequence">1</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_address" model="account.report.column">-->
+                <!--                    <field name="name">Street, City, State - Zip</field>-->
+                <!--                    <field name="expression_label">address</field>-->
+                <!--                    <field name="figure_type">none</field>-->
+                <!--                    <field name="sequence">2</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_contact_email" model="account.report.column">-->
+                <!--                    <field name="name">Email</field>-->
+                <!--                    <field name="expression_label">contact_email</field>-->
+                <!--                    <field name="figure_type">none</field>-->
+                <!--                    <field name="sequence">3</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_contact_phone" model="account.report.column">-->
+                <!--                    <field name="name">Phone</field>-->
+                <!--                    <field name="expression_label">contact_phone</field>-->
+                <!--                    <field name="figure_type">none</field>-->
+                <!--                    <field name="sequence">4</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_contact_mobile" model="account.report.column">-->
+                <!--                    <field name="name">Mobile</field>-->
+                <!--                    <field name="expression_label">contact_mobile</field>-->
+                <!--                    <field name="figure_type">none</field>-->
+                <!--                    <field name="sequence">4</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_number_qty" model="account.report.column">-->
+                <!--                    <field name="name">Qty</field>-->
+                <!--                    <field name="expression_label">number_qty</field>-->
+                <!--                    <field name="figure_type">integer</field>-->
+                <!--                    <field name="sequence">5</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_amount_retail" model="account.report.column">-->
+                <!--                    <field name="name">Retail</field>-->
+                <!--                    <field name="expression_label">amount_retail</field>-->
+                <!--                    <field name="figure_type">monetary</field>-->
+                <!--                    <field name="sequence">6</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_sales" model="account.report.column">-->
+                <!--                    <field name="name">Sales</field>-->
+                <!--                    <field name="expression_label">amount_sales</field>-->
+                <!--                    <field name="figure_type">monetary</field>-->
+                <!--                    <field name="sequence">7</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_discount" model="account.report.column">-->
+                <!--                    <field name="name">Disc %</field>-->
+                <!--                    <field name="expression_label">percent_discount</field>-->
+                <!--                    <field name="figure_type">percentage</field>-->
+                <!--                    <field name="sequence">8</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_amount_cogs" model="account.report.column">-->
+                <!--                    <field name="name">COGS</field>-->
+                <!--                    <field name="expression_label">amount_cogs</field>-->
+                <!--                    <field name="figure_type">monetary</field>-->
+                <!--                    <field name="sequence">9</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_amount_gms" model="account.report.column">-->
+                <!--                    <field name="name">GMS</field>-->
+                <!--                    <field name="expression_label">amount_gms</field>-->
+                <!--                    <field name="figure_type">monetary</field>-->
+                <!--                    <field name="sequence">10</field>-->
+                <!--                </record>-->
+                <!--                <record id="client_by_vendor_report_percent_gm" model="account.report.column">-->
+                <!--                    <field name="name">GM %</field>-->
+                <!--                    <field name="expression_label">percent_gm</field>-->
+                <!--                    <field name="figure_type">percentage</field>-->
+                <!--                    <field name="sequence">11</field>-->
+                <!--                </record>-->
+            </field>
+        </record>
+    </data>
+</odoo>

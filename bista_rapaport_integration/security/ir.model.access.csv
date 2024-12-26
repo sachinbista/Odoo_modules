@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rapaport_api_price,access_rapaport_api_price,model_rapaport_api_price,,1,1,1,1
+access_rapaport_api_shape,access_rapaport_api_shape,model_rapaport_api_shape,,1,1,1,1
+access_rapaport_api_color,access_rapaport_api_color,model_rapaport_api_color,,1,1,1,1
+access_rapaport_api_clarity,access_rapaport_api_clarity,model_rapaport_api_clarity,,1,1,1,1

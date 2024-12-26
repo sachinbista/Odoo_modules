@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="watch_maintenance_schedules_page" name="Watch Maintenance">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Maintenance Schedules</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-check" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Daily Maintenance</h2>
+                                        <p style="text-align: justify;">
+                                            The previous pages in this guide cover daily and routine care of your watch, so refer back to any of those for specifics. But if you need a general set of rules to remember, it’s:
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: center;">
+                                            <b>Keep it clean.&amp;nbsp; Keep it dry.&amp;nbsp; Keep it wound.</b>
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-check-o" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Checkup &amp;amp; Tuning—Every 12-18 Months</h2>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">
+                                            A mechanical watch is a precision machine and even normal use can have an impact on its performance. Like a great car, a fine timepiece needs some extra TLC every once in awhile in the form of routine
+                                            maintenance.
+                                        </p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">A yearly checkup should include:&amp;nbsp;</p>
+                                        <p style="text-align: justify;">- Testing water resistance</p>
+                                        <p style="text-align: justify;">- Testing for magnetization, which can affect the timing of a watch</p>
+                                        <p style="text-align: justify;">- Checking the pins on straps and replacing them, if necessary</p>
+                                        <p style="text-align: justify;">- Inspecting the bracelet and tightening or replacing screws</p>
+                                        <p style="text-align: justify;">- Cleaning the exterior of the entire watch</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                        <div class="btn-block">
+                                            <a href="/contact-us">Schedule an Appointment Today</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-o" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Movement Overhaul—Every 3-5 Years</h2>
+                                        <p style="text-align: justify;">
+                                            Nearly all manufacturers recommend bringing your watch in for maintenance—oil change, cleaning, testing of water resistance seals, every three to five years to ensure everything keeps functioning as it
+                                            should.&amp;nbsp;
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">For most watches, this movement overhaul generally will include:</p>
+                                        <p style="text-align: justify;">- Dismantling, cleaning, re-assembly, &amp;amp; oiling of the watch movement</p>
+                                        <p style="text-align: justify;">- Repairing or replacing worn or damaged movement parts</p>
+                                        <p style="text-align: justify;">- Timing and accuracy corrections per manufacture’s standards</p>
+                                        <p style="text-align: justify;">- Casing and checking the various functions</p>
+                                        <p style="text-align: justify;">- Replacing the crown, push-buttons, gaskets (as applicable)</p>
+                                        <p style="text-align: justify;">- Restoring water resistance to manufacture’s specifications</p>
+                                        <p style="text-align: justify;">- Refurbishing case and bracelet to manufacture’s specifications</p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">Be sure to follow your manufacture's specific instructions for taking care of your watch and always work with an authorized service center or retailer for your watch brand.</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                        <div class="btn-block">
+                                            <a href="/contact-us">Schedule an Appointment Today</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_service_guide_page" name="Watch Service Guide">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Watch Service Guide</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p style="text-align: justify;">
+                                One of the things we truly love about a mechanical watch is that it requires interaction with its owner in order to function. Regardless of what type of watch you have—a sports watch, a casual watch, a dress watch, or a
+                                grand complication—properly caring for your timepiece will ensure that it lasts long in good condition, retains its looks, and continues to function as it should for years, or even generations.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">
+                                Regular maintenance is, therefore, necessary to ensure first-class operation and performance. Your watch has a complex mechanical heart, beating at the rhythm of a precise orchestration of over 100 components.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">
+                                As a guide, the balance - the component regulating the energy of the watch – of calibre 3120 oscillates at 21,600 vibrations an hour and covers the equivalent of 21,000 kilometers over a five-year period.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">Our watchmakers and those we train are the only ones able to offer your timepiece a quality service using advanced technical skills that give your watch the attention it deserves.</p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <div style="text-align: justify;">
+                                <br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-stopwatch" style="" data-original-title="" title="" aria-describedby="tooltip880169" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Winding your Automatic Watch</h2>
+                                        <p>Time is precious and so is your watch.&amp;nbsp; Basic care and maintenance is required for your watch to provide you with years of enjoyment and satisfaction</p>
+                                        <div class="btn-block">
+                                            <a href="/winding-your-automatic-watch">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-stopwatch" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Winding your Manual Watch</h2>
+                                        <p>
+                                            To ensure that you receive years of enjoyment from your watch, we provide a suggested maintenance schedule for your watch. Please refer to your watch's owner manual for the manufacturer's recommended
+                                            maintenance schedule.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-maintenance-schedules" data-original-title="" title="" aria-describedby="tooltip887879">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-day" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Routine Care</h2>
+                                        <p>Time is precious and so is your watch.&amp;nbsp; Basic care and maintenance is required for your watch to provide you with years of enjoyment and satisfaction</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-routine-care">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-check" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Maintenance Schedule</h2>
+                                        <p>
+                                            To ensure that you receive years of enjoyment from your watch, we provide a suggested maintenance schedule for your watch. Please refer to your watch's owner manual for the manufacturer's recommended
+                                            maintenance schedule.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-maintenance-schedules" data-original-title="" title="" aria-describedby="tooltip887879">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-water" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Water Resistance</h2>
+                                        <p>Water is the highest risk to your watch and your enjoyment.&amp;nbsp; Most watches are water-resistant to various levels.&amp;nbsp; Here we give you the detail son what it means, how it is understood.</p>
+                                        <div class="btn-block">
+                                            <a href="/water-resistance">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-biohazard" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Things to Avoid</h2>
+                                        <p>
+                                            <span style="text-align: right;">To ensure that you receive years of enjoyment from your watch, here are some things to avoid.</span>
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/things-to-avoid">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="winding_your_automatic_watch_page" name="Winding Your Automatic Watch">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Winding Your Automatic Watch</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p class="o_default_snippet_text" style="text-align: justify;">
+                                An automatic movement, also called a self-winding movement, is a mechanical movement dating to the early 20th century. It winds itself while worn on the wrist, thanks to a weighted rotor in the movement that oscillates
+                                with your arm’s motion and provides tension to the mainspring. A slipping clutch prevents the mainspring from getting overwound.&amp;nbsp;
+                            </p>
+                            <p class="o_default_snippet_text" style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p class="o_default_snippet_text" style="text-align: justify;">An automatic watch eliminates the need for daily hand winding, but if not worn for some time it will stop and will require manual winding to restart.</p>
+                            <div>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>If Your Automatic Watch Stops</h2>
+                                        <p class="o_default_snippet_text">If your automatic watch stops, restart it manually using the crown&amp;nbsp;</p>
+                                        <p>To restart your automatic watch, give the crown about 40 spins, set the time, and then strap it on.&amp;nbsp;&amp;nbsp;</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Screw Down Crown</h2>
+                                        <p>Always secure the screw-down crown. If your watch has a screw-down crown, be sure to secure it after the watch has been wound and set to ensure the water-tight integrity of the watch.</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Wind Your Watch!</h2>
+                                        <p class="o_default_snippet_text">If you don’t wear your automatic watch daily, keep it wound anyway</p>
+                                        <p>Manually wind it using the crown at least weekly.</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-rotate-right" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Watch Winders</h2>
+                                        <p>
+                                            Consider investing in a quality watch winder. A watch winder rotates your watch daily when you’re not wearing it. This ensures that the watch movement continues to run and remains lubricated. Another benefit
+                                            is that the time and, especially the date, do not need to be reset, saving wear and tear on the mechanism.
+                                        </p>
+                                        <p class="o_default_snippet_text">
+                                            <br />
+                                        </p>
+                                        <p>A good watch winder does more than just spin, it allows you to set the rotation based on the requirements of your watch, so beware of cheap ones.</p>
+                                        <div class="btn-block">
+                                            <a href="/shop/watch-winders">Show Me Watch Winders</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_routine_care_page" name="Routine Care for Your Watch">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Routine Care for Your Watch</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-stopwatch" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Setting Your Watch</h2>
+                                        <p style="text-align: justify;">
+                                            Setting the time on your watch is simple, remove your watch from your wrist then pull the crown out (unscrew it first if necessary) and turn it to move the hands forward. But, of course, there are caveats…
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">If your watch has a manual winding mechanism, we advise you to wind it every day at the same time so that the mainspring is kept sufficiently taut.</p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            If you do not use it for a while, wind your mechanical watch (self-winding or manual-winding) at least once a month. For a manual-winding watch, turn the crown until it resists further winding, without
+                                            forcing it. For a self-winding watch, we recommend at least 25 turns of the crown. This will help to keep the movement components well lubricated.
+                                        </p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <b>Set the watch forward rather than running it backward:</b>
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            As a general practice, for mechanical watches, set the time by rolling it forward, rather than backward. While some modern watches can withstand both directions, for most, the mechanisms are designed around
+                                            moving forward, so some can’t take the stress of reversing. Also, after a mechanical watch settles in, reversing the watch against the pattern of normal wear may cause unnecessary additional wear. One general
+                                            rule is that if your mechanical watch's second-hand doesn’t stop when you put the watch in time setting mode, then you should definitely not turn the hands backward.
+                                        </p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">Avoid setting the date and time between 9 pm to 3 am (on the watch)</p>
+                                        <p style="text-align: justify;">The date mechanism is activated during these hours, so setting the date when the watch is in this time frame can damage the movement's gears and pinions.&amp;nbsp;</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-broom" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Cleaning Your Watch</h2>
+                                        <p style="text-align: justify;">Keeping your watch clean on the outside lessens the chance of it getting dirty on the inside. Wipe off your watch periodically to remove dust, dirt, moisture, and perspiration.</p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <b>Water-resistant watches:</b>
+                                        </p>
+                                        <p style="text-align: justify;">- Use a soft damp cloth to clean the head of the watch.</p>
+                                        <p style="text-align: justify;">- Then wipe it off with a dry soft cloth.</p>
+                                        <p style="text-align: justify;">- Metal bracelets can be cleaned by using mild soapy water and a soft toothbrush.</p>
+                                        <p style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">
+                                            <b>Non-water resistant watches:</b>
+                                        </p>
+                                        <p style="text-align: justify;">- Avoid exposure to any moisture.</p>
+                                        <p style="text-align: justify;">- Simply wipe the watch with a dry soft cloth.</p>
+                                        <p style="text-align: justify;">- Leather straps should be kept dry and conditioned occasionally, as you would any fine leather good.&amp;nbsp;&amp;nbsp;</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar-check" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Maintenance Schedules</h2>
+                                        <p style="text-align: justify;">To maintain your watch in the best working order, refer to our suggested maintenance schedules.&amp;nbsp;</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-maintenance-schedules">Go to Watch Maintenance Schedules</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_water_resistance_page" name="Water Resistance">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Water Resistance</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p class="o_default_snippet_text" style="text-align: justify;">
+                                Not all watches are designed to be water-resistant, and even when they are, the degree of water resistance varies. Also, remember that water resistance isn't a permanent condition. The gaskets and seals used to seal the
+                                watch deteriorate over time and need to be replaced occasionally. So be sure to have your watch tested and its water-resistance restored periodically.
+                            </p>
+                            <p class="o_default_snippet_text" style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">
+                                <b>Water-resistance defined:</b>
+                            </p>
+                            <p style="text-align: justify;">3 ATM / 30 m<span style="white-space: pre;"> </span>Protected against perspiration and accidental splashes of water, but avoid submerging it in water.</p>
+                            <p style="text-align: justify;">
+                                5 ATM / 50 m<span style="white-space: pre;"> </span>Protected against light use in water. It can be suitable for swimming, but not high impact water activities, like high diving or water skiing.
+                            </p>
+                            <p style="text-align: justify;">10 ATM / 100 m<span style="white-space: pre;"> </span>The watch has a high degree of water resistance. It can be suitable for snorkeling, but not scuba diving.</p>
+                            <p style="text-align: justify;">20 ATM / 200 m<span style="white-space: pre;"> </span>The watch can be worn while scuba diving, but it is not a professional divers’ watch.</p>
+                            <p style="text-align: justify;">30 ATM / 300 m<span style="white-space: pre;"> </span>The watch can be worn while deep water diving and can withstand repeated use as a professional divers’ watch.</p>
+                            <div>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-water" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Have your watch tested every 12−18 months</h2>
+                                        <p style="text-align: justify;">
+                                            How frequently you should test your watch depends on how often you wear it and in what conditions. A variety of factors can impact the seals, such as UV light, cosmetics, salt water, hot tubs, saunas, or
+                                            heavy shocks. Have it tested annually and the seals replaced when necessary.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide" data-original-title="" title="" aria-describedby="tooltip382211">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-crown" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Always secure the screw-down crown</h2>
+                                        <p style="text-align: justify;">
+                                            If your watch is designed for water activities, be sure the crown is pushed down or screwed in tightly before wearing it in water. Then while in a wet environment, do not operate or adjust the crown and/or
+                                            push buttons as water can seep into the case.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service-box">
+                                    <div class="icon">
+                                        <span class="fa fa-broom" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Clean your watch after water use, in the sea and pools especially</h2>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">Rinse the watch with clean water after swimming or diving with it. This will eliminate any dirt and chemicals from the pool or ocean.</p>
+                                        <p class="o_default_snippet_text" style="text-align: justify;">
+                                            <br />
+                                        </p>
+                                        <p style="text-align: justify;">If the watch has a rotating bezel, be sure to rotate the bezel while cleaning to dislodge any debris (sand or salt).</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_things_to_avoid_page" name="Things to Avoid">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt32 pb32">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Things to Avoid</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-hammer" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Impact &amp;amp; Forces</h2>
+                                        <p class="o_default_snippet_text">
+                                            Sudden shocks or impacts to your watch can result in damage to the case, movement, crystal, dial and hands, and could even void your warranty. When some unfortunate jolt happens, the watch may no longer
+                                            function properly and will require service.
+                                        </p>
+                                        <p class="o_default_snippet_text">
+                                            <br />
+                                        </p>
+                                        <p>
+                                            Even what might seem like ‘normal’ vibrations and impacts, like when playing golf or tennis, mountain biking, etc., can negatively affect your mechanical watch. So consider strapping on nice quartz for your
+                                            high-impact activities and giving your mechanical watch a well deserved day off.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide" data-original-title="" title="" aria-describedby="tooltip469782">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-magnet" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Magnetic Fields</h2>
+                                        <p class="o_default_snippet_text">
+                                            Since the introduction of electrical appliances, magnetism has had a growing impact on mechanical watches. While the earth’s magnetic field presents no challenge, magnetic fields from loudspeakers,
+                                            door-closers, locks and even mobile phones can have a negative impact on the rate of a mechanical watch. For this reason, watches should not be worn or stored for long periods within a range of
+                                            electromagnetic fields including those from televisions, mobile phones, or MRT devices.
+                                        </p>
+                                        <p class="o_default_snippet_text">
+                                            <br />
+                                        </p>
+                                        <p>
+                                            Mechanical watches exposed to anything containing a magnet can and, unfortunately, often will run incorrectly. The watch may run fast, slow, or even stop. There’s no set pattern. If this happens, take your
+                                            watch to a service expert to have it quickly demagnetized. If the watch is severely magnetized, complete maintenance of the movement may be necessary.&amp;nbsp;
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide" data-original-title="" title="">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-temperature-high" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Extreme Temperatures</h2>
+                                        <p>Moisture and drastic temperature changes and temperatures above 60°C/140°F and below 0°C/32°F can affect timekeeping and water resistance of most watches.</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-flask" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Chemicals</h2>
+                                        <p>Direct contact with chemicals, such as cosmetics, perfumes, detergents, solvents etc. may damage the case, gaskets, leather strap, and/or bracelet of a watch.</p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <span class="fa fa-watch" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Wearing Multiple Watches</h2>
+                                        <p>
+                                            Wearing several watches or items of jewelry on the same wrist risks scratching the watch and metal bracelet links. Limit the time your watch is exposed to sources of magnetic fields that may cause it to run
+                                            slow, excessively fast, or even stop. If necessary, a simple demagnetization process can be performed by a professional watchmaker, before resetting the time.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <span class="fa fa-calendar" style="" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2>Setting the Calendar</h2>
+                                        <p>Avoid correcting the date, month and lunar cycle in the afternoon or evening.</p>
+                                        <p>
+                                            <br />
+                                        </p>
+                                        <p>
+                                            Avoid manipulating the annual or perpetual calendar outside the time ranges recommended in the instructions. All complication gear trains in your watch can be engaged at this time of day. For detail setting
+                                            instruction, please refer to your manual.
+                                        </p>
+                                        <div class="btn-block">
+                                            <a href="/watch-service-guide">Return to Watch Service Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_valuation_page" name="Watch Valuation">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Watch Valuation</h2>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_appraisal_page" name="Watch Appraisal">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Watch Appraisal</h2>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_restoration_page" name="Watch Restoration">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Watch Restoration</h2>
+            </div>
+        </t>
+    </template>
+
+    <template id="watch_extended_warranty_page" name="Watch Extended Warranty">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Watch Extended Warranty</h2>
+            </div>
+        </t>
+    </template>
+</odoo>

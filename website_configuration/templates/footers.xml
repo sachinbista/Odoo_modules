@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="brand_list_down_footer" name="Bista BRand List">
+        <t t-set="brands"
+           t-value="request.env['product.attribute.value'].sudo().search([('attribute_id.dr_is_brand','=',True)],order='sequence asc',limit=11)"/>
+        <ul class="list-unstyled tp-list-dot">
+            <t t-foreach="brands" t-as="brand">
+                <li class="my-2">
+                    <a t-attf-href="/shop?attrib=#{brand.attribute_id.id}-#{brand.id}" t-att--title="brand.name">
+                        <t t-esc="brand.name"/>
+                    </a>
+                </li>
+            </t>
+            <li class="my-2">
+                <a href='/shop/all-brands'>Show All</a>
+            </li>
+        </ul>
+    </template>
+
+    <template id="bista_template_footer_style_1" inherit_id="website.layout" name="Bista Footer Style - 1"
+              active="False">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo bista_footer_style_1" t-ignore="true"
+                 t-if="not no_footer">
+                <section class="s_text_block pt48 pb36" data-snippet="s_text_block" data-name="Text"
+                         style="background-image: none;" id="Fast-and-free-delivery" data-anchor="true">
+                    <div class="container">
+                        <div class="row py-4 tp-icon-blocks">
+                            <div class="col-12 col-sm-6 col-xl-3 col-lg-2">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-rocket fa-2x text-primary"/>
+                                    </div>
+                                    <div class="flex-grow-1 ps-3">
+                                        <h6>Fast and free delivery</h6>
+                                        <p>Free delivery for all orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-xl-3 col-lg-2">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-undo fa-2x text-primary"/>
+                                    </div>
+                                    <div class="flex-grow-1 ps-3">
+                                        <h6>Money back guarantee</h6>
+                                        <p>We return money within 30 days</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-xl-3 col-lg-2">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-phone fa-2x text-primary"/>
+                                    </div>
+                                    <div class="flex-grow-1 ps-3">
+                                        <h6>24/7 customer support</h6>
+                                        <p>Friendly 24/7 customer support</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-xl-3 col-lg-2 o_colored_level">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-credit-card fa-2x text-primary"/>
+                                    </div>
+                                    <div class="flex-grow-1 ps-3">
+                                        <h6>Secure online payment</h6>
+                                        <p>We process SSL Certificate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-5">
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level" style="">
+                                <h6 class="mb-3">
+                                    <strong>Shop</strong>
+                                </h6>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/shop/category/diamond-jewelry-46">Diamond Jewelry</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/diamond-jewelry-studs-247">Diamond Stud Earrings</a>
+                                        <br/>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/diamond-jewelry-46">Diamonds</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/engagement-ring-48">Engagement Ring</a>s
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/fashion-jewelry-49">Fashion</a>
+                                        Jewelry
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/gold-jewelry-51">Gold Jewelry</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/jewelry-case-53">Jewelry Cases</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/kids-jewelry-54">Kids Jewelry</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/leather-goods-55">Leather Goods</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/watch-winder-67">Watch Winders</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/watches-65">Watches</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/wedding-wedding-bands-397">Wedding Bands</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/writing-instruments-68">Writing Instruments</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level">
+                                <h6 class="mb-3">
+                                    <strong>Diamonds</strong>
+                                </h6>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-asscher-292">Asher</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-cushion-293">Cushion</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-emerald-cut-295">Emerald</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-heart-296">Heart</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-oval-298">Oval</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-princess-300">Princess</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-radiant-301">Radiant</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-round-302">Round</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-pear-shape-299">Pear</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-marquis-297">Marquis</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/category/loose-diamonds-trillion-303">Trillion</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level">
+                                <h6 class="mb-3">
+                                    <strong>Brands</strong>
+                                </h6>
+                                <span class="o_not_editable">
+                                    <t t-call="website_configuration.brand_list_down_footer"/>
+                                </span>
+
+                            </div>
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level" style="">
+                                <h6 class="mb-3">
+                                    <strong>We Buy</strong>
+                                </h6>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/sell-your-diamond">Sell Your Diamond</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/sell-your-gold">Sell Your Gold</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/sell-your-jewelry">Sell Your Jewelry</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/sell-your-watch">Sell Your Watch</a>
+                                    </li>
+                                </ul>
+                                <p>
+                                    <strong>Events</strong>
+                                </p>
+                                <p>
+                                    <br/>
+                                </p>
+                                <p>
+                                    <strong>Learn</strong>
+                                </p>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/diamond-glossary">Diamond Glossary</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/jewelry-glossary">Jewelry Glossary</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/watch-glossary">Watch Glossary</a>
+                                    </li>
+                                </ul>
+                                <p>
+                                    <br/>
+                                </p>
+                                <p>
+                                    <br/>
+                                </p>
+                            </div>
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level">
+                                <h6 class="mb-3">
+                                    <strong>Services</strong>
+                                </h6>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/appraisals">Appraisals Valuations</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/engraving-services">Engraving Services</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/expert-jewelry-repair">Expert Jewelry Repair</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/expert-watch-repair">Expert Watch Repair</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/free-lifetime-warranty">Warranty</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/free-engraving">Free Engraving</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/free-resizing">Free Resizing</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/insurance">Jewelry Insurance</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/jewelry-service-guide">Jewelry Service Guide</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/free-returns">Sales and Returns</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/watch-service-guide">Watch Service Guide</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-4 mb-4 col-lg-2 o_colored_level" style="">
+                                <h6 class="mb-3">
+                                    <strong>Account</strong>
+                                </h6>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/my/orders">Order Status</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/my">My Account</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/shop/cart">My Cart</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/free-returns">Shipping &amp;amp; Returns</a>
+                                    </li>
+                                </ul>
+                                <p>
+                                    <strong>About</strong>
+                                </p>
+                                <ul class="list-unstyled tp-list-dot">
+                                    <li class="my-2">
+                                        <a href="/about-us">About us</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/core-values">Core Values</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/jobs">Careers</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/refer-friends">Refer a Friend</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/our-founders">Our Founder</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/faq">FAQs</a>
+                                    </li>
+                                    <li class="my-2">
+                                        <a href="/blog">Blog</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('o_footer_copyright')]" position="attributes">
+            <attribute name="class" add="tp-custom-copyright" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_footer_copyright')]/div[hasclass('container')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_footer_copyright')]/div[hasclass('container')]" position="after">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-lg-auto">
+                        <div class="my-2">
+                            Copyright &amp;copy; MyCompany
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-auto text-lg-end"
+                         t-if="(len(languages) &gt; 1 or (website and (editable or translatable))) or (website_sale_pricelists and len(website_sale_pricelists)&gt;1)">
+                        <ul class="list-inline my-2">
+                            <t t-call="theme_prime.component_language_pricelist_selector"/>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+
+    <template id="bista_footer_snippet_options" inherit_id="website.snippet_options">
+
+        <!-- Footer -->
+        <xpath expr="//we-select[@data-variable='footer-template']/we-button[last()]" position="after">
+            <we-button title="Bista Footer Style - 1"
+                       data-customize-website-views="website_configuration.bista_template_footer_style_1"
+                       data-customize-website-variable="'prime_style_4'"
+                       data-img="/theme_prime/static/src/img/options/footer_4.svg"/>
+        </xpath>
+
+    </template>
+
+</odoo>

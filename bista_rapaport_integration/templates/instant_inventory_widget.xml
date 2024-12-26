@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="instant_inventory_widget" name="Instant Inventory">
+        <div id="diamondinstantinventory" data-apikey="73837cff-6d84-4ceb-a5a1-1fea78a3c3f1" height="1200px" width="100%"/>
+  <script src="https://instantinventory-widgets-cl59s.s3.amazonaws.com/diamonds/1.0.0/widget.js"/>
+  <script type="text/javascript">
+    'use strict';
+    (function(d, w) {
+    function observeAddToCart() {
+        w.addEventListener('ds.addtocart', function(event, data) {
+          <!--console.log(data);-->
+          console.log(event.detail);
+            <!--jQuery.ajax({-->
+            <!--    //This is the API to where to POST the data to.-->
+            <!--    url: '/api/add_to_inventory_and_add_to_cart',-->
+            <!--    type: 'POST',-->
+            <!--    data: data-->
+            <!--}).done(function(res) {-->
+            <!--    //On success of the API call-->
+            <!--    w.location = '/success';-->
+            <!--}).fail(function(res) {-->
+            <!--    //On fail of the API call-->
+            <!--    alert(res.message);-->
+            <!--});-->
+        });
+    }
+    if (d.addEventListener) {
+        d.addEventListener('ds.ready', function() {
+            observeAddToCart();
+        }, false);
+    } else if (d.attachEvent) {
+        d.documentElement.attachEvent('onpropertychange', function(event) {
+            if (event.propertyName === 'ds.ready')
+                observeAddToCart();
+        });
+    }
+}(document, window));
+ 
+</script>
+    </template>
+
+</odoo>

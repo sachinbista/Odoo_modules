@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_view_account_payment_form" model="ir.ui.view">
+            <field name="name">inherit.account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_post']" position="after">
+                    <button name="check_bounce" string="Bounced" class="oe_highlight" type="object"
+                            attrs="{'invisible':['|','|',('show_bounce_button','=', False),
+                            ('is_check_bounce','=',True),('state','!=','posted'),]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="is_check_bounce"  widget="boolean_toggle" readonly="1"/>
+                    <field name="bounce_move_id" readonly="1" invisible="1"/>
+                    <field name="show_bounce_button" readonly="1"  invisible="1"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_view_bounce_entry"
+                            string="Bounced Entry"
+                            type="object"
+                            icon="fa-bars"
+                            attrs="{'invisible': [('bounce_move_id', '=', False)]}"/>
+                </xpath>
+<!--                <xpath expr="//widget[@name='web_ribbon']" position="after">-->
+<!--                    	<widget name="web_ribbon" title="Bounced" attrs="{'invisible': [('is_check_bounce', '!=', True)]}"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+
+
+        <record id="inherit_account_move_form_view" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='other_info']" position="after">
+                    <page string="Bounce Payment" name="bounce_info">
+                        <group>
+                            <field name="bounce_id" readonly="1" force_save="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="lot_serial_list_show" inherit_id="website_sale.product" name="Lot/Serials in Product Page">
+        <xpath expr="//div[@id='product_detail_main']//t[@t-call='website_sale.product_price']" position="before">
+            <div id="select_part_dropdown" class="row">
+                <label t-if="lot_serial_list" for="serial_list" class="mt-2 w-auto">Lot/Serial:</label>
+
+                <select title="Click here to select your product" id="serial_list" class="form-select ml-md-2 w-auto w-md-75" t-if="lot_serial_list"
+                        autofocus="autofocus" name="selected_serial_id">
+                    <option value="" t-att-selected="true if not selected_serial_list else None">
+                        Select Lot/Serial
+                    </option>
+                    <t t-foreach="lot_serial_list" t-as="product_serial">
+                        <option t-att-value="product_serial.id"
+                                t-att-data-value_name="product_serial.name"
+                                t-att-selected="product_serial.id == selected_serial_list.id if selected_serial_list else None">
+                            <span t-field="product_serial.name"/>
+                        </option>
+                    </t>
+                </select>
+                <!-- <input t-if="lot_serial_list" type="hidden" name="selected_serial_id" value="-1"/> -->
+            </div>
+        </xpath>
+    </template>
+</odoo>

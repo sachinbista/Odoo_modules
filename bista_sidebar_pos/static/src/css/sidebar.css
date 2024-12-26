@@ -1,0 +1,10 @@
+.pos-content .product-screen.screen .screen-full-width > .control-buttons {
+  width: 185px;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+  border-right: solid 3px #787878;
+}
+.pos .control-button{
+	text-align: left;
+    margin: 2px 2px;
+}

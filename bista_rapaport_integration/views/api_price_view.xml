@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- api price form view -->
+    <record id="view_rapaport_api_price_form" model="ir.ui.view">
+        <field name="name">rapaport.api.price.form</field>
+        <field name="model">rapaport.api.price</field>
+        <field name="arch" type="xml">
+            <form string="Diamond Price" edit="1">
+                <sheet>
+                    <group>
+                        <field name="unique_id"/>
+                        <field name="shape"/>
+                        <field name="color"/>
+                        <field name="clarity"/>
+                        <field name="low_size"/>
+                        <field name="high_size"/>
+                        <field name="caratprice"/>
+                        <field name="date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- api price tree view -->
+    <record id="view_rapaport_api_price_tree" model="ir.ui.view">
+        <field name="name">rapaport.api.price.tree</field>
+        <field name="model">rapaport.api.price</field>
+        <field name="arch" type="xml">
+            <tree string="Diamond Price">
+                <field name="shape"/>
+                <field name="color"/>
+                <field name="clarity"/>
+                <field name="low_size"/>
+                <field name="high_size"/>
+                <field name="caratprice"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- action for api price -->
+    <record id="action_rapaport_api_price" model="ir.actions.act_window">
+        <field name="name">Diamond Price</field>
+        <field name="res_model">rapaport.api.price</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

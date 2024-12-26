@@ -1,0 +1,10 @@
+<openerp>
+    <data noupdate="1">
+        <record id="pro_sku_auto_data" model="product.auto.sku">
+            <field name="pro_name">Product Sku Configuration</field>
+            <!-- <field name="sequence">one</field> -->
+            <field name="hyphens">True</field>
+        </record>
+
+    </data>
+</openerp>

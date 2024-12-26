@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_payment_template_inherit" inherit_id="pos_all_in_one.pos_payment_template" xml:space="preserve">
+    <t t-name="RegisterInvoicePaymentPopupWidget" owl="1">
+		<div role="dialog" class="modal-dialog">
+			<div class="popup popup-confirm" style="height: 340px !important;">
+
+				<p class="title">
+					<t t-esc="props.title" />
+				</p>
+
+				<div class="body">
+					<p>Enter Payment Details Here</p><br/>
+					<div style="text-align: left; margin-left: 37px;">
+						<label style="text-align:left"> Payment Method:  </label>
+						<select id="payment_type1" class='detail' name='type' style="height: 35px;width: 59%;float: right;   margin-right: 6%;">
+							<t t-foreach='env.pos.journals' t-as='jrn' t-key='jrn.id'>
+								<option t-att-value='jrn.id'>
+									<t t-esc='jrn.name'/>
+								</option>
+							</t>
+						</select>
+					</div><br/>
+					<div style="text-align: left; margin-left: 37px;">
+						<label style="text-align:left"> Amount:  </label><input id ="entered_amount1" type="text" class="input-field" name="code" style="height: 35px;width: 59%;float: right;   margin-right: 6%;"></input>
+					</div><br/>
+
+				</div>
+
+				<div class="footer" style="position:fixed; bottom:0;">
+					<div class="button cancel" id="cancel_coupon_code" style="background-color: #652c55 !important; color: #fff;" t-on-click="cancel">
+						<t t-esc="props.cancelText" />
+					</div>
+					<div class="button confirm" id="create_customer_payment" style="background-color: #652c55 !important; color: #fff;" t-on-click="register_payment">
+						<t t-esc="props.confirmText" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</t>
+
+</templates>

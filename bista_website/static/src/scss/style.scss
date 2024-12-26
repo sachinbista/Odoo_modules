@@ -1,0 +1,49 @@
+.logo-icon {
+  color: $primary;
+  font-size: 200px;
+}
+.oe_website_sale_gift_card{
+    & td{
+        padding:0;
+    }
+}
+.gift_card_tr{
+    & td{
+        padding-top:0;
+    }
+}
+.show_gift_card_option{
+    cursor: pointer;
+}
+.gift_msg_empty_warning{
+    font-size: 13px;
+}
+.gift_input_readonly{
+    pointer-events: none;
+    background-color: #f3f3f3;
+}
+.personalize_message{
+    & .add_message_span{
+        font-size: 13px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: block;
+    }
+    & .gift_card_action_btn_div{
+        & span{
+            font-size: 13px;
+            cursor: pointer;
+            border-right: 1px solid #ccc;
+            padding: 0 7px;
+        }
+        & span:last-child{
+            border-right: none !important;
+            padding-right: 0;
+        }
+        & .action_add_gift_card{
+            font-size: 14px;
+            cursor: pointer;
+            color: o-color('primary');
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	
+	<!--google api key field-->
+	<record id="sh_contact_address_google_company_form_view_inherit" model="ir.ui.view">
+		<field name="name">sh.contact.address.google.company.form.view.inherit</field>
+		<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/> 
+			<field name="arch" type="xml">
+				<field name='partner_id' position="before">
+					<field name="sh_is_enable_google_api_key"/>
+					<field name='sh_google_api_key' attrs="{'invisible': [('sh_is_enable_google_api_key','=',False)],'required': [('sh_is_enable_google_api_key', '=', True)] }"/>
+					<field name='sh_restricted_country_ids' widget="many2many_tags" attrs="{'invisible': [('sh_is_enable_google_api_key','=',False)]}" help='Only suggestions are allowed from the given countries.'/>
+				</field>
+ 		</field>
+	</record>
+</odoo>

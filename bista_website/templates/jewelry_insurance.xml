@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="jewelry_insurance_page" name="Jewelry Insurance">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="as-offer-services1 pt16 pb16">
+                    <div class="container">
+                        <div class="seaction-head">
+                            <h1>Jewelry Insurance From Jewelers Mutual Insurance Group</h1>
+                        </div>
+                        <div class="seaction-head-desc">
+                            <p style="text-align: justify;">Jewelers Mutual Insurance Company has provided the content on this page.</p>
+                            <p style="text-align: justify;">Get your free quote today</p>
+                            <p style="text-align: justify;">
+                                James Allen has partnered with Jewelers Mutual Insurance Company to provide you with the option of insuring your beautiful and timeless jewelry with its Jewelers Mutual® personal jewelry insurance. Insuring your James Allen
+                                jewelry is quick and easy, and leaves you with a feeling of emotional and financial security.
+                            </p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">Protect yourself today with the only insurer in the U.S. and Canada* that specializes exclusively in jewelry insurance.</p>
+                            <p style="text-align: justify;">Jewelers Mutual® Jewelry Insurance advantages include:</p>
+                            <p style="text-align: justify;">Comprehensive worldwide coverage that extends beyond ordinary homeowners insurance;</p>
+                            <p style="text-align: justify;">Protection against theft, damage, accidental loss, and mysterious disappearance;</p>
+                            <p style="text-align: justify;">Flexibility to choose your own jeweler;</p>
+                            <p style="text-align: justify;">Repair of damaged jewelry with the same level of quality as the original;</p>
+                            <p style="text-align: justify;">Replacement of lost jewelry with the same brand and type;</p>
+                            <p style="text-align: justify;">Graduate Gemologists (GIA) with a passion for jewelry on staff.</p>
+                            <p style="text-align: justify;">If you have any questions about Jewelers Mutual’s Jewelers Mutual® Jewelry Insurance, please email personaljewelry@jminsure.com or call 888.884.2424.</p>
+                            <p style="text-align: justify;">
+                                <br />
+                            </p>
+                            <p style="text-align: justify;">*Insurance not available in Quebec.</p>
+                            <p style="text-align: justify;">
+                                Must be at least 18 years of age to apply for insurance. Jewelers Mutual is an alternative to other insurance companies you may be considering. James Allen is not a licensed agent of Jewelers Mutual and does not sell or
+                                recommend insurance.Coverage is subject to the provisions, limitations, exclusions, and endorsements in the policy and the level of coverage you select.By clicking the link above — “Learn more and get a free quote” — you
+                                authorize Jewelers Mutual to use a secure system to retrieve and save details of this purchase from James Allen for the purpose of calculating an insurance quote. Retrieved information may include your name and address.
+                            </p>
+                            <div style="text-align: justify;">
+                                <br />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-left">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="service-box sb-right">
+                                    <div class="icon">
+                                        <i class="fa fa-shopping-cart" />
+                                    </div>
+                                    <div class="service-inner">
+                                        <h2 class="o_default_snippet_text">Lorem ipsum dolor</h2>
+                                        <p class="o_default_snippet_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, exercitation ullamco.</p>
+                                        <div class="btn-block">
+                                            <a href="#" class="o_default_snippet_text">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

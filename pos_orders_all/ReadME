@@ -1,0 +1,26 @@
+Version 16.0.0.1 : (13/02/2023)
+		- When we open pos at that time get an error fixed that issue.
+
+
+Version 16.0.0.2 : (25/04/2023)
+	- Solved issue while install the module. That issue coming from arabic translation.
+
+Version 16.0.0.3 : (07/06/2023)
+	-- In the pos if we allow for the show product stock but if product image is not available than stock is not showing on the product debug for that and fixed that issue.
+
+Version 16.0.0.4 : (24/08//2023)
+	-While create sale the order that time pos screen is not working solved that issue.
+
+Version 16.0.0.5 : (25/08//2023)
+	-Solved issue while apply the coupon code in pos.
+	-Solved issue while display stock in pos.
+
+Version 16.0.0.6 : (29/08//2023)
+	-Solved issue while create pos config with different company.
+
+Version 16.0.0.7 : (13/09/2023)
+	-If stock type is Qty available that time quantity view in pos product screen in not Proper fixed that view.
+	- If stock type is Qty available that time quantity calculation is not perfect fixed that issue.
+
+Version 16.0.0.8 : (22/09/2023)
+	-While return products from the POS that have already been processed through the back-end, resulting in an increase in the stock solved that issue.

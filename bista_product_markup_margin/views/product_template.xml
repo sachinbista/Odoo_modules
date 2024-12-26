@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_margin_markup" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']//group[@name='group_standard_price']/label[@for='list_price']"
+                   position="before">
+                <label for="standard_price" position="move"/>
+                <div name="standard_price_uom" position="move"/>
+                <field name="default_code" invisible="1"/>
+                <field name="markup" string="Markup(%)" context="{'only_calculate_margin':True}" attrs="{'invisible': [('product_variant_count', '>', 1),
+                 ('is_product_variant', '=', False)]}"/>
+                <field name="margin" string="Margin(%)" context="{'only_calculate_markup':True}" attrs="{'invisible': [('product_variant_count', '>', 1), ('is_product_variant', '=',
+                    False)]}"/>
+                <field name="total_lst_price" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

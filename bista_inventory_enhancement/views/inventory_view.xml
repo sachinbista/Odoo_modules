@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="sync_inventory_adjustment.stock_inventory_line_tree2" model="ir.ui.view">
+        <field name="name">stock.inventory.line.tree2</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" string="Inventory Details" decoration-info="product_qty != theoretical_qty" decoration-danger="theoretical_qty &lt; 0">
+                <field name="product_tracking" invisible="1"/>
+                <field name="product_id"  domain="[('type','=','product')]"/>
+                <field name="product_uom_id" string="UoM" groups="uom.group_uom"/>
+                <field name="location_id" domain="[('id', 'child_of', inventory_location_id)]" groups="stock.group_stock_multi_locations"/>
+
+                <field name="prod_lot_id" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('product_tracking', '=', 'none')]}" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
+                <field name="location_id" invisible="1"/>
+                <field name="package_id" domain="['|',('location_id','=',False),('location_id','=',location_id)]"  groups="stock.group_tracking_lot"/>
+                <field name="partner_id" groups="stock.group_tracking_owner"/>
+                <field name="theoretical_qty" readonly="1" attrs="{'invisible': [('blind_count', '=', True)]}"/>
+                <field name="product_qty" string="Real Quantity"/>
+                <field name="state" invisible="1"/>
+                <field name="inventory_id" invisible="1"/>
+                <field name="inventory_location_id" invisible="1"/>
+                <field name="blind_count" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bista_inventory_view_inventory_form" model="ir.ui.view">
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="sync_inventory_adjustment.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_validate']" position="before">
+                <button name="action_submit" states="first_count,second_count" string="Submit" type="object"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_validate']" position="after">
+                <button name="action_cancel_draft" states="first_count,second_count" string="Cancel Inventory" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='exhausted']" position="after">
+                <field name="first_count_user_ids" widget="many2many_tags" options="{'no_create': True}" required="1"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('share', '=', False)]"/>
+                <field name="second_count_user_ids" widget="many2many_tags" options="{'no_create': True}" required="1"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('share', '=', False)]"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="first_count_user_id" invisible="1"/>
+                <field name="second_count_user_id" invisible="1"/>
+                <field name="adjustment_threshold"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="blind_count"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="access_first_count_qty" invisible="1"/>
+                <field name="access_second_count_qty" invisible="1"/>
+                <field name="show_first_count_qty" invisible="1"/>
+                <field name="show_second_count_qty" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_reset_product_qty']" position="attributes">
+                <attribute name="states">first_count,second_count</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in',('draft', 'cancel'))]}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">exception == True</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count', 'second_count'))]}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='theoretical_qty']" position="replace">
+                <field name="theoretical_qty" attrs="{'column_invisible': [('parent.blind_count', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+<!--            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_uom_id']" position="attributes">-->
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='location_id'][2]" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="domain">[('id', 'child_of', parent.location_id), ('usage', '=', 'internal')]</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='prod_lot_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('product_tracking', '=', 'none')], 'required': [('product_tracking', 'in', ['lot', 'serial'])]}</attribute>
+<!--                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>-->
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='partner_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='package_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_qty']" position="replace">
+                <field name="first_count_qty"
+                       attrs="{'column_invisible': [('parent.show_first_count_qty', '=', False)], 'readonly': [('parent.access_first_count_qty', '=', False)]}"/>
+                <field name="second_count_qty"
+                       attrs="{'column_invisible': [('parent.show_second_count_qty', '=', False)], 'readonly': ['|', ('exception', '=', False), ('parent.access_second_count_qty', '=', False)]}"/>
+                <field name="product_qty" string="Real Quantity" readonly="1" force_save="1"
+                       attrs="{'column_invisible': [('parent.state', 'not in', ['confirm', 'done'])]}"/>
+                <field name="exception" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_inventory_line_form" model="ir.ui.view">
+        <field name="name">stock.inventory.line.form</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Adjustment Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_tracking" invisible="1"/>
+                            <field name="product_id" domain="[('type','=','product')]" attrs="{'readonly': [('parent.filter', '=', 'product')]}" force_save="1"/>
+                            <field name="product_uom_id" string="UoM" groups="uom.group_uom" domain="[('category_id', '=', product_uom_category_id)]"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" groups="stock.group_stock_multi_locations"/>
+                            <field name="prod_lot_id" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('product_tracking', '=', 'none')]}" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
+                            <field name="location_id" invisible="1"/>
+                            <field name="package_id" domain="['|',('location_id','=',False),('location_id','=',location_id)]" groups="stock.group_tracking_lot"/>
+                            <field name="partner_id" groups="stock.group_tracking_owner"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="quant_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="state" readonly="True"/>
+                            <field name="theoretical_qty" readonly="1"/>
+                            <field name="first_count_qty" readonly="1"/>
+                            <field name="second_count_qty" readonly="1"/>
+                            <field name="product_qty" string="Real Quantity"/>
+                            <field name="exception" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

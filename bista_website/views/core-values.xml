@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="core-values" name="core-values">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title" style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;" class="o_default_snippet_text">Core Values</font>
+                        </h1>
+                    </div>
+                </section>
+                <section class="services pt32 pb32 o_colored_level bg-100" style="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h2>About Company Page</h2>
+                                <br/>
+                                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut
+                                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco
+                                    laboris nisi ut aliquip ex ea commodo consequat.
+                                </h4>
+                                <br/>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt
+                                    ut
+                                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco
+                                    laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
+                                    non
+                                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
+                                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Ut
+                                    enim
+                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                    commodo
+                                    consequat.
+                                </p>
+                                <br/>
+                                <button class="btn btn-default btn-lg">Get in Touch</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <span class="fa fa-signal logo-icon"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="services pt32 pb32 o_colored_level" style="background-image: none;">
+                    <div class="container bg-grey">
+                        <div class="row">
+                            <div class="col-sm-4 o_colored_level">
+                                <span class="fa fa-globe logo-icon" data-bs-original-title="" title=""
+                                      aria-describedby="tooltip122093"/>
+                            </div>
+                            <div class="col-sm-8 o_colored_level">
+                                <h2>Our Values</h2>
+                                <br/>
+                                <h4>
+                                    <strong>MISSION:</strong>
+                                    Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </h4>
+                                <br/>
+                                <p>
+                                    <strong>VISION:</strong>
+                                    Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_stats_3 pt16 pb16 o_colored_level bg-100" data-snippet="s_stats_3"
+                         data-name="Stats - 3" style="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-3 py-3 text-center o_colored_level">
+                                <h6>
+                                    <span class="text-o-color-1 fa fa-user fa-3x"/>
+                                </h6>
+                                <h4 class="mt-4">
+                                    <font style="font-size: 36px;" class="o_default_snippet_text">1200</font>
+                                </h4>
+                                <h6 class="o_default_snippet_text">Customers</h6>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3 py-3 text-center o_colored_level">
+                                <h6>
+                                    <span class="text-o-color-1 fa fa-magic fa-3x"/>
+                                </h6>
+                                <h4 class="mt-4">
+                                    <font style="font-size: 36px;" class="o_default_snippet_text">237</font>
+                                </h4>
+                                <h6 class="o_default_snippet_text">New Ideas</h6>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3 py-3 text-center o_colored_level">
+                                <h6>
+                                    <span class="text-o-color-1 fa fa-smile-o fa-3x"/>
+                                </h6>
+                                <h4 class="mt-4">
+                                    <font style="font-size: 36px;" class="o_default_snippet_text">1340</font>
+                                </h4>
+                                <h6 class="o_default_snippet_text">Happy Clients</h6>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3 py-3 text-center o_colored_level">
+                                <h6>
+                                    <span class="text-o-color-1 fa fa-cube fa-3x"/>
+                                </h6>
+                                <h4 class="mt-4">
+                                    <font style="font-size: 36px;" class="o_default_snippet_text">8000</font>
+                                </h4>
+                                <h6 class="o_default_snippet_text">Products</h6>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_heading_4 pt16 pb16 o_colored_level" data-snippet="s_heading_4"
+                         data-name="Heading - 4" style="background-image: none;">
+                    <div class="container">
+                        <div class="row justify-content-center s_col_no_bgcolor s_nb_column_fixed">
+
+
+                            <div class="col-12 col-lg-8 text-center">
+                                <span class="fa fa-users fa-2x bg-o-color-1 rounded-circle"/>
+                                <h2 class="mt-3">SERVICES
+                                    <br/>
+                                </h2>
+                                <p class="lead o_default_snippet_text">We are the creative team of theme prime. No one
+                                    actually read this so let me write any thing here.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_info_block_8 pt16 pb16 o_colored_level" data-snippet="s_info_block_8"
+                         data-name="Info Block - 8" style="background-image: none;">
+                    <div class="container">
+                        <div class="row align-items-center s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-md-4">
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-grow-1">
+                                        <h5 style="text-align: right;" class="o_default_snippet_text">Free Delivery</h5>
+                                        <p style="text-align: right;" class="o_default_snippet_text">All the lorem ipsum
+                                            generators on the Internet
+                                            <br/>
+                                            tend to repeat predefined chunks as necessary.
+                                        </p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-truck fa-3x text-o-color-1 ms-3"/>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-grow-1">
+                                        <h5 style="text-align: right;" class="o_default_snippet_text">30 Days Return
+                                        </h5>
+                                        <p style="text-align: right;" class="o_default_snippet_text">Consectetur, from a
+                                            Lorem Ipsum passage, and
+                                            <br/>
+                                            going through the cites of the word in classical.
+                                        </p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-refresh fa-3x text-o-color-1 ms-3"/>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-grow-1">
+                                        <h5 style="text-align: right;" class="o_default_snippet_text">Genuine Product
+                                        </h5>
+                                        <p style="text-align: right;" class="o_default_snippet_text">Many desktop
+                                            publishing packages and web
+                                            <br/>
+                                            page editors now use lorem ipsum as their.
+                                        </p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-magic fa-3x text-o-color-1 ms-3"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <img src="/web/image/theme_prime.s_info_block_8_1" class="img img-fluid mx-auto"
+                                     alt="Info Block Image 01" loading="lazy" data-original-id="1633"
+                                     data-original-src="/theme_prime/static/src/img/snippets/s_info_block_8_1.png"
+                                     data-mimetype="image/png"/>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-phone fa-3x text-o-color-1 me-3"/>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="o_default_snippet_text">24X7 Support</h5>
+                                        <p class="o_default_snippet_text">All the lorem ipsum generators on the Internet
+                                            <br/>
+                                            tend to repeat predefined chunks as necessary.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-rocket fa-3x text-o-color-1 me-3"/>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="o_default_snippet_text">Fast Service</h5>
+                                        <p class="o_default_snippet_text">Consectetur, from a Lorem Ipsum passage, and
+                                            <br/>
+                                            going through the cites of the word in classical.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center my-4 tp-editor-copy-n-move">
+                                    <div class="flex-shrink-0">
+                                        <span class="fa fa-thumbs-o-up fa-3x text-o-color-1 me-3"/>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="o_default_snippet_text">Customer Satisfaction</h5>
+                                        <p class="o_default_snippet_text">Many desktop publishing packages and web
+                                            <br/>
+                                            page editors now use lorem ipsum as their.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_heading_1 pt16 pb16 o_colored_level bg-100" data-snippet="s_heading_1"
+                         data-name="Heading - 1" style="">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 tp-heading-container text-center tp-line-thickness-normal tp-line-width-normal tp-line-bottom">
+                                <h2>Our Client Testimonial</h2>
+                                <p class="lead mb-0">Quality products from our shop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_testimonial_5 pb16 pt16 o_colored_level bg-100" data-snippet="s_testimonial_5"
+                         data-name="Testimonial - 5" style="">
+                    <div class="container">
+                        <div class="row s_col_no_bgcolor">
+                            <div class="col-lg-6 py-3">
+                                <blockquote
+                                        class="lead fw-light p-4 position-relative shadow border-primary o_default_snippet_text">
+                                    "Proin a nisi id turpis pharetra fermentum ac eu sem. Morbi ullamcorper mi quis
+                                    porttitor interdum. Maecenas luctus varius interdum. Duis commodo tincidunt velit
+                                    non bibendum. Phasellus placerat sodales nunc."
+                                </blockquote>
+                                <div class="d-flex align-items-center mt-5">
+                                    <img class="flex-shrink-0 img img-fluid tp-author-image me-3 rounded-circle img-thumbnail"
+                                         src="/web/image/theme_prime.s_testimonial_author_01" alt="Author Image 01"
+                                         loading="lazy" data-original-id="1660"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_testimonial_author_01.jpg"
+                                         data-mimetype="image/jpeg" style=""/>
+                                    <div class="flex-grow-1">
+                                        <h5 class="mb-1 o_default_snippet_text">John Doe</h5>
+                                        <span class="o_default_snippet_text">Designer</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 py-3">
+                                <blockquote
+                                        class="lead fw-light p-4 position-relative shadow border-primary o_default_snippet_text">
+                                    "Fusce sagittis ac orci sed tristique. Suspendisse a lobortis augue. Maecenas
+                                    scelerisque varius mattis. Sed auctor fermentum libero, sed ullamcorper elit laoreet
+                                    venenatis. Cras ac ex enim. Suspendisse sodales volutpat."
+                                </blockquote>
+                                <div class="d-flex align-items-center mt-5">
+                                    <img class="flex-shrink-0 img img-fluid tp-author-image me-3 rounded-circle img-thumbnail"
+                                         src="/web/image/theme_prime.s_testimonial_author_02" alt="Author Image 02"
+                                         loading="lazy" data-original-id="1661"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_testimonial_author_02.jpg"
+                                         data-mimetype="image/jpeg" style=""/>
+                                    <div class="flex-grow-1">
+                                        <h5 class="mb-1 o_default_snippet_text">Vivamus Tem</h5>
+                                        <span class="o_default_snippet_text">Developer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_call_to_action_2 pt56 pb56 o_colored_level" data-snippet="s_call_to_action_2"
+                         data-name="Call To Action - 2" style="background-image: none;">
+                    <div class="container">
+                        <div class="row align-items-center s_col_no_bgcolor s_nb_column_fixed">
+                            <div class="col-12 col-lg-9">
+                                <h4 class="o_default_snippet_text">Contact us at <a href="mailto:info@droggol.com"
+                                                                                    class="o_default_snippet_text">
+                                    info@droggol.com
+                                </a> or give us a call
+                                    <a href="tel:+91 70466 01320" class="o_default_snippet_text">+91 70466 01320</a>
+                                </h4>
+                                <p class="lead mb-0 o_default_snippet_text">We are the creative team of theme prime. No
+                                    one actually read this so let me write any thing here until the content is long
+                                    enough.
+                                </p>
+                            </div>
+                            <div class="col-12 col-lg-3 text-lg-end">
+                                <a href="#" class="btn btn-primary mt-3 mt-lg-0 o_default_snippet_text">Purchase Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <record id="core-values-record" model="website.page">
+        <field name="url">/core-values</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="core-values"/>
+    </record>
+</odoo>

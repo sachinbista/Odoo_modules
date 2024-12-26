@@ -1,0 +1,53 @@
+Version 16.0.0.1 : (18/01/2023)
+   -- when we create customer from pos at that time get an error fixed that issue.
+
+Version 16.0.0.2 : (27/02/2023)
+   Improvemnt:
+      - Add Payment Reference functionality in our module.
+      
+=> 16.0.0.3 : Improved an index as per latest improvements.
+	- Add Payment Reference functionality in our module index.
+
+Version 16.0.0.4 : (08/05/2023)
+   -- From the pos when we try to create customer but it is remove field value automatic debug for that and fixed that issue.
+
+
+Version 16.0.0.5 : (13/06/2023)
+   -- When we create product from the pos at that time get an error debug for that and fixed that issue.
+   -- when img is not set for the product at that time product qty is not showing debug for that and fixed that issue.
+
+Version 16.0.0.6 : (20/06/2023)
+   -- When we search proudct at that time searched product is not display fixed that issue.
+   
+Version 16.0.0.7 : (13/7/2023)
+  -- Arabic Translation Issue Fixed.
+
+Version 16.0.0.8 : (22/08/2023)
+   -If we defined the tracking true in product that time base functionality its not working in pos so fixed that issue.
+   -Solved issue while close the session error.
+
+Version 16.0.0.9 : (24/08/2023)
+   -While create sale the order that time pos screen is not working solved that issue.
+   -Solved the traceback issue while click on the product.
+
+Version 16.0.1.0 : (25/08/2023)
+   -Solved issue while apply the coupon code in pos.
+   -Solved issue while display stock in pos.
+
+Version 16.0.1.1 : (01/09/2023)
+   -Edit price numpad button is not visible in pos solved that issue and create new user that time disable pos button functionality not working fixed that issue.
+
+Version 16.0.1.2 : (05/09/2023)
+   -Customer note was not printed in pos receipt solved that issue.
+
+Version 16.0.1.3 : (12/09/2023)
+   -While doing the partial payment system generates two transfers, and because of that, stock is deducted twice
+
+Version 16.0.1.4 : (22/09/2023)
+   -While return products from the POS that have already been processed through the back-end, resulting in an increase in the stock solved that issue.
+
+Version 16.0.1.5 : (27/09/2023)
+   -When we make partial payments, we notice that the cash collected is not reflected in the cash count at the end of the session solved that issue.
+
+Version 16.0.1.6 : (11/10/2023)
+   -If Inventory Management not in real time that time double picking was created so solved that issue while closing the session.

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="gift_card_message" inherit_id="website_sale.total" name="Gift Card">
+        <xpath expr="//div[@id='cart_total']//table/tr[last()]" position="after">
+            <t t-set="sale_order" t-value="request.website.sale_get_order()"></t>
+            <tr t-if="sale_order" class="gift_card_tr">
+                <td colspan="3" class="text-center text-xl-end border-0">
+                    <t t-if="sale_order" t-set="gift_product" t-value="sale_order.order_line.filtered(lambda so: so.is_gift_product)"></t>
+                    <div class="personalize_message w-100">
+                        <span class="add_message_span">Add a complementary gift message</span>
+                        <textarea id="gift_card_message" name="gift_card_message" t-att-class="'form-control gift_input_readonly' if gift_product else 'form-control'"><t t-if="gift_product" t-esc="gift_product.name"></t></textarea>
+                        <div class="gift_card_action_btn_div">
+                            <t t-if="not gift_product">
+                                <label class="action_add_gift_card mt8">
+                                    Add Gift Card
+                                </label>
+                            </t>
+                            <t t-else="">
+                                <span class="gc_action_edit">Edit</span>
+                                <span class="action_add_gift_card save_gift_card d-none">Save Changes</span>
+                            </t>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+    <!-- Add Gift Card Message -->
+    <template id="cart_line_description_following_lines" inherit_id="website_sale.cart_line_description_following_lines" name="Gift Card Message">
+        <xpath expr="//div[@t-if='description_lines']" position="before">
+            <t t-if="line and line.is_gift_product">
+                <span class="text-muted small"><t t-esc="line.name"></t></span>
+            </t>
+        </xpath>
+    </template>
+</odoo>

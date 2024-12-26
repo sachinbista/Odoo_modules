@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'SantasSleighFull Deluxe';
+    src: url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.eot');
+    src: url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.eot?#iefix') format('embedded-opentype'),
+    url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.woff2') format('woff2'),
+    url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.woff') format('woff'),
+    url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.ttf') format('truetype'),
+    url('../font/SantasSleighFull-Deluxe/SantasSleighFullDeluxe.svg#SantasSleighFullDeluxe') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+.santasSleighfull-sdeluxe {
+    font-family: 'SantasSleighFull Deluxe'
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../font/Helvetica/Helvetica.woff2') format('woff2'),
+    url('../font/Helvetica/Helvetica.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap
+}
+
+.helvetica {
+    font-family: 'Helvetica'
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_custom" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.custom</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+             <xpath expr="//field[@name='user_id']" position="after">
+                <field name="short_code"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="commission" string="Commission" groups="hr.group_hr_user">
+                    <group>
+                        <group string='Commission'>
+                            <label for="base_percentage"/>
+                            <div class="content-group">
+                                <field name="base_percentage" style="width:15%"/> %
+                            </div>
+                            <label for="goal_percentage"/>
+                            <div class="content-group">
+                                <field name="goal_percentage" style="width:15%"/> %
+                            </div>
+                            <label for="stretch_percentage"/>
+                            <div class="content-group">
+                                <field name="stretch_percentage" style="width:15%"/> %
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

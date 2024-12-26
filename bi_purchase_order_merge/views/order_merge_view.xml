@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Wizard For Purchase Order-->
+        <record id="view_purchase_order_merge_form_new_1" model="ir.ui.view">
+            <field name="name">purchase.order.merge.form</field>
+            <field name="model">purchase.order.merge</field>
+            <field name="arch" type="xml">
+                <form string="Merge orders">
+                    <sheet>
+                        <p style="font-size: initial; color: darkcyan;text-decoration: underline;"
+                           attrs="{'invisible': [('merge_with_diff_partner','!=',True)]}">
+                            When you merge orders for different vendor new purchase order will be generated for selected vendor and other purchase will be cancel. Do you want to continue ?</p>
+                        <group>
+                            <field name="merge_with_diff_partner" invisible="1"/>
+                            <field name="partner_id" attrs="{'invisible': [('merge_with_diff_partner','!=',True)], 'required':[('merge_with_diff_partner','!=',False)]}"/>
+                            <field name="type" attrs="{'invisible': [('merge_with_diff_partner','!=',False)]}"/>
+                            <field name="purchase_order_to_merge" invisible="1"/>
+                            <field name="purchase_order" domain="[('id','in',purchase_order_to_merge)]" attrs="{'invisible': ['|',('type', 'in', ['new','exist']),('merge_with_diff_partner','!=',False)],'required': [('type', 'in', ['exist_1','exist_2'])]}" options="{'no_create': True, 'no_edit': True}"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="merge_purchase" type="object" string="Merge" class="oe_highlight"
+                                attrs="{'invisible': [('purchase_order_to_merge', '=', [(6, False, [])])]}"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

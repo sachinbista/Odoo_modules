@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="sh_contact_address_google_place.CharField" t-inherit="web.CharField" owl="1">
+        <xpath expr="//input" position="attributes">
+            <attribute name="t-on-input">onInputEventAddress</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="sh_contact_address_google_place.AddressDropDown">
+        <div t-attf-class="js_cls_address_dropdown dropdown-menu #{results.length ? 'show' : ''}">
+            <a class="dropdown-item js_cls_address_result_item"
+               t-foreach="results" t-as="result"
+               t-att-data-place-id="result['place_id']">
+                <t t-out="result['description']"/>
+            </a>
+            <img class="ms-auto pe-1" src="/sh_contact_address_google_place/static/src/img/pw_by_google.png" alt="Powered by Google"/>
+        </div>
+    </t>
+
+    <t t-name="address_validation.ValidatorDialog" owl="1">
+      <Dialog title="title" size="sm" contentClass="'o_validation_dialog'">
+        <div style="display: flex; flex-direction: column;">
+            <div id="validation_result" class="card p-2">
+<!--                <h5 class="card-title">Address Validation Failed <i class="fa fa-exclamation-circle" aria-hidden="true"></i></h5>-->
+                <div class="d-flex flex-lg-row flex-column p-2">
+                    <div class="card w-lg-50" t-if="props.address">
+                        <label class="p-2">
+                            <input type="radio" value="no" checked="checked" name="address_validation"/>
+                            <h6 class="d-inline ml8" style="line-height: 2.0;">Input Address</h6>
+                            <div style="margin-top: 5px;">
+                                <p t-esc="props.address.formatted_street" style="line-height: 0.5; margin-left: 22px;"></p>
+                                <p t-esc="props.address.street2" style="line-height: 0.5; margin-left: 22px;"></p>
+                                <p style="line-height: 0.5;">
+                                    <span t-esc="props.address.city" style="margin-left: 22px;"></span>
+                                    <span t-esc="props.address.state_name" style="margin-left: 22px;"></span>
+                                    <span t-esc="props.address.zip" style="margin-left: 22px;"></span>
+                                </p>
+                                <p t-esc="props.address.country_code" style="line-height: 0.5; margin-left: 22px;"></p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="card w-lg-50 ml8" t-if="props.validAddress">
+                        <label class="p-2">
+                            <input type="radio" value="yes" name="address_validation"/>
+                            <h6 class="d-inline ml8" style="line-height: 2.0;">Suggested Address</h6>
+                            <div style="margin-top: 5px;">
+                                <p t-esc="props.validAddress.formatted_street" style="line-height: 0.5; margin-left: 22px;"></p>
+                                <p t-esc="props.validAddress.street2" style="line-height: 0.5; margin-left: 22px;"></p>
+                                <p style="line-height: 0.5;">
+                                    <span t-esc="props.validAddress.city" style="margin-left: 22px;"></span>
+                                    <span t-esc="props.validAddress.state_name" style="margin-left: 22px;"></span>
+                                    <span t-esc="props.validAddress.zip" style="margin-left: 22px;"></span>
+                                </p>
+                                <p t-esc="props.validAddress.country_code" style="line-height: 0.5; margin-left: 22px;"></p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <t t-set-slot="footer">
+          <button class="btn btn-primary yes_btn" t-on-click="(ev) => this.saveAddress(ev)" >Save</button>
+          <button class="btn btn-secondary" t-on-click="props.close">Discard</button>
+
+        </t>
+      </Dialog>
+    </t>
+
+</templates>

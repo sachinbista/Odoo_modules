@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_bi_res_users_form" model="ir.ui.view">
+        <field name="name">inherit_bi_res_users_form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="pos_all_in_one.inherit_view_bi_res_users_form"/>
+        <field name="arch" type="xml">
+            <field name="is_allow_numpad" position="after">
+                <field name="is_allow_sidebar"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="inherit_bi_hr_employee_form" model="ir.ui.view">
+        <field name="name">inherit_bi_hr_employee_form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="pos_all_in_one.inherit_view_bi_hr_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="is_allow_numpad" position="after">
+                <field name="is_allow_sidebar"/>
+            </field>
+        </field>
+    </record>
+</odoo>

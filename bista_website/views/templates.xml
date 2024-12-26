@@ -1,0 +1,12 @@
+<odoo>
+    <template id="s_share_inherit" inherit_id="website.s_share">
+        <xpath expr="//a[last()]" position="after">
+            <a href="sms:+1234567890?body={url}:{title}" t-attf-class="s_share_comment #{_link_classes}" data-toggle="tooltip" title="Copy">
+                <i t-attf-class="fa fa-comment #{not _link_classes and 'rounded shadow-sm'}"/>
+            </a>
+            <a href="#" t-attf-class="s_share_email #{_link_classes}" data-toggle="tooltip" title="Copy">
+                <i t-attf-class="fa fa-link o_clipboard_button o_btn_char_copy #{not _link_classes and 'rounded shadow-sm'}"/>
+            </a>
+        </xpath>
+    </template>
+</odoo>

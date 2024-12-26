@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <record id="action_merge_purchase_order" model="ir.actions.act_window">
+            <field name="name">Merge Purchase Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.merge</field>
+            <field name="view_mode">form</field>
+            <field name='target'>new</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        </record>
+
+
+        <record id="action_merge_order_lines" model="ir.actions.act_window">
+            <field name="name">Merge Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.orderline.merge.wizard</field>
+            <field name="view_mode">form</field>
+            <field name='target'>new</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        </record>
+
+    </data>
+</odoo>

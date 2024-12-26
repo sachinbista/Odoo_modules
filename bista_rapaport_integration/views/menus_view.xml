@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="main_menu_rapaport_integration_root"
+              name="Rapaport"
+              web_icon="bista_rapaport_integration,static/description/rapaport_logo.png"
+              sequence="36"/>
+    <menuitem id="sub_menu_api_price"
+              name="Price Sheet"
+              parent="bista_rapaport_integration.main_menu_rapaport_integration_root"
+              sequence="0"/>
+    <menuitem action="action_rapaport_api_price"
+                id="menu_action_rapaport_api_price"
+                name="Price Sheet"
+                parent="bista_rapaport_integration.sub_menu_api_price"
+                sequence="1"/>
+    <menuitem id="sub_menu_configuration"
+              name="Configuration"
+              parent="bista_rapaport_integration.main_menu_rapaport_integration_root"
+              sequence="1"/>
+    <menuitem action="action_rapaport_api_shape"
+              id="menu_action_rapaport_api_shape"
+              name="Shape"
+              parent="bista_rapaport_integration.sub_menu_configuration"
+              sequence="1"/>
+    <menuitem action="action_rapaport_api_color"
+                id="menu_action_rapaport_api_color"
+                name="Color"
+                parent="bista_rapaport_integration.sub_menu_configuration"
+                sequence="2"/>
+    <menuitem action="action_rapaport_api_clarity"
+                id="menu_action_rapaport_api_clarity"
+                name="Clarity"
+                parent="bista_rapaport_integration.sub_menu_configuration"
+                sequence="3"/>
+
+</odoo>

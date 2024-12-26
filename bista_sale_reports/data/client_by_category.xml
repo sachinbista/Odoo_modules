@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="client_by_category_report" model="account.report">
+            <field name="name">Client By Category</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="filter_period_comparison" eval="True"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_user" eval="True"/>
+            <field name="filter_category" eval="True"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="custom_handler_model_id" ref="model_client_by_category_report_handler"/>
+            <field name="column_ids">
+                <record id="client_by_category_report_amount_sold" model="account.report.column">
+                    <field name="name">$ Sold</field>
+                    <field name="expression_label">amount_sold</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">1</field>
+                </record>
+                <record id="client_by_category_report_percent_total" model="account.report.column">
+                    <field name="name">% Total</field>
+                    <field name="expression_label">percent_total</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">2</field>
+                </record>
+                <record id="client_by_category_report_number_sold" model="account.report.column">
+                    <field name="name"># Sold</field>
+                    <field name="expression_label">number_sold</field>
+                    <field name="figure_type">integer</field>
+                    <field name="sequence">3</field>
+                </record>
+                <record id="client_by_category_report_percent_discount" model="account.report.column">
+                    <field name="name">% Disc</field>
+                    <field name="expression_label">percent_discount</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">4</field>
+                </record>
+                <record id="client_by_category_report_address" model="account.report.column">
+                    <field name="name">Street, City, State - Zip</field>
+                    <field name="expression_label">address</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">5</field>
+                </record>
+                <record id="client_by_category_report_contact_email" model="account.report.column">
+                    <field name="name">Phone/Mobile, Email</field>
+                    <field name="expression_label">contact_email</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">6</field>
+                </record>
+                <record id="client_by_category_report_sp" model="account.report.column">
+                    <field name="name">SP</field>
+                    <field name="expression_label">sp</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">7</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>

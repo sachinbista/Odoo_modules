@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="darakjian_mega_menu_1" model="website.menu">
+            <field name="name">ENGAGEMENT</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_2" model="website.menu">
+            <field name="name">WEDDING</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_3" model="website.menu">
+            <field name="name">DIAMONDS</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_4" model="website.menu">
+            <field name="name">JEWELRY</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_5" model="website.menu">
+            <field name="name">WATCHES</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_6" model="website.menu">
+            <field name="name">GIFTS</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+        <record id="darakjian_mega_menu_6" model="website.menu">
+            <field name="name">SERVICES</field>
+            <field name="url">/</field>
+            <field name="is_mega_menu" eval="True"/>
+        </record>
+
+        <!-- Appointment menu and options -->
+        <record id="appointment_engagement_type" model="appointment.type">
+            <field name="name">Appointment Engagement</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_engagement_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_engagement_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_wedding_type" model="appointment.type">
+            <field name="name">Appointment Wedding</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_wedding_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_wedding_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_diamond_type" model="appointment.type">
+            <field name="name">Appointment Diamond</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_diamond_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_diamond_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_jewelry_type" model="appointment.type">
+            <field name="name">Appointment Jewelry</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_jewelry_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_jewelry_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_watch_type" model="appointment.type">
+            <field name="name">Appointment Watch</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_watch_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_watch_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_gift_giving_type" model="appointment.type">
+            <field name="name">Appointment Gift giving</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+        <record id="appointment_question_gift_1" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_gift_giving_type"/>
+            <field name="question_type">text</field>
+        </record>
+
+        <record id="appointment_type_trade_option" model="appointment.type">
+            <field name="name">Trade-Up/IN</field>
+            <field name="lead_create" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <record id="appointment_question_trade_1" model="appointment.question">
+            <field name="name">Trade Option</field>
+        </record>
+
+        <record id="appointment_type_trade_answer_1" model="appointment.answer">
+            <field name="name">Trade In</field>
+            <field name="question_id" ref="appointment_question_trade_1"/>
+        </record>
+
+        <record id="appointment_type_trade_answer_2" model="appointment.answer">
+            <field name="name">Trade Up</field>
+            <field name="question_id" ref="appointment_question_trade_1"/>
+        </record>
+
+        <record id="appointment_question_trade_1" model="appointment.question">
+            <field name="name">Trade Option</field>
+            <field name="appointment_type_id" ref="appointment_type_trade_option"/>
+            <field name="question_type">radio</field>
+            <field name="question_required" eval="True"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="appointment_question_trade_2" model="appointment.question">
+            <field name="name">Message</field>
+            <field name="appointment_type_id" ref="appointment_type_trade_option"/>
+            <field name="question_type">text</field>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+
+    <template id="appointment_memory" name="Appointment Memory">
+        <t t-call="website.layout">
+            <div class="story consider-us">
+                <div class="wrapper">
+                    <!--hero-sec-->
+                    <section class="hero-sec"
+                             style="background-image: url('/website_configuration/static/src/img/store4.png');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="hero-text">
+                                        <h1>
+                                            Since 1964,
+                                            <strong>Darakjian</strong>
+                                            knows better than anyone what you are looking for
+                                            <br/>
+                                            in
+                                            <strong>your jeweler</strong>
+                                        </h1>
+                                        <p>
+                                            From your first visit, throughout the life of your jewelry, Darakjian is
+                                            devoted to
+                                            <strong>quality and service.</strong>
+                                            We are committed to your enjoyment with a dedication and know-how that’s
+                                            unmatched by any other jeweler.
+                                            <br/>
+                                            <br/>
+                                            From engagement rings and watches to expert repairs and personalized
+                                            service, there’s simply no competition. We’ll let our jewelry do the
+                                            talking.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-brand">
+                                    <ul class="real-text">
+                                        <li class="animated fadeInUp">R</li>
+                                        <li class="animated fadeInUp">E</li>
+                                        <li class="animated fadeInUp">A</li>
+                                        <li class="animated fadeInUp">L</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="our-sec">
+                        <div class="container">
+                            <div class="main-row row">
+                                <div class="our-text our-text-two col-4">
+                                    <p>
+                                        <strong>Trusted for over 50 years.</strong>
+                                        <br/>
+                                        Our warm, knowledgeable and
+                                        <br/>
+                                        professional staff are experts
+                                        <br/>
+                                        helping you
+                                        <strong>make memories.</strong>
+                                    </p>
+                                </div>
+                                <div class="d-logo col-2">
+                                    <img src="/website_configuration/static/src/img/d-logo.png" alt=""/>
+                                </div>
+                                <div class="our-text text-left our-text-two col-4">
+                                    <p>
+                                        <strong>Darakjian Jewelers</strong>
+                                        offers an
+                                        <br/>
+                                        unparalleled collection of
+                                        <br/>
+                                        diamonds, jewelry and watches
+                                        <br/>
+                                        with service that is second to none.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <section class="s_d_brand_snippet_wrapper pb32" data-mode="slider" data-brand-count="8">
+                                <div class="container position-relative">
+                                    <div class="s_d_brand_snippet"/>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+
+                    <!--review-sec-->
+
+                    <section class="review-sec">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-12">
+                                    <div class="review-text">
+                                        <h2>
+                                            Earning trust
+                                            <br/>
+                                            with every customer
+                                        </h2>
+                                        <p>
+                                            Our customers come to us because they trust our
+                                            <strong>honesty and expertise.</strong>
+                                            Experience this for yourself.
+                                            <br/>
+                                            Drop by during business hours or request a personal appointment.
+                                        </p>
+                                        <a href="/appointment/1" style="margin: 0 0 0 0;" class="my-btn submit-btn"
+                                           data-toggle="modal" data-target="#exampleModal">
+                                            Let’s Make a Memory
+                                            <i class="fas fa-long-arrow-alt-right"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-12">
+                                    <div class="blog-slider">
+                                        <div class="blog-slider__wrp swiper-wrapper">
+                                            <t t-if="google_reviews">
+                                                <t t-foreach="google_reviews" t-as="record">
+                                                    <div class="blog-slider__item swiper-slide">
+                                                        <!-- <div class="blog-slider__img">-->
+                                                        <!-- <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg"  alt=""/>-->
+                                                        <!-- </div>-->
+
+                                                        <div class="blog-slider__content">
+                                                            <div class="blog-slider__title">
+                                                                <t t-esc="record.name"/>
+                                                            </div>
+
+                                                            <ul class="rating">
+                                                                <li>
+                                                                    <i class="fas fa-star"/>
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fas fa-star"/>
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fas fa-star"/>
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fas fa-star"/>
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fas fa-star"/>
+                                                                </li>
+                                                            </ul>
+
+                                                            <span class="blog-slider__code">
+                                                                <t t-esc="record.period"/>
+                                                            </span>
+                                                            <div class="blog-slider__text">
+                                                                <t t-esc="record.review"/>
+                                                            </div>
+
+                                                            <!--                                                                         <a href="https://www.google.com/maps/place/Darakjian+Jewelers/@42.5474253,-83.2184208,17z/data=!4m7!3m6!1s0x8824c7070f5beda7:0xfeec85b71df22c68!8m2!3d42.5474214!4d-83.2162268!9m1!1b1"-->
+                                                            <!--                                                                         target="_blank" class="blog-slider__button">View All Reviews-->
+                                                            <!--                                                                         </a>   -->
+                                                            <a
+                                                                    href="https://www.google.com/maps/place/Darakjian+Jewelers/@42.5474253,-83.2184208,17z/data=!4m7!3m6!1s0x8824c7070f5beda7:0xfeec85b71df22c68!8m2!3d42.5474214!4d-83.2162268!9m1!1b1"
+                                                                    target="_blank"
+                                                            >
+                                                                View All Our Reviews
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </div>
+                                        <div class="blog-slider__pagination"/>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--excellence-sec-->
+
+                    <section class="excellence-sec">
+                        <div class="excellence-sec-inner container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="excellence-text">
+                                        <h3>
+                                            <span>Over 50 Years of Excellence</span>
+                                        </h3>
+                                        <p>
+                                            John Darakjian began with four basic principles:
+                                            <br/>
+                                            <strong>Hard Work, Customer Service, Honesty, and Integrity.</strong>
+                                            <br/>
+                                            These are the core values we still hold to to this day.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1964</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/metropolitan.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>Doors Open</h5>
+                                                <p>
+                                                    Metropolitan building
+                                                    <br/>
+                                                    Detroit, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1976</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/advance.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>We Grow</h5>
+                                                <p>
+                                                    Advance building
+                                                    <br/>
+                                                    Southfield, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1993</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/northwestern.jpg" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>New Experience</h5>
+                                                <p>
+                                                    Northwestern Hwy.
+                                                    <br/>
+                                                    Southfield, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>2014</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/101.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>Grand Opening</h5>
+                                                <p>
+                                                    101 Willits
+                                                    <br/>
+                                                    Birmingham, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--service-sec -->
+
+                    <section class="service-sec">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="excellence-text text-center">
+                                        <h3>Exceptional Service Is In Our DNA</h3>
+                                        <p>
+                                            We treat every relationship and every new customer like a precious gem, and
+                                            our clients have taken notice. Darakjian Jewelers specializes in everything
+                                            from diamond engagement rings to unique
+                                            timepieces. We want to help you find the perfect piece that expresses you,
+                                            or the perfect gift to express how you feel.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-one">
+                                        <h5>Jewelry Repair</h5>
+                                        <p>Trust our skilled and trained jewelers to assess, repair and restore your
+                                            finest jewelry.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-two">
+                                        <h5>Appraisals</h5>
+                                        <p>Our appraisers are experienced to provide an official insurable value to your
+                                            jewelry.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-three">
+                                        <h5>Watch Repair</h5>
+                                        <p>Return your watch to its original working order, and add polish to your
+                                            timepiece.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--trust-sec-->
+                    <section class="trust-sec text-center">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4>
+                                        Let us show you how luxury feels.
+                                        <br/>
+                                        Come meet our jewelry experts.
+                                    </h4>
+                                    <p>
+                                        Personal <strong>1-on-1</strong> consultation.
+                                        <br/>
+                                        <strong>Complimentary</strong>
+                                        lifetime services.
+                                        <br/>
+                                        Diamond <strong>Trade-Up</strong> program.
+                                        <br/>
+                                        <strong>14-Day</strong>
+                                        returns.
+                                    </p>
+                                    <a href="/appointment/1" style="margin: 0 0 0 0;" class="my-btn submit-btn"
+                                       data-toggle="modal" data-target="#exampleModal">
+                                        Let’s Make a Memory
+                                        <i class="fas fa-long-arrow-alt-right"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="trade_up" name="Trade Up">
+        <t t-call="website.layout">
+            <div class="story consider-us">
+                <div class="wrapper">
+                    <!--hero-sec-->
+                    <section class="hero-sec"
+                             style="background-image: url('/website_configuration/static/src/img/store4.png');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="hero-text">
+                                        <h1>
+                                            Since 1964,
+                                            <strong>Darakjian</strong>
+                                            knows better than anyone what you are looking for
+                                            <br/>
+                                            in
+                                            <strong>your jeweler</strong>
+                                        </h1>
+                                        <p>
+                                            From your first visit, throughout the life of your jewelry, Darakjian is
+                                            devoted to
+                                            <strong>quality and service.</strong>
+                                            We are committed to your enjoyment with a dedication and know-how that’s
+                                            unmatched by any other jeweler.
+                                            <br/>
+                                            <br/>
+                                            From engagement rings and watches to expert repairs and personalized
+                                            service, there’s simply no competition. We’ll let our jewelry do the
+                                            talking.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-brand">
+                                    <ul class="real-text">
+                                        <li class="animated fadeInUp">R</li>
+                                        <li class="animated fadeInUp">E</li>
+                                        <li class="animated fadeInUp">A</li>
+                                        <li class="animated fadeInUp">L</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="our-sec">
+                        <div class="container">
+                            <div class="main-row row">
+                                <div class="our-text our-text-two col-4">
+                                    <p>
+                                        <strong>Trusted for over 50 years.</strong>
+                                        <br/>
+                                        Our warm, knowledgeable and
+                                        <br/>
+                                        professional staff are experts
+                                        <br/>
+                                        helping you
+                                        <strong>make memories.</strong>
+                                    </p>
+                                </div>
+                                <div class="d-logo col-2">
+                                    <img src="/website_configuration/static/src/img/d-logo.png" alt=""/>
+                                </div>
+                                <div class="our-text text-left our-text-two col-4">
+                                    <p>
+                                        <strong>Darakjian Jewelers</strong>
+                                        offers an
+                                        <br/>
+                                        unparalleled collection of
+                                        <br/>
+                                        diamonds, jewelry and watches
+                                        <br/>
+                                        with service that is second to none.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <section class="s_d_brand_snippet_wrapper pb32" data-mode="slider" data-brand-count="8">
+                                <div class="container position-relative">
+                                    <div class="s_d_brand_snippet"/>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+
+                    <!--excellence-sec-->
+
+                    <section class="excellence-sec">
+                        <div class="excellence-sec-inner container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="excellence-text">
+                                        <h3>
+                                            <span>Over 50 Years of Excellence</span>
+                                        </h3>
+                                        <p>
+                                            John Darakjian began with four basic principles:
+                                            <br/>
+                                            <strong>Hard Work, Customer Service, Honesty, and Integrity.</strong>
+                                            <br/>
+                                            These are the core values we still hold to to this day.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1964</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/metropolitan.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>Doors Open</h5>
+                                                <p>
+                                                    Metropolitan building
+                                                    <br/>
+                                                    Detroit, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1976</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/advance.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>We Grow</h5>
+                                                <p>
+                                                    Advance building
+                                                    <br/>
+                                                    Southfield, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>1993</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/northwestern.jpg" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>New Experience</h5>
+                                                <p>
+                                                    Northwestern Hwy.
+                                                    <br/>
+                                                    Southfield, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-lg-3 col-md-6">
+                                    <div class="timeline-one text-center">
+                                        <div class="date-box">
+                                            <h4>2014</h4>
+                                            <ul class="desgin-box">
+                                                <li>
+                                                    <span/>
+                                                </li>
+                                                <li/>
+                                            </ul>
+                                        </div>
+                                        <div class="img-brand">
+                                            <img src="/website_configuration/static/src/img/101.png" alt=""/>
+                                            <div class="text-timeline-main">
+                                                <h5>Grand Opening</h5>
+                                                <p>
+                                                    101 Willits
+                                                    <br/>
+                                                    Birmingham, Michigan
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--service-sec -->
+
+                    <section class="service-sec">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="excellence-text text-center">
+                                        <h3>Exceptional Service Is In Our DNA</h3>
+                                        <p>
+                                            We treat every relationship and every new customer like a precious gem, and
+                                            our clients have taken notice. Darakjian Jewelers specializes in everything
+                                            from diamond engagement rings to unique
+                                            timepieces. We want to help you find the perfect piece that expresses you,
+                                            or the perfect gift to express how you feel.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-one">
+                                        <h5>Jewelry Repair</h5>
+                                        <p>Trust our skilled and trained jewelers to assess, repair and restore your
+                                            finest jewelry.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-two">
+                                        <h5>Appraisals</h5>
+                                        <p>Our appraisers are experienced to provide an official insurable value to your
+                                            jewelry.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="jewlry-main bg-jewlry-three">
+                                        <h5>Watch Repair</h5>
+                                        <p>Return your watch to its original working order, and add polish to your
+                                            timepiece.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--trust-sec-->
+                    <section class="trust-sec text-center">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4>
+                                        Let us show you how luxury feels.
+                                        <br/>
+                                        Come meet our jewelry experts.
+                                    </h4>
+                                    <p>
+                                        Personal <strong>1-on-1</strong> consultation.
+                                        <br/>
+                                        <strong>Complimentary</strong>
+                                        lifetime services.
+                                        <br/>
+                                        Diamond <strong>Trade-Up</strong> program.
+                                        <br/>
+                                        <strong>14-Day</strong>
+                                        returns.
+                                    </p>
+                                    <a href="#" style="margin: 0 0 0 0;" class="my-btn submit-btn" data-toggle="modal"
+                                       data-target="#exampleModal">
+                                        Let’s Trade Up
+                                        <i class="fas fa-long-arrow-alt-right"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+</odoo>

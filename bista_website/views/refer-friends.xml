@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="refer-friends" name="refer-friends">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <section class="s_banner parallax s_parallax_is_fixed pt96 pb96 o_colored_level"
+                             data-scroll-background-ratio="1" data-snippet="s_banner" data-name="Banner"
+                             style="background-image: none;">
+                        <span class="s_parallax_bg oe_img_bg"
+                              style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="jumbotron rounded o_cc o_cc1 pb32 o_colored_level col-lg-6 offset-lg-6 pt0"
+                                     data-name="Box" style="">
+                                    <h1>
+                                        <font style="font-size: 62px;"/>
+                                        <font>
+                                            <span style="font-size: 36px;">GIVE A GIFT, GET A GIFT</span>
+                                        </font>
+                                    </h1>
+                                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for
+                                        calling extra attention to featured content or information.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="s_subscribe_4 o_colored_level" data-snippet="s_subscribe_4"
+                             data-name="Subscribe - 4" style="background-image: none;">
+                        <div class="container-fluid px-0">
+                            <div class="row g-0 s_nb_column_fixed align-items-center text-center">
+                                <div class="col-lg-6 o_colored_level">
+                                    <img src="/web/image/theme_prime.s_subscribe_4_1" class="img img-fluid"
+                                         alt="Subscribe Image 01" loading="lazy" data-original-id="1651"
+                                         data-original-src="/theme_prime/static/src/img/snippets/s_subscribe_4_1.jpg"
+                                         data-mimetype="image/jpeg" style=""/>
+                                </div>
+                                <div class="col-lg-4 offset-lg-1 p-4 o_colored_level">
+                                    <h4 class="o_default_snippet_text">Join Our Mailing List</h4>
+                                    <p class="o_default_snippet_text">Don't miss out. Stay Informed! Monthly Tips,
+                                        Tracks, and Discounts.
+                                    </p>
+                                    <div class="s_newsletter_list js_subscribe" data-vxml="001" data-list-id="1"
+                                         data-name="Newsletter Form">
+                                        <div class="input-group">
+                                            <input type="email" name="email" class="js_subscribe_value form-control"
+                                                   placeholder="your email..."/>
+                                            <a role="button" href="#"
+                                               class="btn btn-primary js_subscribe_btn o_submit o_default_snippet_text">
+                                                Subscribe
+                                            </a>
+                                            <a role="button" href="#"
+                                               class="btn btn-success js_subscribed_btn o_submit o_default_snippet_text d-none"
+                                               disabled="disabled">Thanks
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="s_social_media text-center mt-4" data-snippet="s_social_media"
+                                         data-name="Social Media">
+                                        <small class="s_social_media_title text-muted d-none">
+                                            <b class="o_default_snippet_text">Follow us</b>
+                                        </small>
+                                        <a href="/website/social/facebook" class="s_social_media_facebook"
+                                           target="_blank">
+                                            <i class="fa fa-facebook m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                        <a href="/website/social/twitter" class="s_social_media_twitter"
+                                           target="_blank">
+                                            <i class="fa fa-twitter m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                        <a href="/website/social/linkedin" class="s_social_media_linkedin"
+                                           target="_blank">
+                                            <i class="fa fa-linkedin m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                        <a href="/website/social/github" class="s_social_media_github" target="_blank">
+                                            <i class="fa fa-github m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                        <a href="/website/social/youtube" class="s_social_media_youtube"
+                                           target="_blank">
+                                            <i class="fa fa-youtube m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                        <a href="/website/social/instagram" class="s_social_media_instagram"
+                                           target="_blank">
+                                            <i class="fa fa-instagram m-1 rounded-circle shadow-sm"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="s_text_block pt40 pb40 o_colored_level" data-snippet="s_text_block" data-name="Text"
+                             style="background-image: none;">
+                        <div class="s_allow_columns container">
+                            <p style="margin-bottom: 0px;">By signing up you confirm that you have read the privacy
+                                policy and agree that your email will be collected and used by James Allen for the
+                                purposes of sending news, promotions, and updates via email. You can withdraw your
+                                consent at any time by unsubscribing or contacting us via
+                                https://service@darakjian.com/.
+                            </p>
+                            <p style="margin-bottom: 0px;">
+                                <br/>
+                            </p>
+                            <p style="margin-bottom: 0px;">
+                                <br/>
+                            </p>
+                            <p style="margin-bottom: 0px;">*Only existing customers can share the referral offer.
+                                Minimum spend of $1,000 USD. Offer valid for new customers only. Does not include loose
+                                diamonds, gemstones, designer collections, and pre-set earth-created diamond studs and
+                                pendants. Promotional discounts applied to an order are only valid for the item
+                                purchased and will not be applied to future purchases or exchanges after the sale ends.
+                                Cannot be combined with additional offers other than on-site discounted diamonds.
+                            </p>
+                            <p style="margin-bottom: 0px;">
+                                <br/>
+                            </p>
+                            <p style="margin-bottom: 0px;">
+                                <br/>
+                            </p>
+                            <p style="margin-bottom: 0px;">**Does not include loose diamonds, gemstones, designer
+                                collections, and pre-set earth-created diamond studs and pendants. Promotional discounts
+                                applied to an order are only valid for the item purchased and will not be applied to
+                                future purchases or exchanges after the sale ends. Minimum spend of $1,000 USD. Cannot
+                                be combined with additional offers other than on-site discounted diamonds.
+                            </p>
+                            <p>
+                                <br/>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="refer-friends-record" model="website.page">
+        <field name="url">/refer-friends</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="refer-friends"/>
+    </record>
+</odoo>

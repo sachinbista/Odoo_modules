@@ -1,0 +1,143 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bista_website_image_360
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-14 14:44+0000\n"
+"PO-Revision-Date: 2022-09-14 14:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bista_website_image_360
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.product_template_form_view
+msgid "360 Images"
+msgstr "Imágenes 360"
+
+#. module: bista_website_image_360
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.product_image_360
+msgid ""
+"<span class=\"fa fa-chevron-left\" aria-hidden=\"true\"/>\n"
+"                                                <span class=\"sr-only\">Previous</span>"
+msgstr ""
+"<span class=\"fa fa-chevron-left\" aria-hidden=\"true\"/>\n"
+"                                                <span class=\"sr-only\">Previo</span>"
+
+#. module: bista_website_image_360
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.product_image_360
+msgid ""
+"<span class=\"fa fa-chevron-right\" aria-hidden=\"true\"/>\n"
+"                                                <span class=\"sr-only\">Next</span>"
+msgstr ""
+"<span class=\"fa fa-chevron-right\" aria-hidden=\"true\"/>\n"
+"                                                <span class=\"sr-only\">Próximo</span>"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_product__display_360_image
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_template__display_360_image
+msgid "Display 360 Image"
+msgstr "Mostrar imagen 360"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__id
+msgid "ID"
+msgstr "ID"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__image
+msgid "Image"
+msgstr "Imagen"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__image_filename
+msgid "Image Filename"
+msgstr "Nombre de archivo de imagen"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_product__product_image_360_ids
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_template__product_image_360_ids
+#: model:ir.model.fields,field_description:bista_website_image_360.field_stock_production_lot__product_image_360_ids
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.view_production_lot_form_inherited
+msgid "Images"
+msgstr "Imágenes"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: bista_website_image_360
+#: model:ir.model,name:bista_website_image_360.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: bista_website_image_360
+#: model:ir.model,name:bista_website_image_360.model_product_image_360
+msgid "Product Image 360"
+msgstr "Imagen 360 del producto"
+
+#. module: bista_website_image_360
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.product_template_form_view
+msgid "Product Images"
+msgstr "Imágenes del producto"
+
+#. module: bista_website_image_360
+#: model_terms:ir.ui.view,arch_db:bista_website_image_360.view_production_lot_form_inherited
+msgid "Product SKU Images"
+msgstr "Imágenes SKU del producto"
+
+#. module: bista_website_image_360
+#: model:ir.model,name:bista_website_image_360.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__product_tmpl_id
+msgid "Related Product"
+msgstr "Producto relacionado"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__production_lot_id
+msgid "Related Product Lot"
+msgstr "Lote de producto relacionado"
+
+#. module: bista_website_image_360
+#: model:ir.model.fields,field_description:bista_website_image_360.field_product_image_360__sequance
+msgid "Sequance"
+msgstr "Secuencia"

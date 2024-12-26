@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- <record id="engrave_font_template_scss" model="ir.attachment">
+            <field name="public" eval="True"/>
+            <field name="name">Engrave Fonts Template</field>
+        	<field name="datas" type="base64" file="bista_product_engraving/static/src/scss/engrave_font_template.scss"></field>            
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">binary</field>
+            <field name="mimetype">text/scss</field>
+            <field name="url">/bista_product_engraving/static/src/scss/engrave_font_template.scss</field>
+        </record>     -->
+        <record id="helvetica_font_ttf" model="ir.attachment">
+            <field name="public" eval="True"/>
+            <field name="name">Helvetica.ttf</field>
+            <field name="datas" type="base64" file="bista_product_engraving/static/src/font/Helvetica/Helvetica.ttf"/>
+            <field name="res_model">engrave.font</field>
+        </record>
+        <record id="helvetica_font_woff2" model="ir.attachment">
+            <field name="public" eval="True"/>
+            <field name="name">Helvetica.woff2</field>
+            <field name="datas" type="base64" file="bista_product_engraving/static/src/font/Helvetica/Helvetica.woff2"/>
+            <field name="res_model">engrave.font</field>
+        </record>
+        <record id="helvetica_font" model="engrave.font">
+            <field name="name">Helvetica</field>
+            <field name="font_class">helvetica</field>
+            <field name="font_attachment_ids" eval="[(6,0,[ref('bista_product_engraving.helvetica_font_ttf'),ref('bista_product_engraving.helvetica_font_woff2')])]"/>
+        </record> 
+    </data>
+</odoo>

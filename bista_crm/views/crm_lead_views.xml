@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="bista_crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.oppor.inherited.crm</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="attributes">
+                <attribute name="string">Customer/Vendor</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                <button string="New RFQ" name="action_purchase_quotations_new" type="object" class="oe_highlight"
+                        data-hotkey="q"
+                        title="Create new RFQ"
+                        attrs="{'invisible': [('trade_option', '!=', 'Trade In')]}"/>
+            </xpath>
+            <button name="action_schedule_meeting" position="after">
+                <button class="oe_stat_button" type="object"
+                        name="action_view_purchase_orders" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('trade_option', '!=', 'Trade In')]}">
+                    <field name="purchase_order_count" widget="statinfo" string="Purchase Orders"/>
+                </button>
+            </button>
+            <xpath expr="//page[@name='lead']//group[@name='Misc']" position="inside">
+                <field name="trade_option" attrs="{'readonly': [('trade_option', '!=', 'regular')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_purchase_order_view" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="bista_crm_purchase_order_search" model="ir.ui.view">
+        <field name="name">purchase.order.inherited.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_Orders']" position="after">
+                <filter string="Trade Order" name="trade_option"
+                        domain="[('trade_option', '=', 'Trade In')]"/>
+            </xpath>
+                <group expand="0" string="Group By">
+                    <filter name="trade_option_filter" string="Trade Order" domain="[]"
+                            context="{'group_by': 'trade_option'}"/>
+                </group>
+
+        </field>
+    </record>
+
+
+    <record id="bista_crm_purchase_order_search_filter" model="ir.ui.view">
+        <field name="name">purchase.order.inherited.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_purchases']" position="after">
+                <filter string="Trade Order" name="trade_option"
+                        domain="[('trade_option', '=', 'Trade In')]"/>
+            </xpath>
+                <group expand="0" string="Group By">
+                    <filter name="trade_option_filter" string="Trade Order" domain="[]"
+                            context="{'group_by': 'trade_option'}"/>
+                </group>
+
+        </field>
+    </record>
+
+    <record id="bista_crm_purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.inherited.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="trade_option" attrs="{'readonly': [('state', 'in', ('purchase', 'done'))]}"/>
+                <field name="invoice_status"/>
+            </xpath>
+            <xpath expr="//button[@name='action_create_invoice']" position="after">
+                <button name="action_create_credit_note" string="Create Trade Credit Note" type="object"
+                        attrs="{'invisible': ['|',('state', 'in', ('draft', 'sent')),('trade_option', '!=', 'Trade In')]}"
+                        data-hotkey="w"/>
+
+            </xpath>
+
+            <xpath expr="//button[@name='action_create_invoice']" position="attributes">
+
+                <attribute name="attrs">{'invisible': ['|','|',('state', 'not in', ('purchase', 'done')),
+                    ('invoice_status', 'in', ('no', 'invoiced')),('trade_option', '=', 'Trade In')]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_create_invoice'][2]" position="attributes">
+
+                <attribute name="attrs">{'invisible': ['|','|','|',('state', 'not in', ('purchase', 'done')),
+                    ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', []),('trade_option', '=',
+                    'Trade In')]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_invoice']" position="replace">
+
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']//button[@name='action_view_picking']" position="before">
+                <button type="object" name="action_view_invoice"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible':['|', '|',('invoice_count', '=', 0), ('state', 'in', ('draft','sent','to approve')),('trade_option', '!=', 'regular')]}">
+                    <field name="invoice_count" widget="statinfo" string="Vendor Bills"/>
+                    <field name='invoice_ids' invisible="1"/>
+
+                </button>
+
+                <button type="object" name="action_view_invoice"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible':['|', '|',('invoice_count', '=', 0), ('state', 'in', ('draft','sent','to approve')),('trade_option', '!=', 'Trade In')]}">
+                    <field name="bs_invoice_count" widget="statinfo" string="Trade Credit Note"/>
+                    <field name='invoice_ids' invisible="1"/>
+                </button>
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+    <record id="action_purchase_trade_credit_notes" model="ir.actions.server">
+        <field name="name">Create Trade Credit Note</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_create_credit_note()
+        </field>
+    </record>
+</odoo>
+

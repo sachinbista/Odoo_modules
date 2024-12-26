@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="add_currency_conversation" inherit_id="point_of_sale.template" xml:space="preserve">
+
+	
+	<t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+		<xpath expr="//h1" position="after">
+			<t t-if = "env.pos.config.multi_currency">
+				<label class="switch">
+					<input type="checkbox" id="cur-switch" class="cur-switch" name="cur-switch" tabindex="0" checked="checked"/>
+					<span class="slider round" 
+						t-on-click="() => this.trigger('click-cur-switch')"
+						></span>
+				</label>
+			</t>
+		</xpath>
+		<xpath expr="//div[hasclass('payment-buttons-container')]" position="before">
+			<t t-if="env.isMobile">
+				<div class="payment-buttons">
+					<t t-if = "env.pos.config.multi_currency and env.pos.config.curr_conv">
+						<div t-if="env.pos.config.multi_currency" class="button js_multi"
+							t-on-click="() => this.trigger('click-cur-switch-mobile')">
+	                        <i class="fa fa-money" /> Enable Multi Currency
+	                    </div>
+					</t>
+				</div>
+				<br/>
+				<span id = "details_mobile" class="container" style="padding-top: 0; border-bottom: dashed 1px gainsboro; min-height: 154px;font-size: 15px;">
+					<div style=" display: inline-block; width: 45%; box-sizing: border-box; padding: 16px; text-align: left; float: left;">
+						<span class='label' style="font-size:18px;"><b>Select Currency</b></span><br/>
+						<div class="client-detail">
+							<br/>
+							<select class='drop-currency' name='id'  style="font-size : 15px; border-radius:5px;" t-on-change="_ChangeCurrency">
+								<option>select currency</option>
+								<t t-foreach='env.pos.poscurrency' t-as='cur' t-key="cur.id">
+									<option t-att-value='cur.id'>
+										<t t-esc='cur.name'/>
+									</option>
+								</t>
+							</select>
+						</div>
+						<br/>
+						<label class="container">
+							Payment amount in <span class="currency_name" /> 
+							<input type="text" class="edit-amount" name="pos_amount" id="pos_amount" style="width: 95%;    margin-top: 5px;"/>
+						</label>
+					</div>
+					<div style="display: inline-block; width: 46%; box-sizing: border-box; padding: 16px; padding-left: 0; float: right;font-size: 18px; margin-left: 12px;">
+						<t t-if='env.pos.config.curr_conv'>
+							<span class='label' style="font-size:18px;"><b>Currency Conversion</b></span><br/>
+							<div style="border: 3px solid black; padding: 5px; padding: 5px;border-radius: 5px;margin-top: 14px;margin-bottom: 11px;">
+								<div>
+									<span class="label">1 <t t-esc='env.pos.currency.name'/> =  </span><span class="currency_rate"/><span class="currency_name"/>
+								</div>
+								<div>
+									<span class= "label">Total Amount = </span><b><span class="currency_cal"/><span class="currency_symbol"/></b>
+									<input type="hidden" class="curr_cal" id="curr_cal" />
+								</div>
+							</div>
+						</t>
+						<div>
+							<button class='button-getamount' data-action="" style="border-radius:5px; font-size:15px; background-color: #43996E;color: white; margin-left: 18px;" 
+								t-on-click="() => this.trigger('click-update_amount')"
+								>
+								Update Amount
+							</button>
+						</div>
+					</div>
+				</span>
+			</t>
+		</xpath>
+		<xpath expr="//div[hasclass('right-content')]//div[hasclass('payment-buttons')]" position="after">
+			<t t-if="!env.isMobile">
+				<div t-if='env.pos.config.multi_currency and env.pos.config.curr_conv' id="details" class="container" style="border-bottom: dashed 1px gainsboro;width: 300px;">
+					<div style="padding: 16px;font-size: 16px;">
+						<span class='label' style="font-size:18px;"><b> Select Currency</b></span><br/>
+						<div class="client-detail">
+							<br/>
+							<select class='drop-currency' name='id'  style="font-size : 15px; border-radius:5px;" t-on-change="_ChangeCurrency">
+								<option>select currency</option>
+								<t t-foreach='multiCurrency' t-as='cur' t-key="cur.id">
+									<option t-att-value='cur.id'>
+										<t t-esc='cur.name'/>
+									</option>
+								</t>
+							</select>
+						</div>
+						<br/>
+						<span class='label' style="font-size:18px;"><b>Currency Conversion</b></span><br/>
+						<div style="border: 3px solid black; padding: 5px; padding: 5px;border-radius: 5px;margin-top: 14px;margin-bottom: 11px;">
+							<div>
+								<span class="label">1 <t t-esc='env.pos.currency.name'/> =  </span><span class="currency_rate"/><span class="currency_name"/>
+							</div>
+							<div>
+								<span class= "label">Total Amount = </span><b><span class="currency_cal"/><span class="currency_symbol"/></b>
+								<input type="hidden" class="curr_cal" id="curr_cal"/>
+							</div>
+						</div>
+						<br/>
+						<div class="container">
+							Payment amount in <span class="currency_name" /> 
+							<input type="text" class="edit-amount" name="pos_amount" id="pos_amount"/>
+						</div>
+						<br/>
+						<div>
+							<button class='button-getamount' data-action="" style="border-radius:5px; font-size:15px; background-color: #43996E;color: white;" 
+								t-on-click="() => this.trigger('click-update_amount')"
+								>
+								Update Amount
+							</button>
+						</div>
+					</div>
+				</div>
+			</t>
+		</xpath>
+	</t>
+
+	<t t-name="PaymentScreenPaymentLines" t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension" owl="1">
+		<xpath expr="//t[@t-if='line.selected']/div[hasclass('paymentline')]" position="replace">
+            <div class="paymentline selected"
+                 t-att-class="selectedLineClass(line)"
+                 t-on-click="() => this.trigger('select-payment-line', { cid: line.cid })">
+                 <div class="payment-name">
+                     <t t-esc="line.payment_method.name" />
+                 </div>
+                <div class="payment-amount">
+                    <t t-if="line and line.payment_status and ['done', 'waitingCard', 'waiting', 'reversing', 'reversed'].includes(line.payment_status)">
+                        <t t-esc="env.pos.format_currency_no_symbol(line.get_amount())" />
+                    </t>
+                    <t t-else="">
+                        <t t-esc="formatLineAmount(line)" />
+                    </t>
+                </div>
+                <div class="payment-amount">
+                     <t t-if="env.pos.config.enable_payment_ref">
+                        <input placeholder="Reference" style="width: 64px; height: 23px;" id="Input"  t-on-change="changeInput" type="text" name="Input"/>
+                     </t>
+                </div>
+                <t t-if="!line.payment_status or !['done', 'reversed', 'waitingCard', 'waitingCapture'].includes(line.payment_status)">
+                    <div class="delete-button"
+                        t-on-click="() => this.trigger('delete-payment-line', { cid: line.cid })"
+                        aria-label="Delete" title="Delete">
+                        <i class="fa fa-times-circle" />
+                    </div>
+                </t>
+            </div>
+		</xpath>
+
+		<xpath expr="//t[@t-else='']/div[hasclass('paymentline')]" position="replace">
+            <div class="paymentline"
+                 t-att-class="unselectedLineClass(line)"
+                 t-on-click="() => this.trigger('select-payment-line', { cid: line.cid })">
+                 <div class="payment-name">
+                     <t t-esc="line.payment_method.name" />
+                 </div>
+                <div class="payment-amount">
+                    <t t-if="line and line.payment_status and ['done', 'waitingCard', 'waiting', 'reversing', 'reversed'].includes(line.payment_status)">
+                            <t t-esc="env.pos.format_currency_no_symbol(line.get_amount())" />
+                    </t>
+                    <t t-else="">
+                            <t t-esc="formatLineAmount(line)" />
+                    </t>
+                </div>
+                <div class="payment-amount" style="width: 53px; height: 23px;">
+                    <t t-if="env.pos.config.enable_payment_ref">
+                      <t t-esc="line.pos_reference"/>
+                    </t>
+                </div>
+                <t t-if="!line.payment_status or !['done', 'reversed'].includes(line.payment_status)">
+                    <div class="delete-button"
+                        t-on-click="() => this.trigger('delete-payment-line', { cid: line.cid })"
+                        aria-label="Delete" title="Delete">
+                        <i class="fa fa-times-circle" />
+                    </div>
+                </t>
+            </div>
+		</xpath>
+		
+		<xpath expr="//t[@t-if='line.selected']/div[hasclass('paymentline')]/div[hasclass('payment-amount')]" position="before">
+			<div style="padding: 1rem">
+				<t t-if="env.pos.currency.symbol != line.currency_symbol">
+					(<span t-esc="line.currency_amount"/>
+					 <span t-esc="line.currency_symbol"/>)
+				</t>
+			</div>
+		</xpath>
+
+		<xpath expr="//t[@t-else='']/div[hasclass('paymentline')]/div[hasclass('payment-amount')]" position="before">
+			<div style="padding: 1rem">
+				<t t-if="env.pos.currency.symbol != line.currency_symbol">
+					(<span t-esc="line.currency_amount"/>
+					 <span t-esc="line.currency_symbol"/>)
+				</t>
+			</div>
+		</xpath>
+	</t>
+
+	<t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//t[@t-foreach='receipt.paymentlines']" position="replace">
+			<t t-foreach="receipt.paymentlines" t-as="line" t-key="line.cid">
+				<div style="display: inline-flex;width:100%;">
+					<span style="width:33%;" t-esc="line.name" />
+					<div style="width:33%;text-align: center;">
+						<t t-if="env.pos.currency.symbol != line.currency_symbol">
+							(<span t-esc="line.currency_amount"/>
+						 	<span t-esc="line.currency_symbol"/>)
+						</t>
+					</div>
+					<span style="width:33%;text-align: right;" t-esc="env.pos.format_currency(line.amount)"/>
+				</div>
+			</t>
+			<br/>
+		</xpath>
+	</t>
+</templates>

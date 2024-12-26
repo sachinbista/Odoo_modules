@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+       <record id="view_purchase_order_search_report_crm" model="ir.ui.view">
+        <field name="name">report.purchase.order.search</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//filter[@name='user_id']" position="after">
+                <filter string="Trade Order" name="group_trade_option" context="{'group_by':'trade_option'}"/>
+            </xpath>
+
+        </field>
+       </record>
+</odoo>

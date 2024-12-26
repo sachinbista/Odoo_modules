@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="diamond_certification_page" name="Diamond Certification">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Diamond Certification</h2>
+            </div>
+        </t>
+    </template>
+
+    <template id="diamond_recutting_page" name="Diamond Recutting">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <h2 class="text-center pt32 pb32">Diamond Recutting</h2>
+            </div>
+        </t>
+    </template>
+</odoo>

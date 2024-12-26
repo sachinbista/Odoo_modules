@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="bista_consignment_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account.taxcloud</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='production_lot_info']//div[@id='owner_stored_products']//div[hasclass('o_setting_right_pane')]" position="inside">
+                <div class="row mt-2" attrs="{'invisible': [('group_stock_tracking_owner','=',False)]}">
+                    <field name="consignment_stock_move" class="col flex-grow-0 ml16 mr0 pe-2"/>
+                    <div class="col ps-0">
+                        <label for="consignment_stock_move" string="Stock Movement"/>
+                    </div>
+                </div>
+                  <div class="row mt-2" attrs="{'invisible': [('group_stock_tracking_owner','=',False)]}">
+                    <div class="row mt-2">
+                        <label for="consignment_account_id" string="Consignment Account"/>
+                        <field name="consignment_account_id" class="col flex-grow-0 ml16 mr0 pe-2"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

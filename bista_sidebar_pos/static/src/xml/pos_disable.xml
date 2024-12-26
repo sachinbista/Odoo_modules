@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="bi_pos_sidebar_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+    <t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('control-buttons')]" position="attributes">
+            <attribute
+                    name="t-if">env and env.pos and env.pos.get_cashier() and !env.pos.get_cashier().is_allow_sidebar</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('leftpane','pane-border')]" position="before">
+            <t t-if="env and env.pos and env.pos.get_cashier() and env.pos.get_cashier().is_allow_sidebar">
+                <div class="control-buttons">
+                    <t t-if="env.isMobile and controlButtons.length > 3">
+                        <div class="control-button" t-on-click="_displayAllControlPopup">More...</div>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+                            <t t-component="cb.component" t-key="cb.name"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

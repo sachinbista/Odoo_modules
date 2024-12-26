@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('payment-buttons-container')]" position="before">
+			<t t-if="env.pos.config.on_order">	
+				<center>
+                   <t t-if="env.pos.config.note_keyword_limit">
+					   <textarea id="order_note" t-att-maxlength="env.pos.config.note_keyword_limit" t-on-change="onChangeTextNote" style="width:600px; height:50px;resize: none;" placeholder="POS Order note"></textarea>
+                    </t>
+                    <t t-else=""> 
+                        <textarea id="order_note" t-on-change="onChangeTextNote" style="width:600px; height:50px;resize: none;" placeholder="POS Order note"></textarea>
+                    </t>
+				</center>
+			</t>
+		</xpath>
+	</t>
+
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('before-footer')]" position="after">
+			<t t-if="env.pos.config.on_order and env.pos.config.receipt_order_note">
+				<br/>
+				<t t-if="receipt.order_note and receipt.order_note !=''">
+					<div>
+						Note:
+						<span t-esc='receipt.order_note' class="pos-receipt-right-align"/>
+					</div>
+				</t>
+			</t>
+		</xpath>
+	</t>
+
+    
+    <t t-name="OrderlineCustomerNoteButton" owl="1">
+        <div class="control-button">
+            <i class="fa fa-sticky-note" />
+            <span> </span>
+            <span>Item Note</span>
+        </div>
+    </t>
+
+</templates>

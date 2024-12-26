@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="appraisals_page" name="Appraisals">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <section class="s_picture pt48 pb24 o_colored_level undefined o_cc o_cc1" data-snippet="s_picture" data-name="Picture" style="position: relative;">
+                    <div class="container">
+                        <h2 style="text-align: center;">
+                            <font style="font-size: 62px;font-weight: 900;">Appraisals and Valuations</font>
+                        </h2>
+                        <p style="text-align: center;">
+                            Darakjian offers full appraisal services for all customers. <br />
+                            Complimentary appraisals are granted with any purchase made from our showroom. <br />
+                            Our appraisal staff completes the comprehensive appraisal services. <br />
+                            We request that you schedule this appointment.
+                        </p>
+                        <p style="text-align: center;">Your satisfaction and loyalty are of the utmost importance to the Darakjian Team.</p>
+                        <p style="text-align: center;">
+                            <br />
+                        </p>
+                        <div class="row s_nb_column_fixed">
+                            <div class="col-lg-10 offset-lg-1 pb24 o_colored_level" style="text-align: center;">
+                                <figure class="figure">
+                                    <img
+                                        src="/bista_website/static/src/img/willits_interior_1.jpg"
+                                        class="figure-img padding-large img-thumbnail"
+                                        alt="" loading="lazy" style="width: 100%;"/>
+                                    <figcaption class="figure-caption text-muted py-3">We look forward to assisting you in the near future.</figcaption>
+                                </figure>
+                                <br />
+                                <a href="/contact-us" class="btn btn-primary rounded-circle" data-original-title="" title="" aria-describedby="tooltip780661">Learn more</a>
+                                <figure class="figure"></figure>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="oe_structure">
+                <section class="s_features_grid pt48 pb24 o_colored_level" data-snippet="s_features_grid" data-name="Features Grid" style="">
+                    <div class="o_container_small">
+                        <div class="row">
+                            <div class="col-lg-6 s_col_no_bgcolor pb24">
+                                <div class="row">
+                                    <div class="col-lg-12 pb24 o_colored_level" data-name="Box">
+                                        <h2>Appraisals</h2>
+                                        <h5>What you need to know</h5>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-font-awesome rounded-circle bg-primary s_features_grid_icon" data-original-title="" title="" aria-describedby="tooltip181198"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.<br /></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-trash rounded-circle bg-primary s_features_grid_icon"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.<br /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 s_col_no_bgcolor pb24">
+                                <div class="row">
+                                    <div class="col-lg-12 pb24 o_colored_level" data-name="Box">
+                                        <h2>Valuations</h2>
+                                        <h5>What you need to know</h5>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-magic rounded bg-primary s_features_grid_icon"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.<br /></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-eyedropper rounded bg-primary s_features_grid_icon"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.<br /></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 pt16 pb16 o_colored_level" data-name="Box">
+                                        <i class="fa fa-2x fa-picture-o rounded bg-primary s_features_grid_icon"></i>
+                                        <div class="s_features_grid_content">
+                                            <h4>Subheading</h4>
+                                            <p>This is a brief description of this service and the benefit to the customer.<br /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

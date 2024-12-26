@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+	<t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('right-content')]" position="inside">
+            <div class="payment-buttons">
+                <div class="partner-button">
+                    <div class="button" t-on-click="add_signature">
+                    <i class="fa fa-user" role="img" title="Add Signature"/>
+                        <span> Add Signature </span>
+                    </div>
+                    </div>
+            </div>
+        </xpath>
+    </t>
+	
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('before-footer')]" position="after">
+            <br/>
+			<div style='height:10%;padding:5%;'>
+				<table id='customer_signature_table'>
+					<tr>
+						<td></td>
+						<td class="pos-right-align">
+							<canvas id='receipt_sign' style="width: 65%;margin-left: 40%;"></canvas>
+						</td>
+					</tr>
+				</table>
+			</div>
+        </xpath>
+    </t>
+
+	<t t-name="SignaturePopupWidget" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-confirm">
+                <header class="title drag-handle">
+                    Draw Signature
+                </header>
+                <main class="body">
+                    <canvas id='paint' width="478" height="255" style='width: 478px;height: 255px;cursor: crosshair;background-color:white;'>
+                    </canvas>
+                </main>
+                <footer class="footer">
+                    <div class="button confirm" t-on-click="click_confirm">
+                        Save Signature
+                    </div>
+                    <div id='clear_signature' class="button" t-on-click="clear_signature">
+                        Clear
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+</templates>

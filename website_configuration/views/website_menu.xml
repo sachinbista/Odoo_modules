@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bista_website_menus_form_view" model="ir.ui.view">
+        <field name="name">bista.website.menus.view.form</field>
+        <field name="model">website.menu</field>
+        <field name="inherit_id" ref="website.website_menus_form_view"/>
+        <field name="arch" type="xml">
+            <!-- notebook create -->
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="dynamic_menu_configure" string="Dynamic Menu Configure">
+                        <group name="dynamic_menu_configuration" string="Configuration" attrs="{'invisible': [('is_mega_menu', '=', False)]}">
+                            <field name="main_category_id"/>
+                            <field name="menu_category_ids">
+                                <tree string="Menu Categories" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="related_category_id"/>
+                                    <field name="menu_name"/>
+                                    <field name="view_all_name"/>
+                                    
+                                </tree>
+                            </field>
+                            <field name="menu_attribute_ids">
+                                <tree string="Menu Attributes" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="related_attribute_id"/>
+                                    <field name="menu_name"/>
+                                    <field name="view_all_name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

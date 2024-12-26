@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_pos_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.pos.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']//group[@name='pos']/field[@name='available_in_pos']" position="after">
+                <field name="pos_type_tax" attrs="{'invisible': [('available_in_pos', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_tax_contact_form_view_inherit" model="ir.ui.view">
+        <field name="name">pos.tax.contact.form.view.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="customer_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

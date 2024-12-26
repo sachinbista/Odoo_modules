@@ -1,0 +1,1823 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faq" name="Faq">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;" class="o_default_snippet_text">About Us</font>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab933241_1">Do you have a retail store located in my
+                                    state?
+                                </a>
+                                <div data-bs-parent="#myCollapse" role="tabpanel" id="myCollapseTab933241_1"
+                                     class="collapse">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">
+                                            James Allen
+                                            has a retail location in the Georgetown neighborhood of Washington, D.C.
+                                            (drop
+                                            by anytime) and a showroom in New York City (don't forget to reserve in
+                                            advance). We'd love to meet you there.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">
+                                            <br/>
+                                        </p>
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">
+                                            However, we
+                                            mostly operate online, which allows us to cut overhead costs and focus
+                                            exclusively on quality and service. This all means that you receive a
+                                            high
+                                            quality product at a much better price than you would at your local
+                                            jewelry
+                                            store.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">
+                                            <br/>
+                                        </p>
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">Not
+                                            in D.C.
+                                            or N.Y.C. and still want to see your diamond jewelry in person? Order
+                                            your
+                                            jewelry today
+                                        </p>
+                                        <p class="card-text o_default_snippet_text" style="margin-bottom: 0px;">
+                                            <br/>
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">We offer free shipping on all
+                                            items, a
+                                            30-day money back guarantee, and a one time free ring resizing within
+                                            the first
+                                            year of your purchase, including free return shipping within the U.S.
+                                            and Canada
+                                            for the first resize
+                                            <br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab933241_2">Do you have gemologists on staff?
+                                </a>
+                                <div data-bs-parent="#myCollapse" role="tabpanel" id="myCollapseTab933241_2"
+                                     class="collapse">
+                                    <div class="card-body">
+                                        <p class="card-text">Yes. We currently have G.I.A Graduate Gemologists on
+                                            staff.
+                                            These gemologists are an integral part of our customer service team. If
+                                            you have
+                                            any further questions, you can speak with a graduate gemologist at any
+                                            time
+                                            <br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab933241_3">Where are the corporate offices of James
+                                    Allen
+                                    located?
+                                </a>
+                                <div data-bs-parent="#myCollapse" role="tabpanel" id="myCollapseTab933241_3"
+                                     class="collapse">
+                                    <div class="card-body">
+                                        <p class="card-text">Our corporate office is located in the heart of the New
+                                            York
+                                            diamond district.<br/>&amp;nbsp;<br/>&amp;nbsp;We welcome your comments
+                                            and
+                                            suggestions:<br/>&amp;nbsp;<br/>&amp;nbsp;James Allen Corporate Office
+                                            <br/>&amp;nbsp;135
+                                            W 50th St., 4th Floor.<br/>&amp;nbsp;New York, NY 10020
+                                        </p>
+                                        <p class="card-text">You may also send comments and concerns to our customer
+                                            service
+                                            offices:<br/>James Allen Customer Service<br/>&amp;nbsp;8490 Progress
+                                            Drive,
+                                            Suite 125<br/>&amp;nbsp;Frederick, MD 21701
+                                            <br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab1693212405699">Do you have a referral program?
+                                </a>
+                                <div data-bs-parent="#myCollapse" role="tabpanel" id="myCollapseTab1693212405699"
+                                     class="collapse">
+                                    <div class="card-body">
+                                        <p class="card-text">Yes! When you&amp;nbsp;<a
+                                                href="https://www.jamesallen.com/referfriend/?traffic_source=faq">
+                                            refer a
+                                            friend</a>&amp;nbsp;they will get $150 off their first James Allen
+                                            purchase.
+                                        </p>
+                                        <p class="card-text">&amp;nbsp;You will also get a choice of $150 off your
+                                            next
+                                            James Allen purchase, a $50 gift card to Amazon, or a charity donation
+                                            option.&amp;nbsp;
+                                            <a href="https://www.jamesallen.com/referfriend/?traffic_source=faq_learnmore">
+                                                Learn more and start referring friends here
+                                            </a>
+                                            <br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Insurance and Long-Term Care</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693212495745" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693212495746">Do you clean or provide care for
+                                    jewelry
+                                    sold on your site?*
+                                </a>
+                                <div data-bs-parent="#myCollapse1693212495745" role="tabpanel"
+                                     id="myCollapseTab1693212495746" class="collapse">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">All jewelry purchased from James
+                                            Allen
+                                            is eligible for a free cleaning every six months. You may also return
+                                            your
+                                            jewelry purchased from James Allen to our offices for free prong
+                                            tightening,
+                                            repolishing, rhodium plating, and cleaning. Contact Customer Service at
+                                            1-877-826-9866 for more information.
+                                        </p>
+                                        <p>*Exclusions and limitations apply. For specific details, refer to the
+                                            Terms and
+                                            Conditions
+                                            <a href="https://ion.r2net.com/Images/CarePlan/3YRTermsAndConditions.pdf">
+                                                here.
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693212495747">Do you provide insurance appraisals?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693212495745" role="tabpanel"
+                                     id="myCollapseTab1693212495747">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">
+                                            Yes. Every finished engagement ring or piece of fine jewelry valued at
+                                            $1,000 or
+                                            higher will be accompanied by a full insurance evaluation
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693212495748">Do you insure jewelry?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693212495745" role="tabpanel"
+                                     id="myCollapseTab1693212495748">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Although we provide you with an
+                                            insurance appraisal that you can use to obtain coverage, we do not
+                                            provide
+                                            jewelry insurance.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">Although we provide you with an
+                                            insurance appraisal that you can use to obtain coverage, we do not
+                                            provide
+                                            jewelry insurance.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">We have, however, partnered with
+                                            Jewelers Mutual (JM) Insurance Company to provide you with the option of
+                                            insuring your jewelry with their <a
+                                                    href="/jewelers-mutual-jewelry-insurance/">
+                                                personal jewelry insurance* plans.
+                                            </a> Insuring your
+                                            jewelry with Jewelers Mutual® Jewelry Insurance is quick and easy, and
+                                            leaves
+                                            you with a feeling of emotional and financial security.
+                                            <a href="/jewelers-mutual-jewelry-insurance/">Learn more.</a>
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">(*Insurance is available in all
+                                            US
+                                            states and Canada [except the province of Quebec]. James Allen is not a
+                                            licensed
+                                            agent of Jewelers Mutual Insurance Company and does not sell or
+                                            recommend
+                                            insurance).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214545092">Do you offer additional insurance
+                                    coverage?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693212495745" role="tabpanel"
+                                     id="myCollapseTab1693214545092">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">We have collaborated with the
+                                            Jewelers
+                                            Mutual (JM) Group to provide an upgraded 3-year or lifetime protection
+                                            plan that
+                                            protects your jewelry against even more of life's surprises. You can
+                                            purchase
+                                            either one of these plans during checkout or at any time afterward.
+                                            <a href="/jewelry-warranties/">Click here</a>
+                                            to see what's covered and learn how to upgrade your warranty.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214545920">What is covered by your Lifetime
+                                    Warranty?*
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693212495745" role="tabpanel"
+                                     id="myCollapseTab1693214545920">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">All of our jewelry is
+                                            manufactured using
+                                            the highest quality materials and is inspected prior to shipment. We
+                                            stand
+                                            behind every item that we sell and warrant that all pieces will be free
+                                            from any
+                                            manufacturing defects at the time of delivery. Our lifetime warranty
+                                            offers free
+                                            prong tightening, re-polishing, rhodium plating, and cleaning services.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">In the event that there is ever
+                                            a
+                                            problem with your jewelry or you are in need of other services that are
+                                            not
+                                            covered under our lifetime warranty, your jewelry can be mailed back to
+                                            our
+                                            office for evaluation. Once inspected, should charges apply, you will be
+                                            notified prior to any work being done to service your jewelry.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">Please contact
+                                            <a href="/guarantee/customer-service/">customer service</a>
+                                            if you have any questions or would like to return your item(s) to take
+                                            advantage
+                                            of our free lifetime warranty or request additional repair work needed
+                                            to
+                                            service your James Allen jewelry.
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">Interested in additional
+                                            coverage? Learn
+                                            more about our 3-year and lifetime upgraded protection plans
+                                            <a href="/jewelry-warranties/">here.</a>
+                                        </p>
+                                        <p class="card-text o_default_snippet_text">*Note, the upgraded JM Care
+                                            Plans™ are
+                                            only available to customers located in the USA. Exclusions and
+                                            limitations
+                                            apply. For specific details, refer to the Terms and Conditions
+                                            <a href="https://ion.r2net.com/Images/CarePlan/3YRTermsAndConditions.pdf">
+                                                here.
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Orders and Ring Sizes</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693214605125" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab331056_1">Can I order through your website?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab331056_1">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. You can purchase everything
+                                            including our loose diamonds, engagement rings, or fine jewelry using
+                                            our secure
+                                            checkout process.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab331056_2">Can I custom design an engagement ring?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab331056_2">
+                                    <div class="card-body">
+                                        <p class="card-text">Yes. Custom designing an engagement ring is a great way
+                                            to
+                                            create a ring that is
+                                            perfect for your unique personality — and a beautiful expression of your
+                                            love.<!-- -->
+                                            <a class="link--KxXbv" href="/custom-ring-design/">Learn more
+                                            </a> <!-- -->about
+                                            custom designing your own engagement ring or fill out this form to get
+                                            started.
+                                            You can also<!-- -->
+                                            <a class="link--KxXbv" href="/guarantee/customer-service/">call customer
+                                                service
+                                            </a> <!-- -->24/7 for any inquiries.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab331056_3">What if I need help placing an order?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab331056_3">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">If you would like assistance
+                                            with
+                                            placing your order, please call us toll free at 1-877-826-9866, 24 hours
+                                            a day,
+                                            7 days a week.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214609745">What if I have a question about my
+                                    order,
+                                    want to change it, or need to cancel it?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214609745">
+                                    <div class="card-body">
+                                        <p>For questions about your order, call Customer Service at 1-877-826-9866,
+                                            24
+                                            hours a day, 7 days a week, or send an e-mail to service@jamesallen.com.
+                                        </p>
+                                        <p>You can check your order status online by clicking<!-- --> <a
+                                                class="link--KxXbv" href="/accountallorders/">here</a>. You will
+                                            need
+                                            your order number and email address.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214610188">I'd like to place an international
+                                    order. Do
+                                    I pay customs fees to James Allen or to FedEx?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214610188">
+                                    <div class="card-body">
+                                        <p>Currently, James Allen is not collecting taxes on your behalf. In order
+                                            to
+                                            facilitate a more seamless delivery of your order, all taxes, duties,
+                                            and
+                                            VAT are now automatically estimated but not applied to your order at
+                                            checkout. The tax amount should be paid to FedEx upon delivery.
+                                        </p>
+                                        <p>Shipping is done via FedEx International Priority for orders over $500 in
+                                            value and usually takes two to three days. Packages valued below $500
+                                            are
+                                            sent USPS Priority Mail.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214610605">How do I find my ring size?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214610605">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Our Virtual Ring Sizer offers
+                                            multiple
+                                            methods to determine your ring size (or the ring size of a loved one).
+                                            Please
+                                            click here for a full list of the options available to you.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214610892">I saw a ring on your site, and I
+                                    love it! Is
+                                    it possible to try it on?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214610892">
+                                    <div class="card-body">
+                                        <p>Definitely. At James Allen, we understand how important it is for our
+                                            customers to see and feel jewelry - especially a piece of jewelry as
+                                            personal as an engagement ring.
+                                        </p>
+                                        <p>So here at James Allen, we offer free shipping on all orders, with no
+                                            minimum purchase. In fact, we're so confident that you'll be impressed
+                                            by
+                                            the quality of our jewelry that we offer a money-back guarantee. If
+                                            you're
+                                            not satisfied with your order, you have 30 days to return your item and
+                                            receive a full refund.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214611252">What if I need to resize my ring?*
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214611252">
+                                    <div class="card-body">
+                                        <p>We will resize your ring once for free within the first year of your
+                                            purchase, including free return shipping within the U.S. and Canada for
+                                            the
+                                            first resize. International customers pay a small return shipping fee of
+                                            $50.
+                                        </p>
+                                        <p>&amp;nbsp;If more than one resize is needed or a resize is needed outside
+                                            of the
+                                            first year, a $25 fee applies to resize white, yellow, and rose gold
+                                            rings,
+                                            and $50 for platinum. The return shipping fee to send your item to us is
+                                            $30
+                                            for US customers and $50 for international customers. We do not charge
+                                            to
+                                            send the ring back to you, so that service is always free.
+                                        </p>
+                                        <p>&amp;nbsp;As part of our upgraded JM Care Plans,™ you get unlimited ring
+                                            resizing
+                                            at no additional cost to you for the duration of the plan. Click<!-- -->
+                                            <a class="link--KxXbv" href="/jewelry-warranties/">here</a> <!-- -->for
+                                            more
+                                            information.
+                                        </p>
+                                        <p>&amp;nbsp;*Some rings cannot be resized and will need to be
+                                            remanufactured. This
+                                            may be due to a size restriction, falling outside of the recommended
+                                            range,
+                                            or due to the design style. Upon receipt and inspection of your ring,
+                                            you
+                                            will be notified prior to any work being done to discuss the charge to
+                                            remanufacture your ring.
+                                        </p>
+                                        <p>&amp;nbsp;During our 30-day return policy, you will not be charged if
+                                            your ring
+                                            needs to be remanufactured. There will be a fee for rings that need to
+                                            be
+                                            remanufactured outside the 30-day return policy. Exclusions and
+                                            limitations
+                                            apply. It is important to know that your new ring may not look ‘exactly’
+                                            like the original, as minor variations can occur. For specific details,
+                                            refer to the Terms and Conditions<!-- --> <a class="link--KxXbv"
+                                                                                         href="https://ion.r2net.com/Images/CarePlan/3YRTermsAndConditions.pdf">
+                                                here</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214611647">What happens when my ring is
+                                    resized?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214611647">
+                                    <div class="card-body">
+                                        <p>During the resize process small amounts of metal will be added or removed
+                                            to
+                                            increase or decrease the size as needed. As a result, your ring may be
+                                            slightly thicker or thinner when completed. This is a minor difference
+                                            and
+                                            may or may not be discernible to you.
+                                        </p>
+                                        <p>&amp;nbsp;Your resized ring will be inspected by quality assurance to
+                                            ensure that
+                                            our high standards are met and that your ring has been fitted to the
+                                            size
+                                            that you need. For a free resizing, just mail your ring to our
+                                            offices. <!-- -->.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214611998">Can you engrave my ring?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214611998">
+                                    <div class="card-body">
+                                        <p>Yes, we'd be happy to personalize your ring with an inscription for
+                                            FREE.
+                                        </p>
+                                        <p>&amp;nbsp;Please note: There will be a $25 re-polishing fee if an
+                                            engraved item
+                                            is returned.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214612372">If I purchase an engagement ring and
+                                    a loose
+                                    diamond, do I have to pay extra to have the diamond set into the ring?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214612372">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Of course not! In fact, we
+                                            encourage you
+                                            to choose your diamond separately - this is what makes your jewelry
+                                            unique!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214612748">I have my own diamond but I'd like
+                                    to
+                                    purchase one of your settings. Can you set my diamond into a James Allen ring?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214612748">
+                                    <div class="card-body">
+                                        <p>Yes! Almost every ring on the James Allen website is available for
+                                            purchase,
+                                            regardless of whether or not you purchase a loose diamond from us. Many
+                                            rings, however, cannot be manufactured unless we have the diamond in our
+                                            possession. Tension settings, rings with diamond halos, and other unique
+                                            designs fall into that category.
+                                        </p>
+                                        <p>&amp;nbsp;In those instances, we require that you send the diamond to our
+                                            offices
+                                            and charge a $100 setting fee. To order those designs, please contact
+                                            our
+                                            offices and we will provide you with an exact shipping and insurance
+                                            quotation.
+                                        </p>
+                                        <p>&amp;nbsp;For all other designs, you can complete your order through our
+                                            online
+                                            shopping cart. When you check out with just a setting (and not a
+                                            diamond),
+                                            please provide us with the exact shape and millimeter dimensions of your
+                                            diamond so we can include properly sized prongs.
+                                        </p>
+                                        <p>&amp;nbsp;Please Note: while we will take every precaution to ensure that
+                                            your
+                                            diamond is professionally mounted into our ring setting, James Allen
+                                            cannot
+                                            be responsible for any damage that may occur during the setting process.
+                                            CZ
+                                            (cubic zirconia), diamond simulants, clarity-enhanced diamonds,
+                                            gemstones,
+                                            or other diamond substitutes are particularly prone to damage.
+                                        </p>
+                                        <p>&amp;nbsp;Any diamond simulants or enhanced diamonds should be clearly
+                                            marked as
+                                            such when sent to our offices. We also reserve the right to charge
+                                            additional fees for diamonds or gemstones that are greater than 7mm in
+                                            diameter.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214613114">Is the name JAMES ALLEN going to be
+                                    inscribed inside my ring like I see in the pictures online?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214613114">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">The JAMES ALLEN inscription
+                                            shown in our
+                                            online product images is to protect the copyright of our photographs and
+                                            videos.
+                                            Your ring will only be stamped with the metal type (18Kk or Platinum)
+                                            and the
+                                            "JA" hallmark.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214613475">Are "Design Your Own" rings
+                                    considered
+                                    special orders and do they also come with a money-back guarantee?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214605125" role="tabpanel"
+                                     id="myCollapseTab1693214613475">
+                                    <div class="card-body">
+                                        <p>Every loose diamond, ring, and piece of jewelry listed on the website is
+                                            sold
+                                            with a 100% money-back guarantee. Designing your own ring using our
+                                            system
+                                            or having your diamond mounted into any ring does NOT make the ring
+                                            custom.
+                                        </p>
+                                        <p>&amp;nbsp;Custom orders refer to ring designs that are NOT on the James
+                                            Allen
+                                            website.
+                                        </p>
+                                        <p>Please note: all returns on engraved rings will require a $25
+                                            re-polishing
+                                            fee.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Our Diamonds and Jewelry</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693214660015" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214660016">What are GIA, AGS, and IGI diamond
+                                    certificates?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214660016">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">A Gemological Institute of
+                                            America
+                                            (GIA), American Gem Society (AGS), or International Gemological
+                                            Institute (IGI)
+                                            diamond certificate assures the value and quality of your diamond. GIA,
+                                            AGS, and
+                                            IGI are the gold standard in diamond grading. Their reports detail key
+                                            characteristics of each diamond.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214660015">What are the "Four Cs"?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214660015">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">The Four Cs - Carat (size),
+                                            Color,
+                                            Clarity and Cut are the industry grade standards from the Gemological
+                                            Institute
+                                            of America (GIA). Every diamond is specifically graded on these
+                                            features.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214660017">What does "Cut" mean?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214660017">
+                                    <div class="card-body">
+                                        <p>A diamond's cut determines how effectively it returns light to the
+                                            viewer's eye.
+                                            A well-cut diamond appears brilliant and fiery, while poorly cut stones
+                                            look
+                                            dark and lifeless. Well-cut diamonds often appear larger than stones of
+                                            the same
+                                            carat weight. To learn more about cuts click<!-- --> <a
+                                                    class="link--KxXbv"
+                                                    href="/education/diamonds/4cs-cut/">
+                                                here</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214677877">What does the term "eye-clean" mean?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214677877">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">"Eye-Clean" is a term used to
+                                            describe a
+                                            diamond that is clean to an unaided eye in a face-up position from a
+                                            distance of
+                                            8 to 10 inches. Diamonds of VS2 or higher in quality will usually be
+                                            eye-clean.
+                                            Diamonds of SI1, SI2, and I1 need to be visually inspected to determine
+                                            whether
+                                            any inclusions are visible from the top. We can inspect any diamond at
+                                            no
+                                            charge.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214678225">How can I make sure the diamonds I
+                                    receive
+                                    are actually the diamonds I ordered?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214678225">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">We ship every loose diamond and
+                                            diamond
+                                            engagement ring with an independent GIA, AGS, or IGI lab report. This
+                                            report can
+                                            be examined by a qualified gemologist and compared against the unique
+                                            characteristics of your diamond.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214678602">I found a diamond on your website
+                                    that I
+                                    like. Is it available?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214678602">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. All diamonds on our website
+                                            are
+                                            available for purchase.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214679059">What is the quality of the diamonds
+                                    used in
+                                    your jewelry?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214679059">
+                                    <div class="card-body">
+                                        <p>Smaller diamonds (often called melee) are cut in factories around the
+                                            world
+                                            and are available in a variety of qualities.
+                                        </p>
+                                        <p>&amp;nbsp;The highest quality diamonds are often referred to as
+                                            "Collection."Collection diamonds are finer in both color and clarity.
+                                            They're precisely cut to maximize fire and brilliance. Collection
+                                            quality
+                                            goods are only available from specialty dealers. We pride ourselves on
+                                            using
+                                            collection diamond melee in all of our engagement designs.
+                                        </p>
+                                        <p>&amp;nbsp;"Promotional" goods are higher in both color and clarity, but
+                                            are still
+                                            cut for maximum weight. The lowest quality goods are usually labeled as
+                                            "commercial" and consist of I/J/K color and I1 clarity.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214679603">Are any of the gemstones used in
+                                    your
+                                    jewelry heat treated?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214679603">
+                                    <div class="card-body">
+                                        <p>Yes. It is very common for natural gemstones to be heated. Heating the
+                                            stone
+                                            can intensify color and clarity, making the gemstone more beautiful and
+                                            valuable. In addition, emeralds are commonly infused with a colorless
+                                            oil,
+                                            wax, or resin to improve their appearance and luster.
+                                        </p>
+                                        <p>&amp;nbsp;Nearly all rubies and emeralds on the jewelry market today are
+                                            heated
+                                            or treated in some fashion.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214680042">Do the 18K white gold rings turn
+                                    yellow over
+                                    time?*
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214680042">
+                                    <div class="card-body">
+                                        <p>Yes, very slightly. In order to give 18K White Gold a pure white color,
+                                            it is
+                                            plated with rhodium. This is a standard practice for 14K and 18K White
+                                            Gold
+                                            jewelry. Over time, the rhodium plating may wear off.
+                                        </p>
+                                        <p>&amp;nbsp;When that occurs, the true color of the white gold (a slightly
+                                            buttery
+                                            off-white) will appear. James Allen offers free lifetime rhodium plating
+                                            on
+                                            all our jewelry. Click<!-- -->
+                                            <a class="link--KxXbv" href="/jewelry-warranties/">here</a> <!-- -->for
+                                            more
+                                            information about our plans.
+                                        </p>
+                                        <p>&amp;nbsp;*Exclusions and limitations apply. For specific details, refer
+                                            to the
+                                            Terms and Conditions<!-- --> <a class="link--KxXbv"
+                                                                            href="https://ion.r2net.com/Images/CarePlan/3YRTermsAndConditions.pdf">
+                                                here</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214680466">Can I Resize My Tennis Bracelet?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214680466">
+                                    <div class="card-body">
+                                        <p>We now offer tennis bracelet resizing! There is a non-refundable fee of
+                                            $75
+                                            to shorten the bracelet.
+                                        </p>
+                                        <p>Any links removed will be returned to the customer. James Allen does not
+                                            keep
+                                            the links nor provide a discount for the links that have been removed.
+                                        </p>
+                                        <p>Once the links have been removed, the bracelet is non-refundable.</p>
+                                        <p>We recommend that you first receive the tennis bracelet to ensure you
+                                            love
+                                            the style and then make your desired changes. Please<!-- -->
+                                            <a class="link--KxXbv" href="/guarantee/customer-service/">contact our
+                                                customer service department
+                                            </a> <!-- -->if you have any additional questions.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214680939">What are conflict-free diamonds?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214680939">
+                                    <div class="card-body">
+                                        <p>Conflict-free diamonds are diamonds that were not obtained due to human
+                                            rights abuses, civil war, child labor, violence, or environmental
+                                            degradation.
+                                        </p>
+                                        <p>&amp;nbsp;At James Allen, we make sure that our customers receive
+                                            conflict-free
+                                            diamonds. Our internal guidelines exceed government requirements:
+                                        </p>
+                                        <ul style="list-style:disc">
+                                            <li style="list-style:disc">We cut and polish many of the diamonds on
+                                                our
+                                                website.
+                                            </li>
+                                            <li style="list-style:disc">We only purchase polished diamonds from
+                                                professional members of the diamond trade.
+                                            </li>
+                                            <li style="list-style:disc">We have contracts with our suppliers which
+                                                guarantee that their diamonds are conflict-free.
+                                            </li>
+                                        </ul>
+                                        <p>&amp;nbsp;When you shop at James Allen, you can be certain that your
+                                            diamonds are
+                                            coming from the most reputable providers.
+                                        </p>
+                                        <p>&amp;nbsp;Read more about our<!-- --> <a class="link--KxXbv"
+                                                                                    href="/education/diamonds/grading-conflict-free/">
+                                            conflict-free diamonds</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214680940">How often do you add diamonds to
+                                    your
+                                    inventory?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214660015" role="tabpanel"
+                                     id="myCollapseTab1693214680940">
+                                    <div class="card-body">
+                                        <p>We add new diamonds to our inventory on a daily basis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Lab-Created Diamonds</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693214709851" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214709852">Is a lab created diamond better than
+                                    an
+                                    earth created diamond?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214709852">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">This depends on what you’re
+                                            going for;
+                                            both lab created and earth created diamonds from James Allen are
+                                            conflict-free
+                                            and vary in their diamond grading. lab created diamonds allow you to
+                                            maximize
+                                            your budget, giving up to 30% more size for the same cost, while earth
+                                            created
+                                            diamonds are incredible works of nature and the traditional choice.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214709851">Where do lab created diamonds come
+                                    from?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214709851">
+                                    <div class="card-body">
+                                        <p>Lab created diamonds are created in a lab, but that does NOT mean they
+                                            are
+                                            not real diamonds. Scientists start with a diamond seed - a small sliver
+                                            of
+                                            chemicals - then expose it to temperatures and pressures to make it grow
+                                            like a diamond under the ground. A carbon coating helps the diamond
+                                            crystalize as it grows.
+                                        </p>
+                                        <p>&amp;nbsp;This advanced technology simulates natural growth, allowing the
+                                            seeds
+                                            to mature from a sliver to a fully-formed diamond.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214709853">Are lab created diamonds the same as
+                                    earth
+                                    created diamonds? If not, how are they different?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214709853">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Lab created diamonds and earth
+                                            created
+                                            diamonds offer identical optical and chemical composition. The sparkle
+                                            is the
+                                            same - the core difference between them is their origin.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214714059">Are lab created diamonds or earth
+                                    created
+                                    diamonds of higher quality?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214714059">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Neither is inherently higher
+                                            quality;
+                                            both lab created and earth created diamonds are available in a range of
+                                            qualities. For example, while the color of one diamond may be superior,
+                                            the
+                                            other diamond may be superior in clarity - this isn’t connected to the
+                                            diamond’s
+                                            origin.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214714564">How is a lab created diamond made?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214714564">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Scientists start with a diamond
+                                            seed - a
+                                            small sliver of chemicals - then expose it to temperatures and pressures
+                                            to make
+                                            it grow like a diamond under the ground. A carbon coating helps the
+                                            diamond
+                                            crystalize as it grows.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214715036">Will I still receive an appraisal
+                                    and/or a
+                                    laboratory certificate?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214715036">
+                                    <div class="card-body">
+                                        <p>Yes. James Allen lab created diamonds are graded to the same standards as
+                                            our
+                                            earth created diamonds. That means your lab created diamond will be
+                                            accompanied
+                                            by an independent laboratory report detailing its<!-- -->
+                                            <a class="link--KxXbv" href="/education/diamonds/4cs-cut/">"4 Cs"
+                                            </a> <!-- -->-
+                                            cut, color, clarity, and carat weight. If your diamond is mounted into
+                                            jewelry,
+                                            it will also be accompanied by an insurance appraisal.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214715036">Okay, so the untrained eye cannot
+                                    tell the
+                                    difference between lab created and earth created diamonds. What about the
+                                    trained eye?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214715036">
+                                    <div class="card-body">
+                                        <p>Same deal, because lab created diamonds are virtually and chemically
+                                            identical to
+                                            earth created diamonds, they cannot be distinguished even with a
+                                            professional
+                                            loupe.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214715036">Will the return policy be the same?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214715036">
+                                    <div class="card-body">
+                                        <p>Yes! We stand behind all our products and want you to be 100% satisfied
+                                            with your
+                                            purchase.<!-- -->
+                                            <a class="link--KxXbv" href="/guarantee/hassle-free-returns/">You may
+                                                return
+                                                your jewelry piece
+                                            </a> <!-- -->for a full refund or exchange within 30 days.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214715036">Can I get insurance on a lab created
+                                    diamond?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214709851" role="tabpanel"
+                                     id="myCollapseTab1693214715036">
+                                    <div class="card-body">
+                                        <p>Yes! We partner with<!-- --> <a class="link--KxXbv"
+                                                                           href="/jewelers-mutual-jewelry-insurance/">
+                                            Jewelers Mutual<!-- --> </a>(JM), a personal jewelry insurance company
+                                            which
+                                            insures both lab created and earth created diamonds. Make sure to
+                                            provide them
+                                            with your insurance appraisal and policy documents.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Payments</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693214752204" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214752205">What types of payment do you accept?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214752205">
+                                    <div class="card-body">
+                                        <p>We accept all major credit cards (Visa, MasterCard, American Express, and
+                                            Discover), as well as PayPal.
+                                        </p>
+                                        <p>&amp;nbsp;Many customers purchasing items valued over $1,000 prefer to
+                                            pay by
+                                            wire transfer. Wire transfer orders receive a 1.5% discount from our
+                                            listed
+                                            price. Customers paying by wire will receive wiring instructions once
+                                            they
+                                            have completed the check-out process.
+                                        </p>
+                                        <p>&amp;nbsp;We must receive confirmation from our bank that a wire transfer
+                                            has
+                                            been completed before items can be shipped. At our sole discretion, we
+                                            may
+                                            require bank wire payment for any international order or orders in
+                                            excess of
+                                            $20,000.
+                                        </p>
+                                        <p>&amp;nbsp;Credit card orders can be placed online using our secure server
+                                            or over
+                                            the phone with our customer service department. For security purposes,
+                                            James
+                                            Allen may request additional documentation (such as a driver's license,
+                                            photocopy of credit card, etc.) on some transactions.
+                                        </p>
+                                        <p>&amp;nbsp;Please contact our customer service department at
+                                            1-877-826-9866 if you
+                                            have any additional questions.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214752204">Will I receive a discount if I pay
+                                    by wire
+                                    transfer?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214752204">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. Customers who pay by wire
+                                            transfer
+                                            receive a 1.5% discount off their entire order.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214752206">Will I be charged sales tax on my
+                                    order?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214752206">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">James Allen collects sales tax
+                                            on orders
+                                            that are shipped to the following states: Alabama, Alaska, Arizona,
+                                            Arkansas,
+                                            California, Colorado, District of Columbia, Connecticut, Florida,
+                                            Georgia,
+                                            Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,
+                                            Maine,
+                                            Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri,
+                                            Nebraska,
+                                            Nevada, New Jersey, New Mexico, New York, North Carolina, North Dakota,
+                                            Ohio,
+                                            Oklahoma, Pennsylvania, Rhode Island, South Carolina, South Dakota,
+                                            Tennessee,
+                                            Texas, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin and
+                                            Wyoming.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214759139">
+                                    Can I pay with two different credit cards?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214759139">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. If you'd like to pay with
+                                            two
+                                            different credit cards, please place your order over the phone with
+                                            customer
+                                            service at 1-877-826-9866. We are available 24 hours a day, 7 days a
+                                            week.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214760224">
+                                    What is the credit card security code?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214760224">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">The security code is a 3 or 4
+                                            digit
+                                            number that appears on your credit card. Visa and MasterCard users will
+                                            find
+                                            this code above the signature on the back of the card. Discover and
+                                            American
+                                            Express users will find this number on the top right of the front of the
+                                            card.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693214760737">Do you offer financing?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693214752204" role="tabpanel"
+                                     id="myCollapseTab1693214760737">
+                                    <div class="card-body">
+                                        <p>Yes. James Allen offers payment options to help you purchase the bridal
+                                            jewelry
+                                            of your dreams.<!-- -->
+                                            <a class="link--KxXbv" href="/financing/">Learn more about financing
+                                            </a> <!-- -->to select the option best for you and complete the
+                                            application form
+                                            online.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Privacy and Security</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693215216796" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab1693215216797">Is shopping with James Allen secure?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215216796" role="tabpanel"
+                                     id="myCollapseTab1693215216797">
+                                    <div class="card-body">
+                                        <p>Yes. James Allen ensures that our customers' purchases are secure. We use
+                                            secure
+                                            encryption and fraud protection for all credit card transactions. All
+                                            sensitive
+                                            data is encrypted using 256-bit Secure Socket Layers (SSL). You can view
+                                            our<!-- -->
+                                            <a class="link--KxXbv"
+                                               href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&amp;dn=www.jamesallen.com&amp;lang=en">
+                                                Norton Secured Certificate
+                                            </a> <!-- -->to see an independent verification of our site’s security.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215216798">Will my personal information be
+                                    shared with
+                                    third parties?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215216796" role="tabpanel"
+                                     id="myCollapseTab1693215216798">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">We keep your information 100%
+                                            private
+                                            and confidential.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Return Policy</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693215272520" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab1693215272521">What is your return policy?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215272520" role="tabpanel"
+                                     id="myCollapseTab1693215272521">
+                                    <div class="card-body">
+                                        <p>If, for any reason, you are not completely satisfied with your order, you
+                                            may
+                                            return it within the first 30 days of shipment for a full refund or
+                                            exchange
+                                            - we even pay for the return shipping.
+                                        </p>
+                                        <p>Free returns only apply to U.S. and Canada customers and are limited to
+                                            three
+                                            per customer. International customers pay a small return shipping fee of
+                                            $50. Please note: there will be a $25 re-polishing fee if an engraved
+                                            item
+                                            is returned. To return an item, simply follow the Return Procedures
+                                            listed
+                                            below:
+                                        </p>
+                                        <p>Contact our Customer Service department at 1-877-826-9866.</p>
+                                        <p>Advise the representative that you wish to return your order. Within one
+                                            business day of your phone call we will email you a prepaid, fully
+                                            insured
+                                            FedEx 2-Day label, along with instructions on how to safely and securely
+                                            package your items.
+                                        </p>
+                                        <p>Take your order and the label to the nearest FedEx location and simply
+                                            mail
+                                            it back to us! If you need packaging materials, FedEx will assist you.
+                                        </p>
+                                        <p>Your order should arrive in our office in two business days (excludes
+                                            weekends and holidays).
+                                        </p>
+                                        <p>All refunds will be processed within two weeks and done in the form of
+                                            the
+                                            original purchase method. Bank wires will be refunded via company check.
+                                        </p>
+                                        <p>Improperly packaged items:</p>
+                                        <p>Items sent to our office without a RAN number, packages shipped beyond
+                                            the
+                                            30-day return period, and packages that are improperly packaged or
+                                            uninsured
+                                            will be refused receipt.
+                                        </p>
+                                        <p>&amp;nbsp;Damaged and used items:</p>
+                                        <p>Returned merchandise must be undamaged and in "new and unused condition."
+                                            Items showing obvious signs of wear or alteration by a jeweler other
+                                            than
+                                            James Allen will not be accepted.
+                                        </p>
+                                        <p>&amp;nbsp;Loose diamonds:</p>
+                                        <p>Loose diamonds must be accompanied by the original laboratory grading
+                                            report
+                                            or a $150 charge will be assessed to replace the certificate.
+                                        </p>
+                                        <p>Eternity bands and tension rings:</p>
+                                        <p>Eternity bands and tension rings cannot be resized and must be completely
+                                            remanufactured.
+                                        </p>
+                                        <p>If you need to resize an eternity or tension ring outside the initial
+                                            30-day
+                                            window, you will need to return your ring entirely. We will send the
+                                            ring to
+                                            the factory, who will inform us of the remanufacturing fee. In most
+                                            cases,
+                                            we are able to offer some credit toward the remanufacturing fee. The
+                                            amount
+                                            is not guaranteed and can vary, depending on the ring.
+                                        </p>
+                                        <p>Special orders:</p>
+                                        <p>Special orders cannot be returned. A ring plus center diamond that we
+                                            mount
+                                            together - such as the Design Your Own rings - is not considered a
+                                            special
+                                            order.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215272522">Do you have an upgrade policy?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215272520" role="tabpanel"
+                                     id="myCollapseTab1693215272522">
+                                    <div class="card-body">
+                                        <p>Yes. Any earth created diamond can be exchanged for 100% credit towards a
+                                            new
+                                            earth created diamond valued at least 2x the original amount. Any lab
+                                            created diamond may also be exchanged for 100% credit towards a new lab
+                                            created diamond valued at least 2x the original amount.
+                                        </p>
+                                        <p>&amp;nbsp;The diamond being upgraded must be in original condition and
+                                            accompanied by the original laboratory grading document. James Allen can
+                                            also remodel most rings to accommodate the new diamond for a minimal
+                                            charge.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title"
+                         data-name="Title"
+                         style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;">Shipping</font>
+                            <br/>
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_faq_collapse pt32 pb32 o_colored_level s_faq_collapse_light"
+                         data-snippet="s_faq_collapse"
+                         data-name="Accordion" style="background-image: none;">
+                    <div class="container">
+                        <div id="myCollapse1693215312532" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header s_faq_collapse_right_icon collapsed"
+                                   data-bs-target="#myCollapseTab1693215312533">Where do you ship diamonds?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215312533">
+                                    <div class="card-body">
+                                        <p>We ship diamonds to the U.S., Canada and internationally. We deliver to
+                                            your
+                                            home, business, APO, or nearest FedEx location.
+                                        </p>
+                                        <p>&amp;nbsp;Regarding deliveries to Canada: customs taxes may vary,
+                                            depending upon
+                                            the nature of the item and the province you are having the item shipped
+                                            to.
+                                            For example, purchasing a loose diamond will not incur a customs tax,
+                                            whereas a diamond engagement ring, diamond earrings or a diamond pendant
+                                            will incur a customs tax from anywhere between 5% and 8.5%. Other than
+                                            GST/PST/HST, there are no additional import duties for orders shipped to
+                                            Canada.
+                                        </p>
+                                        <p>&amp;nbsp;Before having an item shipped to Canada, please<!-- --> <a
+                                                class="link--KxXbv"
+                                                href="http://www.cbsa-asfc.gc.ca/trade-commerce/tariff-tarif/2018/01-99/ch71-2018-eng.pdf">
+                                            learn more about the exact taxes and rates you may be subject to pay</a>.
+                                        </p>
+                                        <p>&amp;nbsp;Click<!-- -->
+                                            <a class="link--KxXbv" href="/guarantee/free-shipping/">here
+                                            </a> <!-- -->for
+                                            a complete list of countries that we serve.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="collapsed card-header o_default_snippet_text s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215312532">What is the cost of shipping?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215312532">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">James Allen provides fast, free
+                                            shipping
+                                            on all order destinations, regardless of order amount.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215312534">
+                                    I'd like to place an international order. Do I pay customs fees to James Allen
+                                    or to
+                                    FedEx?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215312534">
+                                    <div class="card-body">
+                                        <p>Currently, James Allen is not collecting taxes on your behalf. In order
+                                            to
+                                            facilitate a more seamless delivery of your order, all taxes, duties,
+                                            and
+                                            VAT are now automatically estimated but not applied to your order at
+                                            checkout. The tax amount should be paid to FedEx upon delivery.
+                                        </p>
+                                        <p>Shipping is done via FedEx International Priority for orders over $500 in
+                                            value and usually takes two to three days. Packages valued below $500
+                                            are
+                                            sent USPS Priority Mail.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215324263">
+                                    Can I ship to an address that is different from my billing address?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215324263">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215326219">Can I send my order to a pick-up
+                                    location
+                                    instead of a chosen address?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215326219">
+                                    <div class="card-body">
+                                        <p>Yes. All domestic shipping, and international orders over $500 USD is
+                                            done
+                                            via FedEx Priority. You may choose to pick up your order at a FedEx
+                                            location
+                                            instead of receiving your James Allen package at a selected address.
+                                        </p>
+                                        <p>This option can be requested at checkout and is currently only available
+                                            in
+                                            the United States.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215326750">Do you ship to military APO's?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215326750">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. We will gladly mail your
+                                            purchase
+                                            to any military APO using the US Postal Service Registered Mail.
+                                            Registered mail
+                                            shipments are fully insured and can take up to three weeks for delivery,
+                                            so
+                                            order early!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215340479">How long after I order will my item
+                                    be
+                                    shipped?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215340479">
+                                    <div class="card-body">
+                                        <p>All domestic shipping, and international orders over $500 USD, is done
+                                            via
+                                            FedEx Priority.
+                                        </p>
+                                        <p>Loose diamonds are shipped 1-4 days after payment to allow time for
+                                            proper
+                                            inspection by our gemologists. All other jewelry and engagement rings
+                                            will
+                                            be shipped in one to three weeks, depending on the production schedule
+                                            of
+                                            that item.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215340813">
+                                    Are you a "drop-shipper"?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215340813">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Every item sold by James Allen
+                                            is
+                                            inspected by our quality control department prior to shipment to ensure
+                                            care and
+                                            satisfaction.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215341141">What if I need an item sooner than
+                                    the date
+                                    listed on the website?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215341141">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Every engagement ring and
+                                            wedding band
+                                            on our website is carefully crafted at the time of order. While we are
+                                            able
+                                            expedite some orders, we highly encourage you to allow adequate time for
+                                            your
+                                            design to be completed and inspected by our Quality Assurance team.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215341509">Are your shipments secure?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215341509">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">Yes. Our items are fully insured
+                                            during
+                                            transit. All purchases require a signature at the time of delivery.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" role="tab" data-bs-toggle="collapse" aria-expanded="false"
+                                   class="card-header collapsed s_faq_collapse_right_icon"
+                                   data-bs-target="#myCollapseTab1693215341816">What if my jewelry gets lost during
+                                    shipment?
+                                </a>
+                                <div class="collapse" data-bs-parent="#myCollapse1693215312532" role="tabpanel"
+                                     id="myCollapseTab1693215341816">
+                                    <div class="card-body">
+                                        <p class="card-text o_default_snippet_text">James Allen takes every
+                                            precaution to
+                                            ensure that your order arrives safely. Your order is fully insured
+                                            during
+                                            transit, and we require a signature for all packages.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <record id="faq-record" model="website.page">
+        <field name="url">/faq</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="faq"/>
+    </record>
+</odoo>

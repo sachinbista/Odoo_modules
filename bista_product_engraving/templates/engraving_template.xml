@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="engraving_base_template" name="Engraving Base Template">
+        <div class="engrave-content" id="engrave-content">
+            <div id="engrave-text-style" class="engraving-type-tab">
+                <div class="engrave-heading">
+                    <strong>Engrave</strong>
+                    Text &amp; Style
+                </div>
+                <div class="choose-engrave-style">
+                    <div class="fil-engrave-detail">
+                        <div class="row">
+                            <label class="col-form-label col-sm-3">Text to Engrave</label>
+                            <div class="col-sm-9 choose-engrave-text">
+                                <input type="text" name="msg"
+                                       class="form-control input-text engraving_text required-entry" 
+                                       placeholder="Type Your Engraving Here" maxlength="30" autocomplete="off"
+                                    />
+    
+                                <span class="indic">Max 30 characters/symbols</span>
+                                <div id="text_error" style="display:none; font-size:12px; color:red;">
+                                    Please type text to be engraved.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <label class="col-form-label col-sm-3">Font Style</label>
+                            <div class="col-sm-9 choose-engrave-font">
+                                <div class="btn-group dropdown engrave-select">
+                                    <input type="hidden" name="selectedfontstyle" id="selectedfontstyle" value="" style="display: inline-block;"/>
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="engraveFontid" title="Please select category.">
+                                        <span class="filter-option pull-left">Font Style</span>
+                                        <span class="select-arrow"></span>
+                                    </button>
+                                    <ul class="dropdown-menu menu-right" role="listbox" style="top:0px;" aria-labelledby="engraveFontid">
+                                        <li data-original-index="1">
+                                            <a class="dropdown-item font-style-list" data-value="santasSleighfull-sdeluxe">
+                                                <span class="santasSleighfull-sdeluxe">SantasSleighfull-sdeluxe</span>
+                                            </a>
+                                        </li>
+                                        <li data-original-index="1">
+                                            <a class="dropdown-item font-style-list" data-value="guardians">
+                                                <span class="guardians">Guardians</span>
+                                            </a>
+                                        </li>
+                                        <li data-original-index="1">
+                                            <a class="dropdown-item font-style-list" data-value="monotype-corsiva">
+                                                <span class="monotype-corsiva">Monotype-corsiva</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!-- <div class="dropdown-menu dropdown-menu-right" id="dropdown_fonts" style="overflow: hidden auto; height: 300px;" aria-labelledby="engraveFontid">
+                                        <ul class="dropdown-item inner" role="listbox" style="top:0px;">
+                                            <li data-original-index="1">
+                                                <a class="font-style-list" data-value="santasSleighfull-sdeluxe">
+                                                    <span class="santasSleighfull-sdeluxe">SantasSleighfull-sdeluxe</span>
+                                                </a>
+                                            </li>
+                                            <li data-original-index="1">
+                                                <a class="font-style-list" data-value="guardians">
+                                                    <span class="guardians">Guardians</span>
+                                                </a>
+                                            </li>
+                                            <li data-original-index="1">
+                                                <a class="font-style-list" data-value="monotype-corsiva">
+                                                    <span class="monotype-corsiva">Monotype-corsiva</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div> -->
+                                    <div id="font_error" style="display:none; font-size:12px; color:red;">
+                                        Please select any type of font style.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <label class="col-form-label col-sm-3" style="margin-top: 5%">Engraving Preview*</label>
+                            <div class="col-sm-9 engraving-preview">
+                                <span id="preview-spain" style="">
+                                    <div class="engraving-preview-text" style="overflow: auto;width: 100%;">
+                                        <div class="container">
+                                            <div class="" id="engravingPreview" style="font-size:25px;display: inline;"></div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

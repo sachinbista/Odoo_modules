@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- form view, tree view and menu action -->
+    <record id="engrave_font_form_view" model="ir.ui.view">
+        <field name="name">engrave.forn.form.view</field>
+        <field name="model">engrave.font</field>
+        <field name="arch" type="xml">
+            <form string="Engrave Font">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="font_class" groups="base.group_no_one"/>
+                    </group>
+                    <group>
+                        <field name="main_font_file" widget="binary" groups="base.group_no_one" readonly="1"/>
+                        <field name="font_attachment_ids" widget="many2many_binary"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="engrave_font_tree_view" model="ir.ui.view">
+        <field name="name">engrave.font.tree.view</field>
+        <field name="model">engrave.font</field>
+        <field name="arch" type="xml">
+            <tree string="Engrave Font">
+                <field name="name"/>
+                <field name="font_class"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="engrave_font_action" model="ir.actions.act_window">
+        <field name="name">Engrave Font</field>
+        <field name="res_model">engrave.font</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Engrave Fonts"
+    id="engrave_font_menu"
+    action="engrave_font_action"
+    parent="website.menu_website_global_configuration"
+    sequence="45"
+    groups="base.group_no_one"/>
+
+</odoo>

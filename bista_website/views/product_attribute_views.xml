@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bista_product_attribute_view_form_inh" model="ir.ui.view">
+        <field name="name">bista.product.attribute.view.form</field>
+        <field name="model">product.attribute</field>
+        <field name="inherit_id" ref="product.product_attribute_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='visibility']" position="after">
+                <field name="is_certificate"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

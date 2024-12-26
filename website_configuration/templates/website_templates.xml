@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="bista_submenu" inherit_id="website.submenu" name="Bista: Submenu">
+        <xpath expr="//div[@t-field='submenu.mega_menu_content']" position="attributes">
+            <attribute name="t-att-data-menu-ref">submenu.id</attribute>
+            <attribute name="t-att-data-main-category-ref">submenu.main_category_id.id</attribute>
+            <attribute name="t-att-data-public-category-refs">submenu.menu_category_ids.mapped('related_category_id').ids</attribute>
+            <attribute name="t-att-data-product-attribute-refs">submenu.menu_attribute_ids.mapped('related_attribute_id').ids</attribute>
+            <attribute name="t-att-data-website-menu-category-ids">submenu.menu_category_ids.ids or []</attribute>
+            <attribute name="t-att-data-website-menu-attribute-ids">submenu.menu_attribute_ids.ids or []</attribute>
+        </xpath>
+    </template>
+
+</odoo>

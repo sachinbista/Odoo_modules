@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="recently_purchased_page" name="Recently Purchased Page">
+        <t t-call="website.layout">
+            <div class="container-fluid">
+                <div class="row w-100 mx-auto">
+                    <!-- <div style="min-height: 308.4px;">
+
+                    </div> -->
+                    <t t-foreach="products" t-as="product" >
+                        <!-- <t t-set="combination" t-value="product.product_tmpl_id._get_first_possible_combination()"/>
+                        <t t-set="combination_info" t-value="product_tmpl._get_combination_info(combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                        <t t-set="product" t-value="product.env['product.product'].browse(combination_info['product_id'])"/> -->
+                        <!-- <t t-set="product" t-value="product_tmpl.product_variant_ids"/> -->
+                        <!-- <t t-set="record" t-value="data['_record']"/> -->
+                        <div class="d-flex flex-grow-0 flex-shrink-0 col-3">
+                            <div class="o_carousel_product_card bg-transparent w-100 card border-0">
+                                <form action="/shop/cart/update" method="post" class="oe_product_cart h-100 d-flex"
+                                    t-att-data-publish="product.website_published and 'on' or 'off'"
+                                    itemscope="itemscope" itemtype="http://schema.org/Product">
+                    
+                                    <t t-set="product_href" t-value="product.website_url" />
+                    
+                                    <div class="oe_product_image position-relative h-100 flex-grow-0 overflow-hidden">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>
+                                        <a t-att-href="product_href" class="oe_product_image_link d-block h-100 position-relative" itemprop="url" contenteditable="false">
+                                            <t t-set="image_holder" t-value="product.product_tmpl_id._get_image_holder()"/>
+                                            <span t-field="image_holder.image_1920"
+                                                t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute'}"
+                                                class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"/>
+                                        </a>
+                                    </div>
+                                    <div class="o_wsale_product_information position-relative d-flex flex-column flex-grow-1 flex-shrink-1">
+                                        <div class="o_wsale_product_information_text flex-grow-1">
+                                            <h6 class="o_wsale_products_item_title mb-2">
+                                                <a class="text-primary text-decoration-none" itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+                                                <a t-if="not product.website_published" role="button" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">
+                                                    Unpublished
+                                                </a>
+                                            </h6>
+                                        </div>
+                                        <!-- <div class="o_wsale_product_sub d-flex justify-content-between align-items-end pb-1">
+                                            <t t-set="template_price_vals" t-value="get_product_prices(product)"/>
+                                            <div class="o_wsale_product_btn"/>
+                                            <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+                                                <t t-if="'base_price' in template_price_vals">
+                                                    <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                                                        <em class="small" t-esc="template_price_vals['base_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                                                    </del>
+                                                </t>
+                                                <span class="h6 mb-0" t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale" t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"/>
+                                                <span itemprop="price" style="display:none;" t-esc="template_price_vals['price_reduce']" />
+                                                <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </form>
+        
+                            </div>
+                        </div>
+
+                    </t>
+                </div>
+<!--                 
+                <section data-snippet="s_dynamic_snippet_products" class="s_dynamic_snippet_products s_dynamic pt32 pb32 o_colored_level s_product_product_borderless_1" data-name="Products" style="background-image: none;" data-product-category-id="all" data-number-of-records="16" data-filter-id="2" data-template-key="website_sale.dynamic_filter_template_product_product_borderless_1" data-carousel-interval="5000">
+                    <div class="container o_not_editable" contenteditable="false">
+                        <div class="css_non_editable_mode_hidden">
+                            <div class="missing_option_warning alert alert-info rounded-0 fade show d-none d-print-none o_default_snippet_text">
+                                Your Dynamic Snippet will be displayed here... This message is displayed because you did not provided both a filter and a template to use.
+                            </div>
+                        </div>
+                        <div class="dynamic_snippet_template"/>
+                    </div>
+                </section> -->
+                <div class="oe_structure" />
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

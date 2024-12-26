@@ -1,0 +1,17 @@
+#image_360 {
+    width: 400px;
+    margin: 30px auto;
+    overflow: hidden;
+    cursor: col-resize;
+}
+
+#image_360 ul {
+    width: 400px;
+    height: 280px;
+}
+
+#image_360 ul li img {
+    display: block;
+    width: 400px;
+    height: 280px;
+}

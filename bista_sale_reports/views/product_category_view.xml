@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_category_sales_report" model="ir.ui.view">
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']" position="inside">
+                <field name="is_service"/>
+            </xpath>
+            <field name="parent_id" position="after">
+                <field name="sale_type" attrs="{'readonly':[('parent_id', '!=', False)]}" class="oe_inline"/>
+            </field>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name="update_sale_type"
+                        icon="fa-th-list" type="object" groups="base.group_system">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Update Sale Types on child categories</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+
+    <!--<record id="product_category_form_view" model="ir.ui.view">
+			<field name="name">product.category.form</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view" />
+			<field name="arch" type="xml">
+				<field name="parent_id" position="after">
+					<field name="sale_type" attrs="{'readonly':[('parent_id', '!=', False)]}" class="oe_inline"/>
+				</field>
+				<div name="button_box" position="inside">
+					<button class="oe_stat_button" name="update_sale_type"
+						icon="fa-th-list" type="object" groups="base.group_system">
+						<div class="o_form_field o_stat_info">
+							<span class="o_stat_text"> Update Sale Types on child categories</span>
+						</div>
+					</button>
+				</div>
+			</field>
+		</record>-->
+</odoo>
