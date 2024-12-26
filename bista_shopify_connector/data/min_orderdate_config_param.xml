@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo noupdate="1">
+
+    <record id="shopify_order_fetch_min_date" model="ir.config_parameter">
+        <field name="key">shopify.order.min.datetime</field>
+        <field name="value">DD/MM/YYYY HH:MM:SS</field>
+    </record>
+
+    <record id="shopify_stock_export_zero_qty" model="ir.config_parameter">
+        <field name="key">shopify.stock.export.zero.qty</field>
+        <field name="value">True</field>
+    </record>
+</odoo>

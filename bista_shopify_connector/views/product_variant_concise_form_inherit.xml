@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_product_view_form_easy_inherit_shopify" model="ir.ui.view">
+        <field name="name">product.product.view.form.easy.inherit.shopify</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button string="View Shopify Product" type="object"
+                        name="open_shopify_variant"
+                        class="oe_stat_button" icon="fa-list"
+                        invisible = "not shopify_product_product_ids"/>
+            </div>
+        </field>
+    </record>
+
+</odoo>

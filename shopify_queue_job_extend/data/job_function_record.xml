@@ -1,0 +1,265 @@
+<odoo>
+    <data>
+        <record model="queue.job.channel" id="channel_root_shopify">
+            <field name="name">shopify</field>
+            <field name="parent_id" ref="queue_job.channel_root"/>
+        </record>
+        <record id="job_function_queue_job_shopify" model="queue.job.function">
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="method">shopify_import_order_by_ids</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_create_update_shopify_orders" model="queue.job.function">
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="method">create_update_shopify_orders</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_customers" model="queue.job.function">
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="method">create_update_shopify_customers</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_shopify_import_customer" model="queue.job.function">
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="method">shopify_import_customers</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_shopify_import_orders" model="queue.job.function">
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="method">shopify_import_orders</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_import_location" model="queue.job.function">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="method">import_locations</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_job_shopify_import_locations" model="queue.job.function">
+            <field name="model_id" ref="stock.model_stock_location"/>
+            <field name="method">shopify_import_location</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_import_pro_coll" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">update_product_collection_rel</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+
+         <record id="job_function_queue_shopify_update_product_collection" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">shopify_update_product_collection</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_create_update_collection" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">create_update_collection</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_job_shopify_export_product_collection" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">shopify_export_product_collection</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_job_shopify_import_product_collection" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">shopify_import_product_collection</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_jshopify_update_product_colleciton_queue" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">shopify_update_product_colleciton_queue</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_export_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">export_products_to_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_shopify_update_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">update_products_to_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+         <record id="job_function_queue_job_create_update_shopify_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">create_update_shopify_product</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+         <record id="job_function_queue_job_create_process_inventory_adjustment" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">create_process_inventory_adjustment</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_export_stock" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">export_stock_to_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_shopify_import_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">shopify_import_product</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_import_refund_orders" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_account_move"/>
+            <field name="method">shopify_import_refund_orders</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_job_create_update_shopify_refund" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_account_move"/>
+            <field name="method">create_update_shopify_refund</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_update_order_status" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">shopify_update_order_status</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_shopify_import_return_orders" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">shopify_import_return_orders</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_process_return_order" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">process_return_order</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_import_stock" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">shopify_import_stock</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_update_product_to_shopify" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">update_product_to_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_job_update_shopify_inventory" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">update_shopify_inventory</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_job_export_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">export_product</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+
+         <record id="job_function_queue_job_export_stock" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">export_stock</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_job_shopify_import_payouts" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_payout"/>
+            <field name="method">shopify_import_payouts</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+         <record id="job_function_queue_create_update_sale_order_from_webhook" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">create_update_sale_order_from_webhook</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_create_update_customer_from_webhook" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_res_partner"/>
+            <field name="method">create_update_customer_from_webhook</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_create_update_shopify_product_from_webhook" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">create_update_shopify_product_from_webhook</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+        <record id="job_function_queue_shopify_odoo_webhook_for_order_update" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">shopify_odoo_webhook_for_order_update</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_update_collection_from_webhook" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">update_collection_from_webhook</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_shopify_import_product_by_ids_with_queue" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">shopify_import_product_by_ids_with_queue</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_update_create_fulfillment" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">update_create_fulfillment</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_cancel_shopify_sale_order" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_sale_order"/>
+            <field name="method">cancel_shopify_sale_order</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_update_collection_in_shopify" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">update_collection_in_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_export_collection_to_shopify" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_collection"/>
+            <field name="method">export_collection_to_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_export_prod_variant" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_config"/>
+            <field name="method">export_prod_variant</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_refund_in_shopify_queue" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_export_refund"/>
+            <field name="method">refund_in_shopify_queue</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_update_product_shopify" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">update_product_shopify</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+        <record id="job_function_queue_update_shopify_product" model="queue.job.function">
+            <field name="model_id" ref="bista_shopify_connector.model_shopify_product_template"/>
+            <field name="method">update_shopify_product</field>
+            <field name="channel_id" ref="shopify_queue_job_extend.channel_root_shopify"/>
+        </record>
+
+
+    </data>
+</odoo>

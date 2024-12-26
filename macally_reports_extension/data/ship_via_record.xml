@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record model="ship.via" id="ship_via_air">
+            <field name="name">Air</field>
+        </record>
+        <record model="ship.via" id="ship_via_ocean">
+            <field name="name">Ocean</field>
+        </record>
+    </data>
+</odoo>

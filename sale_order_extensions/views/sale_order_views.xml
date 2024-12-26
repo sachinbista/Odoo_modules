@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_sale_delivery" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="delivery.view_order_form_with_carrier"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_delivery_wizard']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_with_carrier_inheirt" model="ir.ui.view">
+        <field name="name">delivery.sale.order.form.view.with_carrier</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="replace"/>
+            <xpath expr="//field[@name='partner_invoice_id']" position="after">
+                <label for="street" string="Delivery Address"/>
+                <div class="o_address_format">
+                    <span class="o_address_zip">One Time</span>
+                    <field name="address" readonly="state in ['cancel', 'sale']"/>
+                    <field name="partner_shipping_id" force_save="1" invisible="address"/>
+                    <div invisible="not address">
+                        <field name="customer_name" placeholder="Name..." readonly="state in ['cancel', 'sale']"/>
+                        <field name="street" placeholder="Street..." class="o_address_street" readonly="state in ['cancel', 'sale']"/>
+                        <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="state in ['cancel', 'sale']"/>
+                        <field name="city" placeholder="City" class="o_address_city" readonly="state in ['cancel', 'sale']"/>
+                        <field name="state_id" class="o_address_state" placeholder="State"
+                               options="{'no_open': True, 'no_quick_create': True}"
+                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}" readonly="state in ['cancel', 'sale']"/>
+                        <field name="zip" placeholder="ZIP" class="o_address_zip" readonly="state in ['cancel', 'sale']"/>
+                        <div name="partner_address_country" class="d-flex justify-content-between">
+                            <field name="country_id" placeholder="Country" class="o_address_country"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" readonly="state in ['cancel', 'sale']"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <div class="row">
+                    <button
+                            string="Add shipping"
+                            name="action_open_delivery_wizard"
+                            type="object"
+                            invisible="is_all_service or not order_line or delivery_set"/>
+                    <button
+                            string="Update shipping cost"
+                            name="action_open_delivery_wizard"
+                            context="{'carrier_recompute':True}"
+                            type="object"
+                            class="text-warning btn-secondary"
+                            invisible="is_all_service or not recompute_delivery_price or not delivery_set"/>
+                    <button
+                            string="Update shipping cost"
+                            name="action_open_delivery_wizard"
+                            context="{'carrier_recompute':True}"
+                            type="object"
+                            invisible="is_all_service or recompute_delivery_price or not delivery_set"/>
+                </div>
+            </xpath>
+
+
+        </field>
+    </record>
+    <record id="res_partner_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.vendor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_one_time_add"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="choose_delivery_carrier_view_form_inheirt" model="ir.ui.view">
+        <field name="name">choose.delivery.carrier.form</field>
+        <field name="model">choose.delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_carrier_view_form"/>
+        <field name="arch" type="xml">
+            <form position="inside">
+                <xpath expr="//div/field[@name='display_price']" position="replace">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+            </form>
+        </field>
+    </record>
+
+</odoo>

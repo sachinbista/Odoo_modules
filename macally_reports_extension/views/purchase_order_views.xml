@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_purchase_order_inherit_form_views" model="ir.ui.view">
+        <field name="name">Purchase Order </field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="fob"/>
+                <field name="ship_via_id" options="{'no_create': True}"/>
+                <field name="vendor_payment_terms_id" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.vendor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']/group/group[@name='purchase']" position="inside">
+                <field name="vendor_payment_terms_id" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

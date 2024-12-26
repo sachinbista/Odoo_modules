@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--        Order Data Queue Sequence-->
+        <record id="sequence_order_data_queue" model="ir.sequence">
+            <field name="name">850- Order Data Queue</field>
+            <field name="code">order.data.queue</field>
+            <field name="prefix">850-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+        <!--        AcknowledgementNumber Sequence-->
+        <record id="sequence_order_acknowlegmnet_number_1" model="ir.sequence">
+            <field name="name">855- Acknowledgement Number</field>
+            <field name="code">sale.order1</field>
+            <field name="prefix">Ack-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--        Order ACK Data Queue Sequence-->
+        <record id="sequence_order_ack_data_queue" model="ir.sequence">
+            <field name="name">855-Order ACK Data Queue</field>
+            <field name="code">order.ack.data.queue</field>
+            <field name="prefix">855-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--        Shipment Data Queue Sequence-->
+        <record id="sequence_shipment_data_queue" model="ir.sequence">
+            <field name="name">856-Shipment Data Queue</field>
+            <field name="code">shipment.data.queue</field>
+            <field name="prefix">856-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--        Invoice Data Queue Sequence-->
+        <record id="sequence_invoice_data_queue" model="ir.sequence">
+            <field name="name">810-Invoice Data Queue</field>
+            <field name="code">invoice.data.queue</field>
+            <field name="prefix">810-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Order Data Update Queue Sequence-->
+        <record id="sequence_860_order_update_queue" model="ir.sequence">
+            <field name="name">860-Order Data Update Queue</field>
+            <field name="code">order.data.update.queue</field>
+            <field name="prefix">860-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

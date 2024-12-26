@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherited_res_partner_form_view_edi_integration" model="ir.ui.view">
+        <field name="name">inherit.res.partner.form.view.edi.integration</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='internal_notes']" position="after">
+                <page name='edi_credentials' string="EDI Information"
+                      groups="bista_sps_connector.group_edi_user"
+                      invisible="is_company == False and parent_id != False">
+                    <group>
+                        <group>
+                            <field name="edi_config_id" options="{'no_open': True}"/>
+                            <field name="trading_partner_id" required="edi_config_id != False"/>
+                            <field name="warehouse_id" required="edi_config_id != False"
+                                   options="{'no_create': True, 'no_create_edit': True}"/>
+
+                        </group>
+                        <group>
+                            <field name="edi_contact_type"/>
+                            <field name="edi_fax"/>
+                            <field name="edi_config_846" invisible="1"/>
+                            <field name="edi_config_850" invisible="1"/>
+                            <field name="edi_config_855" invisible="1"/>
+                            <field name="edi_config_860" invisible="1"/>
+                            <field name="edi_config_865" invisible="1"/>
+                            <field name="edi_config_856" invisible="1"/>
+                            <field name="edi_config_810" invisible="1"/>
+                            <field name="edi_config_811" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Inbound" invisible="edi_config_id == False or edi_config_id != False and edi_config_850 == False and edi_config_860 == False">
+                        <group>
+                            <field name="edi_850" class="oe_inline" invisible="edi_config_850 == False"/>
+                        </group>
+                        <group>
+                            <field name="edi_860" class="oe_inline" invisible="edi_config_860 == False"/>
+                        </group>
+<!--                        <div class="form-inline" style="height:50px">-->
+<!--                            <label for="edi_850" invisible="edi_config_850 == False"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_850" class="oe_inline" invisible="edi_config_850 == False"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_860" invisible="edi_config_860 == False"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_860" class="oe_inline" invisible="edi_config_860 == False"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div style="height:50px">
+                        </div>
+                        <field name="edi_inbound_file_path" nolabel="1" invisible="edi_config_860 == False and edi_config_850 == False"/>
+                    </group>
+                    <group string="Outbound" invisible="edi_config_id == False">
+                        <group>
+                            <field name="edi_846" class="oe_inline"/>
+                            <field name="edi_855" class="oe_inline"/>
+                            <field name="edi_865" class="oe_inline"/>
+                        </group>
+                        <group>
+                            <field name="edi_856" class="oe_inline"/>
+                            <field name="edi_810" class="oe_inline"/>
+                            <field name="edi_811" class="oe_inline"/>
+                        </group>
+<!--                        <div class="form-inline" style="height:50px">-->
+<!--                            <label for="edi_846" invisible="edi_config_846 == False"/>-->
+<!--                            <div style="width:50px" invisible="edi_config_846 == False">-->
+<!--                                <field name="edi_846" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_855" invisible="edi_config_855 == False"/>-->
+<!--                            <div style="width:50px" invisible="edi_config_855 == False">-->
+<!--                                <field name="edi_855" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_865" invisible="edi_config_865 == False"/>-->
+<!--                            <div style="width:50px" invisible="edi_config_865 == False">-->
+<!--                                <field name="edi_865" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_856" invisible="edi_config_856 == False"/>-->
+<!--                            <div style="width:50px" invisible="edi_config_856 == False">-->
+<!--                                <field name="edi_856" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_810" invisible="edi_config_810 == False"/>-->
+<!--                            <div invisible="edi_config_810 == False">-->
+<!--                                <field name="edi_810" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_811" invisible="edi_config_811 == False"/>-->
+<!--                            <div invisible="edi_config_811 == False">-->
+<!--                                <field name="edi_811" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div style="height:50px">
+                        </div>
+                        <field name="edi_outbound_file_path" nolabel="1"
+                               invisible="edi_846 == False and edi_855 == False and edi_865 == False and edi_856 == False and edi_810 == False and edi_811 == False"/>
+                        <field name="trading_partner_field_ids" widget="one2many_tags" nolabel="1"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}">
+                            <tree>
+                                <field name="trading_partner_field"/>
+                                <field name="document_type"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="EDI Information" name="child_Edi_information"
+                      invisible="is_company == True or parent_id == False">
+                    <div>
+                        <p>EDI-related settings are managed on
+                            <button name="open_commercial_entity" type="object" string="the parent company"
+                                    class="oe_link"/>
+                        </p>
+                    </div>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

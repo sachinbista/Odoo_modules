@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.product</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="product.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='product_general_settings']" position="inside">product_default_height_uom_id
+                <setting id="product_default_length_uom_id_setting" string="Length"
+                         help="Define your Length unit of measure">
+                    <field name="product_default_length_uom_id" class="o_light_label" options="{'horizontal': true}"/>
+                </setting>
+                <setting id="product_default_height_uom_id_setting" string="Height"
+                         help="Define your height unit of measure">
+                    <field name="product_default_height_uom_id" class="o_light_label" options="{'horizontal': true}"/>
+                </setting>
+                <setting id="product_default_width_uom_id_setting" string="Width"
+                         help="Define your Width unit of measure">
+                    <field name="product_default_width_uom_id" class="o_light_label" options="{'horizontal': true}"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

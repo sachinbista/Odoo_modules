@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="0">
+
+    <record model='uom.uom' id='uom.product_uom_dozen'>
+        <field name='edi_uom_code'>DZ</field>
+    </record>
+    <record model='uom.uom' id='uom.product_uom_foot'>
+        <field name='edi_uom_code'>FT</field>
+    </record>
+    <record model='uom.uom' id='uom.product_uom_lb'>
+        <field name='edi_uom_code'>LB</field>
+    </record>
+    <record model='uom.uom' id='uom.product_uom_oz'>
+        <field name='edi_uom_code'>OZ</field>
+    </record>
+    <record model='uom.uom' id='uom.product_uom_unit'>
+        <field name="name">Each</field>
+        <field name='edi_uom_code'>EA</field>
+    </record>
+</odoo>

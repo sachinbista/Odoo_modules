@@ -71,7 +71,7 @@
 
     <menuitem id="menu_action_shopify_prod_tags"
         name="Product Tags" sequence="2"
-        groups="bista_shopify_connector.group_shopify_admin"
+        groups="bista_shopify_connector.group_shopify_user"
         action="action_shopify_product_tags"
         parent="shopify_shopify_operations_menu"/>
 </odoo>

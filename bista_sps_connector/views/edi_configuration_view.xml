@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cleo_configuration_form_view" model="ir.ui.view">
+        <field name="name">edi.config.form.view</field>
+        <field name="model">edi.config</field>
+        <field name="arch" type="xml">
+            <form string="EDI Configuration" create="true" duplicate="0" delete="true">
+                <header>
+                    <button name="test_connection" string="Test Connection" class="oe_highlight"
+                            type="object" invisible="state != 'draft'"/>
+                    <button name="reset_to_draft" string="Reset To Draft" type="object" class="btn btn-secondary"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="active" invisible="True"/>
+                        <button class="oe_stat_button" name="edi_action_archive"
+                                icon="fa-lock" type="object"
+                                invisible="active == False">
+                            <span class="o_stat_text" style="color:#2dab2d">Active</span>
+                        </button>
+                        <button class="oe_stat_button" name="edi_action_archive"
+                                icon="fa-unlock" type="object"
+                                invisible="active == True">
+                            <span class="o_stat_text" style="color:#da3434">Inactive</span>
+                        </button>
+                    </div>
+                    <div class="oe_title mb-3">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <!--                    <div class="oe_title">-->
+                    <!--                        <label for="partner_id" string="Customer"/>-->
+                    <!--                        <h1>-->
+                    <!--                            <field name="partner_id" options="{'no_open':True,'no_create':True}"/>-->
+                    <!--                        </h1>-->
+                    <!--                    </div>-->
+                    <group>
+                        <field name="ftp_username"/>
+                        <field name="ftp_passwd" password="1"/>
+                        <field name="hostname"/>
+                        <field name="port_no"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group string="Inbound">
+                        <group>
+                            <field name="edi_850"/>
+                        </group>
+                        <group>
+                            <field name="edi_860"/>
+                        </group>
+
+<!--                        <div class="o_row" style="height:50px">-->
+<!--                            <label for="edi_850"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_850" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_860"/>-->
+<!--                            <div style="width:100px">-->
+<!--                                <field name="edi_860" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div style="height:50px">
+                        </div>
+                        <label for="edi_inbound_file_path" invisible="edi_850 == False and edi_860 == False"/>
+                        <field name="edi_inbound_file_path" nolabel="1" placeholder="Inbound File Path"
+                               invisible="edi_850 == False and edi_860 == False"
+                               required="edi_850 == True or edi_860 == True"/>
+                    </group>
+                    <group string="Outbound" style="width:100% !important">
+                        <group>
+                            <field name="edi_846"/>
+                            <field name="edi_855"/>
+                            <field name="edi_865"/>
+                        </group>
+                        <group>
+                            <field name="edi_856"/>
+                            <field name="edi_810"/>
+                            <field name="edi_811" class="oe_inline" readonly="1" invisible="1"/>
+                        </group>
+<!--                        <div class="o_row" style="height:50px">-->
+<!--                            <label for="edi_846"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_846" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_855"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_855" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_865"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_865" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_856"/>-->
+<!--                            <div style="width:50px">-->
+<!--                                <field name="edi_856" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_810"/>-->
+<!--                            <div>-->
+<!--                                <field name="edi_810" class="oe_inline"/>-->
+<!--                            </div>-->
+<!--                            <label for="edi_811" invisible="1"/>-->
+<!--                            <div>-->
+<!--                                <field name="edi_811" class="oe_inline" readonly="1" invisible="1"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div style="height:50px">
+                        </div>
+                        <label for="edi_outbound_file_path"
+                               invisible="edi_846 == False and edi_855 == False and edi_865 == False and edi_856 == False and edi_810 == False and edi_811 == False"/>
+                        <field name="edi_outbound_file_path" nolabel="1" placeholder="Outbound File Path"
+                               invisible="edi_846 == False and edi_855 == False and edi_865 == False and edi_856 == False and edi_810 == False and edi_811 == False" required="edi_856 == True or edi_810 == True"/>
+
+                    </group>
+<!--                    <notebook>-->
+<!--                        &lt;!&ndash;                        <page string="Sale Order fields">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <group>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                &lt;!&ndash;                                <field name="pricelist_id"/>&ndash;&gt;&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <field name="pricelist_id" options="{'no_open':True,'no_create':True}"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <field name="edi_sales_rep" options="{'no_open':True,'no_create':True}"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                &lt;!&ndash;                                <field name="campaign_id" options="{'no_open':True,'no_create':True}"/>&ndash;&gt;&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </group>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </page>&ndash;&gt;-->
+<!--                        <page string="Related Customers">-->
+<!--                            <group>-->
+<!--                                <field name="partner_ids" nolabel="1"-->
+<!--                                       options="{'no_create_edit':True, 'no_create':True,'no_open':True}"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+                </sheet>
+                <div class='oe_chatter'>
+                    <field name='message_follower_ids' widget='mail_followers'/>
+                    <field name='message_ids' widget='mail_thread'/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="cleo_configuration_tree_view" model="ir.ui.view">
+        <field name="name">edi.config.tree.view</field>
+        <field name="model">edi.config</field>
+        <field name="arch" type="xml">
+            <tree string="EDI Configuration">
+                <field name="name"/>
+                <field name="edi_846" optional="hide"/>
+                <field name="edi_850"/>
+                <field name="edi_855" optional="hide"/>
+                <field name="edi_860" optional="hide"/>
+                <field name="edi_865" optional="hide"/>
+                <field name="edi_856"/>
+                <field name="edi_810"/>
+                <field name="edi_811" optional="hide"/>
+                <field name="edi_inbound_file_path" optional="hide"/>
+                <field name="edi_outbound_file_path" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cleo_configuration_search_view" model="ir.ui.view">
+        <field name="name">edi.configuration.search.view</field>
+        <field name="model">edi.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <!--                <field name="partner_id"/>-->
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="active" string="Inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <!--                    <separator/>-->
+                    <!--                    <filter name="groupby_partner_id" string="Customer" domain="[]"-->
+                    <!--                            context="{'group_by' : 'partner_id'}"/>-->
+                    <separator/>
+                    <!--                    <filter name="groupby_edi_846" string="EDI-846" domain="[]"-->
+                    <!--                            context="{'group_by' : 'edi_846'}"/>-->
+                    <filter name="groupby_edi_850" string="EDI-850" domain="[]"
+                            context="{'group_by' : 'edi_850'}"/>
+                    <!--                    <filter name="groupby_edi_855" string="EDI-855" domain="[]"-->
+                    <!--                            context="{'group_by' : 'edi_855'}"/>-->
+                    <filter name="groupby_edi_860" string="EDI-860" domain="[]"
+                            context="{'group_by' : 'edi_860'}"/>
+                    <!--                    <filter name="groupby_edi_865" string="EDI-865" domain="[]"-->
+                    <!--                            context="{'group_by' : 'edi_865'}"/>-->
+                    <filter name="groupby_edi_856" string="EDI-856" domain="[]"
+                            context="{'group_by' : 'edi_856'}"/>
+                    <filter name="groupby_edi_810" string="EDI-810" domain="[]"
+                            context="{'group_by' : 'edi_810'}"/>
+                    <!--                    <filter name="groupby_edi_811" string="EDI-811" domain="[]"-->
+                    <!--                            context="{'group_by' : 'edi_811'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cleo_config_action" model="ir.actions.act_window">
+        <field name="name">EDI Configuration</field>
+        <field name="res_model">edi.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cleo_configuration_search_view"/>
+    </record>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="vendor_payment_terms_form_views" model="ir.ui.view">
+        <field name="name">vendor.payment.terms</field>
+        <field name="model">vendor.payment.terms</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Payment Terms">
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="vendor_payment_terms_tree_views" model="ir.ui.view">
+        <field name="name">vendor.payment.terms.tree</field>
+        <field name="model">vendor.payment.terms</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vendor_payment_terms_action" model="ir.actions.act_window">
+        <field name="name">Vendor Payment Terms</field>
+        <field name="res_model">vendor.payment.terms</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="vendor_payment_terms_tree_views"/>
+    </record>
+
+    <menuitem id="menu_vendor_payment_terms_action"
+              action="vendor_payment_terms_action" name="Vendor Payment Terms"
+              parent="purchase.menu_product_in_config_purchase" sequence="16"/>
+</odoo>

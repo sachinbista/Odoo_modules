@@ -15,9 +15,7 @@ class ShopifyWorkflowProcess(models.Model):
     @api.model
     def _default_journal(self):
         """
-            This method will return sales journal of currant company.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
+        This method will return sales journal of currant company"""
         account_journal_obj = self.env['account.journal']
         company_id = self._context.get('company_id', self.env.company.id)
         domain = [('type', '=', "sale"), ('company_id', '=', company_id)]
@@ -41,8 +39,8 @@ class ShopifyWorkflowProcess(models.Model):
     in_pay_method_id = fields.Many2one('account.payment.method',
                                        string="Payment Method",
                                        domain=[('payment_type', '=', 'inbound')])
-    payment_method_line_id = fields.Many2one('account.payment.method.line',
-                                             string='Payment Method',copy=False)
+    shopify_tag_id = fields.Many2one('shopify.tags', string='Shopify Tag')
+
 
     @api.onchange('confirm_order')
     def onchange_confirm_order(self):

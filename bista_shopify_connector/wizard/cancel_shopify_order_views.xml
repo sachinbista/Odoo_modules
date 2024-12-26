@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_name" model="ir.ui.view">
+        <field name="name">cancel.shopify.order.form</field>
+        <field name="model">cancel.shopify.order</field>
+        <field name="arch" type="xml">
+            <form>
+                 <span>This is a shopify order. Do you want to cancel this order in shopify as well? Click
+                     on yes to cancel on shopify or Click on No to only cancel in odoo.</span>
+                <footer>
+                    <button string="Yes" name="action_cancel_sale" type="object" context="{'yes': True}" class="btn-primary"/>
+                    <button string="No" name="action_cancel_sale"  type="object" context="{'no': True}"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cancel_shopify_sale_order" model="ir.actions.act_window">
+        <field name="name">Cancel Sale Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cancel.shopify.order</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+    </record>
+</odoo>

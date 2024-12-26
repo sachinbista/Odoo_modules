@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!--Inbound folder to Order Data Queue-->
+    <record id="import_edi_order_data" model="ir.cron">
+        <field name="name">Import EDI 850 Order Data Queue</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">2</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_edi_config"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.import_edi_data(5)</field>
+    </record>
+
+    <!--    Order Data Queue to Sale Order-->
+    <record id="import_data_queue_sale_order_data" model="ir.cron">
+        <field name="name">Import EDI Sale Orders</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">2</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_order_data_queue"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.multi_order_data_queue()</field>
+    </record>
+
+    <!--    Export Orders to outbound folder-->
+    <record id="export_data_queue_orders" model="ir.cron">
+        <field name="name">Export EDI data Queues</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">2</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_edi_config"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.export_all_data_queues()</field>
+    </record>
+
+    <!-- Import the 860 order data queue-->
+    <record id="ir_cron_import_860_order_queue" model="ir.cron">
+        <field name="name">Import EDI 860 Order Data Update Queue</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_edi_config"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.import_860_order_data_queue(5)</field>
+    </record>
+
+    <record id="ir_cron_update_860_order_data" model="ir.cron">
+        <field name="name">EDI 860 Update Sale Order Data</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_order_data_update_queue"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.update_860_order_data()</field>
+    </record>
+
+
+    <record id="ir_cron_update_queue_state" model="ir.cron">
+        <field name="name">EDI Update Queue Status</field>
+        <field eval="False" name="active"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall"/>
+        <field name="model_id" ref="model_edi_config"/>
+        <field name="priority">1</field>
+        <field name="state">code</field>
+        <field name="code">model.action_update_edi_queue_state()</field>
+    </record>
+
+</odoo>

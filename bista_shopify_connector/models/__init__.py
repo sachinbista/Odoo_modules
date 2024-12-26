@@ -9,7 +9,7 @@ from . import shopify_payout_config
 from . import shopify_config
 from . import shopify_payout
 from . import shopify_error_log
-from . import shopify_queue_job
+# from . import shopify_queue_job
 from . import shopify_workflow_process
 from . import shopify_financial_workflow
 from . import shopify_payment_gateway
@@ -28,4 +28,7 @@ from . import shopify_inventory
 from . import shopify_webhook
 from . import account_move
 from . import shopify_order_risk
-from . import account_bank_statement
+from . import shopify_location_mapping
+from . import shopify_log
+from . import queue_job
+from . import user_shopify_tag_mapping

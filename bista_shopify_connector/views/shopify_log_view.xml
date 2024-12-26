@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="shopify_log_line_view_search" model="ir.ui.view">
+            <field name="name">shopify.log.line.search.view</field>
+            <field name="model">shopify.log.line</field>
+            <field name="arch" type="xml">
+                <search string="Marketplace Log">
+                    <field name="message" string="Name"/>
+                    <field name="shopify_config_id" string="Shopify Configuration"/>
+                    <field name="operation_type" string="Operation Type"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Operation Type" name="group_by_operation_type"
+                                context="{'group_by': 'operation_type'}"/>
+                        <filter string="Name" name="name" context="{'group_by': 'name'}"/>
+                        <filter string="State" name="state" context="{'group_by': 'state'}"/>
+                        <filter string="Shopify ID" name="group_by_id_shopify" context="{'group_by': 'id_shopify'}"/>
+                        <filter string="Date" name="group_by_create_date" context="{'group_by': 'create_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="shopify_log_api_line_view_form" model="ir.ui.view">
+            <field name="name">shopify.log.line.from</field>
+            <field name="model">shopify.log.line</field>
+            <field name="arch" type="xml">
+                <form string="Marketplace Log Line" create="0" edit="0">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="shopify_config_id"/>
+                                <field name="operation_type" string="Operation Type"/>
+                            </group>
+                        </group>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'success'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-success"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'error'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-danger"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'pending'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-muted"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <notebook>
+                            <page string="Order Lines" name="order_lines">
+                                <field
+                                        name="log_lines_id"
+                                        readonly="1"
+                                />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="shopify_log_line_view_form" model="ir.ui.view">
+            <field name="name">shopify.log.line.from</field>
+            <field name="model">shopify.log.line</field>
+            <field name="arch" type="xml">
+                <form string="Marketplace Log Line" create="0" edit="0">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="view_related_record" type="object" class="oe_highlight" string="Related Record"
+                                invisible = "state != 'success'"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="shopify_config_id"/>
+                                <field name="operation_type" string="Operation Type"/>
+                                <field name="id_shopify" string="Shopify ID"/>
+                            </group>
+                            <group>
+                                <field name="related_model_name" readonly="1"/>
+                                <field name="related_model_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'success'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-success"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'error'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-danger"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="oe_text_center"
+                             invisible = "message == '' or state != 'pending'">
+                            <p>
+                                <strong>
+                                    <field name="message" class="text-muted"/>
+                                </strong>
+                            </p>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="shopify_log_line_view_tree" model="ir.ui.view">
+            <field name="name">shopify.log.line.tree</field>
+            <field name="model">shopify.log.line</field>
+            <field name="arch" type="xml">
+                <tree string="Shopify Log Line" create="0" edit="0">
+                    <field name="name"/>
+                    <field name="message"/>
+                    <field name="create_date"/>
+                    <field name="operation_type"/>
+                    <field name="state" decoration-success="state == 'success'" decoration-info="state == 'pending'"
+                           decoration-danger="state == 'error'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_shopify_log_lines" model="ir.actions.act_window">
+            <field name="name">Shopify Logs Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.log.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id', '!=', False)]</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree'}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('shopify_log_line_view_form')})]"/>
+        </record>
+
+        <record id="action_shopify_api_log_lines" model="ir.actions.act_window">
+            <field name="name">Shopify API Logs Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shopify.log.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id', '=', False)]</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree'}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('shopify_log_api_line_view_form')})]"/>
+        </record>
+
+        <menuitem id="shopify_log_api_line_menu" name="Shopify API Log"
+                  parent="shopify_error_log_operations_menu"
+                  action="action_shopify_api_log_lines"
+                  groups="bista_shopify_connector.group_shopify_admin"
+                  sequence="1"/>
+
+        <menuitem id="shopify_log_line_menu" name="Shopify Record Log"
+                  parent="shopify_error_log_operations_menu"
+                  action="action_shopify_log_lines"
+                  groups="bista_shopify_connector.group_shopify_admin"
+                  sequence="2"/>
+
+    </data>
+</odoo>	

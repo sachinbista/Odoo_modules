@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    Action to display EDI Contacts-->
+    <record id="action_master_data_contacts" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="domain">[('edi_config_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!--    Action to display EDI Sale orders-->
+<!--    <record id="action_master_data_sale_order" model="ir.actions.act_window">-->
+<!--        <field name="name">Sale Orders</field>-->
+<!--        <field name="res_model">sale.order</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="domain">[('edi_config_id', '!=', False)]</field>-->
+<!--        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>-->
+<!--    </record>-->
+
+    <!--    Action to display EDI Delivery Orders-->
+    <record id="action_master_data_delivery_order" model="ir.actions.act_window">
+        <field name="name">Delivery Orders</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('edi_config_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+    <!--    Action to display EDI Invoices -->
+    <record id="action_master_data_invoices" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('edi_config_id', '!=', False)]</field>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+    </record>
+
+</odoo>

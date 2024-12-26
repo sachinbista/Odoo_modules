@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="user_shopify_tags_mapping_form" model='ir.ui.view'>
+        <field name="name">view.shopify.tags.map.form</field>
+        <field name="model">user.shopify.tag</field>
+        <field name="arch" type="xml">
+            <form name="shopify_tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="shopify_tag_ids"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="user_shopify_tags_mapping_tree" model="ir.ui.view">
+        <field name="name">view.shopify.tags.map.tree</field>
+        <field name="model">user.shopify.tag</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="shopify_tag_ids"/>
+                <field name="user_id"/>
+<!--                <field name="name"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_user_shopify_tags_mapping" model="ir.actions.act_window">
+        <field name="name">Shopify User Tag Mapping</field>
+        <field name="res_model">user.shopify.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="user_shopify_tags_mapping_tree"/>
+    </record>
+
+    <menuitem id="menu_user_shopify_tags_mapping"
+        name="Shopify User Tags Mapping" sequence="7"
+        groups="bista_shopify_connector.group_shopify_admin"
+        action="action_user_shopify_tags_mapping"
+        parent="shopify_configuration_menu"/>
+</odoo>

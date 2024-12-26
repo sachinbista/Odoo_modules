@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_picking_batch_inherit" inherit_id="stock_picking_batch.report_picking_batch">
+            <xpath expr="//table/t/t/t[2]" position="after">
+                <t t-set="sorted_move_lines" t-value="move_line_ids.sorted(lambda product: product.product_id.id)"/>
+            </xpath>
+
+            <xpath expr="//tbody/tr[@t-foreach='move_lines']" position="replace">
+                <t t-set="custom_sorted_move_lines" t-value="o.create_batch_picking_report_vals(sorted_move_lines)"/>
+                <tr t-foreach="custom_sorted_move_lines" t-as="move_operation">
+                    <t t-if="move_operation['display_name'] == 'Total Quantity'">
+                        <td style="background-color:#F8F8F8">
+                            <strong>
+                                <span t-esc="move_operation['display_name']">Product Name</span>
+                            </strong>
+                        </td>
+                        <td style="background-color:#F8F8F8">
+                            <span t-esc="move_operation['quantity']">Quantity Done</span>
+                        </td>
+                        <td style="background-color:#F8F8F8"></td>
+                        <td style="background-color:#F8F8F8"></td>
+                        <td style="background-color:#F8F8F8" width="15%" class="text-center" t-if="has_barcode"></td>
+                        <td style="background-color:#F8F8F8" t-if="has_package" width="15%"></td>
+                    </t>
+                    <t t-else="">
+                        <td>
+                            <span t-esc="move_operation['display_name']">Product Name</span>
+                        </td>
+                        <td>
+                            <span t-esc="move_operation['quantity']">Quantity Done</span>
+                        </td>
+                        <td>
+                            <span t-esc="move_operation['picking_display_name']">Transfer Display Name</span>
+                        </td>
+                        <td t-if="has_serial_number" class="text-center h6" width="15%">
+                            <span t-if="move_operation['lot_id']" t-esc="move_operation['lot_id']"
+                                  t-options="{'widget': 'barcode', 'humanreadable': 1, 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35px;'}">
+                                Lot Number
+                            </span>
+                        </td>
+                        <td width="15%" class="text-center" t-if="has_barcode">
+                            <span t-if="move_operation['barcode']" t-esc="move_operation['barcode']"
+                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35px;'}">
+                                Product Barcode
+                            </span>
+                        </td>
+                        <td t-if="has_package" width="15%">
+                            <t t-if="move_operation['package_id']">
+                                <span t-esc="move_operation['package_id']"/>
+                            </t>
+                            <t t-if="move_operation['result_package_id']">
+                                <t t-if="not move_operation['package_id']">
+                                    <span>Package ID</span>
+                                </t>
+                                <strong>→</strong>
+                                <span t-esc="move_operation['result_package_id']">Result Package ID</span>
+                            </t>
+                        </td>
+                    </t>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

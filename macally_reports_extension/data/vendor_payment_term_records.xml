@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record model="vendor.payment.terms" id="payment_term_1">
+            <field name="name">100% Before Telex Release</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_2">
+            <field name="name">30% Deposit &amp; 70% before ship</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_3">
+            <field name="name">20% Deposit &amp; 80% before ship</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_4">
+            <field name="name">30% Deposit &amp; 70% before Telex Release</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_5">
+            <field name="name">Net 7</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_6">
+            <field name="name">Net 10</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_7">
+            <field name="name">Net 30</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_8">
+            <field name="name">Net 45</field>
+        </record>
+        <record model="vendor.payment.terms" id="payment_term_9">
+            <field name="name">Net 60</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="macally_cust_invoice_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <t t-set="company" t-value="user.company_id"/>
+                        <div t-attf-class="header o_company_#{company.id}_layout first-page"
+                             t-att-style="report_header_style">
+                            <div class="row mb-3 first-page">
+                                <div class="col-3">
+                                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                         style="max-height:200px; max-width:200px;" alt="Logo">
+                                    </img>
+                                    <br/>
+                                </div>
+                                <div class="col-4" style="font-size:10pt;">
+                                    <span t-if="company.street">
+                                        <br/>
+                                        <span t-field="company.street"/>
+
+                                    </span>
+                                    <span t-if="company.city">
+                                        <br/>
+                                        <span t-field="company.street2"/>
+                                    </span>
+                                    <span t-if="company.city">
+                                        <br/>
+                                        <span t-field="company.city"/>
+                                    </span>
+                                    <span t-if="company.state_id.code">
+
+                                        <span t-field="company.state_id.code"/>
+                                    </span>
+                                    <span t-if="company.zip">
+
+                                        <span t-field="company.zip"/>
+                                    </span>
+                                    <span t-if="company.phone">
+
+                                        <br/>
+                                        <span>TEL:</span>
+                                        <span t-field="company.phone"/>
+                                    </span>
+                                    <span t-if="company.mobile">
+
+                                        <br/>
+                                        <span>FAX:</span>
+                                        <span t-field="company.mobile"/>
+                                    </span>
+                                    <span t-if="company.website">
+                                        <br/>
+                                        <span t-field="company.website"/>
+                                    </span>
+                                    <span t-if="company.email">
+                                        <br/>
+                                        <span t-field="company.email"/>
+                                    </span>
+                                </div>
+                                <div name="report_info"
+                                     class="col-5 text-right mb4">
+                                    <t t-out="report_info"/>
+                                    <h2 align="right" style="font-weight:bold;">INVOICE</h2>
+                                    <br/>
+                                    <div align="right">
+                                        <strong>INVOICE#</strong>
+                                        <strong t-field="doc.name"/>
+                                        <br/>
+                                        <strong>Customer#</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:5%;">
+                            <div class="col-6" style="padding-left:10%;">
+                                <span>
+                                    <strong>BILL To:</strong>
+                                </span>
+                                <br/>
+                                <span >
+                                    <div t-field="doc.partner_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' style="padding-left:10%;"/>
+                                </span>
+                            </div>
+                            <div class="col-6" style="padding-left:20%;">
+                                <span>
+                                    <strong>SHIP-TO:</strong>
+                                </span>
+                                <br/>
+                                <span >
+                                    <div t-field="doc.partner_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' style="padding-left:10%;"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12"
+                                 style="width: 100%; text-align: center; margin-top:10px;">
+                                <div style="width:100%;">
+                                    <table style="font-size:10pt; width:100%;">
+                                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                        <thead>
+                                            <tr style="background-color:#D3D3D3; font-size:9pt;">
+                                                <th name="th_sku" class="text-center"
+                                                    style="padding:4px;border:1px solid black;padding:5px;">
+                                                    DATE
+                                                </th>
+                                                <th name="th_description" class="text-center"
+                                                    style="border:1px solid black;">
+                                                    SHIP VIA
+                                                </th>
+                                                <th name="th_create" class="text-center"
+                                                    style="border:1px solid black;padding:2px;">
+                                                    F.O.B
+                                                </th>
+                                                <th name="th_create" class="text-center"
+                                                    style="border:1px solid black;padding:2px;">
+                                                    TERMS
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="font-size:9pt;">
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                    <p align="center" class="m-0" t-field="doc.invoice_date"
+                                                       t-options='{"widget": "date"}'/>
+                                                </td>
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                    <!--                                                    <p align="center" class="m-0" t-field="doc.est_time_of_arrival"-->
+                                                    <!--                                                       t-options='{"widget": "date"}'/>-->
+                                                </td>
+                                                <!--                                                <td class="text-center"-->
+                                                <!--                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">-->
+                                                <!--                                                    <span t-field="doc.payment_term_id.name"/>-->
+                                                <!--                                                </td>-->
+                                                <td class="text-center"
+                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                    <span t-field="doc.name"/>
+                                                </td>
+                                                <td class="text-center"
+                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                    <span t-field="doc.invoice_payment_term_id"/>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <table style="font-size:10pt; width:100%; border-collapse: collapse;">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead>
+                                        <tr style="background-color:#D3D3D3; font-size:9pt;">
+                                            <th name="th_sku" class="text-center"
+                                                style="padding:4px;border:1px solid black;padding:5px;">
+                                                PURCHASE ORDER NUMBER
+                                            </th>
+                                            <th name="th_description" class="text-center"
+                                                style="border:1px solid black;">
+                                                ORDER DATE
+                                            </th>
+                                            <th name="th_create" class="text-center"
+                                                style="border:1px solid black;padding:2px;">
+                                                SALESPERSON
+                                            </th>
+                                            <th name="th_create" class="text-center"
+                                                style="border:1px solid black;padding:2px;">
+                                                OUR ORDER NUMBER
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="font-size:9pt;">
+                                            <td class="text-center"
+                                                style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                <p align="center" class="m-0" t-field="doc.invoice_date"
+                                                   t-options='{"widget": "date"}'/>
+                                            </td>
+                                            <td class="text-center"
+                                                style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                <!--                                                    <p align="center" class="m-0" t-field="doc.est_time_of_arrival"-->
+                                                <!--                                                       t-options='{"widget": "date"}'/>-->
+                                            </td>
+                                            <!--                                                <td class="text-center"-->
+                                            <!--                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">-->
+                                            <!--                                                    <span t-field="doc.payment_term_id.name"/>-->
+                                            <!--                                                </td>-->
+                                            <td class="text-center"
+                                                style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                <span t-field="doc.invoice_user_id.name"/>
+                                            </td>
+                                            <td class="text-center"
+                                                style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                <span t-field="doc.invoice_payment_term_id"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table style="font-size:10pt; width:100%; border-collapse: collapse;">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead>
+                                        <tr style="background-color:#D3D3D3; font-size:9pt; border:1px solid black;">
+                                            <th colspan="3" style="padding:4px;border:1px solid black;">Quantity</th>
+                                            <th rowspan="2" style="padding:4px;border:1px solid black;">ITEM NO</th>
+                                            <th rowspan="2" style="padding:4px;border:1px solid black;">DESCRIPTION</th>
+                                            <th rowspan="2" style="padding:4px;border:1px solid black;">UNIT PRICE</th>
+                                            <th rowspan="2" style="padding:4px;border:1px solid black;">EXTENDED PRICE3</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color:#D3D3D3;border:1px solid black;">REQUIRED</th>
+                                            <th style="background-color:#D3D3D3;border:1px solid black;">SHIFT</th>
+                                            <th style="background-color:#D3D3D3;border:1px solid black;">B.O</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                            <tr style="font-size:9pt;">
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                    <p align="center" class="m-0" t-field="line.quantity"
+                                                    />
+                                                </td>
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                    <!--                                                    <p align="center" class="m-0" t-field=""-->
+                                                    <!--                                                       t-options='{"widget": "date"}'/>-->
+                                                </td>
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                    <!--                                                    <p align="center" class="m-0" t-field=""-->
+                                                    <!--                                                       t-options='{"widget": "date"}'/>-->
+                                                </td>
+                                                <td class="text-center"
+                                                    style="border:1px solid black;vertical-align:middle;padding:4px;">
+                                                </td>
+
+                                                <td class="text-center"
+                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                    <span t-field="line.product_id.name"/>
+                                                </td>
+                                                <td class="text-center"
+                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                    <span t-field="line.price_unit"/>
+                                                </td>
+                                                <td class="text-center"
+                                                    style="vertical-align:middle;border:1px solid black;padding:4px; ">
+                                                    <span t-field="line.price_subtotal"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-8">
+                            <span>
+                                1.All merchandises stand above remain the property of the seller until invoice paid in full.<br/>
+                                2.Any descrepensices must report within 3 days of receipt of products.<br/>
+                                3.Returned  merchandises must have RMA# on box 1 copy of invoice and in original package without missing parts.<br/>
+                                4.15% restocking fee upon returns.<br/>
+                                5 Shipping subtotal includes freight handling and insuring charges<br/>
+                                6.40.00% surcharge applied to all returned check<br/>
+                            </span>
+                            </div>
+                            <div class="col-4" style="margin-left:4%;">
+                                <table style="width:250pt; border-color:white;">
+                                    <tr>
+                                        <td style="width:180px; padding-left:10px;"
+                                            class="text-left">
+                                            <strong>NonTaxable Subtotal</strong>
+                                        </td>
+
+                                        <td style="padding-right:8px; padding-left:10px;"
+                                            class="text-right">
+                                            <span t-field="doc.amount_untaxed"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left:10px; "
+                                            class="text-left">
+                                            <strong class="text-right">Taxable Subtotal</strong>
+                                        </td>
+                                        <td style="padding-right:8px; padding-left:10px;"
+                                            class="text-right">
+                                            <span t-field="doc.amount_tax"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left:10px; "
+                                            class="text-left">
+                                            <strong class="text-right">Tax</strong>
+                                        </td>
+                                        <td style="padding-right:8px; padding-left:10px;"
+                                            class="text-right">
+<!--                                            <span t-field="doc.amount_tax"/>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left:10px; "
+                                            class="text-left">
+                                            <strong class="text-right">Total</strong>
+                                        </td>
+                                        <td style="padding-right:8px; padding-left:10px;"
+                                            class="text-right">
+                                            <span t-field="doc.amount_total"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </t>
+            </t>
+            Page: <span class="page"/> / <span class="topage"/>
+        </t>
+    </template>
+</odoo>

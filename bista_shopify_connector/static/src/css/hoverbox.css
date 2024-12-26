@@ -57,14 +57,3 @@
     height: 15px;
     width: 15px;
 }
-
-#shopify_btn{
-    display:unset !important;
-    background-color:#6ea2c7 !important;
-    color:#020202;
-}
-
-#log_btn{
-   display:unset !important;
-   background-color:aliceblue
-}

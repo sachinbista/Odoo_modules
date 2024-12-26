@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    <template id="report_package_inherit" inherit_id="stock.report_picking_packages">-->
+    <!--        <xpath expr="//t[@t-set='docs']" position="replace"/>-->
+
+    <!--        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">-->
+    <!--            <attribute name="t-call">macally_reports_extension.external_layout_inherit</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    <template id="inheirt_report_picking_packages" inherit_id="stock.report_picking_packages">
+        <xpath expr="//t[@t-set='docs']" position="attributes">
+            <attribute name="t-set"></attribute>
+            <attribute name="t-value"></attribute>
+        </xpath>
+    </template>
+
+
+    <template id="report_package_inherit" inherit_id="stock.report_package_barcode">
+
+
+        <xpath expr="//t/div/div[@class='row mb-5']" position="replace"/>
+        <xpath expr="//t[@t-set='has_serial_number']" position="before">
+            <t t-set="all_quant_ids" t-value="docs.move_line_ids.mapped('result_package_id').quant_ids"/>
+            <!--            <t t-set="all_quant_ids" t-value="docs.quant_ids"/>-->
+        </xpath>
+        <xpath expr="//t[@t-set='has_serial_number']" position="replace">
+            <t t-set="has_serial_number" t-value="all_quant_ids.mapped('lot_id')"/>
+        </xpath>
+        <xpath expr="//t[@t-set='has_ean_barcode']" position="attributes">
+            <attribute name="t-value">any(valid_ean for valid_ean in all_quant_ids.product_id.mapped('valid_ean'))
+            </attribute>
+        </xpath>
+
+        <xpath expr="//table/tbody/tr[@t-foreach='o.quant_ids']" position="attributes">
+            <attribute name="t-foreach">all_quant_ids</attribute>
+        </xpath>
+
+        <xpath expr="//table/thead" position="replace">
+            <thead style="border:1px solid black;">
+                <tr>
+                    <!--        </xpath>-->
+                    <!--        <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="replace">-->
+                    <th style="border:1px solid black;">Pack</th>
+                    <th style="border:1px solid black;">Quantity</th>
+                    <th style="border:1px solid black;">Item Number</th>
+                    <th style="border:1px solid black;">Item Description</th>
+                    <th style="border:1px solid black;">Barcode</th>
+                </tr>
+            </thead>
+        </xpath>
+
+        <xpath expr="//table/tbody/tr" position="replace">
+            <t t-set="packages" t-value="docs.move_line_ids.mapped('result_package_id')"/>
+            <t t-if="packages">
+                <t t-foreach="packages" t-as="package"  style="border:1px solid black;">
+                    <tr rowspan="2">
+<!--                    <td  style="border:1px solid black;" rowspan="2">-->
+<!--                                <span t-field="package.name"/>-->
+<!--                            </td>-->
+<!--                    <td  style="border:1px solid black;" rowspan="2">-->
+<!--                        <span t-field="package.name" class="mt0 float-start">Package Reference</span>-->
+<!--                    </td>-->
+<!--                        <td style="border:1px solid black;"></td>-->
+                    </tr>
+                    <t t-foreach="package.quant_ids" t-as="quant">
+                        <tr  style="border:1px solid black;">
+                            <td  style="border:1px solid black;">
+                                <span t-field="package.name"/>
+                            </td>
+
+                            <td  style="border:1px solid black;">
+                                <span t-field="quant.quantity"/>
+                            </td>
+                            <td  style="border:1px solid black;">
+                                <span t-field="quant.product_id.default_code"/>
+                            </td>
+                            <td  style="border:1px solid black;">
+                                <span t-field="quant.product_id.name"/>
+                            </td>
+                            <td  style="border:1px solid black;">
+                                <div t-field="quant.product_id.barcode"
+                                     t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:50px;'}"/>
+                            </td>
+                        </tr>
+                    </t>
+                    <!--                        </td>-->
+                    <!--                    </tr>-->
+                </t>
+            </t>
+        </xpath>
+
+
+        <xpath expr="//div[@class='row mt32 mb32']" position="replace">
+            <t t-foreach="docs.move_line_ids.mapped('result_package_id')" t-as="l">
+                <div class="row mt32 mb32">
+                    <div t-if="l.pack_date" class="col-auto">
+                        <strong>Pack Date:</strong>
+                        <span t-field="l.pack_date">2021-9-01</span>
+                    </div>
+                    <div t-if="l.package_type_id" class="o_packaging_type col-auto">
+                        <strong>Package Type:</strong>
+                        <span t-field="l.package_type_id.name">Pallet</span>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+        <!--                <t t-set="package_ids" t-value="docs"/>-->
+        <!--                <t t-if="package_ids">-->
+        <!--                    <div class="row mt32 mb32">-->
+        <!--                        <t t-foreach="package_ids" t-as="package">-->
+        <!--                            <div class="col-auto">-->
+        <!--                                <t t-if="package.pack_date">-->
+        <!--                                    <strong>Pack Date:</strong>-->
+        <!--&lt;!&ndash;                                    <span t-field="package.pack_date"/>&ndash;&gt;-->
+        <!--                                </t>-->
+        <!--                                <div  class="o_packaging_type col-auto">-->
+        <!--                                    <strong>Package Type:</strong>-->
+        <!--&lt;!&ndash;                                    <span t-field="package.package_type_id.name"/>&ndash;&gt;-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </t>-->
+        <!--                    </div>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </xpath>-->
+        <!--            <th>Pack</th>-->
+        <!--            <th>Quantity</th>-->
+        <!--            <th>Item Number</th>-->
+        <!--            <th>Item Description</th>-->
+        <!--            <th>Barcode</th>-->
+        <!--        </xpath>-->
+        <!--        <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="replace">-->
+        <!--        </xpath>-->
+        <!--        <xpath expr="//table/tbody/tr/td[1]" position="replace">-->
+        <!--            <t t-set="packages" t-value="docs.move_line_ids.mapped('result_package_id')"/>-->
+        <!--            <t t-if="packages">-->
+        <!--                <t t-foreach="packages" t-as="package">-->
+        <!--                        <td rowspan="2">-->
+        <!--                            <span t-field="package.name" class="mt0 float-start">Package Reference</span>-->
+        <!--                        </td>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </xpath>-->
+
+        <!--        <xpath expr="//table/tbody/tr/td/span[@t-field='l.product_id.uom_id.name']" position="replace"/>-->
+        <!--        <xpath expr="//table/tbody/tr/td/span[@t-field='l.quantity']" position="replace"/>-->
+        <!--        <xpath expr="//table/tbody/tr/td/span[@t-field='l.product_id.name']" position="replace"/>-->
+        <!--        <xpath expr="//table/tbody/tr/td/t/span[@t-field='l.lot_id.name']" position="replace"/>-->
+        <!--        <xpath expr="//table/tbody/tr/td[@t-if='has_ean_barcode']" position="replace"/>-->
+        <!--        <xpath expr="//table/tbody/tr/td[4]" position="replace">-->
+        <!--            <td>-->
+        <!--                <span t-field="l.quantity"/>-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <span t-field="l.product_id.default_code">units</span>-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <span t-field="l.product_id.name">units</span>-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <div t-field="l.product_id.barcode"-->
+        <!--                     t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:50px;'}"/>-->
+        <!--            </td>-->
+        <!--        </xpath>-->
+
+
+    </template>
+</odoo>

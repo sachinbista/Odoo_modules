@@ -25,7 +25,7 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="model_shopify_product_product"/>
-        <field name="binding_view_types">form</field>
+        <field name="binding_view_types">form,list</field>
         <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
     </record>
 

@@ -17,10 +17,11 @@
         <field name="inherit_id" ref="stock.view_location_form"/>
         <field name="arch" type="xml">
             <field name="return_location" position="after">
-                <field name="shopify_location_id"/>
-                <field name="shopify_config_id"/>
-                <field name="shopify_legacy"/>
-                <field name="is_shopify_return_location" invisible="1"/>
+                <!-- <field name="shopify_location_id"/> -->
+                <!-- <field name="shopify_config_id"/> -->
+                <!-- <field name="shopify_legacy"/> -->
+                <field name="is_shopify_location"/>
+                <field name="is_shopify_return_location"/>
             </field>
         </field>
     </record>
@@ -29,12 +30,12 @@
         <field name="name">Location</field>
         <field name="res_model">stock.location</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('shopify_config_id', '!=', False)]</field>
+        <field name="domain">[('is_shopify_location', '=', True)]</field>
     </record>
 
     <menuitem id="shopify_stock_location_action_menu" name="Location"
               parent="shopify_odoo_operations_menu"
-              groups="bista_shopify_connector.group_shopify_admin"
+              groups="bista_shopify_connector.group_shopify_user"
               action="shopify_stock_location_action"
               sequence="6"/>
 </odoo>

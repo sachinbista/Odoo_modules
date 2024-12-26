@@ -8,12 +8,12 @@
 
         <menuitem id="shopify_shopify_operations_menu" name="Shopify"
                   parent="shopify_menu_root"
-                  groups="bista_shopify_connector.group_shopify_admin"
+                  groups="bista_shopify_connector.group_shopify_user"
                   sequence="2"/>
 
         <menuitem id="shopify_odoo_operations_menu" name="Odoo"
                   parent="shopify_menu_root"
-                  groups="bista_shopify_connector.group_shopify_admin"
+                  groups="bista_shopify_connector.group_shopify_user"
                   sequence="3"/>
 
         <menuitem id="shopify_queues_operations_menu" name="Queues"

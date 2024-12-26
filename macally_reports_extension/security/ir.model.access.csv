@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+macally_reports_extension.access_vendor_payment_terms,access_vendor_payment_terms,macally_reports_extension.model_vendor_payment_terms,base.group_user,1,1,1,1
+macally_reports_extension.access_ship_via,access_ship_via,macally_reports_extension.model_ship_via,base.group_user,1,1,1,1

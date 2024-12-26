@@ -1,121 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record model="ir.ui.view" id="product_template_inherit_form_des_shopify">
+            <field name="name">product.template.inherit.description</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="widget">html</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="open_shopify_variant" icon="fa-list-ul" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" type="object">
+                       <div class="o_field_widget o_stat_info">
+                            <span>
+                                Shopify Product
+                            </span>
+                       </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
         <record id="product_template_inherit_form_shopify" model="ir.ui.view">
             <field name="name">product.template.inherit.form.shopify</field>
             <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_only_form_view" />
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <field name="categ_id" position="before">
-                    <field name="export_ready_status" readonly="export_ready_status == 'exported'" />
+                    <field name="export_status"/>
                 </field>
+                <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="widget">html</attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="open_shopify_variant" icon="fa-list-ul" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" type="object">
+                       <div class="o_field_widget o_stat_info">
+                            <span>
+                                Shopify Product
+                            </span>
+                       </div>
+                    </button>
+                </xpath>
                 <xpath expr="//form/sheet/notebook" position="inside">
-                    <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="shopify_product_template_ids == []" string="Shopify">
-                        <group string="Shopify Product Template">
-                            <field name="shoipify_product_template_id" />
-                        </group>
+                    <page string="Shopify" invisible = "shopify_product_template_ids == []" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user">
                         <field name="shopify_product_template_ids" nolabel="1">
                             <tree delete="false">
-                                <field name="product_tmpl_id" />
-                                <field domain="[('supplier_rank', '>', 0)]" name="vendor" />
-                                <field name="product_type" />
-                                <field name="shopify_config_id" />
-                                <field name="shopify_prod_tmpl_id" />
-                                <field name="last_updated_date" />
-                                <button invisible="shopify_prod_tmpl_id != False" name="export_shopify" string="Export" type="object" />
-                                <button invisible="shopify_prod_tmpl_id == False" name="update_shopify_product" string="Update" type="object" />
+                                <field name="product_tmpl_id"/>
+                                <field name="vendor" domain="[('supplier_rank', '>', 0)]"/>
+                                <field name="product_type"/>
+                                <field name="shopify_config_id"/>
+                                <field name="shopify_prod_tmpl_id"/>
+                                <field name="r_prod_tags" widget="many2many_tags" optional="show"/>
+                                <field name="r_prov_tags" widget="many2many_tags" optional="show"/>
+                                <field name="shopify_prod_collection_ids" widget="many2many_tags" optional="show"/>
+                                <field name="last_updated_date"/>
+                                <field name="ready_to_update" readonly="1"/>
+                                <button name="export_shopify" string="Export" type="object" invisible="shopify_prod_tmpl_id"/>
+                                <button name="import_template_to_odoo_btn" string="Import to Odoo" type="object" invisible="shopify_prod_tmpl_id"/>
+                                <button name="export_template_to_shopify_btn" string="Export to Shopify" type="object" invisible="shopify_prod_tmpl_id"/>
                             </tree>
                             <form>
                                 <group>
                                     <group>
-                                        <field name="product_tmpl_id" readonly="1" />
-                                        <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="shopify_prod_tmpl_id != False" />
-                                        <field name="last_updated_date" />
+                                        <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly = "shopify_prod_tmpl_id"/>
+                                        <field name="last_updated_date"/>
                                     </group>
                                     <group>
-                                        <field domain="[('supplier_rank', '>', 0)]" name="vendor" readonly="1" />
-                                        <field name="product_type" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
-                                        <field domain="[('type', '=', 'manual'), ('shopify_config_id', '=', shopify_config_id)]" name="shopify_prod_collection_ids" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" widget="many2many_tags" />
-                                        <field name="shopify_published" />
-                                        <field name="shopify_published_scope" />
+                                        <field name="vendor" domain="[('supplier_rank', '>', 0)]" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                                        <field name="product_type" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                        <field name="shopify_prod_collection_ids" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" widget="many2many_tags" domain="[('type', '=', 'manual'), ('shopify_config_id', '=', shopify_config_id)]"/>
+                                        <field name="shopify_published"/>
+                                        <field name="shopify_published_scope"/>
                                     </group>
                                     <group>
-                                        <field name="shopify_prod_tmpl_id" />
+                                        <field name="shopify_prod_tmpl_id"/>
                                     </group>
                                     <group>
-                                        <field name="shopify_error_log" />
+                                        <field name="shopify_error_log"/>
                                     </group>
                                 </group>
                                 <notebook>
-                                    <page invisible="0" string="Body Html">
-                                        <field name="body_html" nolabel="1" />
+                                    <page string="Body Html" invisible="0">
+                                        <field name="body_html" nolabel="1"/>
                                     </page>
                                 </notebook>
                             </form>
                         </field>
                         <group>
-                            <field name="prod_tags_ids" options="{'color_field': 'color', 'no_create_edit': True}" widget="many2many_tags" />
-                            <field name="province_tags_ids" options="{'color_field': 'color', 'no_create_edit': True}" widget="many2many_tags" />
+                             <field name="prod_tags_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                             <field name="province_tags_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="prod_collection_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                        </group>
+                        <group string="Shopify Description">
+                            <field colspan="2" name="shopify_description" nolabel="1" placeholder="Enter Shopify Product Description Here."/>
                         </group>
                     </page>
-                    <page invisible="product_multi_images == []" string="Images">
-                        <field name="product_multi_images" widget="image_multi">
+                    <page string="Images" invisible = "product_multi_images == []">
+                        <field name="product_multi_images">
                             <tree editable="bottom">
-                                <field name="image" />
-                                <field name="description" />
-                                <field name="title" />
+                                <field name="image"/>
+                                <field name="description"/>
+                                <field name="title"/>
                             </tree>
                         </field>
                     </page>
                 </xpath>
             </field>
         </record>
+
         <record id="product_product_shopify_easy_inherit_form" model="ir.ui.view">
             <field name="name">product.product.shopify.easy.inherit.form</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button invisible = "shopify_product_product_ids == []" class="oe_stat_button" name="open_shopify_variant" icon="fa-list-ul" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" type="object">
+                       <div class="o_field_widget o_stat_info">
+                            <span>
+                                Shopify Product
+                            </span>
+                       </div>
+                    </button>
+                </xpath>
                 <sheet position="inside">
                     <notebook>
-                        <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="shopify_product_product_ids == []" string="Shopify Variant Information">
+                        <page string="Shopify Variant fields" invisible = "shopify_product_product_ids == []">
+<!--                              groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" -->
+
                             <group>
-                                <field invisible="type != 'service'" name="shopify_shipping_product" />
-                                <field invisible="type != 'service'" name="shopify_discount_product" />
+                                <field name="shopify_shipping_product" invisible = "type != 'service'"/>
+                                <field name="shopify_discount_product" invisible = "type != 'service'"/>
                             </group>
                             <field name="shopify_product_product_ids">
-                                <tree delete="0" string="Shopify Product Details">
-                                    <field name="product_variant_id" />
-                                    <field name="shopify_product_template_id" />
-                                    <field name="shopify_product_id" />
-                                    <field name="shopify_inventory_item_id" optional="hide" />
-                                    <field name="shopify_config_id" />
-                                    <field name="product_template_id" optional="hide" />
-                                    <field name="last_updated_date" optional="hide" />
-                                    <field name="update_shopify_inv" optional="hide" />
-                                    <button invisible="shopify_product_id != False" name="export_shopify_variant" string="Export Variant" type="object" />
-                                    <button invisible="shopify_product_id == False" name="update_shopify_variant" string="Update Variant" type="object" />
+                                <tree string="Shopify Product Details" delete="0">
+                                    <field name="product_variant_id"/>
+                                    <field name="shopify_product_template_id"/>
+                                    <field name="shopify_product_id"/>
+                                    <field name="shopify_inventory_item_id" optional="hide"/>
+                                    <field name="shopify_config_id"/>
+                                    <field name="product_template_id" optional="hide"/>
+                                    <field name="last_updated_date" optional="hide"/>
+                                    <field name="update_shopify_inv" optional="hide"/>
+                                    <field name="variant_ready_for_update" readonly="1"/>
+<!--                                    <button name="export_shopify_variant" string="Export Variant" type="object" invisible = "shopify_product_id"/>-->
+                                    <button name="update_shopify_variant_btn" string="Update Variant" type="object" invisible = "not shopify_product_id"/>
                                 </tree>
                                 <form>
                                     <group>
                                         <group>
-                                            <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="shopify_product_id != False" />
-                                            <field name="product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="1" />
-                                            <field name="product_variant_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="product_template_id in ('', False)" required="0" />
-                                            <field name="last_updated_date" />
+                                            <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                                   readonly="shopify_product_id"/>
+                                            <field name="product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="1"/>
+                                            <field name="product_variant_id" required="0" readonly="1" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                            <field name="last_updated_date"/>
                                         </group>
                                         <group>
-                                            <field name="lst_price" />
-                                            <field invisible="1" name="shopify_published_variant" />
-                                            <field name="update_shopify_inv" />
+                                            <field name="lst_price"/>
+                                            <field name="shopify_published_variant" invisible="1"/>
+                                            <field name="update_shopify_inv"/>
                                         </group>
                                     </group>
                                     <group>
                                         <group>
-                                            <field name="shopify_product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
-                                            <field name="shopify_inventory_item_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                                            <field name="shopify_product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                            <field name="shopify_inventory_item_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                                         </group>
                                         <group>
-                                            <field name="shopify_product_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                                            <field name="shopify_product_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                                         </group>
                                     </group>
                                 </form>
@@ -125,51 +176,63 @@
                 </sheet>
             </field>
         </record>
+
         <record id="product_product_shopify_fields_inherit_form" model="ir.ui.view">
             <field name="name">product.product.shopify.fields.inherit.form</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button invisible = "shopify_product_product_ids == []" class="oe_stat_button" name="open_shopify_variant" icon="fa-list-ul" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" type="object">
+                       <div class="o_field_widget o_stat_info">
+                            <span>
+                                Shopify Product
+                            </span>
+                       </div>
+                    </button>
+                </xpath>
                 <xpath expr="//notebook/page[last()]" position="after">
-                    <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="shopify_product_product_ids == []" string="Shopify Variant Information">
+                    <page string="Shopify Variant fields" groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user"
+                          invisible = "shopify_product_product_ids == []">
                         <group>
-                            <field invisible="type != 'service'" name="shopify_shipping_product" />
-                            <field invisible="type != 'service'" name="shopify_discount_product" />
+                            <field name="shopify_shipping_product" invisible = "type != 'service'"/>
+                            <field name="shopify_discount_product" invisible = "type != 'service'"/>
                         </group>
                         <field name="shopify_product_product_ids">
-                            <tree delete="0" string="Shopify Product Details">
-                                <field name="product_variant_id" />
-                                <field name="shopify_product_template_id" />
-                                <field name="shopify_product_id" />
-                                <field name="shopify_inventory_item_id" optional="hide" />
-                                <field name="shopify_config_id" />
-                                <field name="product_template_id" optional="hide" />
-                                <field name="last_updated_date" optional="hide" />
-                                <field name="update_shopify_inv" optional="hide" />
-                                <button invisible="shopify_product_id != False" name="export_shopify_variant" string="Export Variant" type="object" />
-                                <button invisible="shopify_product_id == False" name="update_shopify_variant" string="Update Variant" type="object" />
+                            <tree string="Shopify Product Details" delete="0">
+                                <field name="product_variant_id"/>
+                                <field name="shopify_product_template_id"/>
+                                <field name="shopify_product_id"/>
+                                <field name="shopify_inventory_item_id" optional="hide"/>
+                                <field name="shopify_config_id"/>
+                                <field name="product_template_id" optional="hide"/>
+                                <field name="last_updated_date" optional="hide"/>
+                                <field name="update_shopify_inv" optional="hide"/>
+                                <field name="variant_ready_for_update" readonly="1"/>
+<!--                                <button name="export_shopify_variant" string="Export Variant" type="object" invisible = "shopify_product_id"/>-->
+                                <button name="update_shopify_variant_btn" string="Update Variant" type="object" invisible = "not shopify_product_id"/>
                             </tree>
                             <form>
                                 <group>
                                     <group>
-                                        <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="shopify_product_id != False" />
-                                        <field name="product_template_id" readonly="1" />
-                                        <field name="product_variant_id" readonly="product_template_id in ('', False)" required="0" />
-                                        <field name="last_updated_date" />
+                                        <field name="shopify_config_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly = "shopify_product_id"/>
+                                        <field name="product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" readonly="1"/>
+                                        <field name="product_variant_id" required="0" readonly="1" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                        <field name="last_updated_date"/>
                                     </group>
                                     <group>
-                                        <field name="lst_price" />
-                                        <field invisible="1" name="shopify_published_variant" />
-                                        <field name="update_shopify_inv" />
+                                        <field name="lst_price"/>
+                                        <field name="shopify_published_variant" invisible="1"/>
+                                        <field name="update_shopify_inv"/>
                                     </group>
                                 </group>
                                 <group>
                                     <group>
-                                        <field name="shopify_product_template_id" />
-                                        <field name="shopify_inventory_item_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                                        <field name="shopify_product_template_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                        <field name="shopify_inventory_item_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                                     </group>
                                     <group>
-                                        <field name="shopify_product_id" />
+                                        <field name="shopify_product_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                                     </group>
                                 </group>
                             </form>
@@ -178,43 +241,68 @@
                 </xpath>
             </field>
         </record>
+
         <record id="product_product_shopify_search_view" model="ir.ui.view">
             <field name="name">product.product.shopify.search.view</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
-                    <filter domain="[('shopify_product_product_ids','!=',False)]" name="shopify_published_variant" string="Shopify Published" />
+                    <filter name="shopify_published_variant" string="Shopify Published" domain="[('shopify_product_product_ids','!=',False)]"/>
                 </xpath>
             </field>
         </record>
+
         <record id="product_template_shopify_search_view" model="ir.ui.view">
             <field name="name">product.template.shopify.search.view</field>
             <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="inherit_id" ref="product.product_template_search_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='consumable']" position="after">
-                    <filter domain="[('shopify_product_template_ids','!=',False)]" name="shopify_published_template" string="Shopify Published Template" />
+                    <filter name="shopify_published_template" string="Shopify Published Template" domain="[('shopify_product_template_ids','!=',False)]"/>
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="product_product_tree_view_shopify_inherit">
+            <field name="name">product.product.tree.view.shopify.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
         <record id="shopify_product_template_action" model="ir.actions.act_window">
             <field name="name">Products</field>
             <field name="res_model">product.template</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_shopify_published_template':1}</field>
         </record>
-        <menuitem action="shopify_product_template_action" groups="bista_shopify_connector.group_shopify_admin" id="shopify_odoo_product_template_operation_action_menu" name="Products" parent="shopify_odoo_operations_menu" sequence="1" />
+
+        <menuitem id="shopify_odoo_product_template_operation_action_menu" name="Products"
+                  parent="shopify_odoo_operations_menu"
+                  action="shopify_product_template_action"
+                  groups="bista_shopify_connector.group_shopify_user"
+                  sequence="1"/>
+
         <record id="shopify_product_product_action" model="ir.actions.act_window">
             <field name="name">Product Variants</field>
             <field name="res_model">product.product</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="bista_shopify_connector.product_product_shopify_search_view" />
+            <field name="search_view_id" ref="bista_shopify_connector.product_product_shopify_search_view"/>
             <field name="context">{'search_default_shopify_published_variant':1}</field>
         </record>
-        <menuitem action="shopify_product_product_action" groups="bista_shopify_connector.group_shopify_admin" id="shopify_odoo_product_product_operation_action_menu" name="Product Variants" parent="shopify_odoo_operations_menu" sequence="2" />
-        <record id="product.product_variant_action" model="ir.actions.act_window">
-            <field eval="[(5, 0, 0),                           (0, 0, {'view_mode': 'tree'}),                           (0, 0, {'view_mode': 'form', 'view_id': ref('product.product_normal_form_view')}),                           (0, 0, {'view_mode': 'kanban'})]" name="view_ids" />
-        </record>
+
+
+        <menuitem id="shopify_odoo_product_product_operation_action_menu" name="Product Variants"
+                  parent="shopify_odoo_operations_menu"
+                  groups="bista_shopify_connector.group_shopify_user"
+                  action="shopify_product_product_action"
+                  sequence="2"/>
+
     </data>
 </odoo>

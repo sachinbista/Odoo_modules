@@ -35,18 +35,15 @@ class ShopifyFinancialWorkflow(models.Model):
                                         help="Shopify Financial Status.")
 
     @api.model_create_multi
-    def create(self, vals):
-        for val in vals:
-            if val.get('name', _('New')) == _('New'):
-                val['name'] = self.env['ir.sequence'].sudo().next_by_code(
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', _('New')) == _('New'):
+                vals['name'] = self.env['ir.sequence'].next_by_code(
                     'shopify.financial.workflow') or _('New')
-        return super().create(vals)
+        return super().create(vals_list)
 
     @api.constrains('shopify_config_id', 'payment_gateway_id', 'financial_status')
     def _check_unique_financial_workflow(self):
-        """ This method is a constraint to check,
-                            there should not be duplicated financial workflow.
-                            @author: Pooja Zankhariya @Bista Solutions Pvt. Ltd."""
         for fin_flow in self:
             domain = [('id', '!=', fin_flow.id),
                       ('shopify_config_id', '=', fin_flow.shopify_config_id.id),

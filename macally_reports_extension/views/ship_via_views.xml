@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="ship_via_form_views" model="ir.ui.view">
+        <field name="name">ship.via.terms</field>
+        <field name="model">ship.via</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Payment Terms">
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="ship_via_tree_views" model="ir.ui.view">
+        <field name="name">ship.via.tree</field>
+        <field name="model">ship.via</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ship_via_action" model="ir.actions.act_window">
+        <field name="name">Ship Via</field>
+        <field name="res_model">ship.via</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="ship_via_tree_views"/>
+    </record>
+
+    <menuitem id="menu_ship_via"
+              action="ship_via_action" name="Ship Via"
+              parent="purchase.menu_product_in_config_purchase" sequence="17"/>
+</odoo>

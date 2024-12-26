@@ -1,0 +1,1133 @@
+<Orders xmlns="http://www.spscommerce.com/RSX">
+  <Order>
+    <Meta>
+      <SenderUniqueID>9999999999</SenderUniqueID>
+      <SenderCompanyName>Test Company 1</SenderCompanyName>
+      <ReceiverUniqueID>000000000</ReceiverUniqueID>
+      <ReceiverCompanyName>SPS Commerce</ReceiverCompanyName>
+      <IsDropShip>true</IsDropShip>
+      <InterchangeControlNumber>111111111</InterchangeControlNumber>
+      <GroupControlIdentifier>55555555</GroupControlIdentifier>
+      <GroupControlNumber>2222222</GroupControlNumber>
+      <DocumentControlIdentifier>1111111222222</DocumentControlIdentifier>
+      <DocumentControlNumber>4444444444444</DocumentControlNumber>
+      <InterchangeSenderID>987654321098</InterchangeSenderID>
+      <InterchangeReceiverID>123456789012</InterchangeReceiverID>
+      <GroupSenderID>987654321098</GroupSenderID>
+      <GroupReceiverID>123456789012</GroupReceiverID>
+      <BatchPart>99995555</BatchPart>
+      <BatchTotal>16</BatchTotal>
+      <BatchID>testBatchID</BatchID>
+      <Comments>testComments</Comments>
+      <Validation>testValidation</Validation>
+      <OrderManagement>CrossDock</OrderManagement>
+      <Version>testVersion</Version>
+    </Meta>
+    <Header>
+      <OrderHeader>
+        <TradingPartnerId>000ALLTESTID</TradingPartnerId>
+        <PurchaseOrderNumber>1010101010101</PurchaseOrderNumber>
+        <DepositorOrderNumber>8888888877</DepositorOrderNumber>
+        <TsetPurposeCode>05</TsetPurposeCode>
+        <PrimaryPOTypeCode>SP</PrimaryPOTypeCode>
+        <PrimaryPOTypeDescription>This is a test. Do not ship</PrimaryPOTypeDescription>
+        <AdditionalPOTypeCodes>
+          <POTypeCode>EO</POTypeCode>
+          <POTypeDescription>This is a test. Do not ship</POTypeDescription>
+        </AdditionalPOTypeCodes>
+        <ReleaseNumber>XYZ999999</ReleaseNumber>
+        <PurchaseOrderDate>2013-08-29</PurchaseOrderDate>
+        <PurchaseOrderTime>21:05:49-06:00</PurchaseOrderTime>
+        <ContractType>testContractType</ContractType>
+        <SalesRequirementCode>SP</SalesRequirementCode>
+        <AcknowledgementType>NA</AcknowledgementType>
+        <InvoiceTypeCode>DR</InvoiceTypeCode>
+        <ShipCompleteCode>N</ShipCompleteCode>
+        <BuyersCurrency>testBuyersCurrency</BuyersCurrency>
+        <SellersCurrency>testSellersCurrency</SellersCurrency>
+        <ExchangeRate>1.03157</ExchangeRate>
+        <Department>026</Department>
+        <DepartmentDescription>Electronics</DepartmentDescription>
+        <Vendor>99999999</Vendor>
+        <JobNumber>777770000555555</JobNumber>
+        <Division>Sam's Club</Division>
+        <CustomerAccountNumber>123456789</CustomerAccountNumber>
+        <CustomerOrderNumber>987654321</CustomerOrderNumber>
+        <DocumentVersion>4</DocumentVersion>
+        <DocumentRevision>2</DocumentRevision>
+      </OrderHeader>
+      <PaymentTerms>
+        <TermsType>05</TermsType>
+        <TermsBasisDateCode>7</TermsBasisDateCode>
+        <TermsTimeRelationCode>9</TermsTimeRelationCode>
+        <TermsDiscountPercentage>5.62</TermsDiscountPercentage>
+        <TermsDiscountDate>2013-11-28</TermsDiscountDate>
+        <TermsDiscountDueDays>60</TermsDiscountDueDays>
+        <TermsNetDueDate>2013-11-15</TermsNetDueDate>
+        <TermsNetDueDays>90</TermsNetDueDays>
+        <TermsDiscountAmount>1845.08</TermsDiscountAmount>
+        <TermsDeferredDueDate>2013-10-25</TermsDeferredDueDate>
+        <TermsDeferredAmountDue>215.28</TermsDeferredAmountDue>
+        <PercentOfInvoicePayable>12.5</PercentOfInvoicePayable>
+        <TermsDescription>Must be paid in full by end of year</TermsDescription>
+        <TermsDueDay>28</TermsDueDay>
+        <PaymentMethodCode>42</PaymentMethodCode>
+        <PaymentMethodID>999888777</PaymentMethodID>
+        <LatePaymentChargePercent>15.2</LatePaymentChargePercent>
+        <TermsStartDate>2013-09-30</TermsStartDate>
+        <TermsDueDateQual>01</TermsDueDateQual>
+        <AmountSubjectToDiscount>68.18</AmountSubjectToDiscount>
+        <DiscountAmountDue>97.45</DiscountAmountDue>
+      </PaymentTerms>
+      <Dates>
+        <DateTimeQualifier>001</DateTimeQualifier>
+        <Date>2013-12-21</Date>
+        <Time>16:13:03-05:00</Time>
+        <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+      </Dates>
+      <Contacts>
+        <ContactTypeCode>OC</ContactTypeCode>
+        <ContactName>SPS Commerce</ContactName>
+        <PrimaryPhone>866-245-8100</PrimaryPhone>
+        <PrimaryFax>612-435-9401</PrimaryFax>
+        <PrimaryEmail>info@spscommerce.com</PrimaryEmail>
+        <AdditionalContactDetails>
+          <ContactQual>HP</ContactQual>
+          <ContactID>999-999-9999</ContactID>
+        </AdditionalContactDetails>
+        <ContactReference>ext: 451</ContactReference>
+      </Contacts>
+      <Address>
+        <AddressTypeCode>RI</AddressTypeCode>
+        <LocationCodeQualifier>UL</LocationCodeQualifier>
+        <AddressLocationNumber>11111</AddressLocationNumber>
+        <AddressName>SPS Commerce</AddressName>
+        <AddressAlternateName>ATTN: Marketing</AddressAlternateName>
+        <AddressAlternateName2>ATTN: John Doe</AddressAlternateName2>
+        <Address1>333 South 7th Street</Address1>
+        <Address2>Suite 1000</Address2>
+        <Address3>333 South Seventh Street Tower</Address3>
+        <Address4>10th Floor</Address4>
+        <City>Washington</City>
+        <State>DC</State>
+        <PostalCode>55402</PostalCode>
+        <Country>US</Country>
+        <LocationID>East Location, next to interstate</LocationID>
+        <CountrySubDivision>testCountrySubDivision</CountrySubDivision>
+        <AddressTaxIdNumber>999999</AddressTaxIdNumber>
+        <AddressTaxExemptNumber>testAddressTaxExemptNumber</AddressTaxExemptNumber>
+        <References>
+          <ReferenceQual>2I</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+          <Description>New products only. Do not reuse packaging</Description>
+          <Date>2013-12-21</Date>
+          <Time>16:13:03-05:00</Time>
+          <ReferenceIDs>
+            <ReferenceQual>CI</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+          </ReferenceIDs>
+        </References>
+        <Contacts>
+          <ContactTypeCode>AL</ContactTypeCode>
+          <ContactName>SPS Commerce</ContactName>
+          <PrimaryPhone>866-245-8100</PrimaryPhone>
+          <PrimaryFax>612-435-9401</PrimaryFax>
+          <PrimaryEmail>info@spscommerce.com</PrimaryEmail>
+          <AdditionalContactDetails>
+            <ContactQual>HP</ContactQual>
+            <ContactID>999-999-9999</ContactID>
+          </AdditionalContactDetails>
+          <ContactReference>ext: 451</ContactReference>
+        </Contacts>
+        <Dates>
+          <DateTimeQualifier>013</DateTimeQualifier>
+          <Date>2012-10-31</Date>
+          <Time>16:13:03-05:00</Time>
+          <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+        </Dates>
+      </Address>
+      <FOBRelatedInstruction>
+        <FOBPayCode>PC</FOBPayCode>
+        <FOBLocationQualifier>AC</FOBLocationQualifier>
+        <FOBLocationDescription>Minnesota</FOBLocationDescription>
+        <FOBTitlePassageCode>KL</FOBTitlePassageCode>
+        <FOBTitlePassageLocation>Minneapolis MN</FOBTitlePassageLocation>
+        <TransportationTermsType>03</TransportationTermsType>
+        <TransportationTerms>testTransportationTerms</TransportationTerms>
+        <RiskOfLossCode>IR</RiskOfLossCode>
+        <Description>New products only. Do not reuse packaging</Description>
+      </FOBRelatedInstruction>
+      <Commodity>
+        <CommodityCodeQualifier>Q</CommodityCodeQualifier>
+        <CommodityCode>P2512</CommodityCode>
+      </Commodity>
+      <Measurements>
+        <MeasurementRefIDCode>testMeasurementRefIDCode</MeasurementRefIDCode>
+        <MeasurementQualifier>D9</MeasurementQualifier>
+        <MeasurementValue>47.69</MeasurementValue>
+        <CompositeUOM>DP</CompositeUOM>
+        <RangeMinimum>89.76</RangeMinimum>
+        <RangeMaximum>17.56</RangeMaximum>
+        <MeasurementSignificanceCode>IN</MeasurementSignificanceCode>
+        <MeasurementAttributeCode>testMeasurementAttributeCode</MeasurementAttributeCode>
+        <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+        <IndustryCodeQualifier>testIndustryCodeQualifier</IndustryCodeQualifier>
+        <IndustryCode>testIndustryCode</IndustryCode>
+      </Measurements>
+      <Paperwork>
+        <ReportTypeCode>MB</ReportTypeCode>
+        <ReportTransmissionCode>testReportTransmissionCode</ReportTransmissionCode>
+        <ReportCopiesNeeded>68</ReportCopiesNeeded>
+        <AddressTypeCode>RL</AddressTypeCode>
+        <LocationCodeQualifier>UL</LocationCodeQualifier>
+        <LocationNumber>testLocationNumber</LocationNumber>
+        <Description>New products only. Do not reuse packaging</Description>
+        <ActionsIndicated>testActionsIndicated</ActionsIndicated>
+        <RequestCategoryCode>testRequestCategoryCode</RequestCategoryCode>
+      </Paperwork>
+      <Packaging>
+        <PackagingCharacteristicCode>PK</PackagingCharacteristicCode>
+        <AgencyQualifierCode>VI</AgencyQualifierCode>
+        <PackagingDescriptionCode>testPackagingDescriptionCode</PackagingDescriptionCode>
+        <PackagingDescription>testPackagingDescription</PackagingDescription>
+        <UnitLoadOptionCode>01</UnitLoadOptionCode>
+        <Measurements>
+          <MeasurementRefIDCode>testMeasurementRefIDCode</MeasurementRefIDCode>
+          <MeasurementQualifier>D9</MeasurementQualifier>
+          <MeasurementValue>11.86</MeasurementValue>
+          <CompositeUOM>ST</CompositeUOM>
+          <RangeMinimum>55.60</RangeMinimum>
+          <RangeMaximum>15.85</RangeMaximum>
+          <MeasurementSignificanceCode>OU</MeasurementSignificanceCode>
+          <MeasurementAttributeCode>testMeasurementAttributeCode</MeasurementAttributeCode>
+          <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+          <IndustryCodeQualifier>testIndustryCodeQualifier</IndustryCodeQualifier>
+          <IndustryCode>testIndustryCode</IndustryCode>
+        </Measurements>
+      </Packaging>
+      <QuantityAndWeight>
+        <PackingMedium>COL</PackingMedium>
+        <PackingMaterial>67</PackingMaterial>
+        <LadingQuantity>4100</LadingQuantity>
+        <LadingDescription>testLadingDescription</LadingDescription>
+        <WeightQualifier>L</WeightQualifier>
+        <Weight>24.25</Weight>
+        <WeightUOM>50</WeightUOM>
+        <Volume>20.55</Volume>
+        <VolumeUOM>GH</VolumeUOM>
+        <PalletExchangeCode>1</PalletExchangeCode>
+      </QuantityAndWeight>
+      <CarrierInformation>
+        <StatusCode>PR</StatusCode>
+        <CarrierTransMethodCode>E</CarrierTransMethodCode>
+        <CarrierAlphaCode>UPGF</CarrierAlphaCode>
+        <CarrierRouting>UPS Ground Freight</CarrierRouting>
+        <EquipmentDescriptionCode>HC</EquipmentDescriptionCode>
+        <CarrierEquipmentInitial>XBGQ</CarrierEquipmentInitial>
+        <CarrierEquipmentNumber>4806196209</CarrierEquipmentNumber>
+        <EquipmentType>testEquipmentType</EquipmentType>
+        <OwnershipCode>T</OwnershipCode>
+        <RoutingSequenceCode>BO</RoutingSequenceCode>
+        <TransitDirectionCode>BS</TransitDirectionCode>
+        <TransitTimeQual>CD</TransitTimeQual>
+        <TransitTime>52.49</TransitTime>
+        <ServiceLevelCodes>
+          <ServiceLevelCode>PI</ServiceLevelCode>
+        </ServiceLevelCodes>
+        <Address>
+          <AddressTypeCode>CT</AddressTypeCode>
+          <LocationCodeQualifier>92</LocationCodeQualifier>
+          <AddressLocationNumber>11111</AddressLocationNumber>
+          <AddressName>SPS Commerce</AddressName>
+          <AddressAlternateName>ATTN: Marketing</AddressAlternateName>
+          <AddressAlternateName2>ATTN: John Doe</AddressAlternateName2>
+          <Address1>333 South 7th Street</Address1>
+          <Address2>ATTN: The President</Address2>
+          <Address3>333 South Seventh Street Tower</Address3>
+          <Address4>10th Floor</Address4>
+          <City>Washington</City>
+          <State>DC</State>
+          <PostalCode>55402</PostalCode>
+          <Country>USA</Country>
+          <LocationID>555555</LocationID>
+          <CountrySubDivision>testCountrySubDivision</CountrySubDivision>
+          <AddressTaxIdNumber>999999</AddressTaxIdNumber>
+          <AddressTaxExemptNumber>testAddressTaxExemptNumber</AddressTaxExemptNumber>
+          <Dates>
+            <DateTimeQualifier>815</DateTimeQualifier>
+            <Date>2012-10-31</Date>
+            <Time>16:13:03-05:00</Time>
+            <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+          </Dates>
+        </Address>
+        <SealNumbers>
+          <SealStatusCode>04</SealStatusCode>
+          <SealNumber>AA1111111</SealNumber>
+        </SealNumbers>
+      </CarrierInformation>
+      <CarrierSpecialHandlingDetail>
+        <SpecialHandlingCode>UNDF</SpecialHandlingCode>
+        <HazardousMaterialCode>D</HazardousMaterialCode>
+        <HazardousMaterialClass>testHazardousMaterialClass</HazardousMaterialClass>
+        <Description>New products only. Do not reuse packaging</Description>
+        <YesOrNoResponse>N</YesOrNoResponse>
+      </CarrierSpecialHandlingDetail>
+      <MarksAndNumbersCollection>
+        <MarksAndNumbersQualifier1>UC</MarksAndNumbersQualifier1>
+        <MarksAndNumbers1>1Z1A1V999555333111</MarksAndNumbers1>
+      </MarksAndNumbersCollection>
+      <RestrictionsOrConditions>
+        <RestrictionsConditionsQualifier>testRestrictionsConditionsQualifier</RestrictionsConditionsQualifier>
+        <Description>New products only. Do not reuse packaging</Description>
+        <QuantityQualifier>02</QuantityQualifier>
+        <Quantity1>70</Quantity1>
+        <AmountQualifier>testAmountQualifier</AmountQualifier>
+        <Amount>29.92</Amount>
+      </RestrictionsOrConditions>
+      <LeadTime>
+        <LeadTimeCode>AY</LeadTimeCode>
+        <LeadTimeQuantity>45</LeadTimeQuantity>
+        <LeadTimePeriodInterval>WK</LeadTimePeriodInterval>
+        <LeadTimeDate>2019-11-01</LeadTimeDate>
+        <References>
+          <ReferenceQual>PK</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+          <Description>New products only. Do not reuse packaging</Description>
+          <Date>2012-10-31</Date>
+          <Time>16:13:03-05:00</Time>
+          <ReferenceIDs>
+            <ReferenceQual>KW</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+          </ReferenceIDs>
+        </References>
+        <Notes>
+          <NoteCode>PCK</NoteCode>
+          <Note>REPEAT LOGO PREVIOUS ORDER</Note>
+          <LanguageCode>ENG</LanguageCode>
+        </Notes>
+      </LeadTime>
+      <References>
+        <ReferenceQual>GS</ReferenceQual>
+        <ReferenceID>testReferenceID</ReferenceID>
+        <Description>New products only. Do not reuse packaging</Description>
+        <Date>2012-10-31</Date>
+        <Time>16:13:03-05:00</Time>
+        <ReferenceIDs>
+          <ReferenceQual>VWD</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+        </ReferenceIDs>
+      </References>
+      <Notes>
+        <NoteCode>MKG</NoteCode>
+        <Note>REPEAT LOGO PREVIOUS ORDER</Note>
+        <LanguageCode>ENG</LanguageCode>
+      </Notes>
+      <Taxes>
+        <TaxTypeCode>TX</TaxTypeCode>
+        <TaxAmount>1845.08</TaxAmount>
+        <TaxPercentQual>5</TaxPercentQual>
+        <TaxPercent>8.50</TaxPercent>
+        <JurisdictionQual>MB</JurisdictionQual>
+        <JurisdictionCode>07034</JurisdictionCode>
+        <TaxExemptCode>1</TaxExemptCode>
+        <RelationshipCode>O</RelationshipCode>
+        <PercentDollarBasis>2000</PercentDollarBasis>
+        <TaxHandlingCode>13</TaxHandlingCode>
+        <TaxID>99990000</TaxID>
+        <AssignedID>testAssignedID</AssignedID>
+        <Description>New products only. Do not reuse packaging</Description>
+      </Taxes>
+      <ChargesAllowances>
+        <AllowChrgIndicator>A</AllowChrgIndicator>
+        <AllowChrgCode>B570</AllowChrgCode>
+        <AllowChrgAgencyCode>ST</AllowChrgAgencyCode>
+        <AllowChrgAgency>Pending Review</AllowChrgAgency>
+        <AllowChrgAmt>85.02</AllowChrgAmt>
+        <AllowChrgPercentQual>5</AllowChrgPercentQual>
+        <AllowChrgPercent>5.0</AllowChrgPercent>
+        <PercentDollarBasis>2000</PercentDollarBasis>
+        <AllowChrgRate>2.43</AllowChrgRate>
+        <AllowChrgQtyUOM>HS</AllowChrgQtyUOM>
+        <AllowChrgQty>8</AllowChrgQty>
+        <AllowChrgHandlingCode>03</AllowChrgHandlingCode>
+        <ReferenceIdentification>testReferenceIdentification</ReferenceIdentification>
+        <AllowChrgHandlingDescription>This will cover the cost of shipping</AllowChrgHandlingDescription>
+        <OptionNumber>testOptionNumber</OptionNumber>
+        <ExceptionNumber>testExceptionNumber</ExceptionNumber>
+        <AllowChrgQty2>71.84</AllowChrgQty2>
+        <LanguageCode>ENG</LanguageCode>
+        <CalculationSequence>1</CalculationSequence>
+        <Taxes>
+          <TaxTypeCode>H535</TaxTypeCode>
+          <TaxAmount>1845.08</TaxAmount>
+          <TaxPercentQual>7</TaxPercentQual>
+          <TaxPercent>8.50</TaxPercent>
+          <JurisdictionQual>MB</JurisdictionQual>
+          <JurisdictionCode>07034</JurisdictionCode>
+          <TaxExemptCode>1</TaxExemptCode>
+          <RelationshipCode>I</RelationshipCode>
+          <PercentDollarBasis>2000</PercentDollarBasis>
+          <TaxHandlingCode>05</TaxHandlingCode>
+          <TaxID>99990000</TaxID>
+          <AssignedID>testAssignedID</AssignedID>
+          <Description>New products only. Do not reuse packaging</Description>
+        </Taxes>
+      </ChargesAllowances>
+      <MonetaryAmounts>
+        <MonetaryAmountCode>10</MonetaryAmountCode>
+        <MonetaryAmount>9.95</MonetaryAmount>
+        <CreditDebitFlag>D</CreditDebitFlag>
+      </MonetaryAmounts>
+      <QuantityTotals>
+        <QuantityTotalsQualifier>LQT</QuantityTotalsQualifier>
+        <Quantity>80.2</Quantity>
+        <QuantityUOM>CQ</QuantityUOM>
+        <WeightQualifier>L</WeightQualifier>
+        <Weight>3.90</Weight>
+        <WeightUOM>CW</WeightUOM>
+        <Volume>62.78</Volume>
+        <VolumeUOM>GH</VolumeUOM>
+        <Description>New products only. Do not reuse packaging</Description>
+      </QuantityTotals>
+      <RegulatoryCompliances>
+        <RegulatoryComplianceQual>NAFTA</RegulatoryComplianceQual>
+        <YesOrNoResponse>N</YesOrNoResponse>
+        <RegulatoryComplianceID>testRegulatoryComplianceID</RegulatoryComplianceID>
+        <RegulatoryAgency>testRegulatoryAgency</RegulatoryAgency>
+        <Description>New products only. Do not reuse packaging</Description>
+      </RegulatoryCompliances>
+    </Header>
+    <LineItem>
+      <OrderLine>
+        <LineSequenceNumber>02</LineSequenceNumber>
+        <ApplicationId>980023</ApplicationId>
+        <BuyerPartNumber>9999-SPS</BuyerPartNumber>
+        <VendorPartNumber>11155-559999</VendorPartNumber>
+        <ConsumerPackageCode>093597609541</ConsumerPackageCode>
+        <EAN>1234567890123</EAN>
+        <GTIN>12345678901234</GTIN>
+        <UPCCaseCode>98765432101</UPCCaseCode>
+        <NatlDrugCode>51456-299</NatlDrugCode>
+        <InternationalStandardBookNumber>999-0-555-22222-0</InternationalStandardBookNumber>
+        <ProductID>
+          <PartNumberQual>BO</PartNumberQual>
+          <PartNumber>ABC-456789</PartNumber>
+        </ProductID>
+        <OrderQty>125</OrderQty>
+        <OrderQtyUOM>BF</OrderQtyUOM>
+        <PurchasePriceType>FCP</PurchasePriceType>
+        <PurchasePrice>5.85</PurchasePrice>
+        <PurchasePriceBasis>PK</PurchasePriceBasis>
+        <BuyersCurrency>testBuyersCurrency</BuyersCurrency>
+        <SellersCurrency>testSellersCurrency</SellersCurrency>
+        <ExchangeRate>1.03157</ExchangeRate>
+        <ShipDate>2013-11-05</ShipDate>
+        <ExtendedItemTotal>50</ExtendedItemTotal>
+        <ProductSizeCode>S-800</ProductSizeCode>
+        <ProductSizeDescription>Small</ProductSizeDescription>
+        <ProductColorCode>C-999</ProductColorCode>
+        <ProductColorDescription>Fire Truck Red</ProductColorDescription>
+        <ProductMaterialCode>F-000</ProductMaterialCode>
+        <ProductMaterialDescription>Faux Fabric</ProductMaterialDescription>
+        <ProductProcessCode>testProductProcessCode</ProductProcessCode>
+        <ProductProcessDescription>testProductProcessDescription</ProductProcessDescription>
+        <Department>026</Department>
+        <DepartmentDescription>Electronics</DepartmentDescription>
+        <Class>testClass</Class>
+        <Gender>Infant Boy/Girl</Gender>
+        <SellerDateCode>testSellerDateCode</SellerDateCode>
+        <NRFStandardColorAndSize>
+          <NRFColorCode>600</NRFColorCode>
+          <ColorCategoryName>Red</ColorCategoryName>
+          <ColorPrimaryDescription>Uncompared Red</ColorPrimaryDescription>
+          <NRFSizeCode>QUEEN-60685</NRFSizeCode>
+          <SizeCategoryName>Shirts</SizeCategoryName>
+          <SizePrimaryDescription>Small</SizePrimaryDescription>
+          <SizeSecondaryDescription>Short</SizeSecondaryDescription>
+          <SizeTableName>testSizeTableName</SizeTableName>
+          <SizeHeading1>testSizeHeading1</SizeHeading1>
+          <SizeHeading2>testSizeHeading2</SizeHeading2>
+          <SizeHeading3>testSizeHeading3</SizeHeading3>
+          <SizeHeading4>testSizeHeading4</SizeHeading4>
+        </NRFStandardColorAndSize>
+      </OrderLine>
+      <Contacts>
+        <ContactTypeCode>IC</ContactTypeCode>
+        <ContactName>SPS Commerce</ContactName>
+        <PrimaryPhone>866-245-8100</PrimaryPhone>
+        <PrimaryFax>612-435-9401</PrimaryFax>
+        <PrimaryEmail>info@spscommerce.com</PrimaryEmail>
+        <AdditionalContactDetails>
+          <ContactQual>WP</ContactQual>
+          <ContactID>999-999-9999</ContactID>
+        </AdditionalContactDetails>
+        <ContactReference>ext: 451</ContactReference>
+      </Contacts>
+      <Dates>
+        <DateTimeQualifier>013</DateTimeQualifier>
+        <Date>2013-12-21</Date>
+        <Time>16:13:03-05:00</Time>
+        <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+      </Dates>
+      <Measurements>
+        <MeasurementRefIDCode>testMeasurementRefIDCode</MeasurementRefIDCode>
+        <MeasurementQualifier>CWHT</MeasurementQualifier>
+        <MeasurementValue>15.32</MeasurementValue>
+        <CompositeUOM>2P</CompositeUOM>
+        <RangeMinimum>22.19</RangeMinimum>
+        <RangeMaximum>32.75</RangeMaximum>
+        <MeasurementSignificanceCode>OU</MeasurementSignificanceCode>
+        <MeasurementAttributeCode>testMeasurementAttributeCode</MeasurementAttributeCode>
+        <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+        <IndustryCodeQualifier>testIndustryCodeQualifier</IndustryCodeQualifier>
+        <IndustryCode>testIndustryCode</IndustryCode>
+      </Measurements>
+      <PriceInformation>
+        <ChangeReasonCode>UP</ChangeReasonCode>
+        <EffectiveDate>2019-11-01</EffectiveDate>
+        <PriceTypeIDCode>CAT</PriceTypeIDCode>
+        <UnitPrice>5.48</UnitPrice>
+        <UnitPriceBasis>PF</UnitPriceBasis>
+        <UnitPriceBasisMultiplier>3</UnitPriceBasisMultiplier>
+        <Currency>testCurrency</Currency>
+        <PriceMultiplierQual>CSD</PriceMultiplierQual>
+        <PriceMultiplier>8</PriceMultiplier>
+        <RebateAmount>72.84</RebateAmount>
+        <Quantity>23.26</Quantity>
+        <QuantityUOM>03</QuantityUOM>
+        <MultiplePriceQuantity>3</MultiplePriceQuantity>
+        <ClassOfTradeCode>SA</ClassOfTradeCode>
+        <ConditionValue>testConditionValue</ConditionValue>
+        <Description>New products only. Do not reuse packaging</Description>
+      </PriceInformation>
+      <ProductOrItemDescription>
+        <ProductCharacteristicCode>40</ProductCharacteristicCode>
+        <AgencyQualifierCode>VI</AgencyQualifierCode>
+        <ProductDescriptionCode>testProductDescriptionCode</ProductDescriptionCode>
+        <ProductDescription>Super comfortable</ProductDescription>
+        <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+        <SourceSubqualifier>testSourceSubqualifier</SourceSubqualifier>
+        <YesOrNoResponse>N</YesOrNoResponse>
+        <LanguageCode>ENG</LanguageCode>
+      </ProductOrItemDescription>
+      <MasterItemAttribute>
+        <ItemAttribute>
+          <ItemAttributeQualifier>EDT</ItemAttributeQualifier>
+          <Value>9</Value>
+          <ValueUOM>UZ</ValueUOM>
+          <Description>New products only. Do not reuse packaging</Description>
+          <YesOrNoResponse>N</YesOrNoResponse>
+          <Measurements>
+            <MeasurementRefIDCode>testMeasurementRefIDCode</MeasurementRefIDCode>
+            <MeasurementQualifier>TT</MeasurementQualifier>
+            <MeasurementValue>8.81</MeasurementValue>
+            <CompositeUOM>TS</CompositeUOM>
+            <RangeMinimum>67.67</RangeMinimum>
+            <RangeMaximum>51.47</RangeMaximum>
+            <MeasurementSignificanceCode>OU</MeasurementSignificanceCode>
+            <MeasurementAttributeCode>testMeasurementAttributeCode</MeasurementAttributeCode>
+            <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+            <IndustryCodeQualifier>testIndustryCodeQualifier</IndustryCodeQualifier>
+            <IndustryCode>testIndustryCode</IndustryCode>
+          </Measurements>
+        </ItemAttribute>
+      </MasterItemAttribute>
+      <Paperwork>
+        <ReportTypeCode>MC</ReportTypeCode>
+        <ReportTransmissionCode>testReportTransmissionCode</ReportTransmissionCode>
+        <ReportCopiesNeeded>38</ReportCopiesNeeded>
+        <AddressTypeCode>BY</AddressTypeCode>
+        <LocationCodeQualifier>TPL</LocationCodeQualifier>
+        <LocationNumber>testLocationNumber</LocationNumber>
+        <Description>New products only. Do not reuse packaging</Description>
+        <ActionsIndicated>testActionsIndicated</ActionsIndicated>
+        <RequestCategoryCode>testRequestCategoryCode</RequestCategoryCode>
+      </Paperwork>
+      <PhysicalDetails>
+        <PackQualifier>OU</PackQualifier>
+        <PackValue>6</PackValue>
+        <PackSize>18</PackSize>
+        <PackUOM>NG</PackUOM>
+        <PackingMedium>SPL</PackingMedium>
+        <PackingMaterial>79</PackingMaterial>
+        <WeightQualifier>F</WeightQualifier>
+        <PackWeight>1600</PackWeight>
+        <PackWeightUOM>KG</PackWeightUOM>
+        <PackVolume>1728</PackVolume>
+        <PackVolumeUOM>KC</PackVolumeUOM>
+        <PackLength>12</PackLength>
+        <PackWidth>12</PackWidth>
+        <PackHeight>12</PackHeight>
+        <DimensionUOM>SI</DimensionUOM>
+        <Description>New products only. Do not reuse packaging</Description>
+        <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+        <AssignedID>testAssignedID</AssignedID>
+      </PhysicalDetails>
+      <PalletInformation>
+        <PalletQualifier>OU</PalletQualifier>
+        <PalletValue>2</PalletValue>
+        <PalletTypeCode>0</PalletTypeCode>
+        <PalletTiers>5</PalletTiers>
+        <PalletBlocks>8</PalletBlocks>
+        <UnitWeight>5.50</UnitWeight>
+        <UnitWeightUOM>NS</UnitWeightUOM>
+        <Length>17.54</Length>
+        <Width>73.15</Width>
+        <Height>22.73</Height>
+        <DimensionUOM>HS</DimensionUOM>
+        <WeightQualifier>B</WeightQualifier>
+        <PalletWeight>1600</PalletWeight>
+        <PalletWeightUOM>MC</PalletWeightUOM>
+        <PalletVolume>1728</PalletVolume>
+        <PalletVolumeUOM>4G</PalletVolumeUOM>
+        <UnloadedHeight>74.41</UnloadedHeight>
+        <UnloadedHeightUOM>BP</UnloadedHeightUOM>
+        <PalletExchangeCode>3</PalletExchangeCode>
+        <PalletStructureCode>A</PalletStructureCode>
+      </PalletInformation>
+      <References>
+        <ReferenceQual>VN</ReferenceQual>
+        <ReferenceID>testReferenceID</ReferenceID>
+        <Description>New products only. Do not reuse packaging</Description>
+        <Date>2012-10-31</Date>
+        <Time>16:13:03-05:00</Time>
+        <ReferenceIDs>
+          <ReferenceQual>GD</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+        </ReferenceIDs>
+      </References>
+      <Notes>
+        <NoteCode>RTN</NoteCode>
+        <Note>REPEAT LOGO PREVIOUS ORDER</Note>
+        <LanguageCode>ENG</LanguageCode>
+      </Notes>
+      <FloorReady>
+        <FloorReadyRequired>N</FloorReadyRequired>
+        <FloorReadyTypeCode>H</FloorReadyTypeCode>
+        <FloorReadyDescription>Hanger with clips</FloorReadyDescription>
+        <FloorReadyID>A-112233</FloorReadyID>
+      </FloorReady>
+      <Address>
+        <AddressTypeCode>TO</AddressTypeCode>
+        <LocationCodeQualifier>21</LocationCodeQualifier>
+        <AddressLocationNumber>11111</AddressLocationNumber>
+        <AddressName>SPS Commerce</AddressName>
+        <AddressAlternateName>ATTN: Marketing</AddressAlternateName>
+        <AddressAlternateName2>ATTN: John Doe</AddressAlternateName2>
+        <Address1>1600 Pennsylvania Ave NW</Address1>
+        <Address2>Suite 1000</Address2>
+        <Address3>333 South Seventh Street Tower</Address3>
+        <Address4>10th Floor</Address4>
+        <City>Washington</City>
+        <State>DC</State>
+        <PostalCode>55402</PostalCode>
+        <Country>US</Country>
+        <LocationID>555555</LocationID>
+        <CountrySubDivision>testCountrySubDivision</CountrySubDivision>
+        <AddressTaxIdNumber>999999</AddressTaxIdNumber>
+        <AddressTaxExemptNumber>testAddressTaxExemptNumber</AddressTaxExemptNumber>
+        <References>
+          <ReferenceQual>QC</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+          <Description>New products only. Do not reuse packaging</Description>
+          <Date>2012-10-31</Date>
+          <Time>16:13:03-05:00</Time>
+          <ReferenceIDs>
+            <ReferenceQual>SDR</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+          </ReferenceIDs>
+        </References>
+        <Contacts>
+          <ContactTypeCode>SR</ContactTypeCode>
+          <ContactName>SPS Commerce</ContactName>
+          <PrimaryPhone>866-245-8100</PrimaryPhone>
+          <PrimaryFax>612-435-9401</PrimaryFax>
+          <PrimaryEmail>info@spscommerce.com</PrimaryEmail>
+          <AdditionalContactDetails>
+            <ContactQual>NP</ContactQual>
+            <ContactID>999-999-9999</ContactID>
+          </AdditionalContactDetails>
+          <ContactReference>ext: 451</ContactReference>
+        </Contacts>
+        <Dates>
+          <DateTimeQualifier>086</DateTimeQualifier>
+          <Date>2013-12-21</Date>
+          <Time>16:13:03-05:00</Time>
+          <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+        </Dates>
+      </Address>
+      <Subline>
+        <SublineItemDetail>
+          <LineSequenceNumber>02</LineSequenceNumber>
+          <ApplicationId>980023</ApplicationId>
+          <BuyerPartNumber>9999-SPS</BuyerPartNumber>
+          <VendorPartNumber>11155-559999</VendorPartNumber>
+          <ConsumerPackageCode>093597609541</ConsumerPackageCode>
+          <EAN>1234567890123</EAN>
+          <GTIN>12345678901234</GTIN>
+          <UPCCaseCode>98765432101</UPCCaseCode>
+          <NatlDrugCode>51456-299</NatlDrugCode>
+          <InternationalStandardBookNumber>999-0-555-22222-0</InternationalStandardBookNumber>
+          <ProductID>
+            <PartNumberQual>VC</PartNumberQual>
+            <PartNumber>ABC-456789</PartNumber>
+          </ProductID>
+          <ProductSizeCode>S-800</ProductSizeCode>
+          <ProductSizeDescription>Small</ProductSizeDescription>
+          <ProductColorCode>C-999</ProductColorCode>
+          <ProductColorDescription>Fire Truck Red</ProductColorDescription>
+          <ProductMaterialCode>F-000</ProductMaterialCode>
+          <ProductMaterialDescription>Faux Fabric</ProductMaterialDescription>
+          <ProductProcessCode>testProductProcessCode</ProductProcessCode>
+          <ProductProcessDescription>testProductProcessDescription</ProductProcessDescription>
+          <QtyPer>5</QtyPer>
+          <QtyPerUOM>LN</QtyPerUOM>
+          <PurchasePriceType>QTE</PurchasePriceType>
+          <PurchasePrice>5.85</PurchasePrice>
+          <PurchasePriceBasis>PE</PurchasePriceBasis>
+          <Gender>Infant Boy/Girl</Gender>
+          <NRFStandardColorAndSize>
+            <NRFColorCode>600</NRFColorCode>
+            <ColorCategoryName>Red</ColorCategoryName>
+            <ColorPrimaryDescription>Uncompared Red</ColorPrimaryDescription>
+            <NRFSizeCode>42-10651</NRFSizeCode>
+            <SizeCategoryName>Shirts</SizeCategoryName>
+            <SizePrimaryDescription>Small</SizePrimaryDescription>
+            <SizeSecondaryDescription>Short</SizeSecondaryDescription>
+            <SizeTableName>testSizeTableName</SizeTableName>
+            <SizeHeading1>testSizeHeading1</SizeHeading1>
+            <SizeHeading2>testSizeHeading2</SizeHeading2>
+            <SizeHeading3>testSizeHeading3</SizeHeading3>
+            <SizeHeading4>testSizeHeading4</SizeHeading4>
+          </NRFStandardColorAndSize>
+        </SublineItemDetail>
+        <Dates>
+          <DateTimeQualifier>AAH</DateTimeQualifier>
+          <Date>2013-12-21</Date>
+          <Time>16:13:03-05:00</Time>
+          <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+        </Dates>
+        <PriceInformation>
+          <ChangeReasonCode>QO</ChangeReasonCode>
+          <EffectiveDate>2019-11-01</EffectiveDate>
+          <PriceTypeIDCode>QTE</PriceTypeIDCode>
+          <UnitPrice>5.48</UnitPrice>
+          <UnitPriceBasis>PE</UnitPriceBasis>
+          <UnitPriceBasisMultiplier>3</UnitPriceBasisMultiplier>
+          <Currency>testCurrency</Currency>
+          <PriceMultiplierQual>CSD</PriceMultiplierQual>
+          <PriceMultiplier>8</PriceMultiplier>
+          <RebateAmount>46.39</RebateAmount>
+          <Quantity>35.9</Quantity>
+          <QuantityUOM>Q6</QuantityUOM>
+          <MultiplePriceQuantity>3</MultiplePriceQuantity>
+          <ClassOfTradeCode>WH</ClassOfTradeCode>
+          <ConditionValue>testConditionValue</ConditionValue>
+          <Description>New products only. Do not reuse packaging</Description>
+        </PriceInformation>
+        <ProductOrItemDescription>
+          <ProductCharacteristicCode>76</ProductCharacteristicCode>
+          <AgencyQualifierCode>AX</AgencyQualifierCode>
+          <ProductDescriptionCode>testProductDescriptionCode</ProductDescriptionCode>
+          <ProductDescription>Super comfortable</ProductDescription>
+          <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+          <SourceSubqualifier>testSourceSubqualifier</SourceSubqualifier>
+          <YesOrNoResponse>N</YesOrNoResponse>
+          <LanguageCode>ENG</LanguageCode>
+        </ProductOrItemDescription>
+        <PhysicalDetails>
+          <PackQualifier>CP</PackQualifier>
+          <PackValue>6</PackValue>
+          <PackSize>18</PackSize>
+          <PackUOM>CR</PackUOM>
+          <PackingMedium>BBL</PackingMedium>
+          <PackingMaterial>72</PackingMaterial>
+          <WeightQualifier>N</WeightQualifier>
+          <PackWeight>1600</PackWeight>
+          <PackWeightUOM>CW</PackWeightUOM>
+          <PackVolume>1728</PackVolume>
+          <PackVolumeUOM>PT</PackVolumeUOM>
+          <PackLength>12</PackLength>
+          <PackWidth>12</PackWidth>
+          <PackHeight>12</PackHeight>
+          <DimensionUOM>MR</DimensionUOM>
+          <Description>New products only. Do not reuse packaging</Description>
+          <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+          <AssignedID>testAssignedID</AssignedID>
+        </PhysicalDetails>
+        <References>
+          <ReferenceQual>BAF</ReferenceQual>
+          <ReferenceID>testReferenceID</ReferenceID>
+          <Description>New products only. Do not reuse packaging</Description>
+          <Date>2013-12-21</Date>
+          <Time>16:13:03-05:00</Time>
+          <ReferenceIDs>
+            <ReferenceQual>RL</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+          </ReferenceIDs>
+        </References>
+        <Notes>
+          <NoteCode>GEN</NoteCode>
+          <Note>REPEAT LOGO PREVIOUS ORDER</Note>
+          <LanguageCode>ENG</LanguageCode>
+        </Notes>
+        <FloorReady>
+          <FloorReadyRequired>Y</FloorReadyRequired>
+          <FloorReadyTypeCode>T</FloorReadyTypeCode>
+          <FloorReadyDescription>Hanger with clips</FloorReadyDescription>
+          <FloorReadyID>A-112233</FloorReadyID>
+        </FloorReady>
+        <Taxes>
+          <TaxTypeCode>CE</TaxTypeCode>
+          <TaxAmount>1845.08</TaxAmount>
+          <TaxPercentQual>2</TaxPercentQual>
+          <TaxPercent>8.50</TaxPercent>
+          <JurisdictionQual>MB</JurisdictionQual>
+          <JurisdictionCode>07034</JurisdictionCode>
+          <TaxExemptCode>0</TaxExemptCode>
+          <RelationshipCode>I</RelationshipCode>
+          <PercentDollarBasis>2000</PercentDollarBasis>
+          <TaxHandlingCode>06</TaxHandlingCode>
+          <TaxID>99990000</TaxID>
+          <AssignedID>testAssignedID</AssignedID>
+          <Description>New products only. Do not reuse packaging</Description>
+        </Taxes>
+        <ChargesAllowances>
+          <AllowChrgIndicator>N</AllowChrgIndicator>
+          <AllowChrgCode>E770</AllowChrgCode>
+          <AllowChrgAgencyCode>AX</AllowChrgAgencyCode>
+          <AllowChrgAgency>Pending Review</AllowChrgAgency>
+          <AllowChrgAmt>85.02</AllowChrgAmt>
+          <AllowChrgPercentQual>1</AllowChrgPercentQual>
+          <AllowChrgPercent>5.0</AllowChrgPercent>
+          <PercentDollarBasis>2000</PercentDollarBasis>
+          <AllowChrgRate>2.43</AllowChrgRate>
+          <AllowChrgQtyUOM>15</AllowChrgQtyUOM>
+          <AllowChrgQty>8</AllowChrgQty>
+          <AllowChrgHandlingCode>02</AllowChrgHandlingCode>
+          <ReferenceIdentification>testReferenceIdentification</ReferenceIdentification>
+          <AllowChrgHandlingDescription>This will cover the cost of shipping</AllowChrgHandlingDescription>
+          <OptionNumber>testOptionNumber</OptionNumber>
+          <ExceptionNumber>testExceptionNumber</ExceptionNumber>
+          <AllowChrgQty2>48.52</AllowChrgQty2>
+          <LanguageCode>ENG</LanguageCode>
+          <CalculationSequence>1</CalculationSequence>
+          <Taxes>
+            <TaxTypeCode>LO</TaxTypeCode>
+            <TaxAmount>1845.08</TaxAmount>
+            <TaxPercentQual>3</TaxPercentQual>
+            <TaxPercent>8.50</TaxPercent>
+            <JurisdictionQual>SP</JurisdictionQual>
+            <JurisdictionCode>07034</JurisdictionCode>
+            <TaxExemptCode>0</TaxExemptCode>
+            <RelationshipCode>I</RelationshipCode>
+            <PercentDollarBasis>2000</PercentDollarBasis>
+            <TaxHandlingCode>05</TaxHandlingCode>
+            <TaxID>99990000</TaxID>
+            <AssignedID>testAssignedID</AssignedID>
+            <Description>New products only. Do not reuse packaging</Description>
+          </Taxes>
+        </ChargesAllowances>
+        <Address>
+          <AddressTypeCode>DV</AddressTypeCode>
+          <LocationCodeQualifier>1</LocationCodeQualifier>
+          <AddressLocationNumber>11111</AddressLocationNumber>
+          <AddressName>SPS Commerce</AddressName>
+          <AddressAlternateName>ATTN: Marketing</AddressAlternateName>
+          <AddressAlternateName2>ATTN: John Doe</AddressAlternateName2>
+          <Address1>333 South 7th Street</Address1>
+          <Address2>Suite 1000</Address2>
+          <Address3>333 South Seventh Street Tower</Address3>
+          <Address4>10th Floor</Address4>
+          <City>Washington</City>
+          <State>DC</State>
+          <PostalCode>55402</PostalCode>
+          <Country>US</Country>
+          <LocationID>555555</LocationID>
+          <CountrySubDivision>testCountrySubDivision</CountrySubDivision>
+          <AddressTaxIdNumber>999999</AddressTaxIdNumber>
+          <AddressTaxExemptNumber>testAddressTaxExemptNumber</AddressTaxExemptNumber>
+          <References>
+            <ReferenceQual>XF</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+            <Description>New products only. Do not reuse packaging</Description>
+            <Date>2013-12-21</Date>
+            <Time>16:13:03-05:00</Time>
+            <ReferenceIDs>
+              <ReferenceQual>CI</ReferenceQual>
+              <ReferenceID>testReferenceID</ReferenceID>
+            </ReferenceIDs>
+          </References>
+          <Contacts>
+            <ContactTypeCode>CR</ContactTypeCode>
+            <ContactName>SPS Commerce</ContactName>
+            <PrimaryPhone>866-245-8100</PrimaryPhone>
+            <PrimaryFax>612-435-9401</PrimaryFax>
+            <PrimaryEmail>info@spscommerce.com</PrimaryEmail>
+            <AdditionalContactDetails>
+              <ContactQual>HP</ContactQual>
+              <ContactID>999-999-9999</ContactID>
+            </AdditionalContactDetails>
+            <ContactReference>ext: 451</ContactReference>
+          </Contacts>
+          <Dates>
+            <DateTimeQualifier>SOL</DateTimeQualifier>
+            <Date>2012-10-31</Date>
+            <Time>16:13:03-05:00</Time>
+            <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+          </Dates>
+        </Address>
+        <Commodity>
+          <CommodityCodeQualifier>S</CommodityCodeQualifier>
+          <CommodityCode>P2512</CommodityCode>
+        </Commodity>
+        <RegulatoryCompliances>
+          <RegulatoryComplianceQual>NAFTA</RegulatoryComplianceQual>
+          <YesOrNoResponse>N</YesOrNoResponse>
+          <RegulatoryComplianceID>testRegulatoryComplianceID</RegulatoryComplianceID>
+          <RegulatoryAgency>testRegulatoryAgency</RegulatoryAgency>
+          <Description>New products only. Do not reuse packaging</Description>
+        </RegulatoryCompliances>
+      </Subline>
+      <QuantitiesSchedulesLocations>
+        <QuantityQualifier>02</QuantityQualifier>
+        <TotalQty>100</TotalQty>
+        <TotalQtyUOM>I</TotalQtyUOM>
+        <QuantityDescription>Quantities on hold due to defect</QuantityDescription>
+        <LocationCodeQualifier>6</LocationCodeQualifier>
+        <LocationDescription>Aisle end cap</LocationDescription>
+        <LocationQuantity>
+          <Location>9999</Location>
+          <Qty>65</Qty>
+        </LocationQuantity>
+        <Dates>
+          <DateTimeQualifier>AAL</DateTimeQualifier>
+          <Date>2012-10-31</Date>
+          <Time>16:13:03-05:00</Time>
+          <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+        </Dates>
+        <AssignedID>testAssignedID</AssignedID>
+        <LeadTimeCode>AE</LeadTimeCode>
+        <LeadTimeQuantity>45</LeadTimeQuantity>
+        <LeadTimePeriodInterval>DA</LeadTimePeriodInterval>
+        <LeadTimeDate>2019-11-01</LeadTimeDate>
+      </QuantitiesSchedulesLocations>
+      <Taxes>
+        <TaxTypeCode>S</TaxTypeCode>
+        <TaxAmount>1845.08</TaxAmount>
+        <TaxPercentQual>5</TaxPercentQual>
+        <TaxPercent>8.50</TaxPercent>
+        <JurisdictionQual>CC</JurisdictionQual>
+        <JurisdictionCode>07034</JurisdictionCode>
+        <TaxExemptCode>0</TaxExemptCode>
+        <RelationshipCode>I</RelationshipCode>
+        <PercentDollarBasis>2000</PercentDollarBasis>
+        <TaxHandlingCode>15</TaxHandlingCode>
+        <TaxID>99990000</TaxID>
+        <AssignedID>testAssignedID</AssignedID>
+        <Description>New products only. Do not reuse packaging</Description>
+      </Taxes>
+      <ChargesAllowances>
+        <AllowChrgIndicator>C</AllowChrgIndicator>
+        <AllowChrgCode>C300</AllowChrgCode>
+        <AllowChrgAgencyCode>13</AllowChrgAgencyCode>
+        <AllowChrgAgency>Pending Review</AllowChrgAgency>
+        <AllowChrgAmt>85.02</AllowChrgAmt>
+        <AllowChrgPercentQual>4</AllowChrgPercentQual>
+        <AllowChrgPercent>5.0</AllowChrgPercent>
+        <PercentDollarBasis>2000</PercentDollarBasis>
+        <AllowChrgRate>2.43</AllowChrgRate>
+        <AllowChrgQtyUOM>BT</AllowChrgQtyUOM>
+        <AllowChrgQty>8</AllowChrgQty>
+        <AllowChrgHandlingCode>02</AllowChrgHandlingCode>
+        <ReferenceIdentification>testReferenceIdentification</ReferenceIdentification>
+        <AllowChrgHandlingDescription>This will cover the cost of shipping</AllowChrgHandlingDescription>
+        <OptionNumber>testOptionNumber</OptionNumber>
+        <ExceptionNumber>testExceptionNumber</ExceptionNumber>
+        <AllowChrgQty2>90.27</AllowChrgQty2>
+        <LanguageCode>ENG</LanguageCode>
+        <CalculationSequence>1</CalculationSequence>
+        <Taxes>
+          <TaxTypeCode>H</TaxTypeCode>
+          <TaxAmount>1845.08</TaxAmount>
+          <TaxPercentQual>7</TaxPercentQual>
+          <TaxPercent>8.50</TaxPercent>
+          <JurisdictionQual>SP</JurisdictionQual>
+          <JurisdictionCode>07034</JurisdictionCode>
+          <TaxExemptCode>0</TaxExemptCode>
+          <RelationshipCode>O</RelationshipCode>
+          <PercentDollarBasis>2000</PercentDollarBasis>
+          <TaxHandlingCode>06</TaxHandlingCode>
+          <TaxID>99990000</TaxID>
+          <AssignedID>testAssignedID</AssignedID>
+          <Description>New products only. Do not reuse packaging</Description>
+        </Taxes>
+      </ChargesAllowances>
+      <PaymentTerms>
+        <TermsType>06</TermsType>
+        <TermsBasisDateCode>7</TermsBasisDateCode>
+        <TermsTimeRelationCode>7</TermsTimeRelationCode>
+        <TermsDiscountPercentage>5.62</TermsDiscountPercentage>
+        <TermsDiscountDate>2013-11-28</TermsDiscountDate>
+        <TermsDiscountDueDays>60</TermsDiscountDueDays>
+        <TermsNetDueDate>2013-11-15</TermsNetDueDate>
+        <TermsNetDueDays>90</TermsNetDueDays>
+        <TermsDiscountAmount>1845.08</TermsDiscountAmount>
+        <TermsDeferredDueDate>2013-10-25</TermsDeferredDueDate>
+        <TermsDeferredAmountDue>215.28</TermsDeferredAmountDue>
+        <PercentOfInvoicePayable>12.5</PercentOfInvoicePayable>
+        <TermsDescription>Must be paid in full by end of year</TermsDescription>
+        <TermsDueDay>28</TermsDueDay>
+        <PaymentMethodCode>E</PaymentMethodCode>
+        <PaymentMethodID>999888777</PaymentMethodID>
+        <LatePaymentChargePercent>15.2</LatePaymentChargePercent>
+        <TermsStartDate>2013-09-30</TermsStartDate>
+        <TermsDueDateQual>01</TermsDueDateQual>
+        <AmountSubjectToDiscount>68.18</AmountSubjectToDiscount>
+        <DiscountAmountDue>97.45</DiscountAmountDue>
+      </PaymentTerms>
+      <ConditionOfSale>
+        <LineSequenceNumber>02</LineSequenceNumber>
+        <SalesRequirementCode>AB</SalesRequirementCode>
+        <ActionCode>1</ActionCode>
+        <Amount>21.80</Amount>
+        <AccountNumber>testAccountNumber</AccountNumber>
+        <Date>2013-12-21</Date>
+        <AgencyQualifierCode>FA</AgencyQualifierCode>
+        <SubstitutionCode>testSubstitutionCode</SubstitutionCode>
+        <ApplicationId>980023</ApplicationId>
+        <BuyerPartNumber>9999-SPS</BuyerPartNumber>
+        <VendorPartNumber>11155-559999</VendorPartNumber>
+        <ConsumerPackageCode>093597609541</ConsumerPackageCode>
+        <EAN>1234567890123</EAN>
+        <GTIN>12345678901234</GTIN>
+        <UPCCaseCode>98765432101</UPCCaseCode>
+        <NatlDrugCode>51456-299</NatlDrugCode>
+        <InternationalStandardBookNumber>999-0-555-22222-0</InternationalStandardBookNumber>
+        <ProductID>
+          <PartNumberQual>CB</PartNumberQual>
+          <PartNumber>ABC-456789</PartNumber>
+        </ProductID>
+      </ConditionOfSale>
+      <FOBRelatedInstruction>
+        <FOBPayCode>RS</FOBPayCode>
+        <FOBLocationQualifier>KL</FOBLocationQualifier>
+        <FOBLocationDescription>Minnesota</FOBLocationDescription>
+        <FOBTitlePassageCode>SP</FOBTitlePassageCode>
+        <FOBTitlePassageLocation>South Korea</FOBTitlePassageLocation>
+        <TransportationTermsType>02</TransportationTermsType>
+        <TransportationTerms>testTransportationTerms</TransportationTerms>
+        <RiskOfLossCode>PP</RiskOfLossCode>
+        <Description>New products only. Do not reuse packaging</Description>
+      </FOBRelatedInstruction>
+      <Commodity>
+        <CommodityCodeQualifier>Q</CommodityCodeQualifier>
+        <CommodityCode>P2512</CommodityCode>
+      </Commodity>
+      <CarrierInformation>
+        <StatusCode>PR</StatusCode>
+        <CarrierTransMethodCode>N</CarrierTransMethodCode>
+        <CarrierAlphaCode>UPGF</CarrierAlphaCode>
+        <CarrierRouting>UPS Ground Freight</CarrierRouting>
+        <EquipmentDescriptionCode>2B</EquipmentDescriptionCode>
+        <CarrierEquipmentInitial>FEDX</CarrierEquipmentInitial>
+        <CarrierEquipmentNumber>4806196209</CarrierEquipmentNumber>
+        <EquipmentType>testEquipmentType</EquipmentType>
+        <OwnershipCode>T</OwnershipCode>
+        <RoutingSequenceCode>5</RoutingSequenceCode>
+        <TransitDirectionCode>SC</TransitDirectionCode>
+        <TransitTimeQual>WD</TransitTimeQual>
+        <TransitTime>35.15</TransitTime>
+        <ServiceLevelCodes>
+          <ServiceLevelCode>ME</ServiceLevelCode>
+        </ServiceLevelCodes>
+        <Address>
+          <AddressTypeCode>CB</AddressTypeCode>
+          <LocationCodeQualifier>UL</LocationCodeQualifier>
+          <AddressLocationNumber>11111</AddressLocationNumber>
+          <AddressName>The White House</AddressName>
+          <AddressAlternateName>ATTN: Marketing</AddressAlternateName>
+          <AddressAlternateName2>ATTN: John Doe</AddressAlternateName2>
+          <Address1>1600 Pennsylvania Ave NW</Address1>
+          <Address2>ATTN: The President</Address2>
+          <Address3>333 South Seventh Street Tower</Address3>
+          <Address4>10th Floor</Address4>
+          <City>Minneapolis</City>
+          <State>MN</State>
+          <PostalCode>55402</PostalCode>
+          <Country>USA</Country>
+          <LocationID>555555</LocationID>
+          <CountrySubDivision>testCountrySubDivision</CountrySubDivision>
+          <AddressTaxIdNumber>999999</AddressTaxIdNumber>
+          <AddressTaxExemptNumber>testAddressTaxExemptNumber</AddressTaxExemptNumber>
+          <Dates>
+            <DateTimeQualifier>191</DateTimeQualifier>
+            <Date>2013-12-21</Date>
+            <Time>16:13:03-05:00</Time>
+            <DateTimePeriod>testDateTimePeriod</DateTimePeriod>
+          </Dates>
+        </Address>
+        <SealNumbers>
+          <SealStatusCode>03</SealStatusCode>
+          <SealNumber>AA1111111</SealNumber>
+        </SealNumbers>
+      </CarrierInformation>
+      <CarrierSpecialHandlingDetail>
+        <SpecialHandlingCode>FR</SpecialHandlingCode>
+        <HazardousMaterialCode>D</HazardousMaterialCode>
+        <HazardousMaterialClass>testHazardousMaterialClass</HazardousMaterialClass>
+        <Description>New products only. Do not reuse packaging</Description>
+        <YesOrNoResponse>Y</YesOrNoResponse>
+      </CarrierSpecialHandlingDetail>
+      <MarksAndNumbersCollection>
+        <MarksAndNumbersQualifier1>CA</MarksAndNumbersQualifier1>
+        <MarksAndNumbers1>1Z1A1V999555333111</MarksAndNumbers1>
+      </MarksAndNumbersCollection>
+      <RestrictionsOrConditions>
+        <RestrictionsConditionsQualifier>testRestrictionsConditionsQualifier</RestrictionsConditionsQualifier>
+        <Description>New products only. Do not reuse packaging</Description>
+        <QuantityQualifier>QH</QuantityQualifier>
+        <Quantity1>70</Quantity1>
+        <AmountQualifier>testAmountQualifier</AmountQualifier>
+        <Amount>59.54</Amount>
+      </RestrictionsOrConditions>
+      <Packaging>
+        <PackagingCharacteristicCode>34</PackagingCharacteristicCode>
+        <AgencyQualifierCode>FA</AgencyQualifierCode>
+        <PackagingDescriptionCode>testPackagingDescriptionCode</PackagingDescriptionCode>
+        <PackagingDescription>testPackagingDescription</PackagingDescription>
+        <UnitLoadOptionCode>04</UnitLoadOptionCode>
+        <Measurements>
+          <MeasurementRefIDCode>testMeasurementRefIDCode</MeasurementRefIDCode>
+          <MeasurementQualifier>PRS</MeasurementQualifier>
+          <MeasurementValue>35.11</MeasurementValue>
+          <CompositeUOM>DD</CompositeUOM>
+          <RangeMinimum>57.71</RangeMinimum>
+          <RangeMaximum>65.53</RangeMaximum>
+          <MeasurementSignificanceCode>IN</MeasurementSignificanceCode>
+          <MeasurementAttributeCode>testMeasurementAttributeCode</MeasurementAttributeCode>
+          <SurfaceLayerPositionCode>testSurfaceLayerPositionCode</SurfaceLayerPositionCode>
+          <IndustryCodeQualifier>testIndustryCodeQualifier</IndustryCodeQualifier>
+          <IndustryCode>testIndustryCode</IndustryCode>
+        </Measurements>
+      </Packaging>
+      <MonetaryAmounts>
+        <MonetaryAmountCode>BD</MonetaryAmountCode>
+        <MonetaryAmount>9.95</MonetaryAmount>
+        <CreditDebitFlag>D</CreditDebitFlag>
+      </MonetaryAmounts>
+      <RegulatoryCompliances>
+        <RegulatoryComplianceQual>EUEHS</RegulatoryComplianceQual>
+        <YesOrNoResponse>N</YesOrNoResponse>
+        <RegulatoryComplianceID>testRegulatoryComplianceID</RegulatoryComplianceID>
+        <RegulatoryAgency>testRegulatoryAgency</RegulatoryAgency>
+        <Description>New products only. Do not reuse packaging</Description>
+      </RegulatoryCompliances>
+    </LineItem>
+    <Summary>
+      <TotalAmount>4058.92</TotalAmount>
+      <TotalLineItemNumber>3</TotalLineItemNumber>
+      <Description>New products only. Do not reuse packaging</Description>
+    </Summary>
+  </Order>
+</Orders>

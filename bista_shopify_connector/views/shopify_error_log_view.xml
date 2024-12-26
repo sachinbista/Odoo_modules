@@ -5,7 +5,7 @@
             <field name="name">shopify.error.log.from</field>
             <field name="model">shopify.error.log</field>
             <field name="arch" type="xml">
-                <form create="0" edit="0" string="Marketplace Error Log">
+                <form string="Marketplace Error Log" create="0" edit="0">
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -23,28 +23,36 @@
                         </group>
                         <notebook>
                             <page string="shopify Error Log Line">
-                                <field name="shop_error_log_line_ids"><tree create="0" decoration-danger="state == 'error'" decoration-success="state == 'success'" edit="0" string="Shopify Error Log Line">
+                                <field name="shop_error_log_line_ids">
+                                    <tree decoration-danger="state == 'error'"
+                                          decoration-success="state == 'success'"
+                                          string="Shopify Error Log Line" create="0" edit="0">
                                         <field name="error_message"/>
                                         <field name="create_date"/>
                                         <field name="state"/>
-                                    </tree></field>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
-                </form></field>
+                </form>
+            </field>
         </record>
+
         <record id="shopify_error_log_view_tree" model="ir.ui.view">
             <field name="name">shopify.error.log.tree</field>
             <field name="model">shopify.error.log</field>
             <field name="arch" type="xml">
-                <tree create="0" edit="0" string="Marketplace Error Log">
+                <tree string="Marketplace Error Log" create="0" edit="0">
                     <field name="name"/>
                     <field name="create_date"/>
                     <field name="write_date"/>
                     <field name="shopify_config_id"/>
                     <field name="operation_type"/>
-                </tree></field>
+                </tree>
+            </field>
         </record>
+
         <record id="shopify_error_log_view_search" model="ir.ui.view">
             <field name="name">shopify.error.log.search.view</field>
             <field name="model">shopify.error.log</field>
@@ -53,13 +61,15 @@
                     <field name="name" string="Name"/>
                     <field name="shopify_config_id" string="Shopify Configuration"/>
                     <field name="operation_type" string="Operation Type"/>
-                </search></field>
+                </search>
+            </field>
         </record>
+
         <record id="shopify_error_log_line_view_form" model="ir.ui.view">
             <field name="name">shopify.error.log.line.from</field>
             <field name="model">shopify.error.log.line</field>
             <field name="arch" type="xml">
-                <form create="0" edit="0" string="Marketplace Error Log Line">
+                <form string="Marketplace Error Log Line" create="0" edit="0">
                     <header>
                         <field name="state" widget="statusbar"/>
                     </header>
@@ -68,38 +78,50 @@
                             <field name="shopify_config_id"/>
                         </group>
                     </group>
-                    <div class="oe_text_center" invisible="error_message == '' or state != 'success'">
+                    <div class="oe_text_center"
+                         invisible = "error_message == '' or state != 'success'">
                         <p>
                             <strong>
-                                <field class="text-success" name="error_message"/>
+                                <field name="error_message" class="text-success"/>
                             </strong>
                         </p>
                     </div>
-                    <div class="oe_text_center" invisible="error_message == '' or state != 'error'">
+                    <div class="oe_text_center"
+                         invisible = "error_message == '' or state != 'success'">
                         <p>
                             <strong>
-                                <field class="text-danger" name="error_message"/>
+                                <field name="error_message" class="text-danger"/>
                             </strong>
                         </p>
                     </div>
-                </form></field>
+                </form>
+            </field>
         </record>
+
         <record id="shopify_error_log_line_view_tree" model="ir.ui.view">
             <field name="name">shopify.error.log.line.tree</field>
             <field name="model">shopify.error.log.line</field>
             <field name="arch" type="xml">
-                <tree create="0" decoration-danger="state == 'error'" decoration-success="state == 'success'" edit="0" string="Shopify Error Log Line">
+                <tree decoration-success="state == 'success'" decoration-danger="state == 'error'"
+                      string="Shopify Error Log Line" create="0" edit="0">
                     <field name="error_message"/>
                     <field name="create_date"/>
                     <field name="state"/>
-                </tree></field>
+                </tree>
+            </field>
         </record>
+
         <record id="action_shopify_error_log" model="ir.actions.act_window">
             <field name="name">Shopify Error Logs</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">shopify.error.log</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem action="action_shopify_error_log" groups="bista_shopify_connector.group_shopify_admin" id="shopify_error_log_menu" name="Shopify Error Logs" parent="shopify_error_log_operations_menu" sequence="1"/>
+
+<!--        <menuitem id="shopify_error_log_menu" name="Shopify Error Logs"-->
+<!--              parent="shopify_error_log_operations_menu"-->
+<!--              action="action_shopify_error_log"-->
+<!--              groups="bista_shopify_connector.group_shopify_admin"-->
+<!--              sequence="1"/>-->
     </data>
-</odoo>
+</odoo>	

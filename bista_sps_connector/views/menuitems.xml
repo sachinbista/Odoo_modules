@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_cleo_configuration" name="EDI" action="edi_config_po_data_queue" sequence="15"
+              groups="bista_sps_connector.group_edi_user"
+              web_icon="bista_sps_connector,static/description/menu.png"/>
+
+    <menuitem id="menu_configuration1" name="Configuration" parent="menu_cleo_configuration"
+              groups="bista_sps_connector.group_edi_admin"
+              sequence="3"/>
+    <menuitem id="menu_cleo_configuration2" name="EDI Configuration" parent="menu_configuration1" action="cleo_config_action" sequence="2"/>
+
+    <menuitem id="menu_queue" name="Queues" parent="menu_cleo_configuration" sequence="1"/>
+
+    <menuitem id="menu_850_po_datat_queue" name="850 Purchase Order Data Queue" parent="menu_queue" action="edi_config_po_data_queue" sequence="3"/>
+    <menuitem id="menu_810_invoice_data_queue" name="810 Invoice Data Queue" parent="menu_queue" action="edi_config_invoice_data_queue" sequence="7"/>
+    <menuitem id="menu_855_po_acknowledgment_data_queue" name="855 Purchase Order Acknowledgment Data Queue" parent="menu_queue" action="edi_config_855_order_ack_data_queue" sequence="4"/>
+    <menuitem id="menu_856" name="856 Shipment Data Queue" parent="menu_queue" action="edi_config_856_shipment_data" sequence="5"/>
+    <menuitem id="menu_860_po_data_update_queue" name="860 Purchase Order Data Update Queue" parent="menu_queue" action="bista_sps_connector.action_po_data_update_queue" sequence="8"/>
+
+
+    <menuitem id="menu_master_data" name="Master Data" parent="menu_cleo_configuration" sequence="2"/>
+    <menuitem id="menu_contacts_data1" name="Contacts" parent="menu_master_data" action="action_master_data_contacts" sequence="1"/>
+<!--    <menuitem id="menu_sale_order_data1" name="Sale Orders" parent="menu_master_data" action="action_master_data_sale_order" sequence="2"/>-->
+
+    <menuitem id="menu_delivery_order_data1" name="Delivery Orders" parent="menu_master_data" action="action_master_data_delivery_order" sequence="3"/>
+    <menuitem id="menu_invoice_data1" name="Invoices" parent="menu_master_data" action="action_master_data_invoices" sequence="4"/>
+
+    <!--Trading Partner fields menu item -->
+    <menuitem id="menu_sps_trading_partner_fields" name="SPS Trading Partner Fields" action="action_sps_trading_partner_fields" parent="menu_configuration1" sequence="10"/>
+
+
+<!--    <menuitem id="menu_sps_trading_partner_fields"-->
+<!--              name="SPS Trading Partner Fields"-->
+<!--              action="action_sps_trading_partner_fields"-->
+<!--              parent="contacts.menu_contacts"-->
+<!--              sequence="10"/>-->
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="macally_cust_invoice_temp" model="ir.actions.report">
+            <field name="name">Macally Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">macally_reports_extension.macally_cust_invoice_report</field>
+            <field name="report_file">macally_reports_extension.macally_cust_invoice_report</field>
+            <field name="binding_type">report</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+    </data>
+</odoo>

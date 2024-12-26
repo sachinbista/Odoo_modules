@@ -1,110 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="account_invoice_inherit_form_shopify" model="ir.ui.view">
-        <field name="name">account.invoice.inherit.form.shopify</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//header/button[last()]" position="after">
-                <!-- <field name="shopify_order_id" readonly="1" invisible="1" /> -->
-                <field invisible="1" name="shopify_transaction_id" readonly="1"/>
-                <!-- <button name="update_payment_in_shopify" string="Payment in Shopify"
-                type="object"
-                    attrs="{'invisible' : ['|','|','|', ('shopify_transaction_id', '!=', False),('state', '!=',
-                'posted'),('move_type', 'in', ['out_refund']),('payment_state', 'not in', ['paid',
-                'in_payment'])]}"
-                    class="oe_highlight" /> -->
-                <!-- <field name="shopify_order_id" readonly="1" invisible="1"/> -->
-                <!-- <button name="action_open_refund_wizard"
-                        string="Refund in Shopify"
-                        type="object"
-                        attrs="{'invisible': ['|','|','|',('move_type', 'not in', ['out_invoice', 'out_refund']),
-                        ('shopify_order_id','=',False), ('state', '!=', 'posted'),('payment_state', 'not in', ['paid',
-                'in_payment'])]}"
-                groups="account.group_account_invoice,bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user"
-                        class="oe_highlight"/> -->
-
-<!--                <button class="oe_highlight" groups="account.group_account_invoice" invisible="shopify_transaction_id != False or move_type != 'out_refund' or state != 'posted' or payment_state not in ['paid', 'in_payment']" name="action_open_refund_wizard" string="Refund in Shopify" type="object"/>-->
-                <button class="oe_highlight" groups="account.group_account_invoice"
-                        invisible="1" string="Refund in Shopify"
-                        name="action_open_refund_wizard" type="object"/>
-            </xpath>
-            <xpath expr="//form/sheet/notebook" position="inside">
-                <page groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user" invisible="move_type not in ['out_invoice', 'out_refund'] or shopify_order_id == False" string="Shopify">
-                    <group col="4">
-                        <group>
-                            <field name="shopify_order_id" readonly="1"/>
-                            <field name="shopify_order_number" readonly="1"/>
-                            <field name="sale_order_id" readonly="1"/>
-                            <field name="shopify_transaction_id" readonly="1"/>
-                            <field name="fulfillment_status" readonly="1"/>
-                            <field name="is_manual_shopify_payment" readonly="1"/>
-                            <field name="is_manual_odoo_refund" readonly="1"/>
+        <record id="account_invoice_inherit_form_shopify" model="ir.ui.view">
+            <field name="name">account.invoice.inherit.form.shopify</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[last()]" position="after">
+                    <button name="action_open_refund_wizard" string="Refund in Shopify" type="object" groups="account.group_account_invoice"
+                            invisible = "move_type != 'out_refund' or state != 'posted' or payment_state not in ['paid', 'in_payment']" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook" position="inside">
+                    <page string="Shopify"
+                          invisible = "move_type not in ['out_invoice', 'out_refund'] or not shopify_order_id"
+                          groups="bista_shopify_connector.group_shopify_admin,bista_shopify_connector.group_shopify_user">
+                        <group col="4">
+                            <group>
+                                <field name="shopify_order_id" readonly="1"/>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="shopify_transaction_id" readonly="1"/>
+                                <field name="fulfillment_status" readonly="1"/>
+                            </group>
                         </group>
-                    </group>
-                </page>
-            </xpath>
-            <xpath expr="//field[@name='line_ids']/tree/field[@name='tax_tag_ids']" position="after">
-                <field name="delivery_state_id"/>
-                <field name="sale_order_id" optional="hide"/>
-                <field name="shopify_order_id" optional="hide"/>
-                <field name="shopify_note" optional="hide"/>
-                <field name="shopify_config_id" optional="hide"/>
-                <field name="shopify_name" optional="hide"/>
-                <field name="shopify_transaction_id" optional="hide"/>
-                <field name="shopify_gateway" optional="hide"/>
-            </xpath></field>
-    </record>
-    <!-- <record id="account_move_line_bank_rec_widget_tree_inherit_shopify" model="ir.ui.view">
-        <field name="name">account.move.line.bank_rec_widget.inherit.tree.shopify</field>
-        <field name="model">account.move.line</field>
-        <field name="inherit_id"
-            ref="account_accountant.view_account_move_line_list_bank_rec_widget" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='amount_residual']" position="after">
-                <field name="sale_order_id" optional="hide" />
-                <field name="shopify_order_id" optional="hide" />
-                <field name="shopify_note" optional="hide" />
-                <field name="shopify_config_id" optional="hide" />
-                <field name="shopify_name" optional="hide" />
-                <field name="shopify_transaction_id" optional="hide" />
-                <field name="shopify_gateway" optional="hide" />
-            </xpath></field>
-    </record> -->
-    <record id="account_move_line_bank_rec_widget_search_inherit_shopify" model="ir.ui.view">
-        <field name="name">account.move.line.bank_rec_widget.inherit.search.shopify</field>
-        <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account_accountant.view_account_move_line_search_bank_rec_widget"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='move_id']" position="after">
-                <field name="sale_order_id"/>
-                <field name="shopify_order_id"/>
-                <field name="shopify_note"/>
-                <field name="shopify_config_id"/>
-                <field name="shopify_name"/>
-                <field name="shopify_transaction_id"/>
-                <field name="shopify_gateway"/>
-            </xpath>
-            <xpath expr="//filter[@name='amount_paid']" position="after">
-                <filter domain="[('sale_order_id', '!=',False)]" name="sale_order_set" string="Sale Order"/>
-                <filter domain="[('shopify_gateway', '!=',False)]" name="shopify_gateway_set" string="Shopify Gateway"/>
-            </xpath></field>
-    </record>
-    <record id="account.action_move_out_refund_type" model="ir.actions.act_window">
-        <field name="name">Refund</field>
-        <field name="res_model">account.move</field>
-        <field name="view_mode">tree,kanban,form</field>
-        <field name="view_id" ref="account.view_out_credit_note_tree"/>
-        <field name="search_view_id" ref="account.view_account_invoice_filter"/>
-        <field name="domain">[('move_type', '=', 'out_refund')]</field>
-        <field name="context">{'default_move_type': 'out_refund'}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a credit note
-            </p>
-            <p>
-                Note that the easiest way to create a credit note is to do it directly
-                from the customer invoice.
-            </p></field>
-    </record>
+                    </page>
+                </xpath>
+            </field>
+        </record>
 </odoo>

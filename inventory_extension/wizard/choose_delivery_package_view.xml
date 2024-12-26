@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="choose_delivery_package_view_form_inherit" model="ir.ui.view">
+        <field name="name">choose.delivery.package.form</field>
+        <field name="model">choose.delivery.package</field>
+        <field name="inherit_id" ref="stock_delivery.choose_delivery_package_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <notebook invisible="not delivery_package_type_id">
+                    <page string="Choose Products To Pack">
+                        <field name="selected_all" invisible="1" force_save="1"/>
+                        <button string="Select All" name="action_select_all" type="object" class="oe_highlight"
+                                invisible="selected_all"/>
+                        <button string="Deselect All" name="action_deselect_all" type="object" class="oe_highlight"
+                                invisible="not selected_all"/>
+                        <field name="choose_line_ids" nolabel="1">
+                            <tree editable="top" create="false" delete="false">
+                                <field name="selected"/>
+                                <field name="stock_move_line_id" readonly="1" force_save="1"/>
+                                <field name="actual_move_qty" readonly="1" force_save="1"/>
+                                <field name="move_qty"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

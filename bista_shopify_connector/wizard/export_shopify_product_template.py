@@ -13,11 +13,6 @@ class ShopifyProductExport(models.TransientModel):
     _description = 'Export Shopify Product Template'
 
     def export_shopify_product_template(self):
-        """
-            This method will export the odoo
-            products into shopify.
-            @author: Ashwin Khodifad @Bista Solutions Pvt. Ltd.
-        """
         shopify_prod_obj = self.env['shopify.product.template']
         for rec in self:
             active_ids = rec._context.get('active_ids')
@@ -26,8 +21,12 @@ class ShopifyProductExport(models.TransientModel):
                  ("shopify_prod_tmpl_id", "in", ['', False])])
             # Add counter b'coz we can send only 2 request per second
             count = 1
+            second = 5
+            ctx = dict(self.env.context) or {}
             for product in shopify_prod_search:
-                product.export_shopify()
+                ctx.update({'queue_job_second': second})
+                product.with_context(ctx).export_shopify()
                 if count % 2 == 0:
                     time.sleep(0.5)
                 count += 1
+                second += 5

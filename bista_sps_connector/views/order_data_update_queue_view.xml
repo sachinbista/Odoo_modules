@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_data_update_queue_form" model="ir.ui.view">
+        <field name="name">update.order.data.form.view</field>
+        <field name="model">order.data.update.queue</field>
+        <field name="arch" type="xml">
+            <form string="860 Form" create="0">
+                <header>
+                    <button name="action_imp_update_order" string="Update Order" class="oe_highlight"
+                            type="object" invisible="state != 'draft' or sale_order_id != False"/>
+                    <button name="reset_to_draft" string="Reset To Draft" type="object" class="btn btn-secondary"
+                            invisible="state == 'draft' or sale_order_id != False"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="edi_config_id" options="{'no_create_edit':True, 'no_create':True,'no_open':True}"
+                               readonly="state != 'draft'"/>
+                        <field name="edi_order" readonly="state != 'draft'"/>
+                        <field name="sale_order_id"/>
+                        <field name="edi_type"/>
+                    </group>
+                    <notebook>
+                        <page string="Error Log">
+                            <field name="edi_error_log" nolabel="1"/>
+                        </page>
+                        <page string="Order details">
+                            <group>
+                                <field name="edi_order_data" readonly="1" nolabel="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class='oe_chatter'>
+                    <field name='message_follower_ids' widget='mail_followers'/>
+                    <field name='message_ids' widget='mail_thread'/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_order_data_update_queue_tree" model="ir.ui.view">
+        <field name="name">update.order.data.tree.view</field>
+        <field name="model">order.data.update.queue</field>
+        <field name="arch" type="xml">
+            <tree string="860 Configuration" create="0">
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="edi_config_id"/>
+                <field name="edi_order" optional="hide"/>
+                <field name="edi_type"/>
+                <field name="edi_error_log" optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_order_data_update_queue_search" model="ir.ui.view">
+        <field name="name">update.order.data.search.view</field>
+        <field name="model">order.data.update.queue</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_status" string="Status" domain="[]"
+                            context="{'group_by' : 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_po_data_update_queue" model="ir.actions.act_window">
+        <field name="name">860 Purchase Order Update data</field>
+        <field name="res_model">order.data.update.queue</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_order_data_update_queue_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_saleorder_document_macally_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@id='informations']/div[@t-if='doc.user_id.name']" position="replace">
+                <t t-set="custom_lines_to_report" t-value="doc._get_order_lines_to_report()"/>
+                <t t-set="carrier_product" t-value="custom_lines_to_report.filtered(lambda x: x.is_delivery)"/>
+                <div t-if="carrier_product" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Carrier:</strong><br/>
+                    <span class="m-0" t-field="carrier_product.name">Custom Carrier</span>
+                </div>
+            </xpath>
+
+            <!-- Added Border Style to Table-->
+            <xpath expr="//table/thead/tr" position="attributes">
+                <attribute name="style">background-color:#D3D3D3;</attribute>
+            </xpath>
+
+            <!-- Added Border Style to Table Header-->
+            <xpath expr="//table/thead/tr/th[@name='th_description']" position="before">
+                <th name="th_default_code" class="text-center" style="padding:4px;border:1px solid black;">Item Number</th>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_description']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_quantity']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_priceunit']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_discount']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_taxes']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+            <xpath expr="//table/thead/tr/th[@name='th_subtotal']" position="attributes">
+                <attribute name="style">padding:4px;border:1px solid black;</attribute>
+                <attribute name="class">text-center</attribute>
+            </xpath>
+
+            <!--Added Border Style to Table Body-->
+            <xpath expr="//td[@name='td_name']" position="before">
+                <td id="td_default_code" style="border:1px solid black; padding:4px;">
+                    <span t-field="line.product_id.default_code"/>
+                </td>
+            </xpath>
+            <xpath expr="//table//td[@name='td_name']" position="attributes">
+                <attribute name="style">border:1px solid black; padding:4px;</attribute>
+            </xpath>
+            <xpath expr="//table//td[@name='td_quantity']" position="attributes">
+                <attribute name="style">border:1px solid black; padding:4px;</attribute>
+            </xpath>
+            <xpath expr="//table//td[@name='td_priceunit']" position="attributes">
+                <attribute name="style">border:1px solid black; padding:4px;</attribute>
+            </xpath>
+            <xpath expr="//table//td[@t-if='display_discount']" position="attributes">
+                <attribute name="style">border:1px solid black; padding:4px;</attribute>
+            </xpath>
+            <xpath expr="//table//td[@name='td_taxes']" position="attributes">
+                <attribute name="style">border:1px solid black; padding:4px;</attribute>
+            </xpath>
+            <xpath expr="//table//td[@name='td_subtotal']" position="replace">
+                <t t-if="not line.is_downpayment">
+                    <td name="td_subtotal" class="text-end o_price_total" style="border:1px solid black; padding:4px;">
+                        <span t-field="line.price_subtotal">27.00</span>
+                    </td>
+                </t>
+                <t t-else="">
+                   <td name="td_subtotal" class="text-end o_price_total" style="border:1px solid black; padding:4px;"></td>
+                </t>
+            </xpath>
+
+            <xpath expr="//div[@id='total']" position="attributes">
+                <attribute name="style">margin-top:5%;</attribute>
+            </xpath>
+        </template>
+
+        <template id="document_tax_totals_template_macally_inherit" inherit_id="account.document_tax_totals_template">
+
+        </template>
+    </data>
+</odoo>

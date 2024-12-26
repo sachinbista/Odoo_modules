@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Shopify Product Collection Form View -->
-    <record id="shopify_product_collection_form_view" model="ir.ui.view">
+    <record id="shopify_product_collection_form_view" model='ir.ui.view'>
         <field name="name">shopify.product.collection.form.view</field>
         <field name="model">shopify.product.collection</field>
         <field name="arch" type="xml">
             <form name="Collections">
                 <header>
-                    <button class="oe_highlight" invisible="shopify_id == False" name="update_collection_in_shopify" string="Update Collection in Shopify" type="object"/>
+                    <button name="btn_update_collection_in_shopify" type="object"
+                            string="Update Collection in Shopify"
+                            invisible = "not shopify_id" class="oe_highlight"/>
+                    <button name="action_sync_collection_product_rel" type="object"
+                            string="Link Shopify Product" groups="bista_shopify_connector.group_shopify_admin"
+                            invisible = "not shopify_id" class="oe_highlight"/>
                 </header>
                 <sheet>
-                    <field class="oe_avatar" name="image" nolabel="1" widget="image"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_open_shopify_product_tmpl" icon="fa-list-ul" groups="bista_shopify_connector.group_shopify_admin" type="object">
+                               <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="shopify_product_tmpl_count" string="Products"/> Products
+                                    </span>
+                               </div>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
                     <group>
                         <group>
                             <field name="name"/>
                             <field name="handle"/>
-                            <field name="shopify_config_id"/>
-                            <field name="type" readonly="shopify_id != False" required="1"/>
+                            <field name="type" required="1" readonly = "shopify_id"/>
                             <field name="sort_order"/>
-                            <field name="published_scope" readonly="shopify_id != False"/>
+                            <field name="published_scope"  readonly = "shopify_id"/>
+                        </group>
+                        <group>
+                            <field name="shopify_config_id"/>
                             <field name="shopify_id" readonly="1"/>
-                            <field invisible="type != 'automated'" name="is_disjunctive"/>
+                            <field name="is_disjunctive" invisible = "type != 'automated'"/>
                             <field name="shopify_published" readonly="1"/>
                         </group>
                     </group>
@@ -28,24 +44,25 @@
                         <page string="Description">
                             <field name="body_html"/>
                         </page>
-                        <page invisible="type != 'automated'" string="Conditions">
-                            <p class="alert alert-warning" role="alert">
-                                Note: Please select column
-                                relation based on supported in Shopify
-                            </p>
-                            <field name="collection_condition_ids"><tree editable="bottom">
+                        <page string="Conditions"
+                              invisible = "type != 'automated'">
+                            <p class="alert alert-warning" role="alert">Note: Please select column relation based on supported in Shopify</p>
+                            <field name="collection_condition_ids">
+                                <tree editable="bottom">
                                     <field name="column" required="1"/>
                                     <field name="relation" required="1"/>
                                     <field name="condition" required="1"/>
-                                </tree></field>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
-            </form></field>
+            </form>
+        </field>
     </record>
-    <!--Shopify
-    Product Collection Tree View -->
-    <record id="shopify_product_collection_tree_view" model="ir.ui.view">
+
+    <!--Shopify Product Collection Tree View -->
+    <record id="shopify_product_collection_tree_view" model='ir.ui.view'>
         <field name="name">shopify.product.collection.tree.view</field>
         <field name="model">shopify.product.collection</field>
         <field name="arch" type="xml">
@@ -54,7 +71,8 @@
                 <field name="type"/>
                 <field name="shopify_id"/>
                 <field name="shopify_config_id"/>
-            </tree></field>
+            </tree>
+        </field>
     </record>
     <!-- Shopify product collection search view -->
     <record id="shopify_product_collections_search_view" model="ir.ui.view">
@@ -67,9 +85,11 @@
                 <field name="shopify_id"/>
                 <field name="shopify_config_id"/>
                 <group expand="1" string="Group By">
-                    <filter context="{'group_by':'shopify_config_id'}" name="shopify_config" string="Shopify Config."/>
+                    <filter string="Shopify Config." name="shopify_config"
+                            context="{'group_by':'shopify_config_id'}"/>
                 </group>
-            </search></field>
+            </search>
+        </field>
     </record>
     <!-- Shopify Product Collection Action -->
     <record id="action_shopify_product_collection" model="ir.actions.act_window">
@@ -77,8 +97,16 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">shopify.product.collection</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="bista_shopify_connector.shopify_product_collections_search_view"/>
+        <field name="search_view_id"
+               ref="bista_shopify_connector.shopify_product_collections_search_view"/>
     </record>
+
     <!-- Menu for Shopify Product Collection -->
-    <menuitem action="action_shopify_product_collection" groups="bista_shopify_connector.group_shopify_admin" id="menu_shopify_product_collection" name="Shopify Collections" parent="shopify_configuration_menu" sequence="9"/>
+    <menuitem id="menu_shopify_product_collection"
+              name="Collections"
+              sequence="1"
+              groups="bista_shopify_connector.group_shopify_user"
+              action="action_shopify_product_collection"
+              parent="shopify_shopify_operations_menu"/>
+
 </odoo>

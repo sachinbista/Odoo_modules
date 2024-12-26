@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_sale_order_edi_integration" model="ir.ui.view">
+        <field name="name">inherit.sale.order.edi.integration</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='other_information']" position="after">
+                <page string="EDI Information" name="edi_information" invisible="not edi_config_id"
+                      groups="bista_sps_connector.group_edi_user">
+                    <group>
+<!--                        <group name="edi_info" string="EDI Information">-->
+                        <group string="EDI Information">
+                            <field name="edi_trading_partner_id"/>
+                            <field name="edi_config_id"/>
+                            <field name="edi_order_number"/>
+                            <field name="edi_contact_ids" widget="many2many_tags"/>
+                            <field name="edi_order_data_queue"/>
+                            <field name="edi_tset_purpose_code" string="TsetPurposeCode"/>
+                            <field name="edi_vendor_number"/>
+                            <field name="edi_total_line_number" string="Total Line Number"/>
+                            <field name='edi_outbound_file_path' invisible="1"/>
+                            <field name="edi_po_type_code" string="PrimaryPOTypeCode"/>
+                            <field name="edi_department"/>
+                            <field name="edi_division"/>
+                            <field name="edi_ship_comp_code" string="ShipCompleteCode"/>
+                            <field name="edi_note_code"/>
+                        </group>
+                        <group string="EDI Charges Allowances">
+                            <field name="edi_allow_chrg_indicator" string="AllowChrg Indicator"/>
+                            <field name="edi_allow_chrg_code"/>
+                            <field name="edi_allow_chrg_description" string="AllowChrgHandling Description"/>
+                            <field name="edi_allow_chrg_amt"/>
+                            <field name="edi_allow_chrg_percent_qual" string="AllowChrgPercentQual"/>
+                            <field name="edi_allow_chrg_percent" string="AllowChrgPercent"/>
+                            <field name="edi_allow_ch_handling_code" string="AllowChrgHandling Code"/>
+                        </group>
+                        <group string="EDI Payment Terms">
+                            <field name="edi_terms_type"/>
+                            <field name="edi_terms_disc_percentage" string="TermsDiscountPercentage"/>
+                            <field name="edi_terms_disc_duedays" string="TermsDiscountDueDays"/>
+                            <field name="edi_terms_net_duedays" string="TermsNetDueDays"/>
+                            <field name="edi_terms_disc_amount" string="TermsDiscountAmount"/>
+<!--                            <field name="edi_terms_description"/>-->
+                        </group>
+                        <group string="EDI FOB Related Instruction">
+                            <field name="edi_fob_paycode"/>
+                            <field name="edi_fob_description"/>
+                            <field name="edi_fob_loc_qualifier"/>
+                            <field name="edi_fob_loc_description"/>
+                            <field name="edi_rc_qualifier"/>
+                            <field name="edi_rc_description"/>
+                        </group>
+                        <group string="EDI Carrier Information">
+                            <field name="edi_carrier_route" string="CarrierRouting"/>
+                            <field name="edi_carrier_alpha_code" string="CarrierAlphaCode"/>
+                            <field name="edi_carr_trans_meth_code" string="CarrierTransMethod Code"/>
+                        </group>
+                        <label for="edi_reference_ids" string="EDI References"/>
+                        <field name="edi_reference_ids">
+                            <tree>
+                                <field name="sale_id" column_invisible="1"/>
+                                <field name="edi_ref_qual"/>
+                                <field name="edi_ref_id"/>
+                                <field name="edi_ref_description"/>
+                            </tree>
+                        </field>
+
+<!--                        <group name="edi_addr" string="EDI Address">-->
+<!--                            <field name="edi_st_addr_loc_number"/>-->
+<!--                            <field name="edi_st_loc_code_qualifier"/>-->
+<!--                            <label for="edi_st_address_name" string="Ship to Address"/>-->
+<!--                            <div class="o_address_format">-->
+<!--                                <field name="edi_st_address_name" placeholder="Street..." class="o_address_street"/>-->
+<!--                                <field name="edi_st_address1" placeholder="Street 1..." class="o_address_street"/>-->
+<!--                                <field name="edi_st_address2" placeholder="Street 2..." class="o_address_street"/>-->
+<!--                                <field name="edi_st_city" placeholder="City" class="o_address_city"/>-->
+<!--                                <field name="edi_st_state" class="o_address_state" placeholder="State"/>-->
+<!--                                <field name="edi_st_postal_code" placeholder="Postal Code" class="o_address_zip"/>-->
+<!--                                <field name="edi_st_country" placeholder="Country" class="o_address_country"-->
+<!--                                       options='{"no_open": True, "no_create": True}'/>-->
+<!--                            </div>-->
+<!--                            <field name="edi_bt_addr_loc_number"/>-->
+<!--                            <field name="edi_bt_loc_code_qualifier"/>-->
+<!--                            <label for="edi_bt_address_name" string="Bill to Address"/>-->
+<!--                            <div class="o_address_format">-->
+<!--                                <field name="edi_bt_address_name" placeholder="Street..." class="o_address_street"/>-->
+<!--                                <field name="edi_bt_address1" placeholder="Street 1..." class="o_address_street"/>-->
+<!--                                <field name="edi_bt_address2" placeholder="Street 2..." class="o_address_street"/>-->
+<!--                                <field name="edi_bt_city" placeholder="City" class="o_address_city"/>-->
+<!--                                <field name="edi_bt_state" class="o_address_state" placeholder="State"/>-->
+<!--                                <field name="edi_bt_postal_code" placeholder="Postal Code" class="o_address_zip"/>-->
+<!--                                <field name="edi_bt_country" placeholder="Country" class="o_address_country"-->
+<!--                                       options='{"no_open": True, "no_create": True}'/>-->
+<!--                            </div>-->
+
+<!--                        </group>-->
+                    </group>
+                </page>
+
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                    <button type="object"
+                        name="action_view_855_records"
+                        class="oe_stat_button"
+                        icon="fa-file"
+                       invisible="rec_855_count == 0" groups="stock.group_stock_user">
+                        <field name="rec_855_count" widget="statinfo" string="855 Records"/>
+                    </button>
+                </xpath>
+
+            <!--  For Sale order line-->
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='price_unit']"
+                   position="after">
+                <field name="s_edi_vendor_prod_code" optional="hide"/>
+                <field name="edi_vendor_part_number" optional="hide"/>
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                   position="before">
+                <field name="edi_order_quantity" optional="hide"/>
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='product_id']"
+                   position="before">
+                <field name="line_sequence_number" optional="hide"/>
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']/tree" position="inside">
+                <field name="edi_line_note_code" optional="hide"/>
+                <field name="edi_line_note" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="pricelist_price" readonly="1" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_order_search_inherit_edi" model="ir.ui.view">
+        <field name="name">sale.order.search.view.inherit.edi</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="edi_order_number"/>
+                <field name="edi_order_data_queue" string="850 Order Data Queue"/>
+                <field name="edi_config_id"/>
+            </xpath>
+            <xpath expr="//group/filter[1]" position="after">
+                <filter string="EDI Orders" domain="[('edi_config_id', '!=', False)]"
+                        name="filter_edi_order_"/>
+                <filter string="EDI Configuration" name="EDI Configuration" domain="[]"
+                        context="{'group_by': 'edi_config_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_view_order_line_tree_edi" model="ir.ui.view">
+        <field name="name">sale.order.line.form.edi</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="before">
+                <field name="pricelist_price" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

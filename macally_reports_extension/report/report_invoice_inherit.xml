@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='address_same_as_shipping']/t[@t-set='address']/address" position="before">
+            <t t-if="o.move_type in ('in_invoice', 'in_refund')">
+                <strong>Vendor Invoice Address:</strong>
+            </t>
+        </xpath>
+        <xpath expr="//div/t[@t-set='address']/address" position="before">
+            <t t-if="o.move_type in ('in_invoice', 'in_refund')">
+                <strong>Vendor Invoice Address:</strong>
+            </t>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']" position="attributes">
+            <attribute name="class" remove="table table-sm o_main_table table-borderless" separator=" "/>
+            <attribute name="style">width:100%;</attribute>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="attributes">
+            <attribute name="style">background-color:#D3D3D3;</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="class" remove="text-start" add="text-center"/>
+        </xpath>
+        <xpath expr="//th[@name='th_quantity']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="class" remove="text-end" add="text-center"/>
+        </xpath>
+        <xpath expr="//th[@name='th_priceunit']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="t-attf-class" add="text-center"
+                       remove="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" separator=" "/>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="t-attf-class" add="text-center"
+                       remove="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+                       separator=" "/>
+        </xpath>
+        <xpath expr="//th[@name='th_discount']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="class" remove="text-end" add="text-center"/>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']" position="attributes">
+            <attribute name="style">padding:4px;border:1px solid black;</attribute>
+            <attribute name="class" remove="text-end" add="text-center"/>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="th_description" class="text-center" style="padding:4px;border:1px solid black;">
+                <strong>Item Number</strong>
+            </th>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="replace">
+            <t t-set="tax_ids"
+               t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True).mapped('tax_ids')"/>
+            <t t-if="tax_ids">
+                <th name="th_taxes" style="padding:4px;border:1px solid black;" t-attf-class="text-center">
+                    <span>Taxes</span>
+                </th>
+            </t>
+        </xpath>
+
+
+        <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+            <td id="product" style="border:1px solid black; padding:4px;">
+                <span t-field="line.product_id.default_code"/>
+            </td>
+        </xpath>
+
+        <xpath expr="//td[@name='account_invoice_line_name']" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='account_invoice_line_name']/span" position="replace">
+            <span t-esc="line.product_name()"/>
+        </xpath>
+
+        <xpath expr="//td[@name='td_quantity']" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_price_unit']" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_discount']" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_taxes']" position="replace">
+            <t t-set="tax_ids" t-value="lines.mapped('tax_ids')"/>
+            <t t-if="tax_ids">
+                <td name="td_taxes" style="border:1px solid black; padding:4px;"
+                    t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span t-out="', '.join(map(lambda x: (x.invoice_label or x.name), line.tax_ids))" id="line_tax_ids">
+                        Tax
+                        15%
+                    </span>
+                </td>
+            </t>
+        </xpath>
+
+        <xpath expr="//td[@name='td_subtotal']" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//tr[hasclass('is-subtotal')]/td" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-elif=&quot;line.display_type == 'line_section'&quot;]/td" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-elif=&quot;line.display_type == 'line_note'&quot;]/td" position="attributes">
+            <attribute name="style">border:1px solid black; padding:4px;</attribute>
+        </xpath>
+
+        <xpath expr="//div/span[@id='payment_terms_note_id']" position="replace"/>
+
+
+
+        <xpath expr="//div[@id='informations']/div[@name='reference']" position="after">
+            <t t-if="o.move_type == 'in_invoice'">
+                <t t-if="o.invoice_payment_term_id">
+                    <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                         name="payment_term">
+                        <strong>Payment Terms</strong>
+                        <br/>
+                        <span t-field="o.invoice_payment_term_id.name"/>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[@name='origin']" position="replace"/>
+        <xpath expr="//div[@id='informations']/div[@name='reference']" position="replace"/>
+        <xpath expr="//div[@name='due_date']" position="before">
+            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                 t-if="o.invoice_origin" name="origin">
+                <strong>Source:</strong>
+                <br/>
+                <span t-field="o.invoice_origin">SO123</span>
+            </div>
+            <t t-if="o.ref">
+                <div t-attf-class="#{'col-3 mw-100' if report_type != 'html' and o.move_type == 'out_invoice' else 'col-2'} mb-2"
+                     name="reference">
+                    <t t-if="o.move_type == 'out_invoice'">
+                        <strong>Customer PO No:</strong>
+                    </t>
+                    <t t-else="o.move_type == 'in_invoice'">
+                        <strong>Reference:</strong>
+                    </t>
+                    <br/>
+                    <span t-field="o.ref"/>
+                </div>
+            </t>
+        </xpath>
+         <xpath expr="//div[@name='due_date']" position="attributes">
+            <attribute name="t-if">o.invoice_date_due and o.move_type == 'in_invoice'</attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='origin']/strong" position="replace">
+            <strong>Our Order No.:</strong>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[@name='invoice_date']" position="after">
+            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                 t-if="o.invoice_line_ids.sale_line_ids.order_id.date_order" name="order_date">
+                <strong>Order Date:</strong>
+                <br/>
+                <span t-field="o.invoice_line_ids.sale_line_ids.order_id.date_order"
+                      t-options='{"widget": "date"}'/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-if="o.move_type == 'out_invoice'">
+                <div class="row">
+                    <t t-if="o.invoice_payment_term_id">
+                        <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
+                             name="payment_term">
+                            <strong>Payment Terms</strong>
+                            <br/>
+                            <span t-field="o.invoice_payment_term_id.name"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+
+
+
+        <xpath expr="//div[@id='total']" position="attributes">
+            <attribute name="style">margin-top:5%;</attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='comment']" position="replace"/>
+        <xpath expr="//div[hasclass('clearfix')]/div[hasclass('page')]/div[4]" position="after">
+            <div class="text-muted mb-3"
+                 t-attf-style="#{'text-align:justify;text-justify:inter-word;' if o.company_id.terms_type != 'html' else ''}"
+                 t-if="not is_html_empty(o.narration)" name="comment">
+                <span t-field="o.narration"/>
+            </div>
+        </xpath>
+
+    </template>
+</odoo>

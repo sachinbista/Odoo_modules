@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- action -->
+    <record id="action_sps_trading_partner_fields" model="ir.actions.act_window">
+        <field name="name">SPS Trading Partner Fields</field>
+        <field name="res_model">sps.trading.partner.fields</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first SPS Trading Partner Field
+            </p>
+        </field>
+    </record>
+
+    <!-- form view -->
+    <record id="view_sps_trading_partner_fields_form" model="ir.ui.view">
+        <field name="name">sps.trading.partner.fields.form</field>
+        <field name="model">sps.trading.partner.fields</field>
+        <field name="arch" type="xml">
+            <form string="SPS Trading Partner Fields">
+                <sheet>
+                    <group>
+                        <field name="trading_partner_field"/>
+                        <field name="partner_id"/>
+                        <field name="document_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view -->
+    <record id="view_sps_trading_partner_fields_tree" model="ir.ui.view">
+        <field name="name">sps.trading.partner.fields.tree</field>
+        <field name="model">sps.trading.partner.fields</field>
+        <field name="arch" type="xml">
+            <tree string="SPS Trading Partner Fields">
+                <field name="trading_partner_field"/>
+                <field name="partner_id"/>
+                <field name="document_type"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

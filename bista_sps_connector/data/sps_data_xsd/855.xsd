@@ -1,0 +1,1309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Orders">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Order">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Meta">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SenderUniqueID" />
+                    <xs:element name="SenderCompanyName" />
+                    <xs:element name="ReceiverUniqueID" />
+                    <xs:element name="ReceiverCompanyName" />
+                    <xs:element name="IsDropShip" />
+                    <xs:element name="InterchangeControlNumber" />
+                    <xs:element name="GroupControlIdentifier" />
+                    <xs:element name="GroupControlNumber" />
+                    <xs:element name="DocumentControlIdentifier" />
+                    <xs:element name="DocumentControlNumber" />
+                    <xs:element name="InterchangeSenderID" />
+                    <xs:element name="InterchangeReceiverID" />
+                    <xs:element name="GroupSenderID" />
+                    <xs:element name="GroupReceiverID" />
+                    <xs:element name="BatchPart" />
+                    <xs:element name="BatchTotal" />
+                    <xs:element name="BatchID" />
+                    <xs:element name="Comments" />
+                    <xs:element name="Validation" />
+                    <xs:element name="OrderManagement" />
+                    <xs:element name="Version" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Header">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="OrderHeader">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="TradingPartnerId" type="xs:string" />
+                          <xs:element name="PurchaseOrderNumber" type="xs:string" />
+                          <xs:element name="TsetPurposeCode" type="xs:integer" />
+                          <xs:element name="PrimaryPOTypeCode" />
+                          <xs:element name="PrimaryPOTypeDescription" />
+                          <xs:element name="AdditionalPOTypeCodes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="POTypeCode" />
+                                <xs:element name="POTypeDescription" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PurchaseOrderDate" type="xs:date" />
+                          <xs:element name="PurchaseOrderTime" />
+                          <xs:element name="ReleaseNumber" />
+                          <xs:element name="AcknowledgementNumber" />
+                          <xs:element name="AcknowledgementType" />
+                          <xs:element name="ShipCompleteCode" />
+                          <xs:element name="InternalOrderNumber" />
+                          <xs:element name="InternalOrderDate" />
+                          <xs:element name="AcknowledgementDate" />
+                          <xs:element name="AcknowledgementTime" />
+                          <xs:element name="BuyersCurrency" />
+                          <xs:element name="SellersCurrency" />
+                          <xs:element name="ExchangeRate" />
+                          <xs:element name="Department" />
+                          <xs:element name="DepartmentDescription" />
+                          <xs:element name="Vendor" />
+                          <xs:element name="JobNumber" />
+                          <xs:element name="Division" />
+                          <xs:element name="CustomerAccountNumber" />
+                          <xs:element name="CustomerOrderNumber" type="xs:string" />
+                          <xs:element name="DocumentVersion" />
+                          <xs:element name="DocumentRevision" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PaymentTerms">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="TermsType" type="xs:string" />
+                          <xs:element name="TermsBasisDateCode" />
+                          <xs:element name="TermsTimeRelationCode" />
+                          <xs:element name="TermsDiscountPercentage" type="xs:decimal" />
+                          <xs:element name="TermsDiscountDate" />
+                          <xs:element name="TermsDiscountDueDays" type="xs:integer" />
+                          <xs:element name="TermsNetDueDate" />
+                          <xs:element name="TermsNetDueDays" type="xs:integer" />
+                          <xs:element name="TermsDiscountAmount" type="xs:decimal"/>
+                          <xs:element name="TermsDeferredDueDate" />
+                          <xs:element name="TermsDeferredAmountDue" />
+                          <xs:element name="PercentOfInvoicePayable" />
+                          <xs:element name="TermsDescription" type="xs:string"/>
+                          <xs:element name="TermsDueDay" />
+                          <xs:element name="PaymentMethodCode" />
+                          <xs:element name="PaymentMethodID" />
+                          <xs:element name="LatePaymentChargePercent" />
+                          <xs:element name="TermsStartDate" />
+                          <xs:element name="TermsDueDateQual" />
+                          <xs:element name="AmountSubjectToDiscount" />
+                          <xs:element name="DiscountAmountDue" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Dates">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DateTimeQualifier" type="xs:integer"/>
+                          <xs:element name="Date" type="xs:date" />
+                          <xs:element name="Time" />
+                          <xs:element name="DateTimePeriod" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Contacts">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ContactTypeCode" type="xs:string" />
+                          <xs:element name="ContactName" type="xs:string" />
+                          <xs:element name="PrimaryPhone" type="xs:string" />
+                          <xs:element name="PrimaryFax" />
+                          <xs:element name="PrimaryEmail" type="xs:string" />
+                          <xs:element name="AdditionalContactDetails">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ContactQual" />
+                                <xs:element name="ContactID" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ContactReference" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Address">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AddressTypeCode" type="xs:string" />
+                          <xs:element name="LocationCodeQualifier" />
+                          <xs:element name="AddressLocationNumber" />
+                          <xs:element name="AddressName" type="xs:string"/>
+                          <xs:element name="AddressAlternateName" />
+                          <xs:element name="AddressAlternateName2" />
+                          <xs:element name="Address1" type="xs:string" />
+                          <xs:element name="Address2" type="xs:string" />
+                          <xs:element name="Address3" />
+                          <xs:element name="Address4" />
+                          <xs:element name="City" type="xs:string" />
+                          <xs:element name="State" type="xs:string" />
+                          <xs:element name="PostalCode" type="xs:string" />
+                          <xs:element name="Country" type="xs:string" />
+                          <xs:element name="LocationID" />
+                          <xs:element name="CountrySubDivision" />
+                          <xs:element name="AddressTaxIdNumber" />
+                          <xs:element name="AddressTaxExemptNumber" />
+                          <xs:element name="References">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ReferenceQual" />
+                                <xs:element name="ReferenceID" />
+                                <xs:element name="Description" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="ReferenceIDs">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ReferenceQual" />
+                                      <xs:element name="ReferenceID" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Contacts">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ContactTypeCode" type="xs:string" />
+                                <xs:element name="ContactName" type="xs:string" />
+                                <xs:element name="PrimaryPhone" type="xs:string" />
+                                <xs:element name="PrimaryFax" />
+                                <xs:element name="PrimaryEmail" type="xs:string" />
+                                <xs:element name="AdditionalContactDetails">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ContactQual" />
+                                      <xs:element name="ContactID" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="ContactReference" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Dates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DateTimeQualifier" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="DateTimePeriod" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="FOBRelatedInstruction">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FOBPayCode" />
+                          <xs:element name="FOBLocationQualifier" />
+                          <xs:element name="FOBLocationDescription" />
+                          <xs:element name="FOBTitlePassageCode" />
+                          <xs:element name="FOBTitlePassageLocation" />
+                          <xs:element name="TransportationTermsType" />
+                          <xs:element name="TransportationTerms" />
+                          <xs:element name="RiskOfLossCode" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CarrierInformation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="StatusCode" />
+                          <xs:element name="CarrierTransMethodCode" />
+                          <xs:element name="CarrierAlphaCode" />
+                          <xs:element name="CarrierRouting" />
+                          <xs:element name="EquipmentDescriptionCode" />
+                          <xs:element name="CarrierEquipmentInitial" />
+                          <xs:element name="CarrierEquipmentNumber" />
+                          <xs:element name="EquipmentType" />
+                          <xs:element name="OwnershipCode" />
+                          <xs:element name="RoutingSequenceCode" />
+                          <xs:element name="TransitDirectionCode" />
+                          <xs:element name="TransitTimeQual" />
+                          <xs:element name="TransitTime" />
+                          <xs:element name="ServiceLevelCodes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ServiceLevelCode" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Address">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="AddressTypeCode" type="xs:string" />
+                                <xs:element name="LocationCodeQualifier" />
+                                <xs:element name="AddressLocationNumber" />
+                                <xs:element name="AddressName" type="xs:string"/>
+                                <xs:element name="AddressAlternateName" />
+                                <xs:element name="AddressAlternateName2" />
+                                <xs:element name="Address1" type="xs:string" />
+                                <xs:element name="Address2" type="xs:string" />
+                                <xs:element name="Address3" />
+                                <xs:element name="Address4" />
+                                <xs:element name="City" type="xs:string" />
+                                <xs:element name="State" type="xs:string" />
+                                <xs:element name="PostalCode" type="xs:string" />
+                                <xs:element name="Country" type="xs:string" />
+                                <xs:element name="LocationID" />
+                                <xs:element name="CountrySubDivision" />
+                                <xs:element name="AddressTaxIdNumber" />
+                                <xs:element name="AddressTaxExemptNumber" />
+                                <xs:element name="Dates">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="DateTimeQualifier" />
+                                      <xs:element name="Date" />
+                                      <xs:element name="Time" />
+                                      <xs:element name="DateTimePeriod" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="SealNumbers">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="SealStatusCode" />
+                                <xs:element name="SealNumber" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="References">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ReferenceQual" type="xs:string" />
+                          <xs:element name="ReferenceID" />
+                          <xs:element name="Description" type="xs:string" />
+                          <xs:element name="Date" />
+                          <xs:element name="Time" />
+                          <xs:element name="ReferenceIDs">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ReferenceQual" />
+                                <xs:element name="ReferenceID" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Notes">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="NoteCode" type="xs:string" />
+                          <xs:element name="Note" type="xs:string"/>
+                          <xs:element name="LanguageCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Commodity">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="CommodityCodeQualifier" />
+                          <xs:element name="CommodityCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Taxes">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="TaxTypeCode" />
+                          <xs:element name="TaxAmount" />
+                          <xs:element name="TaxPercentQual" />
+                          <xs:element name="TaxPercent" />
+                          <xs:element name="JurisdictionQual" />
+                          <xs:element name="JurisdictionCode" />
+                          <xs:element name="TaxExemptCode" />
+                          <xs:element name="RelationshipCode" />
+                          <xs:element name="PercentDollarBasis" />
+                          <xs:element name="TaxHandlingCode" />
+                          <xs:element name="TaxID" />
+                          <xs:element name="AssignedID" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ChargesAllowances">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AllowChrgIndicator" />
+                          <xs:element name="AllowChrgCode" />
+                          <xs:element name="AllowChrgAgencyCode" />
+                          <xs:element name="AllowChrgAgency" />
+                          <xs:element name="AllowChrgAmt" />
+                          <xs:element name="AllowChrgPercentQual" />
+                          <xs:element name="AllowChrgPercent" />
+                          <xs:element name="PercentDollarBasis" />
+                          <xs:element name="AllowChrgRate" />
+                          <xs:element name="AllowChrgQtyUOM" />
+                          <xs:element name="AllowChrgQty" />
+                          <xs:element name="AllowChrgHandlingCode" />
+                          <xs:element name="ReferenceIdentification" />
+                          <xs:element name="AllowChrgHandlingDescription" />
+                          <xs:element name="OptionNumber" />
+                          <xs:element name="ExceptionNumber" />
+                          <xs:element name="AllowChrgQty2" />
+                          <xs:element name="LanguageCode" />
+                          <xs:element name="CalculationSequence" />
+                          <xs:element name="Taxes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="TaxTypeCode" />
+                                <xs:element name="TaxAmount" />
+                                <xs:element name="TaxPercentQual" />
+                                <xs:element name="TaxPercent" />
+                                <xs:element name="JurisdictionQual" />
+                                <xs:element name="JurisdictionCode" />
+                                <xs:element name="TaxExemptCode" />
+                                <xs:element name="RelationshipCode" />
+                                <xs:element name="PercentDollarBasis" />
+                                <xs:element name="TaxHandlingCode" />
+                                <xs:element name="TaxID" />
+                                <xs:element name="AssignedID" />
+                                <xs:element name="Description" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="QuantityAndWeight">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PackingMedium" />
+                          <xs:element name="PackingMaterial" />
+                          <xs:element name="LadingQuantity" />
+                          <xs:element name="LadingDescription" />
+                          <xs:element name="WeightQualifier" />
+                          <xs:element name="Weight" />
+                          <xs:element name="WeightUOM" />
+                          <xs:element name="Volume" />
+                          <xs:element name="VolumeUOM" />
+                          <xs:element name="PalletExchangeCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="QuantityTotals">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="QuantityTotalsQualifier" />
+                          <xs:element name="Quantity" />
+                          <xs:element name="QuantityUOM" />
+                          <xs:element name="WeightQualifier" />
+                          <xs:element name="Weight" />
+                          <xs:element name="WeightUOM" />
+                          <xs:element name="Volume" />
+                          <xs:element name="VolumeUOM" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="RegulatoryCompliances">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RegulatoryComplianceQual" />
+                          <xs:element name="YesOrNoResponse" />
+                          <xs:element name="RegulatoryComplianceID" />
+                          <xs:element name="RegulatoryAgency" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="LineItem">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="OrderLine">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LineSequenceNumber" type="xs:integer" />
+                          <xs:element name="ApplicationId" />
+                          <xs:element name="BuyerPartNumber" type="xs:string" />
+                          <xs:element name="VendorPartNumber"  />
+                          <xs:element name="ConsumerPackageCode" type="xs:string" />
+                          <xs:element name="EAN" />
+                          <xs:element name="GTIN" />
+                          <xs:element name="UPCCaseCode" />
+                          <xs:element name="NatlDrugCode" />
+                          <xs:element name="InternationalStandardBookNumber" />
+                          <xs:element name="ProductID">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="PartNumberQual" />
+                                <xs:element name="PartNumber" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="OrderQty" type="xs:decimal" />
+                          <xs:element name="OrderQtyUOM" type="xs:string" />
+                          <xs:element name="PurchasePriceType" />
+                          <xs:element name="PurchasePrice" type="xs:decimal" />
+                          <xs:element name="PurchasePriceBasis" />
+                          <xs:element name="BuyersCurrency" />
+                          <xs:element name="SellersCurrency" />
+                          <xs:element name="ExchangeRate" />
+                          <xs:element name="ShipDate" />
+                          <xs:element name="ExtendedItemTotal" />
+                          <xs:element name="ProductSizeCode" />
+                          <xs:element name="ProductSizeDescription" />
+                          <xs:element name="ProductColorCode" />
+                          <xs:element name="ProductColorDescription" />
+                          <xs:element name="ProductMaterialCode" />
+                          <xs:element name="ProductMaterialDescription" type="xs:string" />
+                          <xs:element name="ProductProcessCode" />
+                          <xs:element name="ProductProcessDescription" />
+                          <xs:element name="Department" />
+                          <xs:element name="DepartmentDescription" />
+                          <xs:element name="Class" />
+                          <xs:element name="Gender" />
+                          <xs:element name="SellerDateCode" />
+                          <xs:element name="NRFStandardColorAndSize">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="NRFColorCode" />
+                                <xs:element name="ColorCategoryName" />
+                                <xs:element name="ColorPrimaryDescription" />
+                                <xs:element name="NRFSizeCode" />
+                                <xs:element name="SizeCategoryName" />
+                                <xs:element name="SizePrimaryDescription" />
+                                <xs:element name="SizeSecondaryDescription" />
+                                <xs:element name="SizeTableName" />
+                                <xs:element name="SizeHeading1" />
+                                <xs:element name="SizeHeading2" />
+                                <xs:element name="SizeHeading3" />
+                                <xs:element name="SizeHeading4" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LineItemAcknowledgement">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ItemStatusCode" type="xs:string" />
+                          <xs:element name="LineSequenceNumber" type="xs:integer" />
+                          <xs:element name="ItemScheduleQty" type="xs:decimal" />
+                          <xs:element name="ItemScheduleUOM" type="xs:string" />
+                          <xs:element name="ItemScheduleQualifier" />
+                          <xs:element name="ItemScheduleDate" />
+                          <xs:element name="BuyerPartNumber" type="xs:string" />
+                          <xs:element name="VendorPartNumber" />
+                          <xs:element name="ConsumerPackageCode" type="xs:string"/>
+                          <xs:element name="EAN" />
+                          <xs:element name="GTIN" />
+                          <xs:element name="UPCCaseCode" />
+                          <xs:element name="NatlDrugCode" />
+                          <xs:element name="InternationalStandardBookNumber" />
+                          <xs:element name="ProductID">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="PartNumberQual" />
+                                <xs:element name="PartNumber" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PurchasePriceType" />
+                          <xs:element name="PurchasePrice" type="xs:decimal" />
+                          <xs:element name="PurchasePriceBasis" />
+                          <xs:element name="BuyersCurrency" />
+                          <xs:element name="SellersCurrency" />
+                          <xs:element name="ExchangeRate" />
+                          <xs:element name="ExtendedItemTotal" />
+                          <xs:element name="ProductSizeCode" />
+                          <xs:element name="ProductSizeDescription" />
+                          <xs:element name="ProductColorCode" />
+                          <xs:element name="ProductColorDescription" />
+                          <xs:element name="ProductMaterialCode" />
+                          <xs:element name="ProductMaterialDescription" type="xs:string" />
+                          <xs:element name="ProductProcessCode" />
+                          <xs:element name="ProductProcessDescription" />
+                          <xs:element name="Department" />
+                          <xs:element name="DepartmentDescription" />
+                          <xs:element name="Class" />
+                          <xs:element name="Gender" />
+                          <xs:element name="IndustryCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Dates">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DateTimeQualifier" />
+                          <xs:element name="Date" />
+                          <xs:element name="Time" />
+                          <xs:element name="DateTimePeriod" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Measurements">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="MeasurementRefIDCode" />
+                          <xs:element name="MeasurementQualifier" />
+                          <xs:element name="MeasurementValue" />
+                          <xs:element name="CompositeUOM" />
+                          <xs:element name="RangeMinimum" />
+                          <xs:element name="RangeMaximum" />
+                          <xs:element name="MeasurementSignificanceCode" />
+                          <xs:element name="MeasurementAttributeCode" />
+                          <xs:element name="SurfaceLayerPositionCode" />
+                          <xs:element name="IndustryCodeQualifier" />
+                          <xs:element name="IndustryCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PriceInformation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ChangeReasonCode" />
+                          <xs:element name="EffectiveDate" />
+                          <xs:element name="PriceTypeIDCode" />
+                          <xs:element name="UnitPrice" />
+                          <xs:element name="UnitPriceBasis" />
+                          <xs:element name="UnitPriceBasisMultiplier" />
+                          <xs:element name="Currency" />
+                          <xs:element name="PriceMultiplierQual" />
+                          <xs:element name="PriceMultiplier" />
+                          <xs:element name="RebateAmount" />
+                          <xs:element name="Quantity" />
+                          <xs:element name="QuantityUOM" />
+                          <xs:element name="MultiplePriceQuantity" />
+                          <xs:element name="ClassOfTradeCode" />
+                          <xs:element name="ConditionValue" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ProductOrItemDescription">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ProductCharacteristicCode" />
+                          <xs:element name="AgencyQualifierCode" />
+                          <xs:element name="ProductDescriptionCode" />
+                          <xs:element name="ProductDescription" />
+                          <xs:element name="SurfaceLayerPositionCode" />
+                          <xs:element name="SourceSubqualifier" />
+                          <xs:element name="YesOrNoResponse" />
+                          <xs:element name="LanguageCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MasterItemAttribute">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ItemAttribute">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ItemAttributeQualifier" />
+                                <xs:element name="Value" />
+                                <xs:element name="ValueUOM" />
+                                <xs:element name="Description" />
+                                <xs:element name="YesOrNoResponse" />
+                                <xs:element name="Measurements">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="MeasurementRefIDCode" />
+                                      <xs:element name="MeasurementQualifier" />
+                                      <xs:element name="MeasurementValue" />
+                                      <xs:element name="CompositeUOM" />
+                                      <xs:element name="RangeMinimum" />
+                                      <xs:element name="RangeMaximum" />
+                                      <xs:element name="MeasurementSignificanceCode" />
+                                      <xs:element name="MeasurementAttributeCode" />
+                                      <xs:element name="SurfaceLayerPositionCode" />
+                                      <xs:element name="IndustryCodeQualifier" />
+                                      <xs:element name="IndustryCode" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PhysicalDetails">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PackQualifier" />
+                          <xs:element name="PackValue" />
+                          <xs:element name="PackSize" />
+                          <xs:element name="PackUOM" />
+                          <xs:element name="PackingMedium" />
+                          <xs:element name="PackingMaterial" />
+                          <xs:element name="WeightQualifier" />
+                          <xs:element name="PackWeight" />
+                          <xs:element name="PackWeightUOM" />
+                          <xs:element name="PackVolume" />
+                          <xs:element name="PackVolumeUOM" />
+                          <xs:element name="PackLength" />
+                          <xs:element name="PackWidth" />
+                          <xs:element name="PackHeight" />
+                          <xs:element name="DimensionUOM" />
+                          <xs:element name="Description" />
+                          <xs:element name="SurfaceLayerPositionCode" />
+                          <xs:element name="AssignedID" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="References">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ReferenceQual" />
+                          <xs:element name="ReferenceID" />
+                          <xs:element name="Description" />
+                          <xs:element name="Date" />
+                          <xs:element name="Time" />
+                          <xs:element name="ReferenceIDs">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ReferenceQual" />
+                                <xs:element name="ReferenceID" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Notes">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="NoteCode" />
+                          <xs:element name="Note" />
+                          <xs:element name="LanguageCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Commodity">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="CommodityCodeQualifier" />
+                          <xs:element name="CommodityCode" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Address">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AddressTypeCode" />
+                          <xs:element name="LocationCodeQualifier" />
+                          <xs:element name="AddressLocationNumber" />
+                          <xs:element name="AddressName" />
+                          <xs:element name="AddressAlternateName" />
+                          <xs:element name="AddressAlternateName2" />
+                          <xs:element name="Address1" />
+                          <xs:element name="Address2" />
+                          <xs:element name="Address3" />
+                          <xs:element name="Address4" />
+                          <xs:element name="City" />
+                          <xs:element name="State" />
+                          <xs:element name="PostalCode" />
+                          <xs:element name="Country" />
+                          <xs:element name="LocationID" />
+                          <xs:element name="CountrySubDivision" />
+                          <xs:element name="AddressTaxIdNumber" />
+                          <xs:element name="AddressTaxExemptNumber" />
+                          <xs:element name="References">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ReferenceQual" />
+                                <xs:element name="ReferenceID" />
+                                <xs:element name="Description" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="ReferenceIDs">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ReferenceQual" />
+                                      <xs:element name="ReferenceID" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Contacts">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ContactTypeCode" />
+                                <xs:element name="ContactName" />
+                                <xs:element name="PrimaryPhone" />
+                                <xs:element name="PrimaryFax" />
+                                <xs:element name="PrimaryEmail" />
+                                <xs:element name="AdditionalContactDetails">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ContactQual" />
+                                      <xs:element name="ContactID" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="ContactReference" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Dates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DateTimeQualifier" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="DateTimePeriod" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Subline">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SublineItemDetail">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="LineSequenceNumber" />
+                                <xs:element name="ApplicationId" />
+                                <xs:element name="BuyerPartNumber" />
+                                <xs:element name="VendorPartNumber" />
+                                <xs:element name="ConsumerPackageCode" />
+                                <xs:element name="EAN" />
+                                <xs:element name="GTIN" />
+                                <xs:element name="UPCCaseCode" />
+                                <xs:element name="NatlDrugCode" />
+                                <xs:element name="InternationalStandardBookNumber" />
+                                <xs:element name="ProductID">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="PartNumberQual" />
+                                      <xs:element name="PartNumber" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="ProductSizeCode" />
+                                <xs:element name="ProductSizeDescription" />
+                                <xs:element name="ProductColorCode" />
+                                <xs:element name="ProductColorDescription" />
+                                <xs:element name="ProductMaterialCode" />
+                                <xs:element name="ProductMaterialDescription" />
+                                <xs:element name="ProductProcessCode" />
+                                <xs:element name="ProductProcessDescription" />
+                                <xs:element name="QtyPer" />
+                                <xs:element name="QtyPerUOM" />
+                                <xs:element name="PurchasePriceType" />
+                                <xs:element name="PurchasePrice" />
+                                <xs:element name="PurchasePriceBasis" />
+                                <xs:element name="Gender" />
+                                <xs:element name="NRFStandardColorAndSize">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="NRFColorCode" />
+                                      <xs:element name="ColorCategoryName" />
+                                      <xs:element name="ColorPrimaryDescription" />
+                                      <xs:element name="NRFSizeCode" />
+                                      <xs:element name="SizeCategoryName" />
+                                      <xs:element name="SizePrimaryDescription" />
+                                      <xs:element name="SizeSecondaryDescription" />
+                                      <xs:element name="SizeTableName" />
+                                      <xs:element name="SizeHeading1" />
+                                      <xs:element name="SizeHeading2" />
+                                      <xs:element name="SizeHeading3" />
+                                      <xs:element name="SizeHeading4" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Dates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DateTimeQualifier" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="DateTimePeriod" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PriceInformation">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ChangeReasonCode" />
+                                <xs:element name="EffectiveDate" />
+                                <xs:element name="PriceTypeIDCode" />
+                                <xs:element name="UnitPrice" />
+                                <xs:element name="UnitPriceBasis" />
+                                <xs:element name="UnitPriceBasisMultiplier" />
+                                <xs:element name="Currency" />
+                                <xs:element name="PriceMultiplierQual" />
+                                <xs:element name="PriceMultiplier" />
+                                <xs:element name="RebateAmount" />
+                                <xs:element name="Quantity" />
+                                <xs:element name="QuantityUOM" />
+                                <xs:element name="MultiplePriceQuantity" />
+                                <xs:element name="ClassOfTradeCode" />
+                                <xs:element name="ConditionValue" />
+                                <xs:element name="Description" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ProductOrItemDescription">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ProductCharacteristicCode" />
+                                <xs:element name="AgencyQualifierCode" />
+                                <xs:element name="ProductDescriptionCode" />
+                                <xs:element name="ProductDescription" />
+                                <xs:element name="SurfaceLayerPositionCode" />
+                                <xs:element name="SourceSubqualifier" />
+                                <xs:element name="YesOrNoResponse" />
+                                <xs:element name="LanguageCode" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PhysicalDetails">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="PackQualifier" />
+                                <xs:element name="PackValue" />
+                                <xs:element name="PackSize" />
+                                <xs:element name="PackUOM" />
+                                <xs:element name="PackingMedium" />
+                                <xs:element name="PackingMaterial" />
+                                <xs:element name="WeightQualifier" />
+                                <xs:element name="PackWeight" />
+                                <xs:element name="PackWeightUOM" />
+                                <xs:element name="PackVolume" />
+                                <xs:element name="PackVolumeUOM" />
+                                <xs:element name="PackLength" />
+                                <xs:element name="PackWidth" />
+                                <xs:element name="PackHeight" />
+                                <xs:element name="DimensionUOM" />
+                                <xs:element name="Description" />
+                                <xs:element name="SurfaceLayerPositionCode" />
+                                <xs:element name="AssignedID" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="References">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ReferenceQual" />
+                                <xs:element name="ReferenceID" />
+                                <xs:element name="Description" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="ReferenceIDs">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ReferenceQual" />
+                                      <xs:element name="ReferenceID" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Notes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="NoteCode" />
+                                <xs:element name="Note" />
+                                <xs:element name="LanguageCode" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Taxes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="TaxTypeCode" type="xs:string" />
+                                <xs:element name="TaxAmount" />
+                                <xs:element name="TaxPercentQual" />
+                                <xs:element name="TaxPercent" type="xs:decimal" />
+                                <xs:element name="JurisdictionQual" />
+                                <xs:element name="JurisdictionCode" />
+                                <xs:element name="TaxExemptCode" />
+                                <xs:element name="RelationshipCode" />
+                                <xs:element name="PercentDollarBasis" />
+                                <xs:element name="TaxHandlingCode" />
+                                <xs:element name="TaxID" />
+                                <xs:element name="AssignedID" />
+                                <xs:element name="Description" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ChargesAllowances">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="AllowChrgIndicator" />
+                                <xs:element name="AllowChrgCode" />
+                                <xs:element name="AllowChrgAgencyCode" />
+                                <xs:element name="AllowChrgAgency" />
+                                <xs:element name="AllowChrgAmt" />
+                                <xs:element name="AllowChrgPercentQual" />
+                                <xs:element name="AllowChrgPercent" />
+                                <xs:element name="PercentDollarBasis" />
+                                <xs:element name="AllowChrgRate" />
+                                <xs:element name="AllowChrgQtyUOM" />
+                                <xs:element name="AllowChrgQty" />
+                                <xs:element name="AllowChrgHandlingCode" />
+                                <xs:element name="ReferenceIdentification" />
+                                <xs:element name="AllowChrgHandlingDescription" />
+                                <xs:element name="OptionNumber" />
+                                <xs:element name="ExceptionNumber" />
+                                <xs:element name="AllowChrgQty2" />
+                                <xs:element name="LanguageCode" />
+                                <xs:element name="CalculationSequence" />
+                                <xs:element name="Taxes">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="TaxTypeCode" />
+                                      <xs:element name="TaxAmount" />
+                                      <xs:element name="TaxPercentQual" />
+                                      <xs:element name="TaxPercent" />
+                                      <xs:element name="JurisdictionQual" />
+                                      <xs:element name="JurisdictionCode" />
+                                      <xs:element name="TaxExemptCode" />
+                                      <xs:element name="RelationshipCode" />
+                                      <xs:element name="PercentDollarBasis" />
+                                      <xs:element name="TaxHandlingCode" />
+                                      <xs:element name="TaxID" />
+                                      <xs:element name="AssignedID" />
+                                      <xs:element name="Description" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Address">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="AddressTypeCode" />
+                                <xs:element name="LocationCodeQualifier" />
+                                <xs:element name="AddressLocationNumber" />
+                                <xs:element name="AddressName" />
+                                <xs:element name="AddressAlternateName" />
+                                <xs:element name="AddressAlternateName2" />
+                                <xs:element name="Address1" />
+                                <xs:element name="Address2" />
+                                <xs:element name="Address3" />
+                                <xs:element name="Address4" />
+                                <xs:element name="City" />
+                                <xs:element name="State" />
+                                <xs:element name="PostalCode" />
+                                <xs:element name="Country" />
+                                <xs:element name="LocationID" />
+                                <xs:element name="CountrySubDivision" />
+                                <xs:element name="AddressTaxIdNumber" />
+                                <xs:element name="AddressTaxExemptNumber" />
+                                <xs:element name="References">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ReferenceQual" />
+                                      <xs:element name="ReferenceID" />
+                                      <xs:element name="Description" />
+                                      <xs:element name="Date" />
+                                      <xs:element name="Time" />
+                                      <xs:element name="ReferenceIDs">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="ReferenceQual" />
+                                            <xs:element name="ReferenceID" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Contacts">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ContactTypeCode" />
+                                      <xs:element name="ContactName" />
+                                      <xs:element name="PrimaryPhone" />
+                                      <xs:element name="PrimaryFax" />
+                                      <xs:element name="PrimaryEmail" />
+                                      <xs:element name="AdditionalContactDetails">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="ContactQual" />
+                                            <xs:element name="ContactID" />
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="ContactReference" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Dates">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="DateTimeQualifier" />
+                                      <xs:element name="Date" />
+                                      <xs:element name="Time" />
+                                      <xs:element name="DateTimePeriod" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Commodity">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="CommodityCodeQualifier" />
+                                <xs:element name="CommodityCode" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="RegulatoryCompliances">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="RegulatoryComplianceQual" />
+                                <xs:element name="YesOrNoResponse" />
+                                <xs:element name="RegulatoryComplianceID" />
+                                <xs:element name="RegulatoryAgency" />
+                                <xs:element name="Description" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="QuantitiesSchedulesLocations">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="QuantityQualifier" />
+                          <xs:element name="TotalQty" />
+                          <xs:element name="TotalQtyUOM" />
+                          <xs:element name="QuantityDescription" />
+                          <xs:element name="LocationCodeQualifier" />
+                          <xs:element name="LocationDescription" />
+                          <xs:element name="LocationQuantity">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Location" />
+                                <xs:element name="Qty" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Dates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DateTimeQualifier" />
+                                <xs:element name="Date" />
+                                <xs:element name="Time" />
+                                <xs:element name="DateTimePeriod" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="AssignedID" />
+                          <xs:element name="LeadTimeCode" />
+                          <xs:element name="LeadTimeQuantity" />
+                          <xs:element name="LeadTimePeriodInterval" />
+                          <xs:element name="LeadTimeDate" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Taxes">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="TaxTypeCode" />
+                          <xs:element name="TaxAmount" />
+                          <xs:element name="TaxPercentQual" />
+                          <xs:element name="TaxPercent" />
+                          <xs:element name="JurisdictionQual" />
+                          <xs:element name="JurisdictionCode" />
+                          <xs:element name="TaxExemptCode" />
+                          <xs:element name="RelationshipCode" />
+                          <xs:element name="PercentDollarBasis" />
+                          <xs:element name="TaxHandlingCode" />
+                          <xs:element name="TaxID" />
+                          <xs:element name="AssignedID" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ChargesAllowances">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="AllowChrgIndicator" />
+                          <xs:element name="AllowChrgCode" />
+                          <xs:element name="AllowChrgAgencyCode" />
+                          <xs:element name="AllowChrgAgency" />
+                          <xs:element name="AllowChrgAmt" />
+                          <xs:element name="AllowChrgPercentQual" />
+                          <xs:element name="AllowChrgPercent" />
+                          <xs:element name="PercentDollarBasis" />
+                          <xs:element name="AllowChrgRate" />
+                          <xs:element name="AllowChrgQtyUOM" />
+                          <xs:element name="AllowChrgQty" />
+                          <xs:element name="AllowChrgHandlingCode" />
+                          <xs:element name="ReferenceIdentification" />
+                          <xs:element name="AllowChrgHandlingDescription" />
+                          <xs:element name="OptionNumber" />
+                          <xs:element name="ExceptionNumber" />
+                          <xs:element name="AllowChrgQty2" />
+                          <xs:element name="LanguageCode" />
+                          <xs:element name="CalculationSequence" />
+                          <xs:element name="Taxes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="TaxTypeCode" />
+                                <xs:element name="TaxAmount" />
+                                <xs:element name="TaxPercentQual" />
+                                <xs:element name="TaxPercent" />
+                                <xs:element name="JurisdictionQual" />
+                                <xs:element name="JurisdictionCode" />
+                                <xs:element name="TaxExemptCode" />
+                                <xs:element name="RelationshipCode" />
+                                <xs:element name="PercentDollarBasis" />
+                                <xs:element name="TaxHandlingCode" />
+                                <xs:element name="TaxID" />
+                                <xs:element name="AssignedID" />
+                                <xs:element name="Description" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="FOBRelatedInstruction">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FOBPayCode" />
+                          <xs:element name="FOBLocationQualifier" />
+                          <xs:element name="FOBLocationDescription" />
+                          <xs:element name="FOBTitlePassageCode" />
+                          <xs:element name="FOBTitlePassageLocation" />
+                          <xs:element name="TransportationTermsType" />
+                          <xs:element name="TransportationTerms" />
+                          <xs:element name="RiskOfLossCode" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CarrierInformation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="StatusCode" />
+                          <xs:element name="CarrierTransMethodCode" />
+                          <xs:element name="CarrierAlphaCode" />
+                          <xs:element name="CarrierRouting" />
+                          <xs:element name="EquipmentDescriptionCode" />
+                          <xs:element name="CarrierEquipmentInitial" />
+                          <xs:element name="CarrierEquipmentNumber" />
+                          <xs:element name="EquipmentType" />
+                          <xs:element name="OwnershipCode" />
+                          <xs:element name="RoutingSequenceCode" />
+                          <xs:element name="TransitDirectionCode" />
+                          <xs:element name="TransitTimeQual" />
+                          <xs:element name="TransitTime" />
+                          <xs:element name="ServiceLevelCodes">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ServiceLevelCode" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Address">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="AddressTypeCode" />
+                                <xs:element name="LocationCodeQualifier" />
+                                <xs:element name="AddressLocationNumber" />
+                                <xs:element name="AddressName" />
+                                <xs:element name="AddressAlternateName" />
+                                <xs:element name="AddressAlternateName2" />
+                                <xs:element name="Address1" />
+                                <xs:element name="Address2" />
+                                <xs:element name="Address3" />
+                                <xs:element name="Address4" />
+                                <xs:element name="City" />
+                                <xs:element name="State" />
+                                <xs:element name="PostalCode" />
+                                <xs:element name="Country" />
+                                <xs:element name="LocationID" />
+                                <xs:element name="CountrySubDivision" />
+                                <xs:element name="AddressTaxIdNumber" />
+                                <xs:element name="AddressTaxExemptNumber" />
+                                <xs:element name="Dates">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="DateTimeQualifier" />
+                                      <xs:element name="Date" />
+                                      <xs:element name="Time" />
+                                      <xs:element name="DateTimePeriod" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="SealNumbers">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="SealStatusCode" />
+                                <xs:element name="SealNumber" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="RegulatoryCompliances">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RegulatoryComplianceQual" />
+                          <xs:element name="YesOrNoResponse" />
+                          <xs:element name="RegulatoryComplianceID" />
+                          <xs:element name="RegulatoryAgency" />
+                          <xs:element name="Description" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Summary">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TotalAmount" type="xs:decimal" />
+                    <xs:element name="TotalLineItemNumber" type="xs:integer" />
+                    <xs:element name="Description" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

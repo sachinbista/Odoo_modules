@@ -1,0 +1,90 @@
+<OrderAck>
+    <Header>
+        <OrderHeader>
+            <TradingPartnerId>ARLALLTHORGROUP</TradingPartnerId>
+            <PurchaseOrderNumber>TACLYU</PurchaseOrderNumber>
+            <TsetPurposeCode>00</TsetPurposeCode>
+            <PurchaseOrderDate>2024-02-17</PurchaseOrderDate>
+            <AcknowledgementNumber>977650397</AcknowledgementNumber>
+            <AcknowledgementType>AC</AcknowledgementType>
+            <AcknowledgementDate>2024-10-17</AcknowledgementDate>
+            <BuyersCurrency>testBuyersCurrency</BuyersCurrency>
+            <Vendor>99999999</Vendor>
+            <customerordernumber>S00132</customerordernumber>
+        </OrderHeader>
+
+        <Dates>
+            <DateTimeQualifier>001</DateTimeQualifier>
+            <Date>2024-04-28</Date>
+        </Dates>
+
+        <Address>
+            <AddressTypeCode>ST</AddressTypeCode>
+            <LocationCodeQualifier>92</LocationCodeQualifier>
+            <AddressLocationNumber>11111</AddressLocationNumber>
+            <AddressName>Azure Interior</AddressName>
+            <AddressAlternateName></AddressAlternateName>
+            <Address1>4557 De Silva St</Address1>
+            <Address2></Address2>
+            <City>Fremont or ''</City>
+            <State>CA</State>
+            <PostalCode>94538</PostalCode>
+            <Country>US</Country>
+        </Address>
+        <References>
+            <ReferenceQual>VN</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+            <Description></Description>
+        </References>
+        <QuantityAndWeight>
+            <PackingMedium>CNT</PackingMedium>
+            <LadingQuantity>4100</LadingQuantity>
+            <Weight>43.44</Weight>
+            <WeightUOM>LB</WeightUOM>
+        </QuantityAndWeight>
+
+    </Header>
+    <LineItem>
+        <OrderLine>
+            <LineSequenceNumber>01</LineSequenceNumber>
+            <BuyerPartNumber>850018999885</BuyerPartNumber>
+            <VendorPartNumber>11155-559999</VendorPartNumber>
+            <ConsumerPackageCode>False</ConsumerPackageCode>
+            <GTIN>12345678901234</GTIN>
+            <UPCCaseCode>98765432101</UPCCaseCode>
+            <ProductID>
+                <OrderQty>1.0</OrderQty>
+                <OrderQtyUOM>Each</OrderQtyUOM>
+                <PurchasePrice>1322.27</PurchasePrice>
+            </ProductID>
+        </OrderLine>
+        <LineItemAcknowledgement>
+            <LineSequenceNumber>01</LineSequenceNumber>
+            <ItemStatusCode>IA</ItemStatusCode>
+            <ItemScheduleQty>1.0</ItemScheduleQty>
+            <ItemScheduleUOM>Each</ItemScheduleUOM>
+            <ItemScheduleQualifier>067</ItemScheduleQualifier>
+            <ItemScheduleDate>2014-01-14</ItemScheduleDate>
+        </LineItemAcknowledgement>
+        <Dates>
+            <DateTimeQualifier>372</DateTimeQualifier>
+            <Date>2013-12-21</Date>
+        </Dates>
+        <PriceInformation>
+            <PriceTypeIDCode>TIP</PriceTypeIDCode>
+            <UnitPrice>5.48</UnitPrice>
+            <PriceMultiplier>8</PriceMultiplier>
+            <Quantity>80.78</Quantity>
+            <QuantityUOM>JU</QuantityUOM>
+        </PriceInformation>
+
+        <References>
+            <ReferenceQual>MB</ReferenceQual>
+            <ReferenceID>testReferenceID</ReferenceID>
+        </References>
+
+    </LineItem>
+    <Summary>
+        <TotalLineItemNumber>1</TotalLineItemNumber>
+    </Summary>
+</OrderAck>

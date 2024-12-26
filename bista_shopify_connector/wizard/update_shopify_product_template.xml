@@ -7,9 +7,24 @@
         <field name="model">update.shopify.product</field>
         <field name="arch" type="xml">
             <form string="Shopify Product Template Update">
-                <span>Do you want to update the selected products on shopify?</span>
+                <span invisible="context.get('import_product_template_info')"><strong>Do you want to update the selected
+                    products on shopify?</strong>
+                    <br/><br/>Below Fields will update on shopify template:<br/>
+                    1. Product Template Name<br/>
+                    2. Product Description<br/>
+                    3. Product Type<br/>
+                    4. Vendor<br/>
+                    5. Product Tags<br/>
+                    6. Product Collections
+                </span>
+                <span invisible="context.get('export_product_template_info')">Do you want to update the selected
+                    products in odoo?
+                </span>
                 <footer>
-                    <button string="Update" name="update_shopify_product_template" type="object" class="btn-primary"/>
+                    <button string="Update" name="update_shopify_product_template" type="object" class="btn-primary"
+                            invisible="context.get('export_product_template_info')"/>
+                    <button string="Update" name="update_shopify_product_template" type="object" class="btn-primary"
+                            invisible="context.get('import_product_template_info')"/>
                     <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
@@ -19,13 +34,25 @@
     <!-- Action to add the Menu on the Action Menu List which appears on Selection of single or multiple product templates -->
 
     <record id="shopify_product_template_update_action" model="ir.actions.act_window">
-        <field name="name">Update Shopify Product</field>
+        <field name="name">Update Shopify Product in Odoo</field>
         <field name="res_model">update.shopify.product</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="model_shopify_product_template"/>
         <field name="binding_view_types">form</field>
         <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]"/>
+        <field name="context">{'import_product_template_info': True}</field>
+    </record>
+
+    <record id="shopify_product_template_update_on_shopify_action" model="ir.actions.act_window">
+        <field name="name">Update Shopify Product in Shopify</field>
+        <field name="res_model">update.shopify.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_shopify_product_template"/>
+        <field name="binding_view_types">form,tree</field>
+        <field name="groups_id" eval="[(4, ref('bista_shopify_connector.group_shopify_admin'))]"/>
+        <field name="context">{'export_product_template_info': True}</field>
     </record>
 
 </odoo>

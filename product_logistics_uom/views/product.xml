@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.common.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_lots_and_weight']/div[@name='weight']" position="after">
+                <label for="height" invisible="product_variant_count &gt; 1 and not is_product_variant"/>
+                <div class="o_row" name="Height" invisible="product_variant_count &gt; 1 and not is_product_variant">
+                    <field name="height" string="Height"/>
+                    <field name="height_uom_id" readonly="1" widget="selection"/>
+                </div>
+                <label for="width" invisible="product_variant_count &gt; 1 and not is_product_variant"/>
+                <div class="o_row" name="Width" invisible="product_variant_count &gt; 1 and not is_product_variant">
+                    <field name="width" string="Width"/>
+                    <field name="width_uom_id" readonly="1" widget="selection"/>
+                </div>
+                <label for="length" invisible="product_variant_count &gt; 1 and not is_product_variant"/>
+                <div class="o_row" name="Length" invisible="product_variant_count &gt; 1 and not is_product_variant">
+                    <field name="length" string="Length"/>
+                    <field name="length_uom_id" readonly="1" widget="selection"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.common.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='weight']" position="after">
+                <label for="height"/>
+                <div class="o_row" name="Height">
+                    <field name="height" string="Height"/>
+                    <field name="height_uom_id" readonly="1" widget="selection"/>
+                </div>
+                <label for="width"/>
+                <div class="o_row" name="Width">
+                    <field name="width" string="Width"/>
+                    <field name="width_uom_id" readonly="1" widget="selection"/>
+                </div>
+                <label for="length"/>
+                <div class="o_row" name="Length">
+                    <field name="length" string="Length"/>
+                    <field name="length_uom_id" readonly="1" widget="selection"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
