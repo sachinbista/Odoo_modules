@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- =============== Go-Flow Import Tree View ====================== -->
+    <record model="ir.ui.view" id="custom_quickbook_invoice_import_tree_view">
+        <field name="name">quickbook.invoice.tree</field>
+        <field name="model">quickbook.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Go-Flow Invoice Import Tree">
+                <field name="invoice_type"/>
+                <field name="invoice_date"/>
+                <field name="invoice_num"/>
+                <field name="invoice_po"/>
+                <field name="name"/>
+                <field name="invoice_memo"/>
+                <field name="ship_date"/>
+                <field name="invoice_via"/>
+                <field name="invoice_payment_term"/>
+                <field name="invoice_item"/>
+                <field name="invoice_item_des"/>
+                <field name="invoice_cls"/>
+                <field name="invoice_clr"/>
+                <field name="invoice_split"/>
+                <field name="qty"/>
+                <field name="sales_price"/>
+                <field name="debit"/>
+                <field name="credit"/>
+                <field name="balance"/>
+                <field name="invoice_so"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =============== Go-Flow Import Form View ====================== -->
+    <record id="custom_quickbook_invoice_import_form_view" model="ir.ui.view">
+        <field name="name">quickbook.invoice.form</field>
+        <field name="model">quickbook.invoice</field>
+        <field name="arch" type="xml">
+            <form string="GoFlow Invoice Import Form">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="invoice_type"/>
+                            <field name="invoice_date"/>
+                             <field name="invoice_num"/>
+                            <field name="invoice_po"/>
+                            <field name="name"/>
+                            <field name="invoice_memo"/>
+                            <field name="ship_date"/>
+                            <field name="invoice_via"/>
+                            <field name="invoice_payment_term"/>
+                            <field name="invoice_item"/>
+                        </group>
+                        <group>
+
+                            <field name="invoice_item_des"/>
+                            <field name="invoice_cls"/>
+                            <field name="invoice_clr"/>
+                            <field name="invoice_split"/>
+                            <field name="qty"/>
+                            <field name="sales_price"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="balance"/>
+                            <field name="invoice_so"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="bista_quickbook_invoice_import_view_search" model="ir.ui.view">
+            <field name="name">quickbook.invoice.select</field>
+            <field name="model">quickbook.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search GoFlow Invoice Import">
+                    <field name="invoice_num" string="Num"
+                        filter_domain="[('invoice_num', 'ilike', self)]"/>
+
+                    <field name="invoice_po" string="P.O"
+                        filter_domain="[('invoice_po', 'ilike', self)]"/>
+
+                    <field name="name" string="Name"
+                        filter_domain="[('name', 'ilike', self)]"/>
+
+                </search>
+            </field>
+        </record>
+
+    <!-- =============== Go-Flow Import Action View ====================== -->
+    <record id="action_custom_quickbook_invoice_import" model="ir.actions.act_window">
+        <field name="name">GoFlow Invoice Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">quickbook.invoice</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="bista_quickbook_invoice_import_view_search"/>
+    </record>
+
+
+    <menuitem
+            name="GoFlow Invoice Import"
+            id="go_flow_invoice_import_child_menu"
+            parent="bista_go_flow_import.go_flow_import_parent_menu"
+            action="action_custom_quickbook_invoice_import"
+    />
+
+</odoo>

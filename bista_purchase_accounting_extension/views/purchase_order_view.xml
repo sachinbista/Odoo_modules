@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_inherit_bista_purchase_acc_ext" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+             <xpath expr="//field[@name='order_line']//field[@name='price_subtotal']" position="after">
+                    <field name="purchase_extra_journal_entry" force_save="1" widget="many2many_tags" optional="hide"/>
+             </xpath>
+
+             <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                 <button type="object"
+                    name="action_view_entries"
+                    class="oe_stat_button"
+                    icon="fa-book" attrs="{'invisible':['|',('state', 'not in', ('purchase', 'done')),('journal_entries_count', '=', 0)]}" groups="account.group_account_readonly">
+                     <field name="journal_entries_count" widget="statinfo" string="Journal Entry" help="Created Journal Entries"/>
+                </button>
+             </xpath>
+           
+        </field>
+    </record>
+    <record id="view_purchase_order_form_inherit_expectation_data" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.expectation.data</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_order_receipt_expectation.view_purchase_order_form_inherit_expectation"/>
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='button_open_manual_receipt_wizard']" position="attributes">
+                <attribute name="string"> Merchandise/Container</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

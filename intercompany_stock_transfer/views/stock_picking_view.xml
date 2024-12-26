@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="stock_picking_type_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.intercompany</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='warehouse_id']" position="after">
+                <field name="is_intercompany"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inter_company_stock_picking_form_view" model="ir.ui.view">
+        <field name="name">inter.company.stock.picking.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="priority" eval="17"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="is_intercompany" invisible="1"/>
+                <field name="stock_transfer_id" readonly="1" attrs="{'invisible': [('stock_transfer_id', '=', False)]}"/>
+                <field name="intercom_sale_order_id" readonly="1" attrs="{'invisible': [('stock_transfer_id', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//header/button[@name='button_validate']" position="attributes">
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='do_unreserve']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_cancel']" position="attributes">
+                <attribute name="context">{'all_cancel':True}</attribute>
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_assign']" position="attributes">
+                <attribute name="groups">stock.group_stock_user</attribute>
+            </xpath>
+            <div class="oe_button_box" name="button_box">
+                <button name="action_view_Picking" type="object"
+                         class="oe_stat_button" icon="fa-truck"
+                         attrs="{'invisible': [('shipment_count', '=', 0)]}">
+                   <field name="shipment_count" widget="statinfo" string="Transfers"/>
+                </button>
+                <button name="action_view_journal_entries" type="object"
+                        class="oe_stat_button" icon="fa-bars"
+                        attrs="{'invisible': [('je_count', '=', 0)]}">
+                    <field name="je_count" widget="statinfo"
+                           string="Journal Entries"/>
+                </button>
+            </div>
+            <xpath expr="//group[@name='other_infos']" position="inside">
+                <field name="current_pick_warehouse" invisible="1"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='move_line_ids']/tree/field[@name='location_dest_id']" position="attributes"> -->
+<!--                 <attribute name="context">{'ctx_picking_type': parent.picking_type_id, 'ctx_location': parent.location_dest_id,'ctx_picking_id': parent.id,'ctx_line_product': product_id}</attribute> -->
+<!--             </xpath> -->
+        </field>
+    </record>
+
+    <record id="view_backorder_confirmation_inherit_caliva_resupply" model="ir.ui.view">
+        <field name="name">stock_backorder_confirmation</field>
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+        <field name="arch" type="xml">
+            <field name="pick_ids" position="after">
+                <field name="hide_create_backorder" invisible="1" readonly="1"/>
+                <field name="hide_no_backorder" invisible="1" readonly="1"/>
+            </field>
+            <!-- <button name="process" position="attributes">
+                <attribute name="attrs">{'invisible': [('hide_create_backorder', '!=', False)]}
+                    </attribute>
+            </button> -->
+            <xpath expr="//button[@name='process']" position="replace">
+                <button name="process" string="Create Backorder" type="object"
+                                class="oe_highlight" data-hotkey="q"
+                                attrs="{'invisible': ['|',('hide_create_backorder', '!=', False),('identify_goflow_split_order', '=', True)]}"/>
+            </xpath>
+
+            <button name="process_cancel_backorder" position="attributes">
+                <!-- <attribute name="attrs">{'invisible': [('hide_no_backorder', '!=', False)]}</attribute> -->
+                <attribute name="context">{'cancel_backorder': True}</attribute>
+            </button>
+            <xpath expr="//button[@name='process_cancel_backorder']" position="replace">
+                <button name="process_cancel_backorder" string="No Backorder" 
+                        type="object" class="btn-primary" 
+                        attrs="{'invisible': ['|', ('hide_no_backorder', '!=', False), '|', ('show_transfers', '=', True),('identify_goflow_split_order', '=', True)]}" 
+                        data-hotkey="w"/>
+            </xpath>
+            <button name="process_cancel_backorder" position="after">
+                <button name="resupply_process_cancel_backorder" string="Create Return" 
+                    type="object" attrs="{'invisible': [('hide_no_backorder', '=', False)]}" class="btn-primary"/>
+            </button>
+            <xpath expr="//form/group" position="after">
+                <group attrs="{'invisible': [('hide_no_backorder', '=', False)]}">
+                    <p>
+                        You have processed less products than the initial demand.
+                    </p><p class="text-muted">
+                        If you proceed, a return operation will be automatically generated to return the difference
+                        between the initial demand and the done quantity. Do you wish to create the return operation?
+                    </p>
+                </group>
+            </xpath>
+
+            <xpath expr="//form/group" position="attributes">
+                <attribute name="attrs">{'invisible': [('hide_no_backorder', '!=', False)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inter_company_picktree" model="ir.ui.view">
+        <field name="name">intercompany.stock.picking.tree</field>
+        <field name="model">stock.picking</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'"
+                  decoration-muted="state == 'cancel'"
+                  decoration-danger="state not in ('cancel', 'done') and scheduled_date &lt; current_date"
+                  string="Picking list" default_order="id">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="location_dest_id"
+                       groups="stock.group_stock_multi_locations"/>
+                <field name="partner_id"/>
+                <field name="date" invisible="1"/>
+                <field name="scheduled_date"/>
+                <field name="origin"/>
+                <field name="stock_transfer_id"/>
+                <field name="group_id" invisible="1"/>
+                <field name="backorder_id"/>
+                <field name="current_pick_warehouse" invisible="1"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="priority" invisible="1"/>
+                <field name="picking_type_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inter_company_journal_entry_tree" model="ir.ui.view">
+        <field name="name">intercompany.journal.entry.tree</field>
+        <field name="model">account.move</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+          <tree decoration-info="state == 'draft'" string="Journal Entries" default_order="id">
+                  <field name="id"/>
+                  <field name="date"/>
+                  <field name="name"/>
+                  <field name="partner_id"/>
+                  <field name="ref"/>
+                  <field name="journal_id"/>
+                  <field name="amount_total" sum="Total Amount"/>
+                  <field name="company_id"/>
+                  <field name="state"/>
+                  <field name="currency_id" invisible="1"/>
+              </tree>
+        </field>
+    </record>
+
+    <record id="action_move_journal_line_intercompany" model="ir.actions.act_window">
+        <field name="name">Journal Entries</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="inter_company_journal_entry_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to create a journal entry.
+          </p><p>
+            A journal entry consists of several journal items, each of
+            which is either a debit or a credit transaction.
+          </p><p>
+            Odoo automatically creates one journal entry per accounting
+            document: invoice, refund, vendor payment, bank statements,
+            etc. So, you should record journal entries manually only/mainly
+            for miscellaneous operations.
+          </p>
+     </field>
+    </record>
+    <record id="view_picking_internal_search_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.search.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="stock_transfer_id"/>
+            </xpath>
+            <xpath expr="//filter[@name='picking_type']" position="after">
+                <filter string="Inter-Company Transfer" name="inter_company_transfer"
+                        domain="[]" context="{'group_by': 'stock_transfer_id'}"/>
+            </xpath>
+        </field>
+    </record>
+<!--     <record id="server_action_stock_picking_wizard" model="ir.actions.server">-->
+<!--        <field name="name">Autofill Done Quantity</field>-->
+<!--        <field name="type">ir.actions.server</field>-->
+<!--        <field name="model_id" ref="stock.model_stock_picking"/>-->
+<!--        <field name="binding_model_id" ref="stock.model_stock_picking"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">action = records.action_demand_autofill()</field>-->
+<!--    </record>-->
+</odoo>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_form_inherited_wtsmed" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account_check_printing.view_account_payment_form_inherited" />
+            <field name="arch" type="xml">
+                <button name="print_checks" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': ['|','|','|','|',('payment_method_code', '!=', 'check_printing'),
+                        ('state', '!=', 'posted'),('is_move_sent', '=', True),('payment_type', '=', 'inbound'),('is_void', '=', True)]}</attribute>
+                </button>
+                <button name="action_unmark_sent" position="replace">
+                    <button name="action_unmark_sent" string="Void Check" type="object"
+                            attrs="{'invisible': ['|', '|',('payment_method_code', '!=', 'check_printing'),
+                                                           ('is_move_sent', '=', False),
+                                                           ('partner_type', '=', 'supplier')]}"/>
+                    <button name="action_unmark_sent" string="Void Check" type="object"
+                            attrs="{'invisible': ['|', '|',('payment_method_code', '!=', 'check_printing'),
+                                                           ('is_move_sent', '=', False),
+                                                           ('partner_type', '=', 'customer')]}"/>
+                </button>
+                <button name="action_void_check" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <field name="check_number" position="after">
+                    <field name="is_hide_check" invisible="1"/>
+                    <field name="is_visible_check" invisible="1"/>
+                    <field name="is_readonly_check" invisible="1"/>
+                    <field name="is_void" invisible="1"/>
+                </field>
+
+                <field name="check_number" position="attributes">
+                    <attribute name="attrs">{'invisible': [('payment_method_code', '!=', 'check_printing')],
+                    'readonly': ['|', ('is_readonly_check', '=', True),('state', '!=', 'draft')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_inherit_caliva" model="ir.ui.view">
+            <field name="name">account.payment.form.caliva</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+                <div name="button_box" position="after">
+                    <field name="is_void" invisible="1"/>
+                    <widget name="web_ribbon" title="Void" attrs="{'invisible': [('is_void', '=', False)]}"/>
+                </div>
+            </field>
+        </record>
+
+        <record id="view_account_payment_invoice_form_inherited_inbound_wtsmed" model="ir.ui.view">
+            <field name="name">account.payment.invoice.form.inherited.wtsmed</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account_check_printing.view_account_payment_form_inherited" />
+            <field name="arch" type="xml">
+                <field name="check_number" position="after">
+                    <field name="is_visible_check" invisible="1"/>
+                    <field name="is_readonly_check" invisible="1"/>
+                </field>
+                <field name="check_number" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('payment_method_code', '!=', 'check_printing'),('is_visible_check', '=', False)],
+                    'readonly': ['|', ('is_readonly_check', '=', True),('state', '!=', 'draft')],
+                    'required':[('payment_type','=','inbound'),('payment_method_code', '=', 'check_printing')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_wtsmed_inherit" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+                <button name="action_post" position="after">
+                    <button name="void_check_reversal_payment" type="object"
+                        string="Void Check and Payment" attrs="{'invisible': ['|', '|', '|', ('payment_method_code', '!=', 'check_printing'),
+                                                             ('is_move_sent', '=', False),
+                                                             ('partner_type', '=', 'customer'),
+                                                             ('payment_type', '!=', 'outbound')]}"/>
+                </button>
+                <button name="button_open_invoices" position="before">
+                    <button class="oe_stat_button" name="button_void_checks" string="Void Checks"
+                        type="object" icon="fa-bars" attrs="{'invisible': ['|', '|', '|', ('state', '=', 'draft'),
+                                                                                ('payment_method_code', '!=', 'check_printing'),
+                                                                                ('partner_type', '=', 'customer'),
+                                                                                ('payment_type', '!=', 'outbound')]}"/>
+                </button>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+                </xpath>
+<!--                <xpath expr="//sheet" position="after">-->
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_payment_check_void_tree" model="ir.ui.view">
+            <field name="name">payment.check.void.tree.wtsmed</field>
+            <field name="model">payment.check.void</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Check Void">
+                    <field name="bill_ref"/>
+                    <field name="create_date"/>
+                    <field name="check_number"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_payment_check_void_form" model="ir.ui.view">
+            <field name="name">payment.check.void.form.wtsmed</field>
+            <field name="model">payment.check.void</field>
+            <field name="arch" type="xml">
+                <form string="Payment Check Void">
+                    <sheet>
+                        <group col="4">
+                            <field name="payment_id"/>
+                            <field name="create_date"/>
+                            <field name="bill_ref"/>
+                            <field name="check_number"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_account_payment_from_invoices_check_inherited" model="ir.ui.view">
+            <field name="name">account.register.payments.wizard..check.inherited</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form" />
+            <field name="arch" type="xml">
+                <field name="payment_type" invisible="1"/>
+                <field name="payment_method_line_id" position="after">
+                    <field name="check_number" attrs="{'invisible':['|',('payment_type','!=','inbound'),('payment_method_code', '!=', 'check_printing')],
+                        'required':[('payment_type','=','inbound'),('payment_method_code', '=', 'check_printing')]}"
+                        readonly="0"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

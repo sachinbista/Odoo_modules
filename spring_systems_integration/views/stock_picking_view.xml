@@ -5,14 +5,20 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="is_spring_picking" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='tracking']" position="after">
+                <field name="carrier_code"/>
+                <field name="scac_code"/>
+            </xpath>
             <xpath expr="//header/button[@name='action_cancel']" position="after">
                 <button type="object"
                         name="get_documents_from_spring"
                         class="oe_highlight"
                         string="Get Documents"
-                        attrs="{'invisible':[('picking_type_code','!=','outgoing')]}">
-                    </button>
-
+                        attrs="{'invisible':['|',('state','not in',('confirmed', 'assigned')),('is_spring_picking', '=', False)]}">
+                </button>
             </xpath>
         </field>
     </record>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+       <!-- inherit sale order formview -->
+        <record id="inherit_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.view.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_cancel']" position="replace">                    
+                    <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale','hold']), ('id', '=', False)]}" data-hotkey="z"/>                    
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="after">                    
+                    <button name="%(action_goflow_hold_order)d" type="action" string="On Hold" class="btn-danger text-uppercase"
+                            attrs="{'invisible': ['|', ('state', 'in', ['done', 'cancel', 'hold']),('goflow_store_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="before">                    
+                    <button name="unhold_order" type="object" string="Resume" class="oe_highlight" attrs="{'invisible': ['|', ('state', '!=', 'hold'),('goflow_store_id', '=', False)]}"/>                    
+                </xpath>
+                <xpath expr="//notebook/page[@name='other_information']" position="inside">
+                    <group>
+                        <group string="Shipping Address">
+                            <field name="goflow_customer_name" readonly="0" force_save="1" string="Name"/>
+                            <span class="o_form_label o_td_label" name="address_name">
+                                <b>Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="goflow_street1" placeholder="Street..." class="o_address_street" readonly="0" force_save="1"/>
+                                <field name="goflow_street2" placeholder="Street 2..." class="o_address_street" readonly="0" force_save="1"/>
+                                <field name="goflow_city" style="width:50px;" placeholder="City" class="o_address_city" readonly="0" force_save="1"/>
+                                <field name="goflow_state" style="width:50px;" class="o_address_state" placeholder="State" readonly="0" force_save="1"/>
+                                <field name="goflow_zip_code" style="width:30px;" placeholder="ZIP" class="o_address_zip" readonly="0" force_save="1"/>
+                                <field name="goflow_country_code" style="width:30px;" placeholder="Country" class="o_address_country" readonly="0" force_save="1"/>
+                            </div>
+                            <field name="goflow_phone" readonly="0" force_save="1" string="Phone"/>
+                            <field name="goflow_email" readonly="0" force_save="1" string="Email"/>
+                        </group>
+                        <group string="Shipment Details">
+                            <field name="goflow_shipment_type" attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1"/>
+                            <field name="goflow_carrier" attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1"/>
+                            <field name="goflow_shipping_method" attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1"/>
+                            <field name="goflow_scac" attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1"/>
+                            <field name="goflow_shipped_at" attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1"/>
+                            <!-- <field name="goflow_currency_code" readonly="1" force_save="1"/> -->
+                            <!-- <field name="carrier_id" />
+                            <field name="shipping_account" /> -->
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook/page[@name='other_information']" position="after">
+                    <page name="integration" string="Integration Info" attrs="{'invisible': [('external_origin', '=', 'manual')]}">
+                        <group name="goflow_grp" string="">
+                            <group>
+                                <field name="goflow_store_id" readonly="1" force_save="1"/>
+                                <field name="goflow_warehouse" readonly="1" force_save="1"/>
+                                <field name="goflow_hold_reason" readonly="1" force_save="1" attrs="{'invisible': [('goflow_hold_reason', '=', False)]}"/>
+                            </group>                            
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="before">
+                    <field name="goflow_order_date" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit Sale tree view -->
+
+        <record id="view_quotation_tree_bista_go_flow" model="ir.ui.view">
+            <field name="name">sale.order.view.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="before">
+                    <field name="goflow_order_date" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit Sale search view -->
+        <record id="view_sales_order_filter_bista_go_flow" model="ir.ui.view">
+            <field name="name">sale.order.search.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/filter[@name='order_month']" position="before">
+                    <filter name="grp_state" string="Status" context="{'group_by': 'state'}"/>                    
+                    <filter name="goflow_store_id" string="GoFlow Store" context="{'group_by': 'goflow_store_id'}"/>
+                    <filter name="goflow_order_date" string="GoFlow Order Date" context="{'group_by': 'goflow_order_date'}"/>                    
+                    <filter name="goflow_order_status" string="GoFlow Order Status" context="{'group_by': 'goflow_order_status'}"/>
+                    <filter name="goflow_warehouse" string="GoFlow Order Warehouse" context="{'group_by': 'goflow_warehouse'}"/>
+                    <filter name="delivery_status" string="Delivery Status" context="{'group_by': 'delivery_status'}"/>
+                    <filter name="company_filter" string="Company" context="{'group_by': 'company_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- goflow store -->
+        <record id="goflow_store_view_form" model="ir.ui.view">
+            <field name="name">goflow.store.view.form</field>
+            <field name="model">goflow.store</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="store_id" readonly="1" force_save="1"/>
+                                <field name="channel"  readonly="1" force_save="1"/>
+                                <field name="partner_id" />
+                            </group>
+                            <group>
+                                <field name="require_manual_shipment" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="goflow_store_view_tree" model="ir.ui.view">
+            <field name="name">goflow.store.view.tree</field>
+            <field name="model">goflow.store</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="store_id" />
+                    <field name="channel" />
+                    <field name="partner_id" />
+                    <field name="require_manual_shipment" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_goflow_store" model="ir.actions.act_window">
+            <field name="name">Goflow Store</field>
+            <field name="res_model">goflow.store</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_goflow"
+            name="Goflow"
+            sequence="70"
+            parent="sale.menu_sale_config">
+
+            <menuitem id="submenu_goflow_store"
+                name="Store"
+                action="action_goflow_store"
+                sequence="10"/>
+
+        </menuitem>
+
+        <menuitem 
+            id="catalog_submenu_goflow_store"
+            name="Store"
+            action="action_goflow_store"
+            sequence="10"
+            parent="bista_go_flow.goflow_catalog_menu"/>
+        
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="search_template_royalty_agent">
+        <button t-if="options.get('royalty_agent')"
+                type="button" class="o-no-caret btn btn-secondary dropdown-toggle royalty_agent_filter"
+                data-bs-toggle="dropdown">
+            <span class="fa fa-users"/>
+            Royalty Agents
+        </button>
+        <ul class="dropdown-menu o_filter_menu" role="menu">
+            <li class="o_account_report_search js_royalty_agent_m2m"/>
+        </ul>
+    </template>
+
+
+    <template id="inherit_search_template" inherit_id="account_reports.search_template">
+        <xpath expr="." position="inside">
+            <div class="btn-group dropdown o_account_reports_filter_royalty_agent"
+                 t-if="options.get('royalty_agent')">
+                <t t-call="bista_royalty_report.search_template_royalty_agent"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

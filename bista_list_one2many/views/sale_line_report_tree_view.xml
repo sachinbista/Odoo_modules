@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_line_report_tree_view_id" model="ir.ui.view">
+        <field name="name">sale.line.report.tree</field>
+        <field name="model">sale.line.report</field>
+        <field name="inherit_id" ref="sale_line_report.sale_line_report_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='scheduled_date']" position="after">
+                <field name="sub_line" string="Order Lines" widget="one2many" readonly="1" decoration-bf="1">
+                    <tree string="Quotation" class="o_sale_order" limit="3">
+                        <field name="product_id"/>
+                        <field name="product_uom_qty"/>
+                        <field name="qty_delivered" string="Delivered Qty"/>
+
+                        <!--                        <field name="move_ids" invisible="1"/>-->
+                        <!--                        <field name="line_report_id"/>-->
+                        <widget name="qty_at_date_widget" width="5px"/>
+                        <field class="display_qty_widget" name="display_qty_widget" invisible="1"/>
+                        <field name="display_warehouse_qty_widget" invisible="1"/>
+                        <widget name="branch_qty_at_date_widget" width="0.1"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inter_company_stock_warehouse_form_view_inherit" model="ir.ui.view">
+        <field name="name">inter.company.stock.warehouse.form.view</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="so_available"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

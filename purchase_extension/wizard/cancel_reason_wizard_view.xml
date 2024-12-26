@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="po_so_cancel_reason_wizard" model="ir.ui.view">
+            <field name="name">cancel.reason.wizard.view.form</field>
+            <field name="model">cancel.reason.wizard</field>
+            <field name="arch" type="xml">
+
+                <form string="Cancel Reason">
+                    <group>
+                            <field name="cancel_type"/>
+                            <field name="reason_description"/>
+                            </group>
+                    <footer>
+                        <button name="submit_cancel_reason" string="Submit"
+                                type="object"/>
+
+                       <button special="cancel" string="Discard" close="1" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+</odoo>

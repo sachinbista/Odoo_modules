@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_product_template_form_view_royalty" model="ir.ui.view">
+        <field name="name">inherit.product.template.form.view.royalty</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <!--Commented as now the smart button is not going to be useful later removed after launch-->
+            <!--            <xpath expr="//button[@name='open_pricelist_rules']" position="after">-->
+            <!--                <button class="oe_stat_button"-->
+            <!--                        name="open_royalty_list"-->
+            <!--                        icon="fa-list-ul"-->
+            <!--                        type="object">-->
+            <!--                    <div class="o_field_widget o_stat_info">-->
+            <!--                        <span class="o_stat_value">-->
+            <!--                            <field name="royalty_item_count"/>-->
+            <!--                        </span>-->
+            <!--                        <span>-->
+            <!--                            Royalty-->
+            <!--                        </span>-->
+            <!--                    </div>-->
+            <!--                </button>-->
+            <!--            </xpath>-->
+            <xpath expr="//page[@name='inventory']" position="before">
+                <page string="Royalty" name="royalty">
+                    <field name="product_royalty_list">
+                        <tree string="Sales Order Lines" editable="bottom">
+                            <field name="partner_id" required="1" options="{'no_create':True,'no_create_edit': True}"/>
+                            <field name="royalty_id" string="Royalty" required="1" options="{'no_create':True,'no_create_edit': True}"/>
+                            <field name="royalty_rate" string="Royalty Rate (%)" readonly="1" force_save="1"/>
+                            <field name="royalty_type"/>
+                            <field name="store_id" options="{'no_create':True,'no_create_edit': True}"/>
+                            <field name="is_dropship" readonly="1" force_save="1" optional="hide"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

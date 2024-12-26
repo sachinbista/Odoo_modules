@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_bol" model="report.paperformat">
+        <field name="name">BoL</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="bol_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <style>
+                            .s_border{border: 1px solid}
+                            .s1 { padding-left:10px;border: 1px solid black;font-size: 17pt;width:50%;}
+                            .s2 { padding-left:10px;border: 1px solid black;font-size: 17pt;width:50%;}
+                            .s3 { padding-left:10px;border: 1px solid black;width:50%;}
+                            .s4 { font-size: 11.5pt;}
+                            .s5 { font-size: 8.5pt;}
+                            .s6 { padding-left:10px;border: 1px solid black;width:13%;}
+                            .s7 { padding-left:10px;border: 1px solid black}
+                            table, tbody {vertical-align: top; overflow: visible;}
+                        </style>
+                        <div class="oe_structure"/>
+                        <!-- =============== Table-1 ===============-->
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="s1">
+                                    <strong>BILL OF LADING</strong>
+                                </td>
+                                <td class="s2">
+                                    <span>10/16/2023</span>
+                                </td>
+                            </tr>
+                            <tr>
+                            <td class="s3">
+                                <strong class="s4">SHIP FROM</strong>
+                                <br/>
+                                <t t-set="company_name" t-value="o.company_id.name"/>
+                                  <t t-if="company_name"><span class="s5"><t t-esc="company_name"/></span><br/></t>
+
+                                <t t-set="phone" t-value="o.company_id.phone"/>
+                                  <t t-if="phone"><span class="s5"><t t-esc="phone"/></span><br/></t>
+
+                                <t t-set="street" t-value="o.company_id.street"/>
+                                  <t t-if="street"><span class="s5"><t t-esc="street"/></span><br/></t>
+
+                                  <t t-set="company_street" t-value="o.company_id.street2"/>
+                                    <t t-if="company_street"><span class="s5"><t t-esc="company_street"/></span><br/></t>
+
+                                <t t-set="city" t-value="o.company_id.city"/>
+                                  <t t-if="city"><span class="s5"><t t-esc="city"/></span></t>
+
+                                <t t-set="state" t-value="o.company_id.state_id.code"/>
+                                  <t t-if="state"><span class="s5"><t t-esc="state"/></span><br/></t>
+
+                                <span class="s5"><t t-esc="o.company_id.zip"/></span>
+                                <span class="s5"><t t-esc="o.company_id.country_id.code"/></span>
+                                <br/>
+                                <strong class="s5">SID#</strong>
+                                <strong style="margin-left: 26.5em;" class="s5">FOB</strong>&amp;nbsp;
+                                <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                            </td>
+
+
+                                <td style="padding-left:10px;border: 1px solid black">
+                                    <strong class="s4">BILL OF LADING NUMBER</strong>
+                                    <br/>
+                                    <strong class="s5">Master bill of lading with attached underlying bills of lading</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="s3">
+                                    <strong class="s4">SHIP To</strong>
+                                <br/>
+                                <t t-set="partner_name" t-value="o.partner_id.name"/>
+                                  <t t-if="partner_name"><span class="s5"><t t-esc="partner_name"/></span><br/></t>
+
+                                <t t-set="street" t-value="o.partner_id.street"/>
+                                  <t t-if="street"><span class="s5"><t t-esc="street"/></span><br/></t>
+
+                                  <t t-set="company_street" t-value="o.partner_id.street2"/>
+                                    <t t-if="company_street"><span class="s5"><t t-esc="company_street"/></span><br/></t>
+
+                                <t t-set="city" t-value="o.partner_id.city"/>
+                                  <t t-if="city"><span class="s5"><t t-esc="city"/></span></t>
+
+                                <t t-set="state" t-value="o.partner_id.state_id.code"/>
+                                  <t t-if="state"><span class="s5"><t t-esc="state"/></span><br/></t>
+
+                                <span class="s5"><t t-esc="o.partner_id.zip"/></span>
+                                <span class="s5"><t t-esc="o.partner_id.country_id.code"/></span>
+                                <br/>
+
+                                    <strong class="s5">SID#</strong>
+                                    <strong style="margin-left: 26.5em;" class="s5">FOB</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/unchecked.png'" style="width: 35px;height: 35px"/></span>
+                                </td>
+                                <td class="s3">
+                                    <strong class="s4">Carrier / Ship Method</strong>
+                                    <br/>
+                                    <strong class="s5">SCAC</strong>
+                                    <br/>
+                                    <strong class="s5">Pro Number</strong>
+                                    <br/>
+                                    <strong class="s5">Trailer Number</strong>
+                                    <br/>
+                                    <strong class="s5">Seal Number</strong>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="s3">
+                                    <strong class="s4">THIRD PARTY FREIGHT CHARGES BILL TO</strong>
+                                    <br/>
+                                    <span class="s5">Amazon.com</span>
+                                    <br/>
+                                    <span class="s5">PO Box 80683</span>
+                                    <br/>
+                                    <span class="s5">Seatle, WA 98108</span>
+                                    <br/>
+                                    <strong class="s4">Terms:</strong>
+                                    <strong style="margin-left: 2.5em;" class="s5">Prepaid</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <strong style="margin-left: 2.5em;" class="s5">Collect</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/unchecked.png'" style="width: 35px;height: 35px"/></span>
+                                    <strong style="margin-left: 2.5em;" class="s5">Third Party</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                </td>
+                                <td class="s3">
+                                    <strong style="font-size: 10.5pt;">SPECIAL INSTRUCTIONS</strong>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- =============== Table-2 ===============-->
+                        <table style="width:100%;">
+                            <tr>
+                                <td colspan="7" class="s_border text-center">
+                                     <strong>CUSTOMER ORDER INFORMATION</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="s6" style="width:17.5%;">
+                                    <strong class="s5">Customer Order Number</strong>
+                                    <br/>
+                                    <span class="s5">7OJR8R3W</span>
+                                </td>
+                                <td class="s6">
+                                    <strong class="s5">Shipment ID</strong>
+                                    <br/>
+                                    <span class="s5">25732779561</span>
+                                </td>
+                                <td class="s6">
+                                    <strong class="s5"># Pallets</strong>
+                                    <br/>
+                                    <span class="s5">1254</span>
+                                </td>
+                                <td class="s6">
+                                    <strong class="s5"># Cartons</strong>
+                                    <br/>
+                                    <span class="s5">195</span>
+                                </td>
+                                <td class="s6">
+                                    <strong class="s5"># Eaches</strong>
+                                    <br/>
+                                    <span class="s5">1170</span>
+                                </td>
+                                <td class="s6">
+                                    <strong class="s5">LBs</strong>
+                                    <br/>
+                                    <span class="s5">1170lbs.</span>
+                                </td>
+                                <td class="s6" style="width:17.5%;">
+                                    <strong class="s5">Pallet / Slip (Y / N)</strong>
+                                    <br/>
+                                    <span class="s5">Y</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- =============== Table-3 ===============-->
+                        <table style="width:100%;">
+                            <tr >
+                                <td class="s_border text-center" colspan="9">
+                                     <strong>CARRIER INFORMATION</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="s_border text-center" colspan="2">
+                                    <strong class="s5">Handling Unit</strong>
+                                </td>
+                                <td class="s_border text-center" colspan="2">
+                                    <strong class="s5">Package</strong>
+                                </td>
+                                <td class="s_border text-center">
+                                    <strong class="s5">Weight</strong>
+                                </td>
+                                <td class="s_border text-center">
+                                    <strong class="s5">H.M (X)</strong>
+                                </td>
+                                <td class="s_border text-center" >
+                                    <strong class="s5">Commodity Description</strong>
+                                </td>
+                                <td class="s_border text-center" colspan="2">
+                                    <strong class="s5">LTL Only</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="s7" >
+                                    <strong class="s5">Qty</strong>
+                                </td>
+                                <td class="s7" >
+                                    <strong class="s5">Type</strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5">Qty</strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5">Type</strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5"></strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5"></strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5"></strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5">NMFC #</strong>
+                                </td>
+                                <td class="s7">
+                                    <strong class="s5">Class</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="s7" >
+                                    <span class="s5 text-right">1.0</span>
+                                </td>
+                                <td class="s7" >
+                                    <span class="s5">Type</span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5 text-right">1.0</span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5">Type</span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5"></span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5"></span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5"></span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5">NMFC #</span>
+                                </td>
+                                <td class="s7">
+                                    <span class="s5">Class</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- =============== Table-4 ===============-->
+                        <table style="width:100%;">
+                            <tr >
+                                <td class="s3" style="width:55%;padding-right:10px;text-align: justify;">
+                                     <strong class="s4">COD Amount $</strong>&amp;nbsp;<span>1000</span>
+                                    <br/>
+                                    <strong class="s4">Fee Terms:</strong> &amp;nbsp;&amp;nbsp;
+                                    <strong style="margin-left: 0.5em;" class="s5">Prepaid</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <strong style="margin-left: 0.5em;" class="s5">Collect</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/unchecked.png'" style="width: 35px;height: 35px"/></span>
+                                    <strong style="margin-left: 0.5em;" class="s5">Customer check acceptable</strong>&amp;nbsp;
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <br/><br/>
+                                    <strong class="s4">Note:</strong>&amp;nbsp;
+                                    <span class="s5">Where the rate is dependent on value, shippers are required to
+                                            state specifically in writing the agreed or of the property as
+                                            follows: "The agreed or declared value of the property is
+                                            specifically stated by the shipper to be not exceeding
+                                    </span>
+                                    <br/><br/>
+                                     <span class="s5">RECEIVED, subject to individually determined rates or contracts that have been
+                                            agreed upon in writing between the carrier and shipper, if applicable, otherwise to
+                                            the rates, classifications and rules that have been established by the carrier and
+                                            are available to the shipper, on request, and to all applicable state and federal
+                                            regulations.
+                                     </span>
+                                </td>
+                                <td class="s3" style="width:45%;padding-right:10px;text-align: justify;">
+                                     <span class="s5">Where the rate is dependent on value, shippers are required to
+                                            state specifically in writing the agreed or of the property as
+                                            follows: "The agreed or declared value of the property is
+                                            specifically stated by the shipper to be not exceeding
+                                     </span>
+                                    <br/><br/>
+                                    <span class="s5">______________________________________ per ___________________________________</span>
+                                    <br/><br/>
+                                    <span class="s5">The carrier shall not make delivery of this shipment without payment
+                                        of freight and all other lawful charges.
+                                    </span>
+                                    <br/><br/>
+                                    <strong class="s4">Shipper Signature</strong>&amp;nbsp;
+                                    <span>________________________________</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <!-- =============== Table-5 ===============-->
+                        <table style="width:100%;">
+                            <tr >
+                                <td class="s3" style="width:30%;padding-right:10px;text-align: justify;">
+                                    <strong class="s4">SHIPPER SIGNATURE / DATE</strong>
+                                    <br/><br/>
+                                    <span class="s5">This is to certify that the above named
+                                            materials are properly classified,described,
+                                            packaged,marked and
+                                            labeled, and are in proper condition for
+                                            transportation according to the applicable
+                                            regulations of the DOT.
+                                    </span>
+                                </td>
+                                <td class="s3" style="width:40%;padding-right:10px;text-align: justify;">
+                                    <strong class="s4">Trailer loaded by:</strong>
+                                    <strong style="margin-left: 1em;" class="s4 text-right">Freight counted by:</strong>
+                                    <br/>
+                                    <br/>
+                                    <strong class="s5">Shipper</strong>
+                                    <span style="margin-left: 1.5em;"><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    &amp;nbsp;<strong style="margin-left: 2.5em;" class="s5">Shipper</strong>
+                                    <span style="margin-left: 6.5em;"><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <br/>
+                                    <strong class="s5">Driver</strong>&amp;nbsp;&amp;nbsp;
+                                    <span style="margin-left: 1.5em;"><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <strong style="margin-left: 2.9em;" class="s5 text-right">Driver pallets said to contain</strong>
+                                    <span><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                    <br/>
+                                    <strong style="margin-left: 12em;" class="s5 text-right">Driver / pieces</strong>
+                                    <span style="margin-left: 4.3em;"><img t-att-src="'/flybar_custom_inventory_report/static/description/checked.png'" style="width: 35px;height: 35px"/></span>
+                                </td>
+                                <td class="s3" style="width:30%;padding-right:10px;text-align: justify;">
+                                    <strong class="s4">CARRIER SIGNATURE / DATE</strong>
+                                    <br/><br/>
+                                    <span class="s5">Carrier acknowledges receipt of packages
+                                                    and required placards. Carrier certifies
+                                                    emergency response information was made
+                                                    available and/or carrier has the DOT
+                                                    emergency response guidebook or equivalent
+                                                    documentation in the vehicle.
+                                    </span>
+                                    <br/>
+                                    <span class="s5">Property described above is received in good
+                                                order, except as noted
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="action_report_bol" model="ir.actions.report">
+        <field name="name">BOL Report</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.bol_report</field>
+        <field name="report_file">flybar_custom_inventory_report.bol_report</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_bol"/>
+    </record>
+</odoo>

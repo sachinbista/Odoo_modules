@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+landedcost_warning,access_landendcost_Warning,bista_landed_costs.model_landedcost_warning,base.group_user,1,1,1,1
+access_landedcost_unlink,landedcost.unlink,model_landedcost_unlink,base.group_user,1,1,1,1
+access_landedcost_unlink_line,landedcost.unlink.line,model_landedcost_unlink_line,base.group_user,1,1,1,1

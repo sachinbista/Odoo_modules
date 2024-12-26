@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_res_partner_form_view_royalty" model="ir.ui.view">
+        <field name="name">inherit.res.partner.form.view.royalty</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_royalty_agent" string="Royalty Agent"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="options">{'no_quick_create':True,'no_create_edit':True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_res_partner_view_search_royalty" model="ir.ui.view">
+        <field name="name">inherit.res.partner.select.royalty</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="agent" position="after">
+                <filter string="Royalty Agents" name="is_royalty_agent"
+                        domain="[('is_royalty_agent', '=', 1)]" help="Royalty Agents"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_royalty_agent_form" model="ir.actions.act_window">
+        <field name="name">Royalty Agents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="context">{"search_default_is_royalty_agent": 1, 'default_is_royalty_agent': 1}</field>
+        <field name="search_view_id" ref="inherit_res_partner_view_search_royalty"/>
+    </record>
+
+    <menuitem id="menu_royalty_agent_form" parent="bista_royalty_report.menu_royalty" action="action_royalty_agent_form"
+              sequence="10"/>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="default_data_type_product_inventory" model="type.product">
+            <field name="name">Inventory</field>
+            <field name="type_product">inventory</field>
+            <field name="color">1</field>
+        </record>
+        
+        <record id="default_data_type_product_packaging" model="type.product">
+            <field name="name">Packaging</field>
+            <field name="type_product">packaging</field>
+            <field name="color">2</field>
+        </record>
+        <record id="default_data_type_product_replacement_part" model="type.product">
+            <field name="name">Replacement Part</field>
+            <field name="type_product">replacement_part</field>
+            <field name="color">3</field>
+        </record>
+        <record id="default_data_type_product_other" model="type.product">
+            <field name="name">Other</field>
+            <field name="type_product">other</field>
+            <field name="color">4</field>
+        </record>
+    </data>
+</odoo>

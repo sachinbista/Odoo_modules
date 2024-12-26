@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="receipt_ticket_template_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <style>
+                            .font_size1 {font-size:15pt;}
+                            .font_size2{ font-size: 11.5pt;}
+                            .border1 {border: 1px solid black}
+                            .padding_left { padding-left:10px}
+                            .padding_right { padding-right:10px}
+                            .padding_top { padding-top:5px}
+                            .padding_bottom {padding-bottom:5px}
+                            .ver_align {vertical-align: middle}
+                        </style>
+                        <strong class="font_size1">Purchase order:</strong>
+                       <t t-if="o.purchase_id">
+                           <span t-esc="o.purchase_id.name" />
+                       </t>
+                        <br/>
+                        <strong class="font_size1">Container ID:</strong>
+                        <span class="font_size1" t-field="o.container_id"/>
+                        <br/>
+                        <br/>
+                        <strong class="font_size2">Creation Date:</strong>
+                        <span class="font_size2" t-field="o.scheduled_date"/>
+                        <br/>
+                        <strong class="font_size2">Document Type:</strong>
+                        <span class="font_size2">Receipt Ticket</span>
+                        <br/><br/>
+                        <table style="width:100%;">
+                            <thead>
+                                <tr style="height:30px;">
+                                    <th class="ver_align border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <strong>Source Document</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_case" style="text-align:center">
+                                        <strong>Delivered</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_case_qty" style="text-align:center">
+                                        <strong>Validated</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:center">
+                                        <strong>Receiving Posted Date</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height:30px;">
+                                    <td class="ver_align border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <span t-field="o.origin"/><br/>
+                                    </td>
+                                    <td class="ver_align border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <span t-field="o.location_dest_id.warehouse_id.code"/>
+                                    </td>
+                                   <td class="ver_align border1 padding_left padding_right font_size2" style="text-align:center">
+                                       <t t-if="o.state == 'done'">
+                                            <span t-field="o.user_id.name"/> <!--Validated-->
+                                       </t>
+                                    </td>
+                                    <td class="ver_align border1 padding_left padding_right font_size2" style="text-align:center">
+                                       <t t-if="o.date_done" style="text-align: center;">
+                                            <div style="text-align: center;">
+                                                VALIDATED: <span t-field="o.date_done" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                TIME: <span t-field="o.date_done" t-options='{"widget": "datetime","format": "HH:MM:SS"}'/>
+                                            </div>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/><br/>
+                        <table style="width:100%;">
+                            <thead>
+                                <tr style="height:30px;">
+                                    <th class="ver_align border1 padding_left padding_right font_size2" style="text-align:left">
+                                        <strong>Received Item(s):</strong>
+                                    </th>
+                                    <th class="ver_align border1 font_size2 padding_left padding_right" name="pack_case" style="text-align:center">
+                                        <strong>Expected Units</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_case_qty" style="text-align:left">
+                                        <strong>Expected Cases</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:left">
+                                        <strong>Received Amount</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:left">
+                                        <strong>Variance</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ver_align border1 padding_left font_size2" style="text-align:left" colspan="6">
+                                        <strong >FROM:</strong>
+                                        <span t-field="o.location_id.display_name"/><br/>
+                                        <strong >To:</strong>
+                                         <span t-field="o.location_dest_id.display_name"/><br/>
+                                    </td>
+                                </tr>
+                                <t t-set="lines" t-value="o.move_ids_without_package"/>
+                                <tr t-foreach="lines" t-as="line" style="height:50px;">
+                                    <td class="ver_align border1 padding_left font_size2" style="text-align:left">
+                                        <span t-field="line.product_id.display_name"/>
+                                    </td>
+                                    <td class="ver_align border1 padding_right font_size2" style="text-align:center">
+                                        <t t-if="line.purchase_line_id">
+                                            <span t-field="line.purchase_line_id.product_qty"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="line.product_uom_qty"/>
+                                        </t>
+                                    </td>
+                                     <td class="ver_align border1 padding_right font_size2" style="text-align:center">
+                                         <t t-esc="'%.2f' % line.get_expected_cases()"/>
+                                     </td>
+                                     <td class="ver_align border1 padding_right font_size2" style="text-align:center">
+                                         <t t-if="line.purchase_line_id">
+                                            <span t-field="line.purchase_line_id.qty_received"/>
+                                         </t>
+                                         <t t-else="">
+                                            <span t-field="line.quantity_done"/>
+                                        </t>
+                                     </td>
+                                     <td class="ver_align border1 padding_right font_size2" style="text-align:center">
+                                         <t t-esc="'%.2f' % line.get_variance()"/>
+                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+   <record id="action_receipt_ticket_template_report" model="ir.actions.report">
+        <field name="name">Receipt Ticket</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.receipt_ticket_template_report</field>
+        <field name="report_file">flybar_custom_inventory_report.receipt_ticket_template_report</field>
+        <field name="print_report_name">'Receipt Ticket'</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_cds"/>
+    </record>
+</odoo>

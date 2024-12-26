@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bista_inventory_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.orchestrator</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='operations_setting_container']" position="after">
+                <h2>Inventory Adjustments</h2>
+                <div class="row mt16 o_settings_container" name="adjustments_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="adjustment_threshold" groups='stock.group_stock_manager'>
+                        <div class="o_setting_left_pane">
+                            <field name="skip_threshold"  class="o_light_label"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="skip_threshold" string="Skip Threshold"/>
+                            <br/><br/>
+                            <label for="adjustment_threshold" string="Adjustment Threshold" attrs="{'invisible':[('skip_threshold','=',True)]}"/>
+                            <div class="content-group" attrs="{'invisible':[('skip_threshold','=',True)]}">
+                                <field name="adjustment_threshold" class="o_light_label"/>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="adjustment_count_users" groups='stock.group_stock_manager'>
+                        <div class="o_setting_right_pane">
+                            <label for="first_count_user_ids" string="First Count Users"/>
+                            <div class="content-group">
+                                <field name="first_count_user_ids"
+                                       widget="many2many_tags" class="o_light_label" domain="[('share', '=', False)]"/>
+                            </div>
+                            <label for="second_count_user_ids" string="Second Count Users"
+                                attrs="{'invisible':[('skip_threshold','=',True)]}"/>
+                            <div class="content-group">
+                                <field name="second_count_user_ids"
+                                       widget="many2many_tags" class="o_light_label" domain="[('share', '=', False)]" attrs="{'invisible':[('skip_threshold','=',True)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_send_approval_invoices,account.send.approval.invoices,model_account_send_approval_invoices,base.group_user,1,1,1,1
+access_account_approved_pay_invoices,account.approved.pay.invoices,model_account_approved_pay_invoices,base.group_user,1,1,1,1
+access_cancel_approved_pay_invoices,cancel.approved.pay.invoices,model_cancel_approved_pay_invoices,base.group_user,1,1,1,1

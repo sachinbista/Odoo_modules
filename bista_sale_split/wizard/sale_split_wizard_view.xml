@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="bista_sale_split_sale_order_wizard" model="ir.ui.view">
+        <field name="name">sale.split.wizard</field>
+        <field name="model">sale.split.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sale Order Split">
+                <group>
+                    <group>
+                        <field name="partner_id" options="{'no_create': True}"/>
+                    </group>
+                </group>
+                <field name="order_line">
+                    <tree string="Purchase Order Lines" editable="bottom" create="false">
+                        <field name="product_id" context="{'partner_id': parent.partner_id}" required="True" readonly="1" force_save="1"/>
+                        <field name="name" required="True" readonly="1" force_save="1"/>
+                        <field name="product_qty" required="True" force_save="1"/>
+                        <field name="product_uom" required="True" readonly="1" force_save="1"/>
+                        <field name="price_unit" required="True" force_save="1"/>
+                        <field name="price_subtotal" required="True" force_save="1"/>
+                        <field name="so_line_id" invisible="1"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button string="Split &amp; Hold" type="object" name="split_and_hold" class="btn-primary" />
+                    <button string="Split &amp; Cancel" type="object" name="split_and_cancel" class="btn-primary" />
+                    <button name="cancel" string="Cancel" special="cancel" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

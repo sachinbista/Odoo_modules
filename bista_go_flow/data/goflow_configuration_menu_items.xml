@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <menuitem name="GoFlow" id="go_flow_menu_root" web_icon="bista_go_flow,static/description/goflow_logo.png"
+        groups="spring_systems_integration.group_api_user"/>
+
+        <!-- menu categories -->
+        <menuitem name="Configuration" id="goflow_configuration_menu" parent="go_flow_menu_root" sequence="1" groups="bista_go_flow.group_go_flow_admin"/>
+        <menuitem name="Operations" id="goflow_operation_menu" parent="go_flow_menu_root" sequence="2"/>
+        <menuitem name="Catalog" id="goflow_catalog_menu" parent="go_flow_menu_root" sequence="3"/>
+
+        <!-- Configurations Menus -->
+        <menuitem name="Instance Details" id="goflow_instance_details_menu" parent="goflow_configuration_menu"/>
+        <menuitem name="Instance" id="goflow_instance_menu" parent="goflow_instance_details_menu"
+                  action="goflow_main_menu_action_window" sequence="1"/>
+        <menuitem name="GoFlow Warehouse" id="goflow_warehouse_menu" parent="goflow_instance_details_menu"
+                  action="goflow_warehouse_menu_action_window" sequence="2"/>
+        <menuitem name="GoFlow Channel" id="goflow_channel_menu" parent="goflow_instance_details_menu"
+                  action="goflow_channel_menu_action_window" sequence="3"/>
+        <menuitem name="Goflow Shipping Methods" id="goflow_shipping_methods_menu" parent="goflow_instance_details_menu"
+                  action="goflow_main_menu_action_window" sequence="4"/>
+        <menuitem name="Goflow Order Status Mapping" id="goflow_order_status_mapping_menu"
+                  parent="goflow_instance_details_menu"
+                  action="goflow_main_menu_action_window" sequence="5"/>
+        <menuitem name="Update Product Fields" id="goflow_update_product_fields_menu"
+                  parent="goflow_instance_details_menu"
+                  action="goflow_main_menu_action_window" sequence="6"/>
+
+        <!--Operations Menus-->
+        <menuitem name="Common Logs" id="goflow_common_logs_menu" parent="goflow_operation_menu"
+                  action="goflow_common_log_book" sequence="1"/>
+        <menuitem name="Perform Operations" id="goflow_perform_operations_menu" parent="goflow_operation_menu"
+                  action="action_goflow_import_export_operation" sequence="2"/>
+        <menuitem name="Downloaded Data" id="goflow_downloaded_data_menu" parent="goflow_operation_menu"
+                  sequence="3"/>
+        <!--<menuitem name="Product Data" id="goflow_product_data_menu" parent="goflow_downloaded_data_menu"-->
+        <!--action="goflow_product_data" sequence="1"/>-->
+        <menuitem name="Order Data" id="goflow_order_data_menu" parent="goflow_downloaded_data_menu"
+                  action="goflow_order_data" sequence="2"/>
+
+        <!--Catalog Menus-->
+        <!--<menuitem name="Products" id="goflow_products_menu" parent="goflow_catalog_menu"-->
+        <!--action="goflow_product_menu_action_window" sequence="1"/>-->
+        <menuitem name="Purchase Orders" id="goflow_purchase_menu" parent="goflow_catalog_menu"
+                  action="goflow_purchase_menu_action_window" sequence="2"/>
+        <menuitem name="Vendors" id="goflow_vendor_data_menu" parent="goflow_catalog_menu"
+                  action="goflow_vendor_data" sequence="3"/>
+        <menuitem name="Warehouses" id="goflow_warehouse_menu" parent="goflow_catalog_menu"
+                  action="goflow_warehouse_menu_action_window" sequence="4"/>
+
+        <!-- Error Log Menus -->
+        <menuitem name="Logs" id="go_flow_menu_logs" parent="go_flow_menu_root"/>
+        <menuitem id="menu_goflow_error_log" name="GoGlow Error Log" action="goflow_error_logs_action"
+                  parent="bista_go_flow.go_flow_menu_logs" sequence="1"/>
+    </data>
+</odoo>

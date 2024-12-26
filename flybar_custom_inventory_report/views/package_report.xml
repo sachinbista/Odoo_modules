@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_package_template_report" model="report.paperformat">
+        <field name="name">Package Barcode with Content Bista</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">152</field>
+        <field name="page_width">101</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="package_template_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div style="page-break-before: always;">
+                    <div class="oe_structure"/>
+                    <style>
+                        .font_size1 {font-size:18pt;}
+                        .font_size2{ font-size: 13pt;}
+                        .border1 {border: 1px solid black}
+                        .padding_left { padding-left:20px}
+                        .padding_right { padding-right:10px}
+                        .ver_align {vertical-align: middle}
+                    </style>
+                    <div>
+                        <hr style="border-top: 0.5  px solid #bbb"/>
+                        <h1 t-field="o.name" style="text-align: center"/>
+                    </div>
+                    <table class="table-borderless" style="width:100%">
+                        <tr >
+                            <th style="text-align:left;">Package Creation date: &amp;emsp;</th>
+                            <td style="text-align:left;">
+                                <span t-field="o.create_date"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.get_picking_id" >
+                            <th style="text-align:left;">Source Document: &amp;emsp;</th>
+                            <td style="text-align:left;">
+                                <span t-esc="o.get_picking_id().origin"/>
+                            </td>
+                        </tr>
+                        <tr >
+                            <th style="text-align:left;">Packed by: &amp;emsp;</th>
+                            <td style="text-align:left;">
+                                <span t-field="o.create_uid"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <th name="td_pk_barcode" style="text-align: center">
+                        <div style="text-align: center">
+                            <div t-field="o.name" t-options="{'widget': 'barcode', 'img_style': barcode_size}"/>
+                        </div>
+                        <br/>
+                        <div t-field="o.name" style="text-align: center"/>
+                    </th>
+                    <br/>
+                    <table class="table table-sm" style="border-bottom: 0px solid white !important;">
+                        <thead>
+                            <tr style="height:30px;">
+                                <th class="ver_align" style="text-align:left;padding-left:10px">Product/SKU</th>
+                                <th class="text-center ver_align">Case</th>
+                                <th class="text-center ver_align">Case QTY</th>
+                                <th class="text-center ver_align">QTY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="o.quant_ids">
+                                <tr t-foreach="o.quant_ids" t-as="quant_id" style="font-size: 18px;">
+                                    <td style="text-align:left;padding-left:10px">
+                                        <div>
+                                            <span t-field="quant_id.product_id.default_code"/>
+                                        </div>
+                                        <span t-field="quant_id.product_id.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="quant_id.get_move_line_package().name" />
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="quant_id.get_move_line_package().qty > 0 and quant_id.quantity > 0">
+                                            <t t-set="case_qty" t-value="quant_id.quantity / quant_id.get_move_line_package().qty"/>
+                                            <t t-esc="'%.2f' % case_qty"/>
+                                        </t>
+                                        <t t-else="">
+                                            0.00
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="quant_id.quantity"/>
+                                    </td>
+                                </tr>
+                            </t>
+
+                            <t t-if="not o.quant_ids">
+                                <tr t-foreach="o.get_picking_id().move_line_ids" t-as="move_line_id" style="font-size: 18px;">
+                                    <t t-if="move_line_id.result_package_id.id == o.id">
+                                        <td style="text-align:left;padding-left:10px">
+                                            <div>
+                                                <span t-field="move_line_id.product_id.default_code"/>
+                                            </div>
+                                            <span t-field="move_line_id.product_id.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="move_line_id.product_packaging_id.name" />
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-set="case_qty_zero" t-value="0"/>
+                                            <t t-if="move_line_id.product_packaging_id.qty > 0 and move_line_id.qty_done > 0">
+                                                <t t-set="case_qty" t-value="move_line_id.qty_done / move_line_id.product_packaging_id.qty"/>
+                                                <t t-esc="'%.2f' % case_qty"/>
+
+                                                <t t-set="case_qty_zero" t-value="1"/>
+                                            </t>
+                                            <t t-if="move_line_id.product_packaging_id.qty > 0 and move_line_id.reserved_uom_qty > 0 and move_line_id.qty_done == 0">
+                                                <t t-set="case_qty" t-value="move_line_id.reserved_uom_qty / move_line_id.product_packaging_id.qty"/>
+                                                <t t-esc="'%.2f' % case_qty"/>
+                                                <t t-set="case_qty_zero" t-value="1"/>
+                                            </t>
+                                            <t t-if="case_qty_zero == 0">
+                                                0.00
+                                            </t>
+
+                                        </td>
+                                        <td class="text-center">
+                                             <t t-if="move_line_id.qty_done > 0">
+                                                 <span t-field="move_line_id.qty_done"/>
+                                             </t>
+                                             <t t-else="">
+                                                 <span t-field="move_line_id.reserved_uom_qty"/>
+                                             </t>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_package_template" model="ir.actions.report">
+        <field name="name">Package Barcode with Content Bista</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.package_template_report</field>
+        <field name="report_file">flybar_custom_inventory_report.package_template_report</field>
+        <field name="print_report_name">'Package Barcode with Content Bista'</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant_package"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_package_template_report"/>
+    </record>
+
+    <record id="paperformat_package_cft" model="report.paperformat">
+        <field name="name">Package Barcode for Cartom flow pick</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">101</field>
+        <field name="page_width">50</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="package_barcode_cartom_flow_template_report">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div style="page-break-before: always;">
+                    <div class="oe_structure"/>
+                    <table class="table-borderless" style="width: 100%;  border-spacing: 0;border-collapse: collapse;table-layout:fixed;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:0;width:40%;">
+                                    <img style="display:block;"
+                                         t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', quote_plus(o.name), 175, 175)"/>
+                                </td>
+                                <td class="text-left" style="vertical-align: middle;padding:0 30px;width:60%;">
+                                    <p style="font-size:20px;width:100%;display:inline-block;"
+                                       t-field="o.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_package_barcode_cartom_flow_template" model="ir.actions.report">
+        <field name="name">Package Barcode for Carton flow pick wagon</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.package_barcode_cartom_flow_template_report</field>
+        <field name="report_file">flybar_custom_inventory_report.package_barcode_cartom_flow_template_report</field>
+        <field name="print_report_name">'Package Barcode for Carton flow pick wagon'</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant_package"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_package_cft"/>
+    </record>
+</odoo>

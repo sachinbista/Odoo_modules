@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- purchase lines -->
+        <record id="inherit_purchase_line_tree" model="ir.ui.view">
+            <field name="name">purchase.order.line.filter</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_subtotal']" position="before">
+                    <field name="price_tax"/>
+                    <field name="price_unit"/>
+                </xpath>
+                <xpath expr="//field[@name='date_planned']" position="after">
+                    <field name="state"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="action_purchase_rfq_line" model="ir.actions.act_window">
+            <field name="name">Requests Quotation Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_mode">tree,kanban,form,pivot</field>
+            <field name="domain">[('order_id.state','in',('draft','sent'))]</field>
+            <field name="context">{}</field>
+            <!-- <field name="search_view_id" ref="view_purchase_order_filter"/> -->
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a request for quotation line
+              </p><p>
+                Create a request for quotation line.
+              </p>
+            </field>
+        </record>
+
+        <menuitem 
+            action="action_purchase_rfq_line" 
+            id="menu_purchase_rfq_line"
+            parent="purchase.menu_procurement_management" groups="bista_bundle_features.group_all_in_one_views"/>
+
+        <record id="action_purchase_order_line" model="ir.actions.act_window">
+            <field name="name">Purchase Orders Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <!-- calendar,activity -->
+            <field name="view_mode">tree,kanban,form,pivot</field>
+            <field name="domain">[('order_id.state','=',('purchase', 'done'))]</field>
+            <field name="context">{}</field>
+            <!-- <field name="search_view_id" ref="view_purchase_order_filter"/> -->
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a purchase order line.
+              </p><p>
+                Create a purchase order line.
+              </p>
+            </field>
+        </record>
+
+        <menuitem 
+            action="action_purchase_order_line" 
+            id="menu_purchase_order_line" 
+            parent="purchase.menu_procurement_management" 
+            groups="bista_bundle_features.group_all_in_one_views"/>
+
+</data>
+</odoo>

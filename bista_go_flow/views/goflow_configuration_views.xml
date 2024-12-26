@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="go_flow_form_view">
+            <field name="name">go.flow.form.view</field>
+            <field name="model">goflow.configuration</field>
+            <field name="arch" type="xml">
+                <form delete="0">
+                    <header>
+                        <!--<button name="goflow_test_connection" type="object" string="Test &amp; Confirm" attrs="{'invisible': [('state', '=', 'done')]}"/>-->
+                        <button name="goflow_reset_connection" type="object" string="Reset to Draft" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="goflow_test_connection" type="object" class="oe_stat_button"
+                                    icon="fa-solid fa-plug fa-rotate-270">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Test</span>
+                                    <span class="o_stat_text">Connection</span>
+                                </div>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <widget name="web_ribbon" title="Connected" bg_color="bg-success" attrs="{'invisible': ['|',('active', '=', False),('state', '=', 'draft')]}"/>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="name"/>
+                                <field name="operations_state" attrs="{'invisible': True}"/>
+                                <!-- <field name="download_product_url" placeholder="e.g. http://my.goflow_company.com" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="download_warehouse_url" placeholder="e.g. http://my.goflow_company.com" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/> -->
+                                <field name="download_channel_url" placeholder="e.g. http://my.goflow_company.com"
+                                       required="1" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="access_token" password="1" required="1"
+                                       attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="x_beta_contact_email"/>
+                            </group>
+                            <group>
+                                <field name="default_instance"/>
+                                <field name="company_id" required="1" options="{'no_create': True}" readonly="1"/>
+                                <field name="error_notification_send"/>
+                                <field name="user_id" options="{'no_create': True}"
+                                       attrs="{'invisible': [('error_notification_send', '=', False)], 'required' : [('error_notification_send', '=', True)]}"/>
+                                <field name="notification_send_by_sms"
+                                       attrs="{'invisible': [('error_notification_send', '=', False)]}"/>
+                                <field name="notification_send_by_email"
+                                       attrs="{'invisible': [('error_notification_send', '=', False)]}"/>
+                                <!-- <field name="is_sync_inventory"/> -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sales Orders">
+                                <group>
+                                    <group>
+                                        <field name="sale_order_import_operation"/>
+                                        <field name="goflow_sync_date" attrs="{'invisible': [('sale_order_import_operation', '=', False)]}" />
+                                        <field name="goflow_pick_date" attrs="{'invisible': [('sale_order_import_operation', '=', False)]}" />
+                                        <field name="cancel_goflow_order" />
+                                        <!-- <field name="goflow_sync_shipment" />
+                                        <field name="goflow_get_document" />-->
+                                    </group>
+                                    <group attrs="{'invisible': [('sale_order_import_operation', '=', False)]}">
+                                        <field name="goflow_order_review"/>
+                                        <field name="goflow_order_review_sync_date" attrs="{'invisible': [('goflow_order_review', '=', False)]}"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('sale_order_import_operation', '=', False)]}">
+                                        <field name="use_remote_so_id" string="Use remote SO ID"/>
+                                        <field name="default_delivery_carrier_id" string="Default Shipping Method"/>
+                                        <field name="default_product_id"/>
+                                        <field name="last_order_import_date" string="Last Imported Order Date"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('sale_order_import_operation', '=', False)]}">
+                                        <field name="order_as_historical"/>
+                                        <field name="order_create_date"
+                                               attrs="{'invisible': ['|',('order_as_historical','=','all'),('order_as_historical','=',False)]}"/>
+                                        <field name="generated_delivery_slip"/>
+                                        <field name="channel_delivery_slip"/>
+                                        <field name="preferred_delivery_slip"
+                                               attrs="{'invisible': ['|',('generated_delivery_slip','=',False),('channel_delivery_slip','=',False)]}"/>
+
+                                        <!-- <field name="auto_import_sale_orders"/> -->
+                                        <!-- <label for="auto_import_sale_orders" string="Intervals" attrs="{'invisible': [('auto_import_sale_orders', '=', False)],'required': [('auto_import_sale_orders', '=', True)]}"/> -->
+                                        <!-- <div attrs="{'invisible': [('auto_import_sale_orders', '=', False)]}">
+                                            <field name="auto_import_sale_orders_interval_number" placeholder="Interval Number" class="oe_inline" attrs="{'required': [('auto_import_sale_orders', '=', True)]}"/>
+                                            <field name="auto_import_sale_orders_interval_type" class="oe_inline" attrs="{'required': [('auto_import_sale_orders', '=', True)]}"/>
+                                        </div> -->
+                                        <!-- <field name="auto_import_sale_orders_next_execution" placeholder="Next Execution Date" attrs="{'required': [('auto_import_sale_orders', '=', True)], 'invisible': [('auto_import_sale_orders', '=', False)]}" strig="Next Execution"/>
+                                        <field name="auto_import_sale_order_user_id" placeholder="Responsible User" attrs="{'required': [('auto_import_sale_orders', '=', True)], 'invisible': [('auto_import_sale_orders', '=', False)]}" strig="Responsible User"/> -->
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="sync_sale_order_filter" groups="base.group_no_one"/>
+                                        <p></p>
+                                        <button name="goflow_get_bulk_sale" class="oe_highlight" 
+                                        type="object" string="Get Bulk Orders"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!--                            <page string="Product" attrs="{'invisible': [('product_import_operation', '=', False)]}">-->
+                            <!--                                <group>-->
+                            <!--                                    <group>-->
+                            <!--                                        <field name="auto_create_product"/>-->
+                            <!--                                        <field name="download_kit_and_group_product"/>-->
+                            <!--                                    </group>-->
+                            <!--                                    <group>-->
+                            <!--                                        <field name="auto_import_product"/>-->
+                            <!--                                        <label for="auto_import_product" string="Interval" attrs="{'invisible': [('auto_import_product', '=', False)]}"/>-->
+                            <!--                                        <div attrs="{'invisible': [('auto_import_product', '=', False)]}">-->
+                            <!--                                            <field name="auto_import_product_interval_number" placeholder="Interval Number" class="oe_inline" attrs="{'required': [('auto_import_product', '=', True)]}"/>-->
+                            <!--                                            <field name="auto_import_product_interval_type" class="oe_inline" attrs="{'required': [('auto_import_product', '=', True)]}"/>-->
+                            <!--                                        </div>-->
+                            <!--                                        <field name="auto_import_product_next_execution" placeholder="Next Execution Date" attrs="{'required': [('auto_import_product', '=', True)], 'invisible': [('auto_import_product', '=', False)]}" strig="Next Execution"/>-->
+                            <!--                                        <field name="auto_import_product_user_id" placeholder="Responsible User" attrs="{'required': [('auto_import_product', '=', True)], 'invisible': [('auto_import_product', '=', False)]}" strig="Responsible User"/>-->
+                            <!--                                    </group>-->
+                            <!--                                </group>-->
+                            <!--                                <group>-->
+                            <!--                                    <field name="auto_map_product"/>-->
+                            <!--                                    <field name="map_line_ids" attrs="{'invisible': [('auto_map_product', '=', False)]}">-->
+                            <!--                                        <tree>-->
+                            <!--                                            <field name="sequence" widget="handle"/>-->
+                            <!--                                            <field name="display_goflow_field"/>-->
+                            <!--                                            <field name="display_odoo_fields" widget="many2many_tags"/>-->
+                            <!--                                            <field name="mapping_opt"/>-->
+                            <!--                                        </tree>-->
+                            <!--                                    </field>-->
+                            <!--                                </group>-->
+                            <!--                            </page>-->
+                            <page string="Vendors">
+                                <group>
+                                    <group>
+                                        <field name="vendor_sync_operation" string="Sync Vendors"/>
+                                        <!--                                        <field name="sync_vendors" string="Sync Vendors"  attrs="{'invisible': [('vendor_sync_operation', '=', False)]}"/>-->
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Tracking Data">
+                                <group>
+                                    <group>
+                                        <field name="tracking_data_export_operation"/>
+                                    </group>
+                                    <group>
+                                    </group>
+                                    <group attrs="{'invisible': [('tracking_data_export_operation', '=', False)]}">
+                                        <field name="notify_store_export_shipment"/>
+                                        <field name="shipping_weight_measure"
+                                               attrs="{'required': [('tracking_data_export_operation', '=', True)] }"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('tracking_data_export_operation', '=', False)]}">
+                                        <field name="auto_export_tracking"/>
+                                        <label for="auto_export_tracking" string="Interval"
+                                               attrs="{'invisible': [('auto_export_tracking', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_export_tracking', '=', False)]}">
+                                            <field name="auto_export_tracking_interval_number"
+                                                   placeholder="Interval Number" class="oe_inline"
+                                                   attrs="{'required': [('auto_export_tracking', '=', True)]}"/>
+                                            <field name="auto_export_tracking_interval_type" class="oe_inline"
+                                                   attrs="{'required': [('auto_export_tracking', '=', True)]}"/>
+                                        </div>
+                                        <field name="auto_export_tracking_next_execution"
+                                               placeholder="Next Execution Date"
+                                               attrs="{'required': [('auto_export_tracking', '=', True)], 'invisible': [('auto_export_tracking', '=', False)]}"
+                                               strig="Next Execution"/>
+                                        <field name="auto_export_tracking_user_id" placeholder="Responsible User"
+                                               attrs="{'required': [('auto_export_tracking', '=', True)], 'invisible': [('auto_export_tracking', '=', False)]}"
+                                               strig="Responsible User"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!--                            <page string="Inventory Data" attrs="{'invisible': [('inventory_export_operation', '=', False)]}">-->
+                            <!--                                <group>-->
+                            <!--                                    <group>-->
+                            <!--                                        <field name="is_stock_safety_levels"/>-->
+                            <!--                                        <field name="stock_safety_levels" attrs="{'required': [('is_stock_safety_levels', '=', True)], 'invisible': [('is_stock_safety_levels', '=', False)]}"/>-->
+                            <!--                                        <field name="stock_safety_qty" attrs="{'required': [('is_stock_safety_levels', '=', True)], 'invisible': [('is_stock_safety_levels', '=', False)]}"/>-->
+                            <!--                                    </group>-->
+                            <!--                                    <group>-->
+                            <!--                                        <field name="auto_export_inventory"/>-->
+                            <!--                                        <label for="auto_export_inventory" string="Interval" attrs="{'invisible': [('auto_export_inventory', '=', False)]}"/>-->
+                            <!--                                        <div attrs="{'invisible': [('auto_export_inventory', '=', False)]}">-->
+                            <!--                                            <field name="auto_export_inventory_interval_number" placeholder="Interval Number" class="oe_inline" attrs="{'required': [('auto_export_inventory', '=', True)]}"/>-->
+                            <!--                                            <field name="auto_export_inventory_interval_type" class="oe_inline" attrs="{'required': [('auto_export_inventory', '=', True)]}"/>-->
+                            <!--                                        </div>-->
+                            <!--                                        <field name="auto_export_inventory_next_execution" placeholder="Next Execution Date" attrs="{'required': [('auto_export_inventory', '=', True)], 'invisible': [('auto_export_inventory', '=', False)]}" strig="Next Execution"/>-->
+                            <!--                                        <field name="auto_export_inventory_user_id" placeholder="Responsible User" attrs="{'required': [('auto_export_inventory', '=', True)], 'invisible': [('auto_export_inventory', '=', False)]}" strig="Responsible User"/>-->
+                            <!--                                    </group>-->
+                            <!--                                </group>-->
+                            <!--                            </page>-->
+                            <page string="Invoice Matching"
+                                  attrs="{'invisible': [('sale_order_import_operation', '!=', True)]}">
+                                <group>
+                                    <group>
+                                        <field name="invoice_matching"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('invoice_matching', '=', False)]}">
+                                        <field name="invoice_prefix"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('invoice_matching', '=', False)]}">
+                                        <field name="auto_invoice_matching"/>
+                                        <label for="auto_invoice_matching" string="Interval"
+                                               attrs="{'invisible': [('auto_invoice_matching', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_invoice_matching', '=', False)]}">
+                                            <field class="oe_inline" name="auto_invoice_matching_interval_number"
+                                                   placeholder="Interval Number"
+                                                   attrs="{'required': [('auto_invoice_matching', '=', True)]}"/>
+                                            <field class="oe_inline" name="auto_invoice_matching_interval_type"
+                                                   attrs="{'required': [('auto_invoice_matching', '=', True)]}"/>
+                                        </div>
+                                        <field name="auto_invoice_matching_next_execution"
+                                               placeholder="Next Execution Date"
+                                               attrs="{'required': [('auto_invoice_matching', '=', True)], 'invisible': [('auto_invoice_matching', '=', False)]}"
+                                               strig="Next Execution"/>
+                                        <field name="auto_invoice_matching_user_id" placeholder="Responsible User"
+                                               attrs="{'required': [('auto_invoice_matching', '=', True)], 'invisible': [('auto_invoice_matching', '=', False)]}"
+                                               strig="Responsible User"/>
+                                        <label for="auto_invoice_matching"
+                                               string="Auto Invoice Matching Timeout Interval"
+                                               attrs="{'invisible': [('auto_invoice_matching', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_invoice_matching', '=', False)]}">
+                                            <field class="oe_inline"
+                                                   name="auto_invoice_matching_timeout_interval_number"
+                                                   placeholder="Interval Number"
+                                                   attrs="{'required': [('auto_invoice_matching', '=', True)]}"/>
+                                            <field class="oe_inline" name="auto_invoice_matching_timeout_interval_type"
+                                                   attrs="{'required': [('auto_invoice_matching', '=', True)]}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Routing">
+                                <group>
+                                    <group>
+                                        <field name="manage_routing"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('manage_routing', '=', False)]}">
+                                        <field name="default_freight_class"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('manage_routing', '=', False)]}">
+                                        <field name="auto_request_sync_interval"/>
+                                        <label for="auto_request_sync_interval" string="Interval"
+                                               attrs="{'invisible': [('auto_request_sync_interval', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_request_sync_interval', '=', False)]}">
+                                            <field class="oe_inline" name="auto_request_interval_number"
+                                                   placeholder="Interval Number"
+                                                   attrs="{'required': [('auto_request_sync_interval', '=', True)]}"/>
+                                            <field class="oe_inline" name="auto_request_interval_type"
+                                                   attrs="{'required': [('auto_request_sync_interval', '=', True)]}"/>
+                                        </div>
+                                        <field name="auto_request_next_execution" placeholder="Next Execution Date"
+                                               attrs="{'required': [('auto_request_sync_interval', '=', True)], 'invisible': [('auto_request_sync_interval', '=', False)]}"
+                                               strig="Next Execution"/>
+                                        <field name="auto_request_user_id" placeholder="Responsible User"
+                                               attrs="{'required': [('auto_request_sync_interval', '=', True)], 'invisible': [('auto_request_sync_interval', '=', False)]}"
+                                               strig="Responsible User"/>
+                                    </group>
+                                    <group attrs="{'invisible': [('manage_routing', '=', False)]}">
+                                        <field name="auto_fetch_response_sync_interval"/>
+                                        <label for="auto_fetch_response_sync_interval" string="Interval"
+                                               attrs="{'invisible': [('auto_fetch_response_sync_interval', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_fetch_response_sync_interval', '=', False)]}">
+                                            <field class="oe_inline" name="auto_fetch_response_interval_number"
+                                                   placeholder="Interval Number"
+                                                   attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)]}"/>
+                                            <field class="oe_inline" name="auto_fetch_response_interval_type"
+                                                   attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)]}"/>
+                                        </div>
+                                        <field name="auto_fetch_response_next_execution"
+                                               placeholder="Next Execution Date"
+                                               attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)], 'invisible': [('auto_fetch_response_sync_interval', '=', False)]}"
+                                               strig="Next Execution"/>
+                                        <field name="auto_fetch_response_user_id" placeholder="Responsible User"
+                                               attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)], 'invisible': [('auto_fetch_response_sync_interval', '=', False)]}"
+                                               strig="Responsible User"/>
+                                        <label for="auto_fetch_response_timeout_interval_number"
+                                               attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)], 'invisible': [('auto_fetch_response_sync_interval', '=', False)]}"/>
+                                        <div attrs="{'invisible': [('auto_fetch_response_sync_interval', '=', False)]}">
+                                            <field name="auto_fetch_response_timeout_interval_number"
+                                                   placeholder="Interval Number" class="oe_inline"
+                                                   attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)]}"/>
+                                            <field name="auto_fetch_response_timeout_interval_type" class="oe_inline"
+                                                   attrs="{'required': [('auto_fetch_response_sync_interval', '=', True)]}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Purchase Orders">
+                                <group>
+                                    <group>
+                                        <field name="sync_purchase_order"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="sync_purchase_order_filter" groups="base.group_no_one"/>
+                                    </group>
+                                    <group>
+                                        <button name="goflow_get_bulk_purchase" class="btn btn-primary" type="object"
+                                                string="Get Bulk Orders"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Warehouses">
+                                <group>
+                                    <group>
+                                        <field name="warehouse_sync_operation" string="Sync Warehouses"/>
+                                        <field name="create_new_warehouse" />
+                                    </group>
+                                </group>
+                                <button name="sync_warehouses" type="object" string="Sync Warehouses"
+                                        attrs="{'invisible': [('warehouse_sync_operation', '=', False)]}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="go_flow_tree_view">
+            <field name="name">go.flow.tree.view</field>
+            <field name="model">goflow.configuration</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="go_flow_kanban_view" model="ir.ui.view">
+            <field name="name">go.flow.kanban.view</field>
+            <field name="model">goflow.configuration</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <!--                                <div>-->
+                                <!--                                    <span>Product URL :  <field name="download_product_url"/>&amp;nbsp;</span>-->
+                                <!--                                </div>-->
+                                <div>
+                                    <span><b><field name="download_channel_url"/></b></span>
+                                </div>
+                                <div t-if="!selection_mode">
+                                    <span><b>Company :</b>
+                                        <field name="company_id"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="go_flow_search_view" model="ir.ui.view">
+            <field name="name">go.flow.search.view</field>
+            <field name="model">goflow.configuration</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Confirmed" name="confirmed_filter" domain="[('state', '=', 'done')]"/>
+                    <separator/>
+                    <filter string="Not Confirmed" name="not_confirmed_filter" domain="[('state', '=', 'draft')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_main_menu_action_window">
+            <field name="name">GoFlow Instance</field>
+            <field name="res_model">goflow.configuration</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bista_sale_split.access_sale_split_wizard,access_sale_split_wizard,bista_sale_split.model_sale_split_wizard,base.group_user,1,1,1,1
+bista_sale_split.access_sale_split_line_wizard,access_sale_split_line_wizard,bista_sale_split.model_sale_split_line_wizard,base.group_user,1,1,1,1

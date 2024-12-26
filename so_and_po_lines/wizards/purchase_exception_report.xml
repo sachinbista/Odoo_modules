@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_purchase_exception_report" model="ir.ui.view">
+        <field name="name">Purchase Exception Report at Date</field>
+        <field name="model">purchase.exception.report</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="warehouse_ids" widget="many2many_tags"/>
+                    <!--                    <field name="location_ids" widget="many2many_tags"/>-->
+                </group>
+                <footer>
+                    <button
+                            name="export_po_exception_report"
+                            string="Download"
+                            type="object"
+                            class="btn-primary"
+                            close="1"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="purchase_exception_report_action" model="ir.actions.act_window">
+        <field name="name">Purchase Exception Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.exception.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_purchase_exception_report"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" eval="False"/>
+    </record>
+
+
+<!--    <menuitem-->
+<!--            id="menu_purchase_exception_report"-->
+<!--            name="Purchase Exception Report"-->
+<!--            parent="purchase.purchase_report_main"-->
+<!--            groups="purchase.group_purchase_manager,purchase.group_purchase_user"-->
+<!--            sequence="106"-->
+<!--            action="purchase_exception_report_action"-->
+<!--    />-->
+</odoo>

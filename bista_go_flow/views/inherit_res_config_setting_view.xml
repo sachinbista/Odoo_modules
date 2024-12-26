@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- inherit res config setting -->
+    <record id="res_config_settings_view_bista_go_flow" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='proforma_configuration']" position="after">
+                <!-- <div class="col-12 col-lg-6 o_setting_box" id="inter_company_users"
+                    title="Add customer for Goflow sale orders.">
+                    <div class="o_setting_right_pane">
+                        <label string="Goflow Customer" for="goflow_customer_ids"/>
+                        <div class="text-muted">
+                            Select Customers whose Sale Order you want to auto confirm 
+                        </div>
+                        <field name="goflow_customer_ids" class="oe_inline" widget="many2many_tags"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </div>
+                </div> -->
+                <div class="col-12 col-lg-6 o_setting_box" id="inter_company_users"
+                    title="">
+                    <div class="o_setting_right_pane">
+                        <label string="Goflow Users" for="goflow_mail_user_ids"/>
+                        <div class="text-muted">
+                            Select Users for sending info of Goflow request fail via mail.  
+                        </div>
+                        <field name="goflow_mail_user_ids" class="oe_inline" widget="many2many_tags"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='catalog_setting_container']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="custom_shipping_field_section">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label for="shipping_product" class="o_form_label"/>
+                        <div class="text-muted">
+                            Charges Applied On Shipping Product In Orders.
+                        </div>
+                        <div class="text-muted">
+                            <field name="shipping_product"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" id="custom_discount_field_section">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label for="discount_product" class="o_form_label"/>
+                        <div class="text-muted">
+                            Charges Applied On Discount Product In Orders.
+                        </div>
+                        <div class="text-muted">
+                            <field name="discount_product"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- inherit res company -->
+    <record id="view_company_form_bista_go_flow" model="ir.ui.view">
+        <field name="name">res.company.view.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='social_media']" position="before">
+                <group string="Goflow Details" name="goflow_grp">
+                    <field name="goflow_store_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="goflow_review_order_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="goflow_ship" />
+                    <field name="goflow_api_user" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- inherit res users -->
+    <record id="view_users_form_bista_go_flow" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='share']" position="before">
+                <field name="location" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_users_tree_bista_go_flow" model="ir.ui.view">
+        <field name="name">res.users.view.tree.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="before">
+                <field name="location" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_users_search_bista_go_flow" model="ir.ui.view">
+        <field name="name">res.users.search.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_ids']" position="after">
+                <field name="location" string="Location" />
+            </xpath>
+            <xpath expr="//filter[@name='Inactive']" position="after">
+                <group expand="0" string="Group By">
+                    <filter name="location" string="Location" context="{'group_by': 'location'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

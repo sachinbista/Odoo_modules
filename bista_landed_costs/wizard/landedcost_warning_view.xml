@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="landed_cost_warning_wizard" model="ir.ui.view">
+		<field name="name">landedcost.warning.view.form</field>
+		<field name="model">landedcost.warning</field>
+		<field name="arch" type="xml">
+			<form string="To Create Landed Cost">
+				<field name="description" readonly="1" force_save="1" />
+				<group>
+					<group>
+						<field name="user_id"
+							options="{'no_create':True,'no_create_edit': True}" required="1" />
+					</group>
+				</group>
+				<footer>
+					<button name="action_confirm" string="Submit" type="object" />
+					<button special="cancel" string="Discard" close="1" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="landed_cost_unlink_wizard" model="ir.ui.view">
+		<field name="name">landedcost.unlink.view.form</field>
+		<field name="model">landedcost.unlink</field>
+		<field name="arch" type="xml">
+			<form string="To Create Landed Cost">
+				<group>
+					<field name="landedcost_id" required="1" readonly="1" />
+				</group>
+				<separator string="Purchase Order Unlink"/>
+				<field name="landedcost_unlink_line">
+					<tree editable="bottom" create="false" delete="false">
+						<field name="purchase_order_id"/>
+						<field name="unlink_bool"/>
+					</tree>
+				</field>
+				<footer>
+					<button name="action_validate" string="Submit" type="object" />
+
+					<button special="cancel" string="Discard" close="1" />
+				</footer>
+			</form>
+		</field>
+	</record>
+</odoo>

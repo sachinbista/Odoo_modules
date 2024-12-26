@@ -20,11 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'sale_stock', 'stock', 'account'],
+    'depends': ['base', 'sale', 'delivery'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'security/api_security.xml',
         'views/spring_systems_configuration_views.xml',
         'views/spring_systems_sale_order_view.xml',
         'views/edi_855_view.xml',
@@ -34,6 +35,7 @@
         'views/spring_systems_error_log.xml',
         'views/stock_picking_view.xml',
         'views/edi_810_view.xml',
+        'views/spring_customer_configuration_view.xml',
 
         'data/spring_systems_cron.xml',
         'data/spring_systems_menuitems.xml',

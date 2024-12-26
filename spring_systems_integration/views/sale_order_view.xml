@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="sale_quotation_inherited_spring_systems_tree" model="ir.ui.view">
+        <field name="name">sale.order.inherited.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='partner_id']" position="after">
+                 <field name="client_order_ref"/>
+             </xpath>
+        </field>
+    </record>
+    <record id="sale_order_inherited_spring_systems_tree" model="ir.ui.view">
+        <field name="name">sale.order.inherited.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='partner_id']" position="after">
+                 <field name="client_order_ref"/>
+             </xpath>
+        </field>
+    </record>
     <record id="sale_order_inherited_spring_systems" model="ir.ui.view">
         <field name="name">sale.order.inherited.form</field>
         <field name="model">sale.order</field>
@@ -7,8 +27,35 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="external_so_id" readonly="1"/>
-                <field name="external_origin" readonly="1"/>
+            </xpath>
+             <xpath expr="//field[@name='client_order_ref']" position="replace">
+             </xpath>
+            <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="client_order_ref"/>
+                <field name="external_origin" attrs="{'readonly': ['|','|',('state', '!=', 'draft'),
+                ('external_origin', 'in', ('manual', 'market_time')),
+                ('external_so_id', 'in', ('False', ''))]}" required="1" force_save="1"/>
             </xpath>
         </field>
+    </record>
+<!--    <record id="sale_order_form_quote_inherit_partner_commission_custom" model="ir.ui.view">-->
+<!--        <field name="name">sale.order.inherited.form</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="partner_commission.sale_order_form_quote_inherit_partner_commission"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='referrer_id']" position="after">-->
+<!--                <field name="external_origin" />-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+     <record id="sale_order_view_search_inherit_partner_commission_custom" model='ir.ui.view'>
+            <field name='name'>sale.order.search.inherit.partner.commission</field>
+            <field name='model'>sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter" />
+            <field name='arch' type='xml'>
+                <xpath expr="//group" position="inside">
+                     <filter string="Order From" name="external_origin" domain="[]" context="{'group_by':'external_origin'}"/>
+                </xpath>
+            </field>
     </record>
 </odoo>

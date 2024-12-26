@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_payment_import_form" model="ir.ui.view">
+        <field name="name">account.payment.import.form</field>
+        <field name="model">account.payment.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Payments">
+                <notebook>
+                    <page string="Import File">
+                        <div style="float: right;">
+                            <a class="btn btn-outline-primary mb32 mt8" href="/bista_payment_import/static/src/file/Import Payment Template.xlsx" aria-label="Download" title="Download">
+                            <i class="fa fa-download"></i> <span>Import Template for Payment</span>
+                            </a>
+                        </div>
+                        <group string="File supported .xlsx">
+                            <group>
+                                <field name="exception" invisible="1"/>
+                                <field name="noexception" invisible="1"/>
+                                <field name="available_payment_method_line_ids" invisible="1"/>
+                                <field name="journal_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+                                <field name="payment_method_line_id" options="{'no_open': True, 'no_create': True}"/>
+<!--                                <field name="import_option" />-->
+                                <field name="payment_file" filename="payment_filename" string="Import XLSX File"/>
+                                <field name="payment_filename"/>
+                                <field name="is_new_invoice"/>
+<!--                                <field name="is_vendor_bill"/>-->
+<!--                                <field name="delimeter" invisible="0"/>-->
+                                <field name="state" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="payment_method_code" invisible="1"/>
+                                <field name="payment_date"/>
+                                <field name="communication"/>
+                                <field name="check_number" attrs="{'invisible': [('payment_method_code', '!=', 'check_printing')],'required': [('payment_method_code', '=', 'check_printing')]}"/>
+                            </group>
+                        </group>
+                        <div states="noexception">
+                            <p style="color: #219616">
+                            Everything is fine
+                            <b>Process Payment</b>
+                            button
+                            </p>
+                        </div>
+                        <div states="exception">
+                            <p style="color: #E51616">
+                            Exceptions found. Click on
+                            <b>Exception Summary</b>
+                            tab to view logs
+                            </p>
+                        </div>
+                    </page>
+                    <page string="Exception Summary" attrs="{'invisible': [('exception', '=', False)]}">
+                        <field name="errorline_ids" readonly="1">
+                            <tree string="Summary" editable="bottom">
+                                <field name="importpayment_id" invisible="1"/>
+                                <field name="rowline"/>
+                                <field name="comment"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_make_payment_button" type="object" string="Process Payment" attrs="{'invisible': [('noexception','=',False)]}" context="{'account.payment.import':True}"/>
+                    <button name="action_validate_button" type="object" string="Validate File" context="{'validate':True}" attrs="{'invisible': [('noexception','=',True)]}"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+<!--    <record id="account_payment_import_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Import Payment</field>-->
+<!--        <field name="res_model">account.payment.import</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="context">{'sale_order_show_amount': True}</field>-->
+<!--    </record>-->
+<!--    <menuitem-->
+<!--        id="account_payment_import_menu"-->
+<!--        parent="account.menu_finance_receivables"-->
+<!--        action="account_payment_import_action"-->
+<!--        groups="account.group_account_readonly,base.group_system"-->
+<!--        sequence="11"-->
+<!--    />-->
+</odoo>

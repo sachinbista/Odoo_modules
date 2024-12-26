@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_delivery_fedex_bill_my_account" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.delivery.fedex.bill.my.account</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_delivery_carrier_id']" position="after">
+                <field name="fedex_bill_my_account" invisible="1"/>
+                <field name="property_fedex_carrier_account" attrs="{'invisible' : [('fedex_bill_my_account', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

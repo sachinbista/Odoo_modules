@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="order_type_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="order_type"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="order_type_view_account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="order_type" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="exclude_aging_report_form_inherit" model="ir.ui.view">
+            <field name="name">exclude.aging.account.report.form.inherit</field>
+            <field name="model">account.report</field>
+            <field name="inherit_id" ref="account_reports.account_report_form"/>
+            <field name="arch" type="xml">
+                <field name="filter_unreconciled" position="after">
+                    <field name="exclude_aging"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_invoice_line,payment.invoice.line,model_payment_invoice_line,base.group_user,1,1,1,1
+access_outstanding_payment_line,outstanding.payment.line,model_outstanding_payment_line,base.group_user,1,1,1,1
+access_common_allocation,common.allocation,model_common_allocation,base.group_user,1,1,1,1
+access_common_payment_process,common.payment.process,model_common_payment_process,account.group_account_invoice,1,1,1,1
+access_common_payment_process_read,common.payment.process,model_common_payment_process,base.group_user,1,0,0,0
+access_ir_actions_act_window_view_billing,ir.actions.act_window.view,base.model_ir_actions_act_window_view,account.group_account_invoice,1,1,1,0
+access_ir_actions_act_window_billing,ir.actions.act_window,base.model_ir_actions_act_window,account.group_account_invoice,1,1,1,0
+access_account_invoice_allocation_import,account.invoice.allocation.import,model_account_invoice_allocation_import,base.group_user,1,1,1,1
+access_importinvoiceallocation_errorlines,importinvoiceallocation.errorlines,model_importinvoiceallocation_errorlines,base.group_user,1,1,1,1
+access_account_charges_type_user,account_charges_type_user,model_account_charges_type,base.group_user,1,0,0,0
+access_account_charges_type_manager,account_charges_type_manager,model_account_charges_type,account.group_account_invoice,1,1,1,1

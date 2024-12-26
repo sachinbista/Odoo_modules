@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <div t-name="bista_inventory_enhancement.LineQuantity" t-inherit="stock_barcode.LineQuantity" t-inherit-mode="extension" owl="1">
+         <xpath expr="//div[@name='quantity']/span/span[2]" position="replace">
+            <span t-if="isblind" t-esc="'/ ' + line.theoretical_qty"/>
+            <span t-elif="qtyDemand and !isblind" t-esc="'/ ' + qtyDemand"/>
+        </xpath>
+    </div>
+
+</template>

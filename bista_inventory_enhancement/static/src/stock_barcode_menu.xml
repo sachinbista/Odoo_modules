@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="stock_barcode.MainMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_main_menu_buttons')]" position="inside">
+            <div class="col">
+                <button class="button_Orchestrator btn btn-block btn-primary mb-4 w-100"
+                        t-on-click="() => this.actionService.doAction('bista_inventory_enhancement.action_inventory_barcode_kanban')">
+                    Physical Count
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>
+
+
+
+
+

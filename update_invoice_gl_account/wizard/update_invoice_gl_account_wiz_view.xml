@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="update_invoice_gl_account_wiz_form_view" model="ir.ui.view">
+        <field name="name">update.invoice.account.wiz.form.view</field>
+        <field name="model">update.invoice.account.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Update Invoice GL Account">
+                <group>
+                    <group>
+                        <field name="account_move_id" readonly="1" options="{'no_open': True}"/>
+                        <field name="company_id" invisible="1" options="{'no_open': True}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <separator string="Update Invoice Line"/>
+				<field name="update_invoice_line">
+					<tree editable="bottom" create="false" delete="false">
+						<field name="product_id" readonly="1" options="{'no_open': True}" force_save="1"/>
+						<field name="label" readonly="1" force_save="1"/>
+						<field name="account_id" readonly="1" options="{'no_open': True}" force_save="1"/>
+						<field name="new_account_id" domain="[('deprecated', '=', False), ('account_type', 'not in', ('asset_receivable', 'liability_payable', 'asset_cash')), ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+						<field name="aml_id" invisible="1"/>
+					</tree>
+				</field>
+                <footer>
+                    <button name="action_validate" string="Update" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_update_invoice_gl_account_wiz" model="ir.actions.act_window">
+        <field name="name">Update Invoice GL Account</field>
+        <field name="res_model">update.invoice.account.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="update_invoice_gl_account_wiz_form_view"/>
+        <field name="target">new</field>
+    </record>
+    
+</odoo>

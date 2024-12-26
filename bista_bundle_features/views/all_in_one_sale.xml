@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+    	<!-- sale order -->
+    	<record id="inherit_view_order_line_tree" model="ir.ui.view">
+    		<field name="name">sale.order.line.form</field>
+    		<field name="model">sale.order.line</field>
+    		<field name="inherit_id" ref="sale.view_order_line_tree"/>
+    		<field name="arch" type="xml">
+                <xpath expr="//field[@name='price_subtotal']" position="before">
+                    <field name="discount"/>
+                    <field name="price_tax"/>
+                    <field name="price_unit"/>
+                </xpath>
+                <xpath expr="//field[@name='price_subtotal']" position="after">	
+        			<field name="state"/>
+        		</xpath>
+                <xpath expr="//field[@name='name']" position="after"> 
+                    <field name="product_id"/>
+                </xpath>
+                   
+        	</field>
+    	</record>
+
+
+        <!-- sale search filter -->
+        <record id="inherit_sales_order_line_filter" model="ir.ui.view">
+            <field name="name">sale.order.line.filter</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                <filter name="salesperson" position="after">
+                <filter string="Customer" name="customer" domain="[]" context="{'group_by':'order_partner_id'}"/>
+
+                </filter>
+            </field>
+        </record>
+
+        <!-- Quotation lines -->
+        <record id="action_sale_quotations_line" model="ir.actions.act_window">
+            <field name="name">Quotations Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="domain">[('order_id.state','in',('draft','sent'))]</field>
+            <field name="view_mode">tree,kanban,form,pivot</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation line.
+              </p><p>
+                Create a new quotation line.
+              </p>
+            </field>
+        </record>
+
+        <menuitem 
+            id="menu_sale_quotations_line"
+            action="action_sale_quotations_line"
+            parent="sale.sale_order_menu" 
+            groups="bista_bundle_features.group_all_in_one_views"/>
+
+        <record id="action_sale_order_line" model="ir.actions.act_window">
+            <field name="name">Sale Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="domain">[('order_id.state','=',('sale', 'done'))]</field>
+            <field name="view_mode">tree,kanban,form,pivot</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new order line.
+              </p><p>
+                Create a new order line.
+              </p>
+            </field>
+        </record>
+
+        <menuitem 
+            id="menu_sale_order_line"
+            action="action_sale_order_line"
+            parent="sale.sale_order_menu" 
+            groups="bista_bundle_features.group_all_in_one_views"/>
+
+    </data>
+</odoo>

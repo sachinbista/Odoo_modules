@@ -21,8 +21,6 @@ class StockPicking(models.Model):
             :return:
         """
         barcode_list = []
-        cnt = 1
-        barcode_number=0
         if not package:
             package = self.package_ids
         for rec in package:
@@ -32,20 +30,9 @@ class StockPicking(models.Model):
             gs1_company_prefix = self.env['ir.config_parameter'].sudo().get_param(
                 'bista_GS1_shipping_label.gs1_company_prefix')
 
-            barcode_number = gs1_extension_digit + gs1_company_prefix + split_pack_no
+            barcode_number = gs1_extension_digit + gs1_company_prefix + '0' + split_pack_no
             barcode_list.append(barcode_number)
-            print("cntttt", cnt)
-            barcode_number = barcode_list[0] if len(barcode_list) > 0 else None
-            cnt += 1
-            print("cntttt",cnt)
-            print("barcccccc",barcode_number)
-            print("barcccccc",barcode_list)
-            print(">>>>>barcoedeeeee", barcode_number)
-        return barcode_number
-        # barcode = barcode_list[0]
-        # else:
-        #     barcode = None
-        # return barcode_number
+        return barcode_list
 
     def get_check_digit(self, package):
         """

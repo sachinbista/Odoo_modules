@@ -1,0 +1,56 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_picture" style="max-height: initial;">
+            <h2 class="oe_slogan">Set of CLX widgets to make the data presentation better</h2>
+            <h4 class="oe_slogan">Overview</h4>
+            <p class="text-center">
+                CLX Widgets:<br><hr>
+
+            </p>
+        </div>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_picture" style="max-height: initial;">
+            <div class="oe_demo oe_screenshot">
+                {# <img src="example.png" style="width:inherit;" alt="Web clipboard example"/> #}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_picture" style="max-height: initial;">
+            <h2 class="oe_slogan" style="margin-bottom: 0;">
+                Conversion Logix Widgets
+            </h2>
+            <p class="text-center">
+                <h3>clx_href widget</h3>
+                <field name="report_href" widget="clx_href" options="{'display_icon': '1', 'display_url': '0', 'open_new': '1',icon:'fa-bar-chart'}" string="URL" />
+                display_icon - (0/1) display link as icon
+                display_url - (0/1) display link as display_url
+                open_new - (0/1) open URL in the new window
+                icon - (icon name) icon name from the Font Awesome icons set. Optional.
+                
+            </p>
+        </div>
+    </div>
+</section>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Disable a past dates in Date Picker widget </h2>
+        <div class="w3-content w3-display-container">
+            <pre class="bg-black text-white">
+                <code>
+    e.g.
+    &lt;field name="validity_date" options="{'datepicker': {'minDate': 'now'}}"/&gt;
+                </code>
+            </pre>
+            <div class="alert alert-info">
+                <i class="fa fa-lightbulb-o"></i> There are three option for minDate ('yesterday', 'now' and 'tomorrow').
+                It will work on date and datetime fields.
+            </div>
+        </div>
+    </div>
+</section>

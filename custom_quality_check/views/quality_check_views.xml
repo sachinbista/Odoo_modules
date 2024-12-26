@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quality_check_view_form_inherit" model="ir.ui.view">
+        <field name="name">quality.control.quality.check.view.form</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header" position="inside">
+                    <button name="action_get_dimensions" type="object" class="oe_highlight" string="Get Dimensions"
+                            attrs="{'invisible': [('dimension_status', '!=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='measure_on']" position="after">
+                    <label for="length" string=""/>
+                    <div class="o_row mt-3" for="length" style="width:100% !important">
+                        <div class="font-weight-bold text-dark" style="width:25% !important; max-width:25% !important;">
+                            Results
+                        </div>
+                        <div class="font-weight-bold text-dark" style="width:25% !important; max-width:25% !important;">
+                            Compared To
+                        </div>
+                    </div>
+
+
+                    <label for="length"/>
+                    <div class="o_row" name="length" style="width:100% !important">
+                        <field name="length" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                        <field name="pkg_length" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                    </div>
+
+
+                    <label for="width"/>
+                    <div class="o_row" name="width" style="width:100% !important">
+                        <field name="width" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                        <field name="pkg_width" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                    </div>
+
+                    <label for="height"/>
+                    <div class="o_row" name="height" style="width:100% !important">
+                        <field name="height" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                        <field name="pkg_height" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                    </div>
+
+                    <label for="weight"/>
+                    <div class="o_row" name="weight" style="width:100% !important">
+                        <field name="weight" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                        <field name="pkg_weight" style="width:25% !important; max-width:25% !important;" readonly="1"/>
+                    </div>
+                </xpath>
+
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="scanned_image" widget="image"/>
+                </xpath>
+                <field name="qty_line"/>
+                <field name="qty_to_test"/>
+                <field name="qty_tested"/>
+                <xpath expr="//field[@name='test_type_id']" position="after">
+                    <field name="dimensioner_type" attrs="{'invisible': [('test_type', '!=', 'Dimensioner')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='measure_on']" position="before">
+                    <field name="dimension_status" invisible="1"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="quality_check_view_tree_inherit" model="ir.ui.view">
+        <field name="name">quality.check.view.tree.inherit</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_tree"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="dimensioner_type"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="quality_point_view_form_inherit" model="ir.ui.view">
+        <field name="name">quality.point.view.form.inherit</field>
+        <field name="model">quality.point</field>
+        <field name="inherit_id" ref="quality.quality_point_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='test_type_id']" position="after">
+                    <field name="dimensioner_type" attrs="{'invisible': [('test_type', '!=', 'Dimensioner')]}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    <record id="quality_point_view_tree_inherit" model="ir.ui.view">
+        <field name="name">quality.point.view.tree.inherit</field>
+        <field name="model">quality.point</field>
+        <field name="inherit_id" ref="quality.quality_point_view_tree"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='test_type_id']" position="after">
+                    <field name="dimensioner_type"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

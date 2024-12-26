@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="pre_receiver_template_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <style>
+                            .font_size1 {font-size:15pt;}
+                            .font_size2{ font-size: 11.5pt;}
+                            .border1 {border: 1px solid black}
+                            .padding_left { padding-left:10px}
+                            .padding_right { padding-right:10px}
+                            .padding_top { padding-top:5px}
+                            .padding_bottom {padding-bottom:5px}
+                            .ver_align {vertical-align: middle}
+                        </style>
+                        <strong class="font_size1">Purchase order:</strong>
+                        <t t-if="o.get_purchase_orders() != 'False'">
+                            <span t-esc="o.get_purchase_orders()" />
+                        </t>
+                        <br/>
+                        <strong class="font_size1">Container ID:</strong>
+                        <span class="font_size1" t-field="o.name"/>
+                        <br/>
+<!--                        <div t-field="o.name" class="padding_top padding_bottom" t-options="{'widget': 'barcode', 'width': 250, 'height': 60, 'quiet': 0,}" />-->
+
+                        <div class="col-xs-3" style="margin-bottom:25px;">
+                            <span t-field="o.name" t-options="{'widget': 'barcode', 'width': 600, 'height': 150,'quiet': 0, 'symbology': 'auto', 'img_style': 'width:200px;height:50px;'}"/>
+                        </div>
+                        <strong class="font_size2">Creation Date:</strong>
+                        <span class="font_size2" t-field="o.create_date"/>
+                        <br/>
+                        <strong class="font_size2">Document Type:</strong>
+                        <span class="font_size2" >Pre-Receiver</span>
+                        <br/><br/>
+                        <table style="width:100%;">
+                            <thead>
+                                <tr style="height:30px;">
+                                    <th class="border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <strong >Source Document</strong>
+                                    </th>
+                                    <th class="border1 padding_left padding_right font_size2" name="pack_case" style="text-align:center">
+                                        <strong>Departure</strong>
+                                    </th>
+                                    <th class="border1 padding_left padding_right font_size2" name="pack_case_qty" style="text-align:center">
+                                        <strong>Arrival</strong>
+                                    </th>
+                                    <th class="border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:center">
+                                        <strong>Scheduled Date</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="lines" t-value="o.picking_ids"/>
+                                <tr t-foreach="lines" t-as="line" style="height:80px;">
+                                    <td class="border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <span t-field="line.origin"/><br/>
+                                        <span t-field="line.purchase_id.name" t-options="{'widget': 'barcode', 'width': 180, 'height': 50, 'quiet': 0,}"/>
+                                    </td>
+                                    <td class="border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <div style="text-align: center;">
+                                            <span>ETD: </span>
+                                            <t t-if="line.purchase_id.etd_date">
+                                                <span t-field="line.purchase_id.etd_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                            <t t-if="not line.purchase_id.etd_date and line.date_etd">
+                                                <span t-field="line.date_etd" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                            <t t-if="not line.purchase_id.etd_date and not line.date_etd and o.date_etd">
+                                                <span t-field="o.date_etd" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                        </div>
+                                    </td>
+                                   <td class="border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <div style="text-align: center;">
+                                            <span>ETA: </span>
+                                            <t t-if="line.purchase_id.eta_date">
+                                                <span t-field="line.purchase_id.eta_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                            <t t-if="not line.purchase_id.eta_date and line.date_eta">
+                                                <span t-field="line.date_eta" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                            <t t-if="not line.purchase_id.eta_date and not line.date_eta and o.date_eta">
+                                                <span t-field="o.date_eta" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span>00:00:00</span>
+                                            </t>
+                                        </div>
+                                    </td>
+                                    <td class="border1 padding_left padding_right font_size2" style="text-align:center">
+                                        <t t-if="o.scheduled_date" style="text-align: center;">
+                                            <div style="text-align: center;">
+                                                <span t-field="line.location_dest_id.location_id.display_name"/><span>: </span> <span t-field="line.scheduled_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                                <br/>
+                                                <span t-field="line.scheduled_date" t-options='{"widget": "datetime","format": "HH:MM:SS"}'/>
+                                            </div>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/><br/>
+                        <table style="width:100%;">
+                            <thead>
+                                <tr style="height:30px;">
+                                    <th class="ver_align border1 padding_left padding_right font_size2" style="text-align:left">
+                                        <strong>Expected Item(s):</strong>
+                                    </th>
+                                    <th class="ver_align border1 font_size2 padding_left padding_right" name="pack_case" style="text-align:center">
+                                        <strong>Item Barcode</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_case_qty" style="text-align:center">
+                                        <strong>Purchase Order</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:center">
+                                        <strong>Expected Case Pack</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:center">
+                                        <strong>Expected Units</strong>
+                                    </th>
+                                    <th class="ver_align border1 padding_left padding_right font_size2" name="pack_quantity" style="text-align:center">
+                                        <strong>Expected Cases</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border1 padding_left font_size2" style="text-align:left" colspan="6">
+                                        <strong >FROM:</strong>
+                                        <span t-field="o.move_line_ids[0].location_id"/><br/>
+                                        <strong >To:</strong>
+                                        <span t-field="o.move_line_ids[0].location_dest_id"/>
+                                    </td>
+                                </tr>
+                                <t t-set="lines" t-value="o.move_line_ids"/>
+                                <tr t-foreach="lines" t-as="line" style="height:50px;">
+                                    <td class="border1 padding_left font_size2" style="text-align:left">
+                                        <t t-if="default_code">
+                                            [<span t-esc="default_code"/>]
+                                        </t>
+                                        <span t-field="line.product_id.name"/>
+                                        <t t-if="line.product_id.product_template_variant_value_ids">
+                                            (<span t-field="line.product_id.product_template_variant_value_ids"/>)
+                                        </t>
+                                    </td>
+                                    <td class="border1 padding_top" style="text-align:center">
+                                        <span t-field="line.product_id.barcode" t-options="{'widget': 'barcode', 'width': 70, 'height': 30, 'quiet': 0,}"/>
+                                    </td>
+                                   <td class="border1 padding_left font_size2" style="text-align:center">
+                                          <span t-field="line.picking_id.purchase_id.partner_ref"/>
+                                    </td>
+                                    <td class="border1 padding_right font_size2" style="text-align:center">
+                                        <span t-esc="line.product_packaging_id.name" />
+                                    </td>
+                                    <td class="border1 padding_right font_size2" style="text-align:center">
+                                        <t t-if="line.qty_done > 0">
+                                            <span t-field="line.qty_done"/>
+                                         </t>
+                                         <t t-else="">
+                                             <span t-field="line.reserved_uom_qty"/>
+                                         </t>
+                                    </td>
+                                    <td class="border1 padding_right font_size2" style="text-align:center">
+                                        <t t-esc="'%.2f' % line.get_expected_cases()"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_pre_receiver_template_report" model="ir.actions.report">
+        <field name="name">Pre-Receiver</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.pre_receiver_template_report</field>
+        <field name="report_file">flybar_custom_inventory_report.pre_receiver_template_report</field>
+        <field name="print_report_name">'Pre-Receiver'</field>
+        <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_cds"/>
+    </record>
+</odoo>

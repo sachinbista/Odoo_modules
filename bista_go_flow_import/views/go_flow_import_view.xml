@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- =============== Go-Flow Import Tree View ====================== -->
+    <record model="ir.ui.view" id="custom_go_flow_import_tree_view">
+        <field name="name">go.flow.import.tree</field>
+        <field name="model">go.flow.import</field>
+        <field name="arch" type="xml">
+            <tree string="Go-Flow Import Tree">
+                <field name="order_number"/>
+                <field name="po_number"/>
+                <field name="order_id"/>
+                <field name="sale_order_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =============== Go-Flow Import Form View ====================== -->
+    <record id="custom_go_flow_import_form_view" model="ir.ui.view">
+        <field name="name">go.flow.import.form</field>
+        <field name="model">go.flow.import</field>
+        <field name="arch" type="xml">
+            <form string="GoFlow Import Form">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_number"/>
+                            <field name="order_id"/>
+                            <field name="status"/>
+                            <field name="warehouse"/>
+                            <field name="ship_by"/>
+                            <field name="subtotal"/>
+                            <field name="shipping_charge"/>
+                            <field name="discount"/>
+                            <field name="is_process"/>
+                        </group>
+                        <group>
+                            <field name="po_number"/>
+                            <field name="date"/>
+                            <field name="tags"/>
+                            <field name="store"/>
+                            <field name="ship_date"/>
+                            <field name="sales_tax"/>
+                            <field name="shipping_tax"/>
+                            <field name="Total"/>
+                            <field name="sale_order_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Customer Details" name="customer_detail">
+                            <group >
+                                <group>
+                                    <field name="customer_name"/>
+                                    <field name="customer_street2"/>
+                                    <field name="customer_state"/>
+                                    <field name="customer_country"/>
+                                    <field name="customer_email"/>
+                                </group>
+                                <group>
+                                    <field name="customer_street"/>
+                                    <field name="customer_city"/>
+                                    <field name="customer_zip_code"/>
+                                    <field name="customer_phone"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Other Info" name="other_info">
+                            <group >
+                                <group>
+                                    <field name="Carrier"/>
+                                    <field name="scac"/>
+                                    <field name="shipment_pounds"/>
+                                </group>
+                                <group>
+                                    <field name="shipping_method"/>
+                                    <field name="tracking_numbers"/>
+                                    <field name="shipment_ounces"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bista_order_import_view_search" model="ir.ui.view">
+        <field name="name">go.flow.import.search</field>
+        <field name="model">go.flow.import</field>
+        <field name="arch" type="xml">
+            <search string="Search GoFlow Order Import">
+                <field name="order_number" string="Order Number"
+                    filter_domain="[('order_number', 'ilike', self)]"/>
+
+                <field name="order_id" string="order Id"
+                    filter_domain="[('order_id', 'ilike', self)]"/>
+
+                <field name="po_number" string="PO Number"
+                    filter_domain="[('name', 'ilike', self)]"/>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- =============== Go-Flow Import Action View ====================== -->
+    <record id="action_custom_go_flow_import" model="ir.actions.act_window">
+        <field name="name">GoFlow Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">go.flow.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="custom_go_flow_import_tree_view"/>
+    </record>
+
+    <menuitem name="GoFlow Import"
+              id="go_flow_import_parent_menu"
+              parent="bista_go_flow.goflow_operation_menu"
+              sequence="3"
+              groups="base.group_system"
+    />
+    <menuitem
+            name="GoFlow Import"
+            id="go_flow_import_child_menu"
+            parent="go_flow_import_parent_menu"
+            action="action_custom_go_flow_import"
+            sequence="1"
+            groups="base.group_system"
+    />
+
+</odoo>

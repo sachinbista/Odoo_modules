@@ -1,0 +1,65 @@
+<odoo>
+
+    <record
+        id="res_config_settings_view_form_bista_create_auto_invoice"
+        model="ir.ui.view">
+        <field name="name">res.config.settings.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id"
+            ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invoicing_settings']"
+                position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <div class="content-group">
+                            <field name="auto_create_invoice" />
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="auto_create_invoice" />
+                        <div class="text-muted">
+                            Allow to create customer invoice
+                            automatically while delivery order
+                            validated.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 o_setting_box"
+                    attrs="{'invisible' : [('auto_create_invoice','=',False)]}">
+                    <div class="o_setting_left_pane">
+                        <div class="content-group">
+                            <field name="auto_validate_invoice" />
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="auto_validate_invoice" />
+                        <div class="text-muted">
+                            Allow to auto post customer
+                            invoice while delivery order
+                            validated.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 o_setting_box"
+                    attrs="{'invisible' : [('auto_create_invoice','=',False)]}">
+                    <div class="o_setting_left_pane">
+                        <div class="content-group">
+                            <field name="auto_send_mail_invoice" />
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="auto_send_mail_invoice" />
+                        <div class="text-muted">
+                            Allow to send invoice to customer
+                            while delivery order validated.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

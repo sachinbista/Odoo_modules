@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bista_royalty_report.access_product_royalty_list,access_product_royalty_list,bista_royalty_report.model_product_royalty_list,base.group_user,1,1,1,1
+bista_royalty_report.access_royalty,access_royalty,bista_royalty_report.model_royalty,base.group_user,1,1,1,1

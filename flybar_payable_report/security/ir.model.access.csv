@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+flybar_payable_report.access_account_payable_report,access_account_payable_report,flybar_payable_report.model_account_payable_report,base.group_user,1,1,1,1
+flybar_payable_report.access_account_payable_report_wizard,access_account_payable_report_wizard,flybar_payable_report.model_account_payable_report_wizard,base.group_user,1,1,1,1

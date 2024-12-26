@@ -1,0 +1,12 @@
+.zoom {
+  padding: auto;
+  width: auto;
+  height: auto;
+  margin: auto;
+  transition: transform .10s; /* Animation */
+}
+
+.zoom:hover {
+  font-size: 17px;
+  position:relative;
+ }

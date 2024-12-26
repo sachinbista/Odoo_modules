@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <menuitem name="Product Data" id="goflow_product_data_menu" parent="bista_go_flow.goflow_downloaded_data_menu"
+          action="goflow_product_data" sequence="1"/>
+        <menuitem name="Product Data" id="goflow_product_data_menu" parent="bista_go_flow.goflow_downloaded_data_menu"
+          action="goflow_product_data" sequence="1"/>
+        <menuitem name="Products" id="goflow_products_menu" parent="bista_go_flow.goflow_catalog_menu"
+          action="goflow_product_menu_action_window" sequence="1"/>
+
+    </data>
+</odoo>

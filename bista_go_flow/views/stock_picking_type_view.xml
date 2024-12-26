@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="search_view_form_stock_picking_extend_company_grp" model="ir.ui.view">
+        <field name="name">stock.picking.type.inherit.repair</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_pickingtype_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_warehouse_id']" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="search_view_form_stock_stock_orderpoint_company_grp" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.stock_reorder_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_location']" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="search_view_form_stock_picking_batch_company_grp" model="ir.ui.view">
+        <field name="name">stock.picking.batch.inherit</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='state']" position="before">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="stock_move_line_view_search_inherit_company_groupby" model="ir.ui.view">
+        <field name="name">stock.move.line.search.stock_picking_batch</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='by_category']" position="before">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_move_search_company_groupby" model="ir.ui.view">
+        <field name="name">stock.move.search.view</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_date']" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_scrap_search_view_company_grpby" model="ir.ui.view">
+        <field name="name">stock.scrap.search.inherit</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='transfer']" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="product_template_search_view_inherit_comapny_groupby" model="ir.ui.view">
+        <field name="name">product.template.search.view.inherit.hr_expense</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="categ_id" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="quant_package_search_view_inherit_company_groupby" model="ir.ui.view">
+        <field name="name">stock.quant.package.view.inherit</field>
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.quant_package_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="package_type" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+
+    <record id="stock_warehouse_inherit_company_groupby" model="ir.ui.view">
+        <field name="name">stock.warehouse.view.inherit</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.stock_warehouse_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="stock_location_route_view_search_inherit_company" model="ir.ui.view">
+        <field name="name">stock.location.route.search</field>
+        <field name="model">stock.route</field>
+        <field name="inherit_id" ref="stock.stock_location_route_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+
+    <record id="view_stock_rule_filter_inherit_company" model="ir.ui.view">
+        <field name="name">stock.rule.select</field>
+        <field name="model">stock.rule</field>
+        <field name="inherit_id" ref="stock.view_stock_rule_filter"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+
+    <record id="view_stock_putaway_rule_filter_inherit_company" model="ir.ui.view">
+        <field name="name">stock.putaway.rule.select</field>
+        <field name="model">stock.putaway.rule</field>
+        <field name="inherit_id" ref="stock.view_putaway_search"/>
+        <field name="arch" type="xml">
+            <filter name="location_out" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_stock_warehouse_orderpoint_filter_inherit_company" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.select</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.warehouse_orderpoint_search"/>
+        <field name="arch" type="xml">
+            <filter name="product" position="after">
+                <separator>
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_stock_warehouse_view_tree" model="ir.ui.view">
+        <field name="name">stock.quant</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="productgroup" position="before">
+                <separator>
+                    <filter string="Warehouse" name="warehouse_groupby" context="{'group_by': 'warehouse_id'} "/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_stock_warehouse_view_tree_2" model="ir.ui.view">
+        <field name="name">stock.move</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="arch" type="xml">
+            <filter name="by_product" position="before">
+                <separator>
+                    <filter string="Warehouse" name="warehouse_groupby" context="{'group_by': 'warehouse_id'} "/>
+                </separator>
+            </filter>
+        </field>
+    </record>
+<!--    <record id="view_stock_warehouse_view_tree_3" model="ir.ui.view">-->
+<!--        <field name="name">product.template</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <filter name="real_stock_available" position="before">-->
+<!--                <separator>-->
+<!--                    <filter string="Warehouse" name="warehouse_groupby" context="{'group_by': 'warehouse_id'} "/>-->
+<!--                </separator>-->
+<!--            </filter>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="view_stock_picking_type_form_goflow_inherit" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='show_reserved']" position="after">
+                <field name="api_shipping_request" string="Shipping Request" groups="base.group_no_one"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_delivery_carrier_goflow_form" model="ir.ui.view">
+        <field name="name">delivery.carrier.form</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="carrier_code" readonly="1" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_normal_form_view">
+        <field name="name">product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <label for="volume" position="replace"/>
+            <div class="o_row" name="volume" position="replace"/>
+            <xpath expr="//page[@name='inventory']/group[@name='inventory']/group[@name='group_lots_and_weight']/label[@for='weight']" position="before">
+               <!-- <group name="dimensions" string="Dimensions" colspan="2">-->
+                    <!--<field name="dimensional_uom_id" invisible="1"/>
+                    <field name="product_length" string="Length" />
+                    <field name="product_height" string="Height" />
+                    <field name="product_width" string="Width" />-->
+                    <label for="product_length" string="L X W X H"/>
+                    <div class="o_row">
+                        <field name="product_length" nolabel="1"/>
+                        <field name="product_width" nolabel="1"/>
+                        <field name="product_height" nolabel="1"/>
+                    </div>
+                    <label for="volume" attrs="{'invisible':[('product_variant_count', '>', 1), ('is_product_variant', '=', False)]}"/>
+                    <div class="o_row" name="volume" attrs="{'invisible':[('product_variant_count', '>', 1), ('is_product_variant', '=', False)]}">
+                        <field name="volume" string="Volume" class="oe_inline" readonly="1"/>
+                        <field name="volume_uom_name"/>
+                    </div>
+                    <!--<field name="volume" readonly="1" />-->
+                <!--</group>-->
+            </xpath>
+
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_template_only_form_view">
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <!--<xpath expr="//group[@name='inventory']" position="inside">
+                <group string="Dimensions" name="dimensions" colspan="2" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                    <field name="dimensional_uom_id" />
+                    <field name="product_length" string="Length" />
+                    <field name="product_height" string="Height" />
+                    <field name="product_width" string="Width" />
+                    <field name="volume" readonly="1" />
+                </group>
+            </xpath>-->
+
+
+            <label for="volume" position="replace"/>
+            <div class="o_row" name="volume" position="replace"/>
+            <xpath expr="//page[@name='inventory']/group[@name='inventory']/group[@name='group_lots_and_weight']/label[@for='weight']" position="before">
+               <!-- <group name="dimensions" string="Dimensions" colspan="2">-->
+                    <!--<field name="dimensional_uom_id" invisible="1"/>
+                    <field name="product_length" string="Length" />
+                    <field name="product_height" string="Height" />
+                    <field name="product_width" string="Width" />-->
+                    <label for="product_length" string="L X W X H" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+                    <div class="o_row" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                        <field name="product_length" nolabel="1"/>
+                        <field name="product_width" nolabel="1"/>
+                        <field name="product_height" nolabel="1"/>
+                    </div>
+                    <label for="volume" attrs="{'invisible':[('product_variant_count', '>', 1), ('is_product_variant', '=', False)]}"/>
+                    <div class="o_row" name="volume" attrs="{'invisible':[('product_variant_count', '>', 1), ('is_product_variant', '=', False)]}">
+                        <field name="volume" string="Volume" class="oe_inline" readonly="1"/>
+                        <field name="volume_uom_name"/>
+                    </div>
+                <!--</group>-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

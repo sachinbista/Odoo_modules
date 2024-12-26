@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.firebase.setting</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block"
+                     data-string="Push Notification" string="Push Notification" data-key="bista_wms_notification">
+                    <h2>Firebase Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="firebase_project_name">
+                            <div class="o_setting_left_pane"></div>
+                            <div>
+                                <label for="firebase_name" string="Firebase Project Name" class="o_form_label"/>
+                                <field name="firebase_name" class="w-100" placeholder='e.g. "firebase-project-name"'/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="firebase_project_id">
+                            <div class="o_setting_left_pane"></div>
+                            <div>
+                                <label for="firebase_id" string="Firebase Project ID" class="o_form_label"/>
+                                <field name="firebase_id" class="w-100" placeholder='e.g. "firebase-project-id"'/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" id="firebase_project_id">
+                            <div class="o_setting_left_pane"></div>
+                            <div>
+                                <label for="firebase_key_file" string="Key File" class="o_form_label pr-2"/>
+                                <field name="firebase_key_file" class="w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

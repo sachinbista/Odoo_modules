@@ -11,3 +11,4 @@ from . import res_partner
 from . import spring_error_logs
 from . import edi_810
 from . import account_move
+from . import spring_customer_configuration

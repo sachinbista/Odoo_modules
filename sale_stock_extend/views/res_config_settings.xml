@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_sale_extend_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.sale.extend.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='down_payments']" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="custom_field_section">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <label for="amazon_commission" class="o_form_label"/>
+                        <div class="text-muted">
+                            Commission applied on order from Amazon platform.
+                        </div>
+                        <div class="text-muted">
+                            <field name="amazon_commission"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -18,7 +18,7 @@ class Edi856(models.Model):
     config_id = fields.Many2one('spring.systems.configuration', string='EDI Config')
     edi_856_data = fields.Text('EDI File')
     system_errors = fields.Text('Errors')
-    # line_ids = fields.One2many('edi.856.lines', 'asn_id', string='Line Items', copy=True)
+    line_ids = fields.One2many('edi.856.lines', 'asn_id', string='Line Items', copy=True)
     notes = fields.Text('Notes')
     status = fields.Selection([('draft', 'Draft'), ('document', 'Document'), ('sent', 'Sent')], string='Status')
     shipping_label = fields.Binary('Shipping Label')
@@ -33,21 +33,21 @@ class Edi856(models.Model):
     move_ids = fields.Many2many('stock.move', string='Moves')
 
 
-# class Edi856Lines(models.Model):
-#     _name = 'edi.856.lines'
-#     _description = 'edi856Lines'
-#
-#     edi_po_no = fields.Char('PO No.')
-#     po_id = fields.Many2one('purchase.order', string="PO #")
-#     po_date = fields.Date('PO Date')
-#
-#     isa_ref = fields.Char('ISA Reference')
-#     ship_stock_qty = fields.Float('Shipping Stock Qty')
-#     ship_purchase_qty = fields.Float('Shipped Purchase Qty')
-#     ship_uom = fields.Char('Shipped Purchase UOM')
-#
-#     product_id = fields.Many2one('product.product', string='Product')
-#
-#     line_error = fields.Boolean('Line Error')
-#     # asn_id = fields.Many2one('spring.edi.856', string="ASN Number")
-#     # status = fields.Selection([('draft', 'Draft'), ('sent', 'Sent')], string='Status')
+class Edi856Lines(models.Model):
+    _name = 'edi.856.lines'
+    _description = 'edi856Lines'
+
+    edi_po_no = fields.Char('PO No.')
+    po_id = fields.Many2one('purchase.order', string="PO #")
+    po_date = fields.Date('PO Date')
+
+    isa_ref = fields.Char('ISA Reference')
+    ship_stock_qty = fields.Float('Shipping Stock Qty')
+    ship_purchase_qty = fields.Float('Shipped Purchase Qty')
+    ship_uom = fields.Char('Shipped Purchase UOM')
+
+    product_id = fields.Many2one('product.product', string='Product')
+
+    line_error = fields.Boolean('Line Error')
+    asn_id = fields.Many2one('spring.edi.856', string="ASN Number")
+    status = fields.Selection([('draft', 'Draft'), ('sent', 'Sent')], string='Status')

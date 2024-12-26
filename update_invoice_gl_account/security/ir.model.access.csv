@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_update_invoice_account_wiz,update.invoice.account.wiz,model_update_invoice_account_wiz,base.group_user,1,1,1,1
+access_update_invoice_update_invoice_account_line_wiz,update.invoice.account.line.wiz,model_update_invoice_account_line_wiz,base.group_user,1,1,1,1

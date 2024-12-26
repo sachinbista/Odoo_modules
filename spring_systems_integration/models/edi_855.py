@@ -126,5 +126,5 @@ class SpringEdi855(models.Model):
 
             response = config._send_spring_request('post', connection_url, payload=po_new)
             if response and response.status_code == 200:
-                for so in so_to_send:
-                    so.write({'status': 'posted'})
+                print('yes')
+

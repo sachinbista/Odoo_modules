@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	    <record id="group_approved_to_pay" model="res.groups">
+	        <field name="name">Approved to Pay</field>
+	        <field name="comment">User belongs to this group can only use 'Approved to pay' feature in vendor bills</field>
+	    </record>
+    </data>
+</odoo>

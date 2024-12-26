@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <!-- inherit res users -->
+    <record id="view_users_form_manager_pin" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']/group[1]" position="after">
+                
+                <group string="Manage Inventroy Pin">
+                    <field string="Pin" name="pin_password" password="True"/>
+                </group>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

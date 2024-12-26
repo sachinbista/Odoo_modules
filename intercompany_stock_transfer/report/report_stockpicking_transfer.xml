@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <template id="report_caliva_picking_transfer" inherit_id="stock.report_picking">
+<!--             <xpath expr="//table[1]/tbody/tr/td[1]" position="replace"> -->
+<!--                 <td> -->
+<!--                     <t t-if="o.stock_transfer_id"> -->
+<!--                         <span t-esc="o.stock_transfer_id.name"/> -->
+<!--                     </t> -->
+<!--                     <t t-elif="o.origin"> -->
+<!--                         <span t-field="o.origin"/> -->
+<!--                     </t> -->
+<!--                 </td> -->
+<!--             </xpath> -->
+              <xpath expr="//table[1]/thead/tr/th[2]" position="after">
+                <th>
+                    <strong>Unit Cost</strong>
+                </th>
+            </xpath>
+            <xpath expr="//table[1]/tbody/t/tr/td[2]" position="after">
+                <td>
+                    <span t-field="ml.product_id.standard_price"/>
+                </td>
+            </xpath>
+         </template>
+    </data>
+
+</odoo>

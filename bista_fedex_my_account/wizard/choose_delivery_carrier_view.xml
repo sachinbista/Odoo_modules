@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="choose_delivery_carrier_view_form_inherit" model="ir.ui.view">
+        <field name="name">choose.delivery.carrier.form.inherit</field>
+        <field name="model">choose.delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_carrier_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group" position="after">
+                <group>
+                    <field name="bill_my_account"/>
+                    <field name="account_number" attrs="{'invisible':[('bill_my_account','=',False)]}"/>
+                </group>
+                
+            </xpath>
+        </field>
+    </record>
+</odoo>

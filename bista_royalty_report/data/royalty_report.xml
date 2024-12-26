@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="royalty_report" model="account.report">
+            <field name="name">Royalty Report</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="filter_royalty_agent" eval="True"/>
+            <field name="filter_period_comparison" eval="False"/>
+            <field name="filter_growth_comparison" eval="False"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="custom_handler_model_id" ref="model_royalty_report_handler"/>
+            <field name="column_ids">
+                <record id="royalty_date" model="account.report.column">
+                    <field name="name">Date</field>
+                    <field name="expression_label">date</field>
+                    <field name="figure_type">date</field>
+                    <field name="sequence">1</field>
+                </record>
+                <record id="royalty_invoice_number" model="account.report.column">
+                    <field name="name">Invoice Number</field>
+                    <field name="expression_label">invoice_number</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">2</field>
+                </record>
+                <record id="royalty_customer_name" model="account.report.column">
+                    <field name="name">Customer Name</field>
+                    <field name="expression_label">customer_name</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">3</field>
+                </record>
+                <record id="royalty_product" model="account.report.column">
+                    <field name="name">Product</field>
+                    <field name="expression_label">product</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">4</field>
+                </record>
+                <record id="royalty_agent" model="account.report.column">
+                    <field name="name">Agent</field>
+                    <field name="expression_label">agent</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">5</field>
+                </record>
+                <record id="royalty_gross" model="account.report.column">
+                    <field name="name">Gross</field>
+                    <field name="expression_label">gross</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">6</field>
+                </record>
+                <record id="royalty_discount" model="account.report.column">
+                    <field name="name">Discount</field>
+                    <field name="expression_label">discount</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">7</field>
+                </record>
+                <record id="royalty_freight" model="account.report.column">
+                    <field name="name">Freight</field>
+                    <field name="expression_label">freight</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">8</field>
+                </record>
+                <record id="royalty_amazon_charges" model="account.report.column">
+                    <field name="name">Amazon Charges</field>
+                    <field name="expression_label">amazon_charges</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">9</field>
+                </record>
+                <record id="royalty_other" model="account.report.column">
+                    <field name="name">Other</field>
+                    <field name="expression_label">other</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">10</field>
+                </record>
+                <record id="royalty_net_sale" model="account.report.column">
+                    <field name="name">Net Sale</field>
+                    <field name="expression_label">net_sale</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">11</field>
+                </record>
+                <record id="royalty_potential_royalty_amt" model="account.report.column">
+                    <field name="name">Potential Royalty Amt.</field>
+                    <field name="expression_label">potential_royalty_amt</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">12</field>
+                </record>
+                <record id="royalty_percentage" model="account.report.column">
+                    <field name="name">Royalty (%)</field>
+                    <field name="expression_label">royalty_percent</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">13</field>
+                </record>
+                <record id="royalty_potential_royalty" model="account.report.column">
+                    <field name="name">Royalty</field>
+                    <field name="expression_label">royalty</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">14</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>
+

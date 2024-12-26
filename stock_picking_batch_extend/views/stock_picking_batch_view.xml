@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_batch_extend_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.inherit</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock_picking_batch.view_picking_type_form_inherit"/>
+        <field name="arch" type="xml">
+            <div name="batch_contact" position="after">
+                <span attrs="{'invisible':[('auto_batch', '=', False)]}"/>
+                <div name="batch_delivery" class="o_row" attrs="{'invisible':[('auto_batch', '=', False)]}">
+                    <field name="batch_group_by_delivery_type"/>
+                    <label for="batch_group_by_delivery_type"/>
+                </div>
+            </div>
+            <div name="batch_delivery" position="after">
+                <span attrs="{'invisible':[('auto_batch', '=', False)]}"/>
+                <div name="batch_container" class="o_row" attrs="{'invisible':[('auto_batch', '=', False)]}">
+                    <field name="batch_group_by_container"/>
+                    <label for="batch_group_by_container"/>
+                </div>
+            </div>
+            <field name="batch_auto_confirm" position="after">
+                <field name="batch_only_assigned" attrs="{'invisible': [('auto_batch', '=', False)]}"/>
+                <field name="batch_lock_in_progress" attrs="{'invisible': [('auto_batch', '=', False)]}"/>
+            </field>
+
+            <xpath expr="//field[@name='batch_group_by_delivery_type']" position="attributes">
+                <attribute name="attrs">{'invisible': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

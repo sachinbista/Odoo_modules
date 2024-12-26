@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="bista_stock_picking_batch_extend_view_picking_form" model="ir.ui.view">
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="before">
+                    <field name="container_id"
+                           attrs="{'invisible':[('picking_type_code','!=','incoming')], 'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="date_etd" readonly="1" force_save="1"
+                           attrs="{'invisible':[('picking_type_code','!=','incoming')]}"/>
+                    <field name="date_eta" readonly="1" force_save="1"
+                           attrs="{'invisible':[('picking_type_code','!=','incoming')]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="put_in_pack_by_container_id" type="object" string="PUT IN BATCH"
+                            class="col btn-link ms-2 text-nowrap" style="line-height: 0.5;"
+                            attrs="{'invisible':[('picking_type_code','!=','incoming')], 'readonly': [('state', 'in', ['done', 'cancel'])]}"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="picking_view_kanban_inherit_batch_details" model="ir.ui.view">
+            <field name="name">stock.picking.view.kanban.barcode</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_ids']" position="after">
+                    <field name="batch_details" widget="KanbanPopup"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="origin"/>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="before">
+                    <t t-if="record.origin">
+                        <div>
+                            <strong class="o_kanban_record_title"><span><t t-esc="record.origin.value"/></span>
+                           </strong>
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock.all_picking" model="ir.ui.menu"> <!--Transfer-->
+            <field name="sequence">2</field>
+        </record>
+        <record id="stock_picking_batch.stock_picking_batch_menu" model="ir.ui.menu"> <!--Batch Transfer-->
+            <field name="sequence">3</field>
+        </record>
+        <record id="intercompany_stock_transfer.menu_intercompany_stock_transfer"
+                model="ir.ui.menu"><!--Resupply Transfer-->
+            <field name="sequence">4</field>
+        </record>
+        <record id="bista_go_flow.menu_custom_stock_picking" model="ir.ui.menu"><!--Transfer Shipping Requested-->
+            <field name="sequence">5</field>
+        </record>
+        <record id="bista_go_flow.transfer_routing_status_menu" model="ir.ui.menu"><!--Transfer Routing Status-->
+            <field name="sequence">6</field>
+        </record>
+        <record id="stock_landed_costs.menu_stock_landed_cost" model="ir.ui.menu"> <!--Landed cost-->
+            <field name="sequence">7</field>
+        </record>
+        <record id="stock.menu_action_inventory_tree" model="ir.ui.menu"><!--Inventory adjustment-->
+            <field name="sequence">8</field>
+        </record>
+        <record id="stock.menu_reordering_rules_replenish" model="ir.ui.menu"><!--Replenishment-->
+            <field name="sequence">9</field>
+        </record>
+        <record id="stock.menu_stock_scrap" model="ir.ui.menu"><!--scrap-->
+            <field name="sequence">10</field>
+        </record>
+        <record id="bista_go_flow.sign_send_request_inherit" model="ir.ui.menu"><!--sign document-->
+            <field name="sequence">11</field>
+        </record>
+        <record id="stock.menu_procurement_compute" model="ir.ui.menu"><!--run scheduler-->
+            <field name="sequence">12</field>
+        </record>
+
+
+        <record id="stock_picking_type_kanban_batch_inherit" model="ir.ui.view">
+            <field name="name">picking.type.kanban.batch.inherit</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//templates" position="before">
+                    <field name="batch_processing_preferred"/>
+                </xpath>
+
+                <!--Hide existing button based on condition-->
+                <xpath expr="//button[@name='get_action_picking_tree_ready']" position="attributes">
+                    <attribute name="t-if">!record.batch_processing_preferred.raw_value</attribute>
+                </xpath>
+
+                <!--Added Batches button based on the preference.-->
+                <xpath expr="//button[@name='get_action_picking_tree_ready']" position="after">
+                    <button class="btn btn-primary" name="get_action_picking_tree_batch" type="object"
+                            t-if="record.batch_processing_preferred.raw_value">
+                        <field name="count_picking_batch"/>
+                        Batches
+                    </button>
+                </xpath>
+
+                <xpath expr="//div[@t-if='record.count_picking_batch.raw_value &gt; 0']" position="attributes">
+                    <attribute name="t-if">record.count_picking_batch.raw_value &gt; 0 and
+                        !record.batch_processing_preferred.raw_value
+                    </attribute>
+                </xpath>
+
+                <!--Added to process text and count in kanban view.-->
+                <xpath expr="//div[@name='picking_type_backorder_count']" position="after">
+                    <div t-if="record.batch_processing_preferred.raw_value" class="row">
+                        <div class="col-12">
+                            <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_ready"
+                               type="object">
+                                <span t-if="record.code.raw_value =='incoming'">
+                                    <t t-esc="record.count_picking_ready.value"/>
+                                    To Process
+                                </span>
+                                <span t-if="record.code.raw_value =='outgoing'">
+                                    <t t-esc="record.count_picking_ready.value"/>
+                                    To Process
+                                </span>
+                                <span t-if="record.code.raw_value =='internal'">
+                                    <t t-esc="record.count_picking_ready.value"/>
+                                    To Process
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

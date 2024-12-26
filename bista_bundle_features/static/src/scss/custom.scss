@@ -1,0 +1,72 @@
+.o_kanban_header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f9f9f9;
+    padding: 20px 0;
+}
+
+.o_kanban_view .o_kanban_group.o_kanban_has_progressbar > .o_kanban_header .o_kanban_header_title {
+    height: auto;
+    margin-top: 0px;
+}
+
+.o_kanban_counter {
+    margin-bottom: 0;
+}
+
+.o_kanban_view .o_column_quick_create .o_quick_create_folded {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f9f9f9;
+    padding: 20px 16px;
+}
+
+
+/*list view sticky header css */
+
+.o_list_view .o_list_table thead {
+    position: sticky;
+    top: 0;
+    z-index:999;
+}
+.table-responsive{
+    overflow: visible;
+}
+.o_list_view .table-responsive .table thead {
+z-index: 1;
+}
+
+.o_field_x2many .table-responsive {
+    overflow: auto!important;
+}
+
+
+.o_form_view .table-responsive  {max-height: 500px;overflow-y: auto;overflow-x: initial;}
+.o_form_view .o_list_table thead {position: sticky !important;top: 0;z-index: 0;}
+.o_form_view .o_list_table thead tr:nth-child(1) th {background-color: $o-list-footer-bg-color;}
+
+
+/* Increase wizard dialog width css*/
+// .modal-dialog{
+//     min-width: 90% !important;
+//
+//     .o_form_label{
+//         min-width: 300px;
+//     }
+// }
+
+/* Increase form view sheet  width css*/
+    .o_form_view .o_form_sheet_bg > .o_form_sheet {
+        min-width: 95% !important;
+    }
+
+
+.modal-dialog .o_form_view:not(.o_field_highlight) .o_field_widget:not(.o_field_invalid):not(.o_field_highlight) .o_input:not(:hover):not(:focus) {
+    --o-input-border-color: gray;
+}
+
+main {
+    user-select: text !important;
+}

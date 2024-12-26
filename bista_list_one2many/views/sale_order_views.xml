@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_quotation_tree_view_id" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="order_line" string="Product" widget="one2many" readonly="1" decoration-bf="1">
+                    <tree string="Quotation"/>
+<!--                        <field name="product_id"/>-->
+<!--                        <field name="product_uom_qty"/>-->
+<!--                        <field name="virtual_available_at_date" invisible="1"/>-->
+<!--                        <field name="qty_available_today" invisible="1"/>-->
+<!--                        <field name="free_qty_today" invisible="1"/>-->
+<!--                        <field name="scheduled_date" invisible="1"/>-->
+<!--                        <field name="forecast_expected_date" invisible="1"/>-->
+<!--                        <field name="warehouse_id" invisible="1"/>-->
+<!--                        <field name="move_ids" invisible="1"/>-->
+<!--                        <field name="qty_to_deliver" invisible="1"/>-->
+<!--                        <field name="is_mto" invisible="1"/>-->
+<!--                        <field name="product_uom" invisible="1"/>-->
+<!--                        <widget name="qty_at_date_widget" width="2px"/>-->
+<!--                        <field class="display_qty_widget" name="display_qty_widget" invisible="1"/>-->
+<!--                        <field name="display_warehouse_qty_widget" invisible="1"/>-->
+<!--                        <widget name="branch_qty_at_date_widget" width="0.1"/>-->
+<!--                    </tree>-->
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

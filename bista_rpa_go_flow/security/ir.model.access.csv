@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_go_flow_packaging_update_log","roaster_go_flow_packaging_update_log","model_go_flow_packaging_update_log","base.group_user",1,1,1,1
+"access_flask_server_config","roaster_flask_server_config","model_flask_server_config","base.group_user",1,1,1,1

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_discount_account" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.discount.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='main_currency_setting_container']" position="after">
+                <h2>Discount, Write-off Account</h2>
+                <div class="col-12 col-lg-6 o_setting_box" id="discount_account">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="invoice_discount_account_id" class="col-lg-3 o_light_label"/>
+                                <field name="invoice_discount_account_id"
+                                       options="{'no_create_edit': True, 'no_open': True}"
+                                       context="{'active_test': False}" readonly="0"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="invoice_writeoff_account_id" class="col-lg-3 o_light_label"/>
+                                <field name="invoice_writeoff_account_id"
+                                       options="{'no_create_edit': True, 'no_open': True}"
+                                       context="{'active_test': False}" readonly="0"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="carry_forward_account_id" class="col-lg-3 o_light_label"/>
+                                <field name="carry_forward_account_id"
+                                       options="{'no_create_edit': True, 'no_open': True}"
+                                       context="{'active_test': False}" readonly="0"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

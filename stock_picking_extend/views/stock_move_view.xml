@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_move_line_detailed_operation_tree_stock_picking_extend" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.tree.stock</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="before">
+               <button  name="split_packages_count"  type="object" icon="stock_picking_extend/static/src/img/arrows-split-2.svg"
+               attrs="{'invisible': ['|',('state', '=', 'draft'),('state', '=', 'done')]}"
+               help="Split The packages"
+               />
+            </xpath>
+        </field>
+    </record>
+</odoo>

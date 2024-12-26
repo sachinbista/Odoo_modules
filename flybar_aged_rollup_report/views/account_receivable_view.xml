@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="account_aged_rollup_wizard_action" model="ir.actions.act_window">
+        <field name="name">Aged Rollup Report</field>
+        <field name="res_model">account.receivable.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="account_aged_receivable_wizard_view_inherit" model="ir.ui.view">
+        <field name="name">Aged Receivable Report</field>
+        <field name="model">account.receivable.report.wizard</field>
+        <field name="inherit_id" ref ="flybar_receivable_report.account_aged_receivable_wizard_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='receivable_at']" position="before">
+                <field name="report_id" required="1"/>
+            </xpath>
+            <xpath expr="//field[@name='receivable_at']" position="attributes">
+                <attribute name="attrs"> {'invisible': [('report_id', '=', 'aged_recivable_rollup')]}</attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='date_from']" position="attributes">
+                <attribute name="attrs"> {'invisible': [('report_id', '=', 'aged_recivable_rollup')]}</attribute>
+               
+            </xpath>
+            <xpath expr="//field[@name='date_selection_option']" position="before">
+                <field name="date_from" string="From" required="1" attrs=" {'invisible': [('report_id', '=', 'aged_recivable')]}"/>
+
+            </xpath>
+             <xpath expr="//field[@name='date_selection_option']" position="before">
+                     <field name="date_to" string="To" required="1" attrs=" {'invisible': [('report_id', '=', 'aged_recivable')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem id="flybar_receivable_report.menu_action_account_payable_report_wiz" name="Aged Receivable Detail"
+        action="account_aged_rollup_wizard_action" parent="account_reports.account_reports_partners_reports_menu" />
+</odoo>

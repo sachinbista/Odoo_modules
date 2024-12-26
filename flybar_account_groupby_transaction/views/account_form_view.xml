@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="account_report_form_sale_order_type_inherit" model="ir.ui.view">
+            <field name="name">account.report.form.sale.order.type.inherit</field>
+            <field name="model">account.report</field>
+            <field name="inherit_id" ref="account_reports.account_report_form"/>
+            <field name="arch" type="xml">
+                <field name="filter_analytic_groupby" position="after">
+                    <field name="groupby_transaction_type"/>
+                </field>
+            </field>
+        </record>
+</odoo>

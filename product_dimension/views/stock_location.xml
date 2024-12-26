@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_location_dimension_form_inherit" model="ir.ui.view">
+        <field name="name">stock.location.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <group name="additional_info" position="after">
+                <group name="dimension" string="Dimension">
+                    <field name="dimensional_uom_id" />
+                    <field name="location_length" string="Length" />
+                    <field name="location_height" string="Height" />
+                    <field name="location_width" string="Width" />
+                    <field name="volume" readonly="1" />
+                </group>
+            </group>
+        </field>
+    </record>
+    <record id="view_location_dimension_search" model="ir.ui.view">
+        <field name="name">view.location.search.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="dimensional_uom_id" />
+                <field name="location_length" string="Length" />
+                <field name="location_height" string="Height" />
+                <field name="location_width" string="Width" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

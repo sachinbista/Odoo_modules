@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_goflow_product_map_line,goflow_product_map_line.goflow_product_map_line,model_goflow_product_map_line,base.group_user,1,1,1,1
+access_goflow_product,goflow_product.goflow_product,model_goflow_product,base.group_user,1,1,1,1
+access_goflow_product_data,goflow_product_data,model_goflow_product_data,base.group_user,1,1,1,1
+bista_go_flow_prodcut.access_product_brand,access_product_brand,model_product_brand,base.group_user,1,1,1,1
+bista_go_flow_prodcut.access_product_manufacturer,access_product_manufacturer,model_product_manufacturer,base.group_user,1,1,1,1
+

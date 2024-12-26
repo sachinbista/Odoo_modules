@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_agent_commission_report" model="ir.actions.client">
+        <field name="name">Agent Commission Report</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('commission.agent_commission_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_agent_commission_report" name="Commission Report" groups="account.group_account_readonly"
+              action="action_agent_commission_report" parent="account.account_reports_legal_statements_menu"
+              sequence="70"/>
+</odoo>
+
+
+

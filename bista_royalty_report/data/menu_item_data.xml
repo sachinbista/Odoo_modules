@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem name="Royalty" id="menu_royalty" web_icon="bista_royalty_report,static/description/icon.png"
+              groups="bista_royalty_report.group_royalty_user" sequence="50"/>
+    <menuitem name="Configuration" id="menu_royalty_management" parent="bista_royalty_report.menu_royalty"
+              groups="bista_royalty_report.group_royalty_manager" sequence="100"/>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_order_split_form_inherit" model="ir.ui.view">
+        <field name="name">sale.split.order.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_cancel']" position="after">
+                    <button name="open_split_sale_order_wizard" type="object" string="Split Order" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent', 'sale']), ('external_origin', '!=', 'go_flow')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_package_barcode_temp_inherit" inherit_id="stock.report_package_barcode">
+        <!-- custom modifications to the report package barcode template -->
+        <!-- Example: Change the company name -->
+        <xpath expr="//div[@class='page']" position="replace">
+            <div style="page-break-before: always;">
+                <div class="oe_structure"/>
+                <table class="table table-condensed" style="border-bottom: 0px solid white !important;">
+                    <tr>
+                        <th>
+                            <h1 t-field="o.name" class="mt0 float-start"/>
+                        </th>
+                        <th name="td_pk_barcode" style="text-align: center">
+                            <t t-if="o.valid_sscc">
+                                <div class="row text-start">
+                                    <t t-set="barcode" t-value="'00' + o.name"/>
+                                    <t t-if="o.pack_date" t-set="barcode"
+                                       t-value="barcode + '13' + o.pack_date.strftime('%y%m%d')"/>
+                                    <div class="col-3" name="datamatrix_barcode" style="margin: 0px 20px 40px 60px"
+                                         t-out="barcode"
+                                         t-options="{'widget': 'barcode', 'symbology': 'ECC200DataMatrix', 'width': 100, 'height': 100}"/>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div t-field="o.name"
+                                     t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:300px;height:50px;'}"/>
+                                <p t-field="o.name"/>
+                            </t>
+                        </th>
+                    </tr>
+                </table>
+                <div class="row mt32 mb32">
+                    <div t-if="o.pack_date" class="col-auto">
+                        <strong>Pack Date:</strong>
+                        <p t-field="o.pack_date"/>
+                    </div>
+                    <div t-if="o.package_type_id" class="o_packaging_type col-auto">
+                        <strong>Package Type:</strong>
+                        <p t-field="o.package_type_id.name"/>
+                    </div>
+                </div>
+                <table class="table table-sm table-striped" style="border-bottom: 0px solid white !important;">
+                    <t t-set="has_serial_number" t-value="o.quant_ids.mapped('lot_id')"/>
+                    <t t-set="has_ean_barcode"
+                       t-value="any(valid_ean for valid_ean in o.quant_ids.product_id.mapped('valid_ean'))"/>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th name="th_quantity" class="text-end">Quantity</th>
+                            <th name="th_uom" groups="uom.group_uom"/>
+                            <th name="th_serial" class="text-end" t-if="has_serial_number">Lot/Serial Number</th>
+                            <th name="th_barcode" class="text-end" t-if="has_ean_barcode"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="o.quant_ids">
+                            <tr t-foreach="o.quant_ids" t-as="l">
+                                <td>
+                                    <span t-field="l.product_id.name"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="l.quantity"/>
+                                </td>
+                                <td groups="uom.group_uom">
+                                    <span t-field="l.product_id.uom_id.name"/>
+                                </td>
+                                <td class="text-end" t-if="has_serial_number">
+                                    <t t-if="l.lot_id">
+                                        <span t-field="l.lot_id.name"/>
+                                    </t>
+                                </td>
+                                <td class="text-end" t-if="has_ean_barcode">
+                                    <t t-if="l.product_id.valid_ean">
+                                        <t t-set="product_barcode"
+                                           t-value="'01' + '0' * (14 - len(l.product_id.barcode)) + l.product_id.barcode"/>
+                                        <t t-set="gs1_pattern"
+                                           t-value="gs1_uom_patterns.get(l.product_uom_id.id, False)"/>
+                                        <t t-if="(gs1_pattern or l.product_uom_id.id == uom_unit_id) and l.quantity &gt;= 0">
+                                            <t t-if="gs1_pattern">
+                                                <t t-set="qty_str"
+                                                   t-value="str(int(l.quantity/l.product_uom_id.rounding))"/>
+                                                <t t-if="len(qty_str) &lt;= 6" t-set="product_barcode"
+                                                   t-value="product_barcode + gs1_pattern +  '0' * (6 - len(qty_str)) + qty_str"/>
+                                            </t>
+                                            <t t-else="">
+                                                <!-- GS1 have no decimal indicator for unit uom => round for now.. -->
+                                                <t t-set="qty_str" t-value="str(int(round(l.quantity)))"/>
+                                                <t t-if="len(qty_str) &lt;=8" t-set="product_barcode"
+                                                   t-value="product_barcode + '30' +  '0' * (8 - len(qty_str)) + qty_str"/>
+                                            </t>
+                                        </t>
+                                        <!-- TODO: lot/sn ALWAYS has to be last part of barcode since left padding '0's = different sn/lot name match when scanning => fix when FNC1 can be used,  -->
+                                        <t name="product_barcode_lot_datamatrix"
+                                           t-if="l.product_id.tracking == 'lot' and l.lot_id" t-set="product_barcode"
+                                           t-value="product_barcode + '10' + l.lot_id.name"/>
+                                        <t t-elif="l.product_id.tracking == 'serial' and l.lot_id"
+                                           t-set="product_barcode"
+                                           t-value="product_barcode + '21' +  l.lot_id.name"/>
+                                        <span t-out="product_barcode"
+                                              t-options="{'widget': 'barcode', 'symbology': 'ECC200DataMatrix', 'img_style': 'width:17mm;height:17mm'}"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <t t-if="not o.quant_ids">
+                            <tr t-foreach="o.get_picking_id().move_line_ids" t-as="l">
+                                <t t-if="l.qty_done > 0">
+                                    <t t-set="quantity" t-value="l.qty_done"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="quantity" t-value="l.reserved_uom_qty"/>
+                                </t>
+
+                                <td>
+                                    <span t-field="l.product_id.name"/>
+                                </td>
+                                <td class="text-end">
+                                    <t t-esc="quantity"/>
+                                </td>
+                                <td groups="uom.group_uom">
+                                    <span t-field="l.product_id.uom_id.name"/>
+                                </td>
+                                <td class="text-end" t-if="has_serial_number">
+                                    <t t-if="l.lot_id">
+                                        <span t-field="l.lot_id.name"/>
+                                    </t>
+                                </td>
+                                <td class="text-end" t-if="has_ean_barcode">
+                                    <t t-if="l.product_id.valid_ean">
+                                        <t t-set="product_barcode"
+                                           t-value="'01' + '0' * (14 - len(l.product_id.barcode)) + l.product_id.barcode"/>
+                                        <t t-set="gs1_pattern"
+                                           t-value="gs1_uom_patterns.get(l.product_uom_id.id, False)"/>
+                                        <t t-if="(gs1_pattern or l.product_uom_id.id == uom_unit_id) and quantity &gt;= 0">
+                                            <t t-if="gs1_pattern">
+                                                <t t-set="qty_str"
+                                                   t-value="str(int(quantity/l.product_uom_id.rounding))"/>
+                                                <t t-if="len(qty_str) &lt;= 6" t-set="product_barcode"
+                                                   t-value="product_barcode + gs1_pattern +  '0' * (6 - len(qty_str)) + qty_str"/>
+                                            </t>
+                                            <t t-else="">
+                                                <!-- GS1 have no decimal indicator for unit uom => round for now.. -->
+                                                <t t-set="qty_str" t-value="str(int(round(quantity)))"/>
+                                                <t t-if="len(qty_str) &lt;=8" t-set="product_barcode"
+                                                   t-value="product_barcode + '30' +  '0' * (8 - len(qty_str)) + qty_str"/>
+                                            </t>
+                                        </t>
+                                        <!-- TODO: lot/sn ALWAYS has to be last part of barcode since left padding '0's = different sn/lot name match when scanning => fix when FNC1 can be used,  -->
+                                        <t name="product_barcode_lot_datamatrix"
+                                           t-if="l.product_id.tracking == 'lot' and l.lot_id"
+                                           t-set="product_barcode" t-value="product_barcode + '10' + l.lot_id.name"/>
+                                        <t t-elif="l.product_id.tracking == 'serial' and l.lot_id"
+                                           t-set="product_barcode"
+                                           t-value="product_barcode + '21' +  l.lot_id.name"/>
+                                        <span t-out="product_barcode"
+                                              t-options="{'widget': 'barcode', 'symbology': 'ECC200DataMatrix', 'img_style': 'width:17mm;height:17mm'}"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+</odoo>

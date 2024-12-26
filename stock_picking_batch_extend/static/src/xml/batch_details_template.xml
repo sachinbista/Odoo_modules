@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="KanbanPopUp" owl="1">
+            <div t-if="this.props.record.data.batch_id"  class="btn btn-primary" t-on-click="onClickPopupIcon">
+                    <i class="fa fa-info-circle" aria-hidden="true"/>
+            </div>
+    </t>
+
+    <t t-name="BatchPopover" owl="1">
+    <div class="scrollable-container">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left; background-color: #f2f2f2;">Customer/Vendor</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px; text-align: left; background-color: #f2f2f2;">Source Document</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="props.pickings" t-as="data" t-key="data.id">
+                    <tr>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left; margin-right: 10px;">
+                            <t t-esc="data.partner_id[1]"/>
+                        </td>
+                        <td style="border: 1px solid #dddddd; padding: 8px; text-align: left;">
+                            <t t-esc="data.origin"/>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </div>
+</t>
+
+
+</templates>

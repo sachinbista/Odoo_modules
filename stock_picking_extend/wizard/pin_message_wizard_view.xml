@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quant_pin_check_wiz_form_view" model="ir.ui.view">
+        <field name="name">quant.pin.check.wiz.form.view</field>
+        <field name="model">quant.pin.check.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Message">
+                <sheet>
+                    <group>
+                        
+                        <field name="manager_pin" required="1" password="True" style="width:33%"/>
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="apply_manager_pin" type="object" string="Submit"  class="btn btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

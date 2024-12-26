@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- go_flow_packaging_views.xml -->
+
+<odoo>
+    <!-- Action -->
+    <record id="action_go_flow_packing_update_log" model="ir.actions.act_window">
+        <field name="name">Go Flow Packaging Update Log</field>
+        <field name="res_model">go.flow.packaging.update.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to view Go Flow Packaging Update Logs.
+            </p>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_go_flow_packing_update_log_tree" model="ir.ui.view">
+        <field name="name">go.flow.packaging.update.log.tree</field>
+        <field name="model">go.flow.packaging.update.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="request_status"/>
+                <field name="order_ref"/>
+                <field name="order_name"/>
+                <field name="picking_id"/>
+                <field name="error"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_go_flow_packing_update_log_form" model="ir.ui.view">
+        <field name="name">go.flow.packaging.update.log.form</field>
+        <field name="model">go.flow.packaging.update.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="request_status"/>
+                    <field name="schema"/>
+                    <field name="order_ref"/>
+                    <field name="order_name"/>
+                    <field name="picking_id"/>
+                    <field name="error"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Action -->
+    <menuitem id="menu_go_flow_packing_update_config_main" name="Go Flow Packaging Update Config"
+              parent="bista_go_flow.go_flow_menu_root" sequence="10"/>
+    <menuitem id="menu_go_flow_packing_update_log" name="Go Flow Packaging Update Log"
+              parent="menu_go_flow_packing_update_config_main" sequence="10"
+              action="action_go_flow_packing_update_log"/>
+</odoo>

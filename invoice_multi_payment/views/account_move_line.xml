@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_moveline_registry_tree" model="ir.ui.view">
+            <field name="name">account.move.line.registry.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree create="false" editable="bottom">
+                    <field name="date" optional="show"/>
+                    <field name="journal_id" options='{"no_open":True}'/>
+                    <field name="account_id" groups="account.group_account_user" readonly="1"/>
+                    <field name="ref" optional="show" readonly="1"/>
+                    <field name="analytic_account_id" groups="account.group_account_user" optional="show" readonly="1"/>
+                    <field name="tax_ids" widget="many2many_tags" width="1.2" optional="show" readonly="1"/>
+                    <field name="debit" sum="Total Debit" width="1.0" readonly="1"/>
+                    <field name="credit" sum="Total Credit" width="1.0" readonly="1"/>
+                    <field name ="amount_residual" width="1.0" readonly="1"/>
+                    <field name="registry_cur_id" invisible="1" />
+                    <field name="amount_residual_in_cur" />
+                     <field name="allowed_amount" widget='monetary' options="{'currency_field': 'registry_cur_id'}"/>
+                    <field name='company_currency_id' invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_moveline_tree_view_ext" model="ir.actions.act_window">
+            <field name="name">MoveLine Registry</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">tree</field>
+            <field name='view_id' ref='view_moveline_registry_tree'/>
+        </record>
+
+        <record id="view_customer_moveline_registry_tree" model="ir.ui.view">
+            <field name="name">account.move.line.customer.registry.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <tree create="false" editable="bottom">
+                    <field name="date" optional="show"/>
+                    <field name="journal_id" options='{"no_open":True}'/>
+                    <field name="account_id" groups="account.group_account_user" readonly="1"/>
+                    <field name="ref" optional="show" readonly="1"/>
+                    <field name="analytic_account_id" groups="account.group_account_user" optional="show" readonly="1"/>
+                    <field name="tax_ids" widget="many2many_tags" width="1.2" optional="show" readonly="1"/>
+                    <field name="debit" sum="Total Debit" width="1.0" readonly="1"/>
+                    <field name="credit" sum="Total Credit" width="1.0" readonly="1"/>
+                    <field name ="amount_residual" width="1.0" readonly="1"/>
+                    <field name="registry_cur_id" invisible="1" />
+                    <field name="amount_residual_in_cur" />
+                    <field name="allowed_amount_customer" widget='monetary' options="{'currency_field': 'registry_cur_id'}"/>
+                    <field name='company_currency_id' invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_customer_moveline_tree_view_ext" model="ir.actions.act_window">
+            <field name="name">MoveLine Registry</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">tree</field>
+            <field name='view_id' ref='view_customer_moveline_registry_tree'/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_order_line_report,purchase_order_line_report,model_purchase_order_line_report,,1,1,1,1
+access_sale_order_line_report,sale_order_line_report,model_sale_order_line_report,,1,1,1,1
+access_sale_order_line_history,sale_order_line_history,model_sale_order_line_history,,1,1,1,1
+access_purchase_order_line_history,purchase_order_line_history,model_purchase_order_line_history,,1,1,1,1

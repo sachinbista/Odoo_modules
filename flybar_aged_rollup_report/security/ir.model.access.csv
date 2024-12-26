@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_aged_recivalbe_rollup,access.aged.receivable.rollup,model_aged_receivable_rollup,,1,1,1,1

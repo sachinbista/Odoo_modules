@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_common_payment_process_wizard" model="ir.ui.view">
+        <field name="name">common.payment.process.wizard</field>
+        <field name="model">common.payment.process</field>
+        <field name="arch" type="xml">
+            <form string="Payment Process Wizard">
+                <group>
+                    <group>
+                        <field name="payment_id" invisible="1" readonly="1" force_save="1"/>
+                        <field name="total_amount" readonly="1" force_save="1"/>
+                        <field name="remaining_amount" readonly="1" force_save="1"/>
+<!--                        <field name="sale_tax_account_id" attrs="{'required': [('sale_tax', '!=', 0)], 'invisible': [('sale_tax', '=', 0)]}"/>-->
+                    </group>
+                    <group>
+                        <field name="discount_amount" readonly="1" force_save="1"/>
+<!--                        <field name="sale_tax" readonly="1" force_save="1"/>-->
+                        <field name="writeoff_amount" readonly="1" force_save="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_process_payment" string="Process Payment" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_common_payment_process_wizard" model="ir.actions.act_window">
+        <field name="name">Payment Process Wizard</field>
+        <field name="res_model">common.payment.process</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_common_payment_process_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_valuation_history_tree_view" model="ir.ui.view">
+        <field name="name">stock.valuation.history.tree.view</field>
+        <field name="model">stock.valuation.report</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="product_id"/>
+                <field name="categ_id" optional="show"/>
+                <field name="type_product" optional="show"/>
+                <field name="item_type"/>
+                <field name="upc_code"/>
+                <field name="gtin"/>
+                <field name="on_hand"/>
+                <field name="open_po"/>
+                <field name="position"/>
+                <field name="open_so"/>
+                <field name="reserved_qty"/>
+                <field name="available_qty"/>
+                <field name="landed_cost_per_item"/>
+                <field name="starting_quantity"/>
+                <field name="quantity_received"/>
+                <field name="quantity_shipped"/>
+                <field name="inv_adjustment_qty"/>
+                <field name="ending_quantity"/>
+                <field name="starting_value"/>
+                <field name="value_received"/>
+                <field name="valued_shipped"/>
+                <field name="ending_value"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

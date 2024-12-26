@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <record id="quality_check_wizard_form_inherited" model="ir.ui.view">
+        <field name="name">quality.check.wizard.form.inherited</field>
+        <field name="model">quality.check.wizard</field>
+        <field name="inherit_id" ref="quality_control.view_quality_check_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='additional_note']" position="after">
+                <field name="dimension_status" attrs="{'invisible': ['|',('dimension_status', '!=', True),('test_type', '!=', 'Dimensioner')]}"/>
+            </xpath>
+            <xpath expr="//footer/button[@name='do_fail']" position="after">
+                <button name="action_get_dimensions" type="object" class="btn-primary" string="Get Dimensions" attrs="{'invisible': ['|',('dimension_status', '!=', False),('test_type', '!=', 'Dimensioner')]}"/>
+            </xpath>
+            <xpath expr="//footer/button[@name='do_fail']" position="attributes">
+                <attribute name="attrs">{'invisible': [('quality_state', '!=', 'none')]}</attribute>
+            </xpath>
+             <button name="do_pass" type="object" class="btn-primary" attrs="{'invisible': ['|', ('quality_state', '!=', 'none'), ('test_type', '!=', 'passfail')]}" position="attributes">
+                 <attribute name="attrs">{'invisible': [('quality_state', '!=', 'none')]}</attribute>
+             </button>
+        </field>
+ </record>
+</odoo>

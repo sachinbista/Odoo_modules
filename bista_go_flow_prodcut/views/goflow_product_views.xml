@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="goflow_product_tree_view">
+            <field name="name">goflow.product.tree.view</field>
+            <field name="model">goflow.product</field>
+            <field name="arch" type="xml">
+                <tree string="GoFlow Product Product" create="false" editable="bottom">
+                    <field name="product_id" options="{'no_create': True, 'delete': False}"/>
+                    <field name="name" readonly="1" force_save="1"/>
+                    <field name="item_number" readonly="1" force_save="1"/>
+                    <field name="product_external_id" readonly="1" force_save="1"/>
+                    <field name="type" readonly="1" force_save="1"/>
+                    <field name="configuration_id" readonly="1" force_save="1"/>
+                    <field name="status" readonly="1" force_save="1"/>
+                    <field name="data" readonly="1" invisible="1" force_save="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="goflow_product_search_view">
+            <field name="name">goflow.product.search.view</field>
+            <field name="model">goflow.product</field>
+            <field name="arch" type="xml">
+                <search string="GoFlow Product Product">
+                    <field name="product_id" string="Product"
+                           filter_domain="['|', '|', ('item_number', 'ilike', self),                      ('product_id', 'ilike', self),                      ('name', 'ilike', self)]"/>
+                    <filter string="Not Mapped Products" name="filter_not_mapped_products"
+                            domain="[('product_id', '=', False)]"/>
+                    <filter string="Mapped Products" name="filter_mapped_products"
+                            domain="[('product_id', '!=', False)]"/>
+                    <filter string="Goflow Status" name="filter_status" domain="[('status', '=', 'active')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_product_menu_action_window">
+            <field name="name">GoFlow Product Product</field>
+            <field name="res_model">goflow.product</field>
+            <field name="view_mode">tree,search</field>
+        </record>
+
+        <!-- inherit  packaging o2m-->
+        <record id="inherit_product_packaging_tree_view" model="ir.ui.view">
+            <field name="name">product.packaging.view.form.inherit</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='barcode']" position="replace">
+                </xpath>
+                <xpath expr="//tree/field[@name='qty']" position="before">
+                    <field name="goflow_identifier_type" string="Identifier Type"/>
+                    <field name="goflow_identifier_value" invisible="1" string="Goflow Identifier"/>
+                    <field name="goflow_identifier_uom_id" optional="hide"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='qty']" position="after">
+                    <field name="barcode"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

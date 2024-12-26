@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sync_inventory_adjustment.stock_inventory_line_tree2" model="ir.ui.view">
+        <field name="name">stock.inventory.line.tree2</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" string="Inventory Details" decoration-info="product_qty != theoretical_qty" decoration-danger="theoretical_qty &lt; 0">
+                <field name="product_tracking" invisible="1"/>
+                <field name="product_id"  domain="[('type','=','product')]"/>
+                <field name="product_uom_id" string="UoM" groups="uom.group_uom"/>
+                <field name="location_id" domain="[('id', 'child_of', inventory_location_id)]" groups="stock.group_stock_multi_locations"/>
+
+                <field name="prod_lot_id" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('product_tracking', '=', 'none')]}" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
+                <field name="location_id" invisible="1"/>
+                <field name="package_id" domain="['|',('location_id','=',False),('location_id','=',location_id)]"  groups="stock.group_tracking_lot" string="Palletize"/>
+                <field name="partner_id" groups="stock.group_tracking_owner"/>
+                <field name="theoretical_qty" readonly="1" attrs="{'invisible': [('blind_count', '=', True)]}"/>
+                <field name="product_qty" string="Real Quantity"/>
+                <field name="state" invisible="1"/>
+                <field name="inventory_id" invisible="1"/>
+                <field name="inventory_location_id" invisible="1"/>
+                <field name="blind_count" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bista_inventory_view_inventory_form" model="ir.ui.view">
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="sync_inventory_adjustment.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_validate']" position="before">
+                <button name="action_submit" states="first_count,second_count" string="Submit" type="object"/>
+            </xpath>
+            <xpath expr="//header/button[@name='action_validate']" position="after">
+                 <button name="reset_to_first_count"
+                        type="object"
+                        states="confirm"
+                        string="Reset to first count"
+                        class="oe_highlight"
+                        groups="stock.group_stock_manager"/>
+                <button name="action_cancel_draft" states="first_count,second_count" string="Cancel Inventory" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='exhausted']" position="after">
+                <field name="first_count_user_ids" widget="many2many_tags" options="{'no_create': True}" required="1"
+                       attrs="{'readonly': [('state','not in',('draft', 'first_count', 'second_count'))]}" domain="[('share', '=', False)]"/>
+                <field name="second_count_user_ids" widget="many2many_tags" options="{'no_create': True}"
+                       attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('skip_threshold','=',True)],'required':[('skip_threshold','!=',True)]}" domain="[('share', '=', False)]"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="first_count_user_id" invisible="1"/>
+                <field name="second_count_user_id" invisible="1"/>
+                <field name="skip_threshold"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}" invisible="1"/>
+                <field name="adjustment_threshold"
+                       attrs="{'readonly': [('state', '!=', 'draft')],'invisible':[('skip_threshold','=',True)]}"/>
+                <field name="blind_count"
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="access_first_count_qty" invisible="1"/>
+                <field name="access_second_count_qty" invisible="1"/>
+                <field name="show_first_count_qty" invisible="1"/>
+                <field name="show_second_count_qty" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_reset_product_qty']" position="attributes">
+                <attribute name="states">first_count,second_count</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in',('draft', 'cancel'))]}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">exception == True</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count', 'second_count'))]}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='theoretical_qty']" position="replace">
+                <field name="theoretical_qty" attrs="{'column_invisible': [('parent.blind_count', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+<!--            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_uom_id']" position="attributes">-->
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='location_id'][2]" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="domain">[('id', 'child_of', parent.location_id), ('usage', '=', 'internal')]</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='prod_lot_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('product_tracking', '=', 'none')], 'required': [('product_tracking', 'in', ['lot', 'serial'])]}</attribute>
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='partner_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='package_id']" position="attributes">
+<!--                <attribute name="attrs">{'readonly':[('state','not in',('draft', 'first_count'))]}</attribute>-->
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+                <attribute name="string">Palletize</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='product_qty']" position="replace">
+                <field name="sort_sequence" invisible="1"/>
+                <field name="first_count_qty"
+                       attrs="{'column_invisible': [('parent.show_first_count_qty', '=', False)], 'readonly': [('parent.access_first_count_qty', '=', False)]}"
+                       string="User Count Qty"
+                       />
+                <field name="second_count_qty"
+                       attrs="{'column_invisible': ['|',('parent.skip_threshold','=',True),('parent.show_second_count_qty', '=', False)], 'readonly': ['|', ('exception', '=', False), ('parent.access_second_count_qty', '=', False)]}"/>
+                <field name="product_qty" string="Real Quantity" readonly="1" force_save="1"
+                       attrs="{'column_invisible': [('parent.state', 'not in', ['confirm', 'done'])]}"
+                    optional="hide"
+                    />
+                <field name="exception" invisible="1"/>
+            </xpath>
+            <xpath expr="//form/sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+             <xpath expr="//notebook/page[1]/field[@name='line_ids']/tree/field[@name='theoretical_qty']" position="attributes">
+                <attribute name="string"> System Quantity</attribute>
+             </xpath>
+        </field>
+    </record>
+
+    <record id="view_inventory_line_form" model="ir.ui.view">
+        <field name="name">stock.inventory.line.form</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Adjustment Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_tracking" invisible="1"/>
+                            <field name="product_id" domain="[('type','=','product')]" force_save="1"/>
+                            <field name="product_uom_id" string="UoM" groups="uom.group_uom" domain="[('category_id', '=', product_uom_category_id)]"/>
+                            <field name="product_uom_category_id" invisible="1"/>
+                            <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" groups="stock.group_stock_multi_locations"/>
+                            <field name="prod_lot_id" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('product_tracking', '=', 'none')]}" context="{'default_product_id': product_id}"  groups="stock.group_production_lot"/>
+                            <field name="location_id" invisible="1"/>
+                            <field name="package_id" domain="['|',('location_id','=',False),('location_id','=',location_id)]" groups="stock.group_tracking_lot" string="Palletize"/>
+                            <field name="partner_id" groups="stock.group_tracking_owner"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="quant_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="state" readonly="True"/>
+                            <field name="theoretical_qty" readonly="1"/>
+                            <field name="first_count_qty" readonly="1"/>
+                            <field name="second_count_qty" readonly="1"/>
+                            <field name="product_qty" string="Real Quantity"/>
+                            <field name="exception" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="todo_inventory_adjustment">
+        <field name="name">stock.inventory</field>
+        <field name="name">To Do Inventory</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="sync_inventory_adjustment.model_stock_inventory"/>
+        <field name="binding_model_id" ref="sync_inventory_adjustment.model_stock_inventory"/>
+        <field name="code">
+            action = records.todo_inventory_adjustment()
+        </field>
+    </record>
+
+    <record id="view_stock_inventory_barocde_kanban" model="ir.ui.view">
+        <field name="name">stock.inventory.kanban</field>
+        <field name="model">stock.inventory</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" js_class="stock_barcode_count_kanban">
+                <field name="name"/>
+                <field name="location_id"/>
+                <field name="date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><span><t t-esc="record.name.value"/></span></strong><br/>
+                                </div>
+                                <field name="state" widget="label_selection" options="{'classes': {'draft': 'info', 'cancel': 'default', 'confirm': 'success', 'done': 'success'}}"/>
+                            </div>
+                            <div class="container o_kanban_card_content o_kanban_button" t-att-style="'display: none;'">
+                                <div class="row text-muted">
+                                    <button class="btn btn-primary orchestrator_button" name="action_client_action_inventory" type="object">
+                                        <field name="state" widget="label_selection" options="{'classes': {'draft': 'info', 'cancel': 'default', 'confirm': 'success', 'done': 'success'}}"/>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="location_id" groups="stock.group_stock_multi_locations" readonly="1"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right" modifiers="{}">
+                                    <t t-esc="record.date.value and record.date.value.split(' ')[0] or False"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_inventory_barcode_kanban" model="ir.actions.act_window">
+        <field name="name">Inventory Adjustments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="bista_inventory_enhancement.view_stock_inventory_barocde_kanban"/>
+        <field name="domain">[('state','not in',('draft', 'cancel'))]</field>
+        <field name="context">{
+            'form_view_initial_mode': 'edit',
+            'force_detailed_view': True,
+            'create': False
+        }</field>
+    </record>
+
+    <record id="inventory_line_barcode_selector" model="ir.ui.view">
+        <field name="name">stock.inventory.line</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Select a Product" class="o_barcode_line_form flex-column">
+            <div class="row mt-4 mb-4">
+                <field name="product_qty" invisible="1"/>
+                <field name="first_count_qty" invisible="1"/>
+                <field name="second_count_qty" invisible="1"/>
+                <field name="product_uom_id" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+                <field name="blind_count" invisible="1"/>
+
+                <div class="col-12 d-flex align-items-baseline">
+                    <i class="fa fa-fw fa-lg fa-tags me-3" title="Product"/>
+                    <field name="product_id" placeholder="Product"
+                            attrs="{'readonly': [('id', '!=', False)]}"
+                            context="{'default_detailed_type': 'product'}"
+                            domain="[('type', 'in', ['product'])]"
+                            required="1" nolabel="1"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 my-2 d-flex align-items-baseline" >
+                    <i class="fa fa-fw fa-lg fa-cube me-3" title="First Counted Quantity"/>
+                    <field name="first_count_qty" class="w-50 w-md-100 text-end" options="{'type': 'number'}" placeholder="Quantity"/>
+                    <field name="theoretical_qty" widget="set_reserved_qty_button" field_to_set="theoretical_qty"  attrs="{'invisible': [('blind_count', '=', True)]}"/>
+                </div>
+            </div>
+            <div class="row justify-content-center justify-content-md-start">
+                <div class="col-10 col-md-8 my-2 ms-md-5 align-items-baseline"
+                    attrs="{'invisible': [('product_tracking', '=', 'serial')]}">
+                    <widget name="digipad" quantity_field="first_count_qty"/>
+                </div>
+            </div>
+                
+            <!-- <div attrs="{'invisible': [('state','!=', 'second_count')]}">
+                <div class="col-6 my-2 d-flex align-items-baseline">
+                    <i class="fa fa-fw fa-lg fa-cube mr-3" title="Second Counted Quantity"/>
+                    <field name="second_count_qty" class="w-50 w-md-100 text-end" options="{'type': 'number'}" placeholder="Quantity"/>
+                    <field name="theoretical_qty" widget="set_reserved_qty_button" field_to_set="second_count_qty"/>
+                
+                </div>
+                <div class="row justify-content-center justify-content-md-start">
+                    <div class="col-10 col-md-8 my-2 ma-md-5 align-items-baseline"
+                        attrs="{'invisible': [('product_tracking', '=', 'serial')]}">
+                        <widget name="digipad" quantity_field="second_count_qty"/>
+                    </div>
+                </div>
+            </div>-->
+            
+            <div class="row" groups="stock.group_stock_multi_locations">
+                <div class="col-12 col-md-6 my-2 d-flex align-items-baseline">
+                    <i class="fa fa-fw fa-lg fa-map-marker mr-3" title="Location"/>
+                    <field name="location_id" placeholder="Location"
+                        options="{'no_create': True}" force_save="1"
+                        attrs="{'readonly': [('id', '!=', False)]}"/>
+                </div>
+            </div>
+
+
+            <field name="product_tracking" invisible="1"/>
+
+
+            <div class="row" groups="stock.group_production_lot"
+                attrs="{'invisible': ['&amp;', ('id', '!=', False), ('prod_lot_id', '=', False)]}">
+                <div class="col-12 col-md-6 my-2 d-flex align-items-baseline" attrs="{'invisible': ['|',('product_tracking', '=','none'), ('product_id','=', False)]}">
+                    <i class="fa fa-fw fa-lg fa-barcode mr-3" title="Serial/Lot Number"/>
+                    <field name="prod_lot_id"
+                        attrs="{
+                            'required': [('product_tracking', '!=', 'none')],
+                            'readonly': [('id', '!=', False)]}"
+                        context="{'default_company_id': company_id, 'default_product_id': product_id}"
+                        placeholder="Serial/Lot Number"/>
+                </div>
+            </div>
+
+            <div class="fixed-bottom">
+                <div class="o_barcode_control d-flex">
+                    <button string="Discard" class="btn btn-secondary o_discard" special="cancel"/>
+                    <button string="Confirm" class="btn btn-primary o_save" special="save"/>
+                </div>
+                <!-- <div class="o_barcode_control d-flex">
+                    <button string="Delete" class="btn btn-danger text-uppercase o_delete"
+                            name="unlink" type="object">
+                        <i class="fa fa-trash-o"/> Delete
+                    </button>
+                </div> -->
+            </div>
+        </form>
+        </field>
+    </record>
+
+</odoo>
+

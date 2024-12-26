@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_go_flow_import,go.flow.import,model_go_flow_import,base.group_system,1,1,1,1
+access_quickbook_invoice,quickbook.invoice,bista_go_flow_import.model_quickbook_invoice,base.group_system,1,1,1,1
+

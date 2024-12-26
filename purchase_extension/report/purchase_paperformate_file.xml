@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_purchase_order" model="report.paperformat">
+        <field name="name">Purchase Order</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <!--        <field name="header_line" eval="False"/>-->
+        <field name="header_spacing">45</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+        <field name="name">Purchase Order</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_extension.report_purchaseorder_document_123</field>
+        <field name="report_file">purchase_extension.report_purchaseorder_document_123</field>
+        <field name="print_report_name">
+            (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+            'Purchase Order - %s' % (object.name))
+        </field>
+        <field name="binding_model_id" ref="model_purchase_order"/>
+        <field name="paperformat_id" ref="purchase_extension.paperformat_purchase_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="paperformat_purchase_order_quotation" model="report.paperformat">
+        <field name="name">Request for Quotation</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <!--        <field name="header_line" eval="False"/>-->
+        <field name="header_spacing">45</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+        <field name="name">Request for Quotation</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_extension.report_purchaseorder_document_123</field>
+        <field name="report_file">purchase_extension.report_purchaseorder_document_123</field>
+        <field name="binding_model_id" ref="model_purchase_order"/>
+        <field name="paperformat_id" ref="purchase_extension.paperformat_purchase_order_quotation"/>
+
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!--    <record id="purchase.report_purchase_quotation" model="ir.actions.report">-->
+    <!--        <field name="name">Request for Quotation</field>-->
+    <!--        <field name="model">purchase.order</field>-->
+    <!--        <field name="report_type">qweb-pdf</field>-->
+    <!--        <field name="report_name">purchase.report_purchasequotation</field>-->
+    <!--        <field name="report_file">purchase.report_purchasequotation</field>-->
+    <!--        <field name="print_report_name">'Request for Quotation - %s' % (object.name)</field>-->
+    <!--        <field name="binding_model_id" ref="model_purchase_order"/>-->
+    <!--        <field name="binding_type">report</field>-->
+    <!--        <field name="paperformat_id" ref="purchase_extension.paperformat_purchase_order_quotation"/>-->
+
+    <!--    </record>-->
+
+</odoo>

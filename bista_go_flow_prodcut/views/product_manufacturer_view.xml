@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Define form view of product manufacturer-->
+    <record id="view_product_manufacturer_form" model="ir.ui.view">
+        <field name="name">product.manufacturer.form.view</field>
+        <field name="model">product.manufacturer</field>
+        <field name="arch" type="xml">
+            <form string="Product Manufacturer">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define tree view of product manufacturer-->
+    <record id="view_product_manufacturer_tree" model="ir.ui.view">
+        <field name="name">product.manufacturer.tree.view</field>
+        <field name="model">product.manufacturer</field>
+        <field name="arch" type="xml">
+            <tree string="Product Manufacturer">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Define the action of product manufacturer-->
+    <record id="action_product_manufacturer" model="ir.actions.act_window">
+        <field name="name">Product Manufacturer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.manufacturer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Define the menu of product manufacturer-->
+      <menuitem name="Manufacturer"
+              id="menu_product_manufacturer"
+              parent="bista_go_flow.goflow_catalog_menu"
+              action="action_product_manufacturer"
+              sequence="6"/>
+</odoo>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_exception">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout" page="landscape">
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <h2 class="text-center">Purchase Exception Report
+                            <!--                            <span t-field="o.name"/>-->
+                        </h2>
+                        <br/>
+                        <div id="po_informations" class="row mt34 mb68 custom-div">
+                            <div class="col-auto" style="margin-right:9px;">
+                                <strong>Warehouses:</strong>
+                                <t t-if="o.warehouse_ids">
+                                    <ul>
+                                        <t t-foreach="o.warehouse_ids" t-as="warehouse">
+                                            <li t-esc="warehouse.name"/>
+                                        </t>
+                                    </ul>
+                                </t>
+                            </div>
+
+                            <div class="col-auto" name="div_pt">
+                                <strong>Start Date:</strong>
+                                <p t-field="o.start_date"/>
+                            </div>
+                            <div class="col-auto" name="div_st" style="margin-left:10px;">
+                                <strong>End Date:</strong>
+                                <p class="m-0" t-field="o.end_date"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table class="table table-bordered" style="font-size:15px">
+                            <thead class="table-info" style="background-color:#bee5eb;">
+                                <tr>
+                                    <th name="th_purchase_order">
+                                        <strong>Order #</strong>
+                                    </th>
+                                    <th name="th_product_code" width="12%">
+                                        <strong>Product Code</strong>
+                                    </th>
+                                    <th name="th_description">
+                                        <strong>Description</strong>
+                                    </th>
+                                    <!--                                    <th name="th_date_req" class="text-center">-->
+                                    <!--                                        <strong>Date Req.</strong>-->
+                                    <!--                                    </th>-->
+                                    <th name="th_order_quantity" class="text-right">
+                                        <strong>Ord Qty</strong>
+                                    </th>
+                                    <th name="th_rec_quantity" class="text-right">
+                                        <strong>Rec Qty</strong>
+                                    </th>
+                                    <th name="th_order_case_type">
+                                        <strong>Ord Case Type</strong>
+                                    </th>
+                                    <th name="th_rec_case_type">
+                                        <strong>Rec Case Type</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="records"
+                                   t-value="env['purchase.exception.report'].generate_values(o.start_date , o.end_date , o.warehouse_ids.ids)"/>
+                                <t t-foreach='records' t-as="order">
+<!--                                    <tr t-att-class="'bg-200 font-weight-bold o_line_section'">-->
+                                    <tr>
+                                        <!--                                        <t t-esc="records"/>-->
+                                        <td class="text-left">
+                                            <t t-esc="records[order]['purchase_order']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <t t-esc="records[order]['product_code']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <t t-esc="records[order]['product']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-esc="records[order]['product_qty']"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-esc="records[order]['qty_received']"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <t t-esc="records[order]['order_case_type']"/>
+                                        </td>
+<!--                                        <td class="text-left">-->
+<!--                                            <t t-esc="records[order]['rec_case_type']"/>-->
+<!--                                        </td>-->
+                                    </tr>
+                                </t>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--    <template id="report_po_exception">-->
+    <!--        <t t-call="web.html_container">-->
+    <!--            <t t-foreach="docs" t-as="o">-->
+    <!--                <t t-call="so_and_po_lines.report_purchase_exception"/>-->
+    <!--            </t>-->
+    <!--        </t>-->
+    <!--    </template>-->
+
+    <record id="paperformat_purchase_exception" model="report.paperformat">
+        <field name="name">Purchase Exception Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <!--        <field name="header_line" eval="False"/>-->
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <record id="action_report_purchase_exception" model="ir.actions.report">
+        <field name="name">Purchase Exception Report</field>
+        <field name="model">purchase.exception.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">so_and_po_lines.report_purchase_exception</field>
+        <field name="report_file">so_and_po_lines.report_purchase_exception</field>
+        <field name="print_report_name">object.name</field>
+        <field name="paperformat_id" ref="so_and_po_lines.paperformat_purchase_exception"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

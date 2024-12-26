@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="sign_request_view_tree_inherit" model="ir.ui.view">
+            <field name="name">sign.request</field>
+            <field name="model">sign.request</field>
+            <field name="inherit_id" ref="sign.sign_request_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <!-- Display the tree dashboard view with the header -->
+                    <attribute name="js_class"></attribute>
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="sign_send_request_custom" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">sign.request</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="search_view_id" ref="sign.sign_request_view_search"/>
+        <field name="context" eval="{'search_default_my_docs': 1, 'search_default_my_sign_request': 1}"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No document yet
+            </p><p>
+                You're one click away from automating your signature process!
+            </p>
+            <p>Upload a PDF file or use an existing template to begin.</p>
+        </field>
+    </record>
+
+    
+</odoo>

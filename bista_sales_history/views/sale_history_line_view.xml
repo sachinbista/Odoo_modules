@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sale_history_line_vendor_product_view">
+        <field name="name">Inventory Vendor and Product</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false" editable="bottom">
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Date"/>
+                <field name="history_data_link" string="Contact Name"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_number" string="Inv"/>
+                <button type="object" name="show_inovice" icon="fa-pencil-square-o" string="Show" attrs="{'invisible': [('invoice_number', '=', False)]}"/>
+                <field name="product_uom_qty" string="Sold" sum="Total Sold"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+                <field name="price_unit" string="Price" sum="Total Price" widget="monetary"/>
+                <field name="price_subtotal" string="Extended" sum="Total Extended" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_vendor_view">
+        <field name="name">Inventory Vendor Only</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="3"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Dt"/>
+                <field name="product_name" />
+                <field name="name" />
+                <field name="history_data_link" string="Contact Name"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="product_uom_qty" string="Sold" sum="Total Sold"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="price_unit" string="Price" sum="Total Price" widget="monetary"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_vendor_product_contact_view">
+        <field name="name">Inventory Vendor, Product and Contact</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="4"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Date"/>
+                <field name="invoice_number"/>
+                <button type="object" name="show_inovice" icon="fa-pencil-square-o" string="Show" attrs="{'invisible': [('invoice_number', '=', False)]}"/>
+                <field name="product_uom_qty" string="Sold" sum="Total Sold"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+                <field name="price_unit" string="Price" sum="Total Price" widget="monetary"/>
+                <field name="price_subtotal" string="Extended" sum="Total Extended" widget="monetary"/>
+                <field name="customer_reference_no" string="COrd#"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_default_view">
+        <field name="name">Default View</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="product_name" string="Product"/>
+                <field name="name" />
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="sale_order_no" optional="hide" string="Order #"/>
+                <field name="invoice_id" optional="hide" string="Invoice #"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_date" optional="hide"/>
+                <field name="product_uom_qty" string="Sold" sum="Total Sold"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide" sum="Total Cost Price"/>
+                <field name="cost_subtotal" optional="hide" sum="Total Subtotal Price"/>
+                <field name="price_unit" string="Price" sum="Total Price" widget="monetary"/>
+                <field name="price_subtotal" string="Extended" sum="Total Extended" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_product_view">
+        <field name="name">Product Only</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Date"/>
+                <field name="history_data_link" string="Contact Name"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_number" string="Inv"/>
+                <button type="object" name="show_inovice" icon="fa-pencil-square-o" string="Show" attrs="{'invisible': [('invoice_number', '=', False)]}"/>
+                <field name="product_uom_qty" string="Sold" sum="Total Sold"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+                <field name="price_unit" string="Price" sum="Total Price" widget="monetary"/>
+                <field name="price_subtotal" string="Extended" sum="Total Extended" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_contact_vin_view">
+        <field name="name">Contact and VIN</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="5"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Date"/>
+                <field name="invoice_number" string="Invoice"/>
+                <button type="object" name="show_inovice" icon="fa-pencil-square-o" string="Show" attrs="{'invisible': [('invoice_number', '=', False)]}"/>
+                <field name="sales_obtain"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+                <field name="price_subtotal" string="Sale Amt" sum="Total Sale Amt" widget="monetary"/>
+                <field name="customer_reference_no" string="Cust Reference"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_contact_view">
+        <field name="name">Contact Only</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="6"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_item_no" string="Item" invisible="1"/>
+                <field name="invoice_date" string="Inv Date"/>
+                <field name="invoice_number" />
+                <button type="object" name="show_inovice" icon="fa-pencil-square-o" string="Show" attrs="{'invisible': [('invoice_number', '=', False)]}"/>
+                <field name="sales_obtain" />
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+                <field name="price_subtotal" string="Sale Amt" sum="Total Sale Amt" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="sale_history_line_product_name">
+        <field name="name">Product Name Only</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="product_name" string="Product"/>
+                <field name="inventory_product_categ" string="Category"/>
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_date" optional="hide"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_contact_reference">
+        <field name="name">Contact Reference Only</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="9"/>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="contact_reference"/>
+                <field name="contact_name"/>
+                <field name="history_data_link" string="Contact Name" optional="hide"/>
+                <field name="user_id" optional="hide"/>
+                <field name="new_user_id" optional="hide"/>
+                <field name="sales_obtain" optional="hide"/>
+                <field name="invoice_date" optional="hide"/>
+                <field name="cost_price_unit" optional="hide"/>
+                <field name="cost_subtotal" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+   
+
+    
+    <record model="ir.ui.view" id="sale_history_line_search_view">
+        <field name="name">Search View</field>
+        <field name="model">sale.history.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="contact_reference"/>
+                <field name="contact_name"/>
+                <field name="customer_id" string="Customer Tag" filter_domain="[('customer_id.category_id','ilike',self)]"/>
+                <field name="user_id"/>
+                <field name="new_user_id"/>
+                <field name="customer_reference_no"/>
+                <field name="sales_obtain"/>
+                <field name="sale_order_no"/>
+                <field name="sale_order_date"/>
+                <field name="invoice_number"/>
+                <field name="invoice_date"/>
+                <field name="product_name"/>
+                <field name="inventory_product_categ"/>
+                <field name="name"/>
+                <separator/>
+                <filter string="Order Date" name="order_date" date="sale_order_date"/>
+                <filter string="Invoice Date" name="invoice_date" date="invoice_date"/>
+                <separator/>
+                <filter name="exclude_shipping" string="Exclude Shipping" domain="[('is_shipping','=',False)]"/>
+                <filter name="only_shipping" string="Only Shipping" domain="[('is_shipping','=',True)]"/>
+                <separator/>
+                <separator/>
+                <filter name="sales_person_mismatch" string="Sales Person Mismatch" domain="[]" context="{'sales_person_mismatch': True}"/>
+                <group expand='0' string='Group by...'>
+                    <filter string='Contact Reference' name="group_by_contact_reference" context="{'group_by': 'contact_reference'}"/>
+                    <filter string='Contact Name' name="group_by_contact_name" context="{'group_by': 'contact_name'}"/>
+                    <filter string='Customer PO' name="group_by_customer_po" context="{'group_by': 'customer_reference_no'}"/>
+                    <filter string='Salesperson' name="group_by_user_id" context="{'group_by': 'user_id'}"/>
+                    <filter string='Current Salesperson' name="group_by_new_user_id" context="{'group_by': 'new_user_id'}"/>
+                    <filter string='Order Obtain' name="group_by_sales_obtain" context="{'group_by': 'sales_obtain'}"/>
+                    <filter string='Order No.' name="group_by_sale_order_no" context="{'group_by': 'sale_order_no'}"/>
+                    <filter string='Order Date' name="group_by_sale_order_date" context="{'group_by': 'sale_order_date'}"/>
+                    <filter string='Invoice Date' name="group_by_invoice_date" context="{'group_by': 'invoice_date'}"/>
+                    <filter string='Product' name="group_by_product_name" context="{'group_by': 'product_name'}"/>
+                    <filter string='Pricelist Item' name="group_by_product_pricelist_item_id" context="{'group_by': 'product_pricelist_item_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_form_view">
+        <field name="name">sale.history.line.form.view</field>
+        <field name="model">sale.history.line</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <form create="false" delete="false" edit="true" duplicate="false">
+                <sheet>
+                <group>
+                    <group>
+                            <field name="history_data_link"  string="Contact Name" readonly="1"/>
+                            <field name="customer_id" attrs="{'invisible': [('customer_id', '=', False)]}" readonly="1"/>
+                            <field name="customer_reference_no" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="sales_obtain" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="new_user_id" invisible="1" readonly="1"/>
+                            <field name="sale_order_no" readonly="1"/>
+                            <field name="sale_order_date" readonly="1"/>
+                            <field name="invoice_number" attrs="{'invisible': [('invoice_id', '!=', False)]}" readonly="1"/>
+                            <field name="invoice_id" string="Invoice" attrs="{'invisible': [('invoice_id', '=', False)]}" readonly="1"/>
+                            <field name="invoice_date" readonly="1"/>
+                            <field name="so_line_id" invisible="1" readonly="1"/>
+                        </group>
+                        <newline/>
+                        <group>
+                            <field name="invoice_item_no" invisible="1"/>
+                            <field name="product_name" readonly="1"/>
+                            <field name="product_id" attrs="{'invisible': [('product_id', '=', False)]}" readonly="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="price_unit" widget="monetary" readonly="1"/>
+                            <field name="product_uom_qty" readonly="1"/>
+                            <field name="price_subtotal" widget="monetary" readonly="1"/>
+                            <field name="product_pricelist_item_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="note" readonly="1"/>
+                        </group>
+                </group>
+            </sheet>
+            </form>
+            </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_line_pivot_view">
+        <field name="name">sale.history.line.pivot.view</field>
+        <field name="model">sale.history.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Sale History Line" sample="1">
+                <field name="product_id" type="row"/>
+                <field name="price_subtotal" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="action_sale_history_line" model="ir.actions.act_window">
+        <field name="name">Sales History Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.history.line</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="context">{'search_default_my_so_line_id': 1}</field>
+    </record>
+    <menuitem action="action_sale_history_line" id="menu_sale_history_line" parent="sale.sale_order_menu" sequence="22"/>
+</odoo>

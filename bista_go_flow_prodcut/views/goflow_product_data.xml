@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <record id="download_product_data_rt_tree" model="ir.ui.view">
+            <field name="name">goflow.product.data.tree</field>
+            <field name="model">goflow.product.data</field>
+            <field name="arch" type="xml">
+                <tree string="Goflow Product Downloaded Data" create="false">
+                    <field name="external_id"/>
+                    <field name="item_number"/>
+                    <field name="name"/>
+                    <field name="goflow_product_data_line" invisible="1"/>
+                    <field name="instance_id" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="download_product_data_rt_form" model="ir.ui.view">
+            <field name="name">goflow.product.data.form</field>
+            <field name="model">goflow.product.data</field>
+            <field name="arch" type="xml">
+                <form string="Goflow Product Downloaded Data">
+                    <sheet>
+                        <group>
+                            <label for="goflow_product_data_line"/>
+                            <div>
+                                <field name="goflow_product_data_line"/>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="external_id"/>
+                            </group>
+                            <group>
+                                <field name="item_number"/>
+                                <field name="instance_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_product_data">
+            <field name="name">Goflow Product Downloaded Data</field>
+            <field name="res_model">goflow.product.data</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

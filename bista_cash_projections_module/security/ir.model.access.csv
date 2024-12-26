@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cash_projection,cash_projection,model_cash_projection,base.group_user,1,1,1,0
+access_cash_projection_wizard_user,cash.projection.wizard,model_cash_projection_wizard,base.group_user,1,1,1,0
+

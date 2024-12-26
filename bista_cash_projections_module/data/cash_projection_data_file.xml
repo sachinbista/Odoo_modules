@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="temp_id" model="cash.projection.wizard">
+            <field name="start_date">2023-05-20</field>
+            <field name="end_date">2023-05-20</field>
+        </record>
+        <record id="ir_attachment_import_cash_projections_xlsx_12" model="ir.attachment">
+            <field name="name">Original Cash Projections.xlsx</field>
+            <field name="datas" type="base64" file="bista_cash_projections_module/data/Original_Cash_Projections.xlsx"/>
+            <field name="res_model">cash.projection.wizard</field>
+            <field name="res_id" ref="bista_cash_projections_module.temp_id"/>
+        </record>
+    </data>
+</odoo>

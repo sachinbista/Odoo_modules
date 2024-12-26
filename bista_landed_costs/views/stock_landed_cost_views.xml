@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='view_purchase_landed_costs_form' model='ir.ui.view'>
+        <field name="name">purchase.landed.cost.form</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,confirmed,done</attribute>
+            </field>
+            <field name="target_model" position="replace">
+               <field name="target_model" widget="radio" invisible="0"/>
+            </field>
+            <field name="picking_ids" position="after">
+<!--                <field name="is_all_received" invisible="0" readonly="0"/>-->
+                <field name="container_id" attrs="{'invisible': [('target_model', '!=', 'purchase')], 'readonly': [('state', '!=', 'draft')]}"/>
+                <field name="po_ids"
+                       widget="many2many_tags"
+                       force-save="1"
+                       options="{'no_create_edit': True}"
+                       attrs="{'invisible': [('target_model', '!=', 'purchase')], 'readonly': [('state', '!=', 'draft')]}"
+                       domain="[('company_id', '=', company_id),('state','!=', 'cancel')]"/>
+            </field>
+            <button name="button_validate" position="attributes">
+                <attribute name="states"></attribute>
+                <attribute name="attrs">{'invisible': [('state', 'in',('draft','done','cancel'))]}
+                </attribute>
+                <attribute name="context">{'is_manually':True}</attribute>
+            </button>
+            <xpath expr="//header/button[@name='button_validate']" position="before">
+<!--                <button name="button_confirm" string="Confirm"-->
+<!--                        attrs="{'invisible': ['|',('is_all_received', '=', True),('state', 'in', ('confirmed','done','cancel'))]}"-->
+<!--                        class="oe_highlight" type="object">-->
+<!--                </button>-->
+                <xpath expr="//header/button[@name='button_validate']" position="before">
+                <button name="button_confirm" string="Confirm" states="draft"
+                        class="oe_highlight" type="object">
+                </button>
+                <button name="update_purchase_order" string="Refresh" states="draft,confirmed" type="object"/>
+                 <button name="unlink_purchase_order" string="Unlink" states="draft,confirmed" type="object"/>        
+            </xpath>
+            </xpath>
+            <xpath expr="//field[@name='vendor_bill_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id='view_stock_landed_cost_tree_inherit' model='ir.ui.view'>
+        <field name="name">stock.landed.cost.tree</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="container_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

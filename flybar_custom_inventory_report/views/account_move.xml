@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_custom_search_view" model="ir.ui.view">
+        <field name="name">account.out.invoice.search</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="ref"/>
+            </field>
+            <filter name="open" position="replace">
+                <filter name="open" string="Unpaid"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'not_paid')]"/>
+                <filter name="partial" string="Partial"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'partial')]"/>
+                <filter name="in_payment" string="In Payment"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'in_payment')]"/>
+            </filter>
+            <filter name="closed" position="replace">
+                <filter name="closed" string="Paid"
+                        domain="[('state', '=', 'posted'), ('payment_state', '=', 'paid')]"/>
+            </filter>
+            <filter name="duedate" position="after">
+                <filter name="payment_status" string="Payment Status" context="{'group_by':'payment_state'}"/>
+                <filter name="partner" string="Customer/Vendor" context="{'group_by':'partner_id'}"/>
+                <filter name="company" string="Company" context="{'group_by':'company_id'}"/>
+            </filter>
+
+        </field>
+    </record>
+
+    <!--================ account.journal.form.inherited ==============-->
+    <record id="account_journal_form_view_inherited" model="ir.ui.view">
+        <field name="name">account.journal.form.inherited</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='restrict_mode_hash_table']" position="after">
+                <field name="allow_manual_entry" attrs="{'invisible': [('type', '!=', 'general')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--================ account.journal.search.inherited ==============-->
+    <record id="account_journal_search_view_inherited" model="ir.ui.view">
+        <field name="name">account.journal.search.inherited</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <group expand="0" string="Group By">
+                    <filter name="journal_type" string="Journal Type" context="{'group_by':'type'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

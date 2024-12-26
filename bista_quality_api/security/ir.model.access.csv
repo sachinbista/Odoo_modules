@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+quality.check.access.public,quality.check.access.public,quality.model_quality_check,base.group_public,1,0,0,0

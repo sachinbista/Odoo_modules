@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="go_flow_configuration_product_form_view">
+            <field name="name">go.flow.form.view</field>
+            <field name="model">goflow.configuration</field>
+            <field name="inherit_id" ref="bista_go_flow.go_flow_form_view"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='operations_state']" position="after">-->
+<!--                    <field name="sync_product_url" placeholder="e.g. http://my.goflow_company.com" required="1" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='sale_order_import_operation']" position="after">-->
+<!--                    -->
+<!--                </xpath>-->
+                <xpath expr="//page[1]" position="after">
+                    <page string="Products" >
+                        <group>
+                            <group>
+                                <field name="product_import_operation"/>
+                            </group>
+                            <group>
+                            </group>
+                            <group attrs="{'invisible': [('product_import_operation', '=', False)]}">
+                                <field name="sync_product"/>
+                                <field name="download_kit_and_group_product"/>
+                            </group>
+                            <group attrs="{'invisible': [('product_import_operation', '=', False)]}">
+                                <field name="auto_import_product"/>
+                                <label for="auto_import_product" string="Interval" attrs="{'invisible': [('auto_import_product', '=', False)]}"/>
+                                <div attrs="{'invisible': [('auto_import_product', '=', False)]}">
+                                    <field name="auto_import_product_interval_number" placeholder="Interval Number" class="oe_inline" attrs="{'required': [('auto_import_product', '=', True)]}"/>
+                                    <field name="auto_import_product_interval_type" class="oe_inline" attrs="{'required': [('auto_import_product', '=', True)]}"/>
+                                </div>
+                                <field name="auto_import_product_next_execution" placeholder="Next Execution Date" attrs="{'required': [('auto_import_product', '=', True)], 'invisible': [('auto_import_product', '=', False)]}" strig="Next Execution"/>
+                                <field name="auto_import_product_user_id" placeholder="Responsible User" attrs="{'required': [('auto_import_product', '=', True)], 'invisible': [('auto_import_product', '=', False)]}" strig="Responsible User"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('product_import_operation', '=', False)]}">
+                            <field name="auto_map_product"/>
+                            <field name="map_line_ids" attrs="{'invisible': [('auto_map_product', '=', False)]}">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="display_goflow_field"/>
+                                    <field name="display_odoo_fields" widget="many2many_tags"/>
+                                    <field name="mapping_opt"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

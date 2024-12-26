@@ -5,6 +5,7 @@
 
         <menuitem name="Spring Systems" id="spring_systems_integration_menu_root"
                   web_icon="spring_systems_integration,static/description/logo_new.png"
+                  groups="spring_systems_integration.group_api_user"
                  />
 
         <menuitem name="Configurations" id="spring_systems_configration_menu_root"
@@ -42,6 +43,11 @@
 
         <menuitem name="Configuration" id="spring_systems_outgoing_menu_root"
                   parent="spring_systems_configration_menu_root" action="spring_systems_configuration_action_window"
+                  sequence="1"/>
+
+        <menuitem name="Customer Configuration" id="spring_customer_configuration_menu_root"
+                  parent="spring_systems_configration_menu_root"
+                  action="spring_systems_customer_configuration_action_window"
                   sequence="1"/>
     </data>
 </odoo>

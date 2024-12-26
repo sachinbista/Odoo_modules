@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="agent_commission_report" model="account.report">
+            <field name="name">Agent Commission Report</field>
+            <field name="filter_date_range" eval="True"/>
+            <field name="default_opening_date_filter">this_month</field>
+            <field name="filter_agent" eval="True"/>
+            <field name="filter_period_comparison" eval="False"/>
+            <field name="filter_growth_comparison" eval="False"/>
+            <field name="filter_partner" eval="False"/>
+            <field name="filter_show_draft" eval="False"/>
+            <field name="custom_handler_model_id" ref="model_agent_commission_report_handler"/>
+            <field name="column_ids">
+                <record id="commission_date" model="account.report.column">
+                    <field name="name">Date</field>
+                    <field name="expression_label">date</field>
+                    <field name="figure_type">date</field>
+                    <field name="sequence">1</field>
+                </record>
+                <record id="commission_invoice_number" model="account.report.column">
+                    <field name="name">Invoice Number</field>
+                    <field name="expression_label">invoice_number</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">2</field>
+                </record>
+                <record id="commission_customer_name" model="account.report.column">
+                    <field name="name">Customer Name</field>
+                    <field name="expression_label">customer_name</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">3</field>
+                </record>
+                <record id="commission_gross" model="account.report.column">
+                    <field name="name">Gross</field>
+                    <field name="expression_label">gross</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">4</field>
+                </record>
+                <record id="commission_discount" model="account.report.column">
+                    <field name="name">Discount</field>
+                    <field name="expression_label">discount</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">5</field>
+                </record>
+                <record id="commission_freight" model="account.report.column">
+                    <field name="name">Freight</field>
+                    <field name="expression_label">freight</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">6</field>
+                </record>
+                <record id="commission_amazon_charges" model="account.report.column">
+                    <field name="name">Amazon Charges</field>
+                    <field name="expression_label">amazon_charges</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">7</field>
+                </record>
+                <record id="commission_other" model="account.report.column">
+                    <field name="name">Other</field>
+                    <field name="expression_label">other</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">8</field>
+                </record>
+                <record id="commission_net_sale" model="account.report.column">
+                    <field name="name">Net Sale</field>
+                    <field name="expression_label">net_sale</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">9</field>
+                </record>
+                <record id="commission_potential_commission_amt" model="account.report.column">
+                    <field name="name">Potential Commission Amt.</field>
+                    <field name="expression_label">potential_commission_amt</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">10</field>
+                </record>
+                <record id="commission_potential_commission" model="account.report.column">
+                    <field name="name">Potential Commission</field>
+                    <field name="expression_label">net_sale</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">11</field>
+                </record>
+                <record id="commission_blank" model="account.report.column">
+                    <field name="name">-</field>
+                    <field name="expression_label">blank</field>
+                    <field name="figure_type">none</field>
+                    <field name="sequence">12</field>
+                </record>
+                <record id="commission_date_paid" model="account.report.column">
+                    <field name="name">Date Paid</field>
+                    <field name="expression_label">date_paid</field>
+                    <field name="figure_type">date</field>
+                    <field name="sequence">13</field>
+                </record>
+                <record id="commission_amount_paid" model="account.report.column">
+                    <field name="name">Amount Paid</field>
+                    <field name="expression_label">amount_paid</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">14</field>
+                </record>
+                <record id="commission_commissionable_amount" model="account.report.column">
+                    <field name="name">Commissionable Amount</field>
+                    <field name="expression_label">commissionable_amount</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">15</field>
+                </record>
+                <record id="commission_rate" model="account.report.column">
+                    <field name="name">Rate</field>
+                    <field name="expression_label">rate</field>
+                    <field name="figure_type">percentage</field>
+                    <field name="sequence">16</field>
+                </record>
+                <record id="commission_commission" model="account.report.column">
+                    <field name="name">Commission</field>
+                    <field name="expression_label">commission</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">17</field>
+                </record>
+                <record id="commission_balance" model="account.report.column">
+                    <field name="name">Balance</field>
+                    <field name="expression_label">balance</field>
+                    <field name="figure_type">monetary</field>
+                    <field name="sequence">18</field>
+                </record>
+            </field>
+        </record>
+    </data>
+</odoo>
+

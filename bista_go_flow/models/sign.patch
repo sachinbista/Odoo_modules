@@ -1,0 +1,313 @@
+diff --git a/bista_go_flow/__manifest__.py b/bista_go_flow/__manifest__.py
+index 0437b07..07c2eb5 100644
+--- a/bista_go_flow/__manifest__.py
++++ b/bista_go_flow/__manifest__.py
+@@ -54,6 +54,12 @@
+         'data/cron.xml',
+         'data/ir_sequence_data.xml',
+     ],
++    'assets': {
++        'web.assets_backend': [
++            # 'bista_go_flow/static/src/js/sign_document.js',
++
++        ],
++    },
+ 
+     'installable': True,
+     'auto_install': False,
+diff --git a/bista_go_flow/models/stock_picking.py b/bista_go_flow/models/stock_picking.py
+index d60bfd5..c6e6bb2 100644
+--- a/bista_go_flow/models/stock_picking.py
++++ b/bista_go_flow/models/stock_picking.py
+@@ -1,6 +1,6 @@
+ # -*- coding: utf-8 -*-
+ 
+-from odoo import models, fields, api, _
++from odoo import models, fields, api, _, Command
+ from datetime import datetime, date
+ from odoo.exceptions import UserError, ValidationError
+ import json
+@@ -204,7 +204,7 @@ class StockPicking(models.Model):
+                 # print("Response message::::::::::::::::::::",response.get('id'),response.get('location'))
+ 
+     def goflow_get_order_document_urls(self):
+-        # print("goflow_get_order_document_urls::::::::::::::::::")
++        print("goflow_get_order_document_urls::::::::::::::::::")
+ 
+         go_flow_instance_obj = self.env['goflow.configuration'].search([('state', '=', 'draft')], limit=1)
+         goflow_order = self.env['goflow.order'].search([('sale_order_id', '=', self.sale_id.id)], limit=1)
+@@ -223,52 +223,53 @@ class StockPicking(models.Model):
+                     "packing_slips": [
+                         {
+                             "source": "generated",
+-                            "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/packing-slip-generated.pdf?expiresAt=1701725114&tsfdbsuw_sqpz=FiTCuqZ3GUyLDINS1lIWFeKzJacGK3RHjlQ05L93FVE%3d",
++                            "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/packing-slip-generated.pdf?expiresAt=1702938939&tsfdbsuw_sqpz=UN2zCVTJUV9v1VRZfOdSPEU2l%2bcOllIL9CsiPki3B6U%3d",
+                             "format": "pdf",
+-                            "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                            "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                         }
+                     ],
+                     "bill_of_lading": {
+-                        "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/bill-of-lading-generated.pdf?expiresAt=1701725114&tsfdbsuw_sqpz=VrvPotcUsahuqluLNWA5VRuzBHr5wDynP2zZS8d4cvI%3d",
++                        "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/bill-of-lading-generated.pdf?expiresAt=1702938939&tsfdbsuw_sqpz=K2JD6Y1e4WGzHWnCeLTYME4t2ZnKlGNOBkJIIQtlDOw%3d",
+                         "format": "pdf",
+-                        "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                        "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                     },
+                     "carton_labels": {
+                         "all": {
+-                            "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?expiresAt=1701725114&tsfdbsuw_sqpz=%2bNOusvWydQ0qrkiug4Y7FdyPPiCZSvfokm41NAYEjaY%3d",
++                            "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?expiresAt=1702938939&tsfdbsuw_sqpz=XpExsHKBPZJa0iWwN6VkI0Xf4b4ppuf%2fgA8iCEY7i%2fo%3d",
+                             "format": "pdf",
+-                            "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                            "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                         },
+                         "singles": [
+                             {
+-                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=1&expiresAt=1701725114&tsfdbsuw_sqpz=h6MP15SenPPneCHE2E8JiUsQHnsylbl7Ik6LVY2j6Oc%3d",
++                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=1&expiresAt=1702938939&tsfdbsuw_sqpz=zh%2bX96buYx217SIlHI5gbJlvWPw5QLXEEcSeU6lCkiY%3d",
+                                 "format": "pdf",
+-                                "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                                "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                             },
+                             {
+-                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=2&expiresAt=1701725114&tsfdbsuw_sqpz=K1cVUg3gZ4cOV5Sw2XqkuhGH%2b1BEv3oSb3JldOBStec%3d",
++                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=2&expiresAt=1702938939&tsfdbsuw_sqpz=lQbVwGlPdemKG60%2bbBmKwqWGVaZBrKG%2by8k%2fgJHW85s%3d",
+                                 "format": "pdf",
+-                                "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                                "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                             },
+                             {
+-                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=3&expiresAt=1701725114&tsfdbsuw_sqpz=wkly6OmGXcgqIfgEy%2bc0%2bwPuKm%2bCcW6Ilu8H59JCnwA%3d",
++                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=3&expiresAt=1702938939&tsfdbsuw_sqpz=mupjAvoAWF%2bhglk7HgOEikntEo7ZCZFl6xEKLfZ7kp0%3d",
+                                 "format": "pdf",
+-                                "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                                "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                             },
+                             {
+-                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=4&expiresAt=1701725114&tsfdbsuw_sqpz=Hsvwg2DnssY10ShLxHg%2fjpvqdbAMJd5071kaPEVwbkM%3d",
++                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=4&expiresAt=1702938939&tsfdbsuw_sqpz=d1DEbVvo5UhjdnaV1x%2fPnQGi48Q3Y7ZG0ROSvtaEC%2bY%3d",
+                                 "format": "pdf",
+-                                "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                                "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                             },
+                             {
+-                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=5&expiresAt=1701725114&tsfdbsuw_sqpz=Fjlwrvix5GW8QIqsnuF8enz4kcpZzbnQBjz0fVcdhbA%3d",
++                                "url": "https://fb.api.goflow.com/v1/orders/1963580/documents/carton-label.pdf?box_number=5&expiresAt=1702938939&tsfdbsuw_sqpz=WJNm6ES6U0kI4dsJChSW7ivR9N78%2ff0skLu3LcLg8Uc%3d",
+                                 "format": "pdf",
+-                                "url_expires_at": "2023-12-04T21:25:14.4889681Z"
++                                "url_expires_at": "2023-12-18T22:35:39.8970425Z"
+                             }
+                         ]
+                     }
+                 }
+                 attachments_list = []
++                print('attachments_list---------------------------------->', attachments_list)
+ 
+                 # packing_slips
+                 packing_slips = data['packing_slips']
+@@ -298,7 +299,35 @@ class StockPicking(models.Model):
+                 })
+                 self.sign_template_id = self.env['sign.template'].create({
+                     'attachment_id': bill_of_lading.id,
++                    'sign_item_ids': [
++                        Command.create({'type_id': self.env.ref('sign.sign_item_type_signature').id,
++                                        'responsible_id': self.env.ref(
++                                            'sign.sign_item_role_customer').id, 'required': True, 'page': 1,
++                                        'posX': 0.707, 'posY': 0.745, 'height': 0.050,
++                                        'width': 0.200})]})
++
++                request = self.env['sign.request'].with_context(no_sign_mail=True).create({
++                    'template_id': self.sign_template_id.id,
++
++                    'request_item_ids': [Command.create({
++                        'role_id': self.sign_template_id.sign_item_ids.responsible_id.id or self.env.ref(
++                            'sign.sign_item_role_default').id})],
++                    'reference': "%s-%s" % (self.name, _("Share")),
++                    'state': 'shared',
++
++                })
++                self.env['bus.bus']._sendone('broadcast', 'web.notify', {
++
+                 })
++
++                print('request------------------------>', request)
++                # request = self.sign_template_id.create_request()
++                # if request.activity_id:
++                #     request._activity_done()
++                # request._sign()
++                # request._get_user_signature()
++                request.go_to_signable_document()
++
+                 # carton_labels
+                 carton_labels_url = data['carton_labels']['all']['url']
+                 carton_labels_datas = base64.b64encode(requests.get(carton_labels_url).content)
+diff --git a/bista_go_flow/static/src/js/sign_document.js b/bista_go_flow/static/src/js/sign_document.js
+index a9cc895..35613ad 100644
+--- a/bista_go_flow/static/src/js/sign_document.js
++++ b/bista_go_flow/static/src/js/sign_document.js
+@@ -1,43 +1,29 @@
+-/* @odoo-module */
+-import {useService} from "@web/core/utils/hooks";
+-import {registry} from "@web/core/registry";
+-console.log('............>>>>>>>>>>>>>>>>>>>..................')
+-alert();
+-export const webNotificationService = {
+-    dependencies: ["notification"],
++/** @odoo-module **/
+ 
+-    start(env, {notification}) {
+-        let webNotifTimeouts = {};
+-        /**
+-         * Displays the web notification on user's screen
+-         */
+-        env.bus.on("WEB_CLIENT_READY", null, async () => {
+-            const legacyEnv = owl.Component.env;
+-            this.orm = useService("orm");
+-            var self = this;
+-            legacyEnv.services.bus_service.onNotification(this, (notifications) => {
+-                for (const {payload, type} of notifications) {
+-                debugger
+-                    if (type === "web.notify") {
+-                        if(payload && (payload.mrp_ids || payload.project_id)){
+-                            setTimeout(function(){
+-                                console.log("..........",payload.project_id,payload.mrp_ids, type, this);
+-                                self.orm.call("mrp.production",
+-                                "get_latest_hat_patch_status", [payload.mrp_ids], {
+-                                }).then(function(){
+-                                    self.orm.call("project.project",
+-                                    "get_latest_component_status",[payload.project_id], {
+-                                    });
+-                                });
+-                            }, 1500);
++import { browser } from "@web/core/browser/browser";
++import { registry } from "@web/core/registry";
++import { session } from "@web/session";
+ 
+-                        }
+-                    }
++export const signNotifyService = {
++    dependencies: ["bus_service", "notification"],
++
++    start(env, { bus_service, notification }) {
++        let isNotificationDisplayed = false;
++        let bundleNotifTimerID = null;
++        alert();
++        bus_service.addEventListener('notification', onNotification.bind(this));
++        bus_service.start();
++
++        function onNotification({ detail: notifications }) {
++            for (const { payload, type } of notifications) {
++                if (type === 'web.notify') {
++                    setTimeout(function(){
++                        document.getElementsByClassName('o_sign_sign_item_navigator')[0].click()
++                    });
+                 }
+-            });
+-            legacyEnv.services.bus_service.startPolling();
+-        });
++            }
++        }
+     },
+ };
+ 
+-registry.category("services").add("webNotification", webNotificationService);
+\ No newline at end of file
++registry.category("services").add("signNotifyService", signNotifyService);
+diff --git a/spring_systems_integration/models/stock_picking.py b/spring_systems_integration/models/stock_picking.py
+index cf4c1d1..c34d9fc 100644
+--- a/spring_systems_integration/models/stock_picking.py
++++ b/spring_systems_integration/models/stock_picking.py
+@@ -16,8 +16,7 @@ from odoo.exceptions import UserError
+ class StockPicking(models.Model):
+     _inherit = 'stock.picking'
+ 
+-    sign_template_id = fields.Many2one('sign.template',string='BOL Document For Sign')
+-
++    sign_template_id = fields.Many2one('sign.template', string='BOL Document For Sign')
+ 
+     def button_validate(self):
+         picking = super().button_validate()
+@@ -56,7 +55,6 @@ class StockPicking(models.Model):
+         shipping_docs_requests.update({'shipping_docs_request': shipping_docs_request})
+         return shipping_docs_requests
+ 
+-
+     def _create_856_vals(self, spring_order):
+         data = ''
+         if spring_order.edi_850_data:
+@@ -76,7 +74,7 @@ class StockPicking(models.Model):
+                                   }
+ 
+             ship_info = {
+-                'ship_to_location_id' : data.get('ship_to_location_id'),
++                'ship_to_location_id': data.get('ship_to_location_id'),
+                 'ship_info_carrier_code': "ZJ",
+                 'ship_info_tracking': self.carrier_tracking_ref,
+                 'ship_info_ship_date': str(self.date_done),
+@@ -138,7 +136,8 @@ class StockPicking(models.Model):
+             po_item_pack = []
+             for line in self.move_line_ids:
+                 product_code = line.product_id.default_code
+-                item_line = list(filter(lambda item: item['product']['product_vendor_item_num'] == product_code, po_items))[0]
++                item_line = \
++                list(filter(lambda item: item['product']['product_vendor_item_num'] == product_code, po_items))[0]
+                 po_item_pack_data = {
+                     'po_item_id': item_line['po_item_id'],
+                     'po_item_pack_qty': line.reserved_uom_qty,
+@@ -148,7 +147,7 @@ class StockPicking(models.Model):
+ 
+             ship_carton_data.update({'po_item_pack': po_item_pack})
+             ship_carton.append(ship_carton_data)
+-            po_data.update({'ship_carton':ship_carton})
++            po_data.update({'ship_carton': ship_carton})
+             po.append(po_data)
+             edi_856_vals.update({'po': po})
+             shipment.append(edi_856_vals)
+@@ -156,8 +155,6 @@ class StockPicking(models.Model):
+             end_vals = {'shipments': shipments}
+             self.send_edi_request(end_vals)
+ 
+-
+-
+     def send_edi_request(self, end_vals):
+         config_id = self.env['spring.systems.configuration'].search([])
+         edi_856_obj = self.env['spring.edi.856']
+@@ -220,8 +217,6 @@ class StockPicking(models.Model):
+                     'system_errors': 'ERROR'
+                 })
+ 
+-
+-
+     def trigger_outgoing_transaction_spring(self, spring_order):
+         data = spring_order.edi_856_data
+         edi_data = {}
+@@ -232,21 +227,10 @@ class StockPicking(models.Model):
+             ship_info.update({'send_outgoing_transaction_after': 1})
+             self.send_edi_request(edi_data)
+ 
+-
+     def action_bol_sign_document(self):
+-
+-        # new_template_id = 1
+-
+-        # self.write({'sign_template_id': self.sign_template_id})
+         print('elf.sign_template_id-------------------------', self.sign_template_id, self)
+-        # return {
+-        #     'type': 'ir.actions.act_window',
+-        #     'name': 'Sign Template',
+-        #     'res_model': 'sign.template',
+-        #     'view_mode': 'kanban',
+-        #     'domain': [('id', '=', self.sign_template_id.id)],
+-        #     'target': 'current',
+-        # }
++        if not self.sign_template_id:
++            raise UserError("No sign template selected. Please select a sign template before signing.")
+         return {
+             'name': "Template \"%(name)s\"" % {'name': self.sign_template_id.attachment_id.name},
+             'type': 'ir.actions.client',
+@@ -256,4 +240,3 @@ class StockPicking(models.Model):
+                 'sign_directly_without_mail': False,
+             },
+         }
+-

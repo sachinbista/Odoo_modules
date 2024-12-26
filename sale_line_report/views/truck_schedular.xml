@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="truck_schedular_id_tree" model="ir.ui.view">
+        <field name="name">truck.schedular.tree.view</field>
+        <field name="model">truck.schedular</field>
+        <field name="arch" type="xml">
+            <tree editable="top" string="Schedular SO Report" create="true" edit="true" delete="true" duplicate="true">
+<!--                <field name="schedular"/>-->
+                <field name="customers_id" />
+                <field name="location_id" />
+                <field name="carrier_id" />
+                <field name="holiday" />
+                <field name="cutoff_time" widget="float_time"/>
+                <field name="cutoff_time_limit" widget="float_time"/>
+                <field name="priority" />
+            </tree>
+        </field>
+    </record>
+<!--    <record id="truck_schedular_id_form_view" model="ir.ui.view">-->
+<!--        <field name="name">truck.schedular.form.view</field>-->
+<!--        <field name="model">truck.schedular</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Schedular SO Report">-->
+<!--                <field name="schedular"/>-->
+<!--                <field name="test"/>-->
+<!--                <field name="customers_ids"/>-->
+<!--                <field name="location_ids"/>-->
+<!--                <field name="carrier_ids"/>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="action_schedular_report" model="ir.actions.act_window">
+        <field name="name">Schedular Options</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">truck.schedular</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+            id="menu_sale_config"
+            parent="sale.menu_sale_config"
+            action="action_schedular_report"
+            sequence="11"
+    />
+</odoo>

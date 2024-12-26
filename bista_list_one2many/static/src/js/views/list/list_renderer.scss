@@ -1,0 +1,67 @@
+// ------- List renderer -------
+
+.o_list_renderer {
+  margin-bottom: -14px;
+  margin-top: -5px;
+
+  .o_list_table tfoot {
+    color: #212529;
+    background-color: #FFF;
+    font-weight: 500;
+    border-top: 1px solid #E0E2E6;
+    border-bottom: none;
+  }
+
+  --ListRenderer-table-padding-h: #{$table-cell-padding-x-sm};
+
+  --ListRenderer-thead-padding-v: #{$table-cell-padding-y * 1.25};
+  --ListRenderer-thead-bg-color: #{$gray-200};
+  --ListRenderer-thead-border-end-color: #{$border-color};
+
+  .o_list_renderer .o_data_row{
+    border-bottom-width: 0px !important;
+  }
+
+  .o_list_table {
+    thead {
+      .o_one2many_cell{
+        width: 423px !important;
+        max-width: 423px !important;
+      }
+    }
+  }
+}
+
+.o_content > .o_list_renderer > .o_list_table > tbody > tr:not(:first-child) {
+  .o_field_one2many thead {
+    display: none;
+  }
+}
+
+.o_content > .o_list_renderer > .o_list_table > tbody > tr:first-child {
+  .o_field_one2many thead tr th {
+    width: 110px !important;
+    max-width: 120px !important;
+  }
+}
+.o_content > .o_list_renderer > .o_list_table > tbody > tr:first-child {
+  .o_field_one2many thead tr th:last-child {
+    width: 11px !important;
+    cursor: none;
+  }
+  .o_field_one2many thead tr th:nth-last-child(2) {
+    width: 11px !important;
+    cursor: none;
+  }
+}
+.o_content > .o_list_renderer > .o_list_table > tbody > tr:not(:first-child) {
+  .o_field_one2many tbody tr td:last-child {
+    width: 2px !important;
+  }
+  .o_field_one2many tbody tr td:nth-last-child(2) {
+    width: 20px !important;
+  }
+}
+
+
+

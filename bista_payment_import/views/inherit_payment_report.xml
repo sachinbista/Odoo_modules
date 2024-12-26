@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_inherit_payment" inherit_id="account.report_payment_receipt_document">
+
+<!--        <xpath expr="//t[@t-call='web.external_layout']" position="replace">-->
+        <xpath expr="//div[hasclass('page')]" position="replace">
+<!--            <t t-call="bi_advance_branch.external_payments_layout">-->
+<!--                <t t-set="o" t-value="o.with_context(lang=lang)"/>-->
+<!--                <t t-call="account_invoice_report_extend.custom_header"/>-->
+<!--                <t t-call="account_invoice_report_extend.custom_footer"/>-->
+                <t t-set="amount_total" t-value="0"/>
+                <t t-set="amount_paid" t-value="0"/>
+                <t t-set="amount_residual" t-value="0"/>
+                <div class="page">
+                    <h3>
+                        <strong>Payment Receipt:
+                            <span t-field="o.name"/>
+                        </strong>
+                    </h3>
+                    <div class="row mt64">
+                        <div class="col-6" t-if="o.date">
+                            <strong>Payment Date:</strong>
+                            <span t-field="o.date"/>
+                        </div>
+                        <div class="col-6" t-if="o.journal_id">
+                            <strong>Payment From:</strong>
+                            <span t-field="o.journal_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_type">
+                            <t t-if="o.partner_type == 'customer'">
+                                <strong>Customer:</strong>
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                <strong>Vendor:</strong>
+                            </t>
+                            <span t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_line_id">
+                            <strong>Payment Method:</strong>
+                            <span t-field="o.payment_method_line_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row mb64">
+                        <div class="col-6" t-if="o.amount">
+                            <strong>Payment Amount:</strong>
+                            <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_line_id">
+                            <t t-if="o.payment_method_line_id.name == 'Check'">
+                                <strong>Check No:</strong>
+                            </t>
+                            <t t-if="o.payment_method_line_id.name == 'Credit Card'">
+                                <strong>CC Details:</strong>
+                            </t>
+<!--                            <span t-field="o.payment_details"/>-->
+                            <t t-if="o.payment_method_line_id.name == 'Checks'">
+                                <strong>Check No:</strong>
+                            </t>
+                            <span t-field="o.check_number"/>
+                        </div>
+                    </div>
+                    <div class="row" t-if="o.payment_type == 'inbound'">
+                        <div class="col-6" t-if="o.ref">
+                            <strong>Memo:</strong>
+                            <span t-field="o.ref"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    <span>Invoice Date</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Invoice Number</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Reference</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Original</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Paid</span>
+                                </th>
+                               <!-- <t t-if="o.invoice_lines">-->
+                                    <th class="text-center">
+                                        <span>Discount</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>Writeoff</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>Net</span>
+                                    </th>
+                                <!--</t>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="not o.invoice_lines">
+                                <tr t-foreach="o.move_id._get_reconciled_invoices_partials()" t-as="rec">
+                                <tr t-foreach="rec" t-as="record">
+                                    <t t-set="amount" t-value="record[1]"/>
+                                    <td class="text-center">
+                                        <span t-field="record[2].move_id.invoice_date"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="record[2].move_id.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="record[2].move_id.ref"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="record[2].move_id.amount_total"/>
+                                        <t t-set="amount_total" t-value="amount_total + record[2].move_id.amount_total"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': record[2].move_id.currency_id}"/>
+                                        <t t-set="amount_paid" t-value="amount_paid + amount"/>
+                                    </td>
+                                   <td class="text-center">
+                                        <!-- =========== Early Payment Discount ============= -->
+                                        <span t-esc="o._get_early_payment_discount_balance()"
+                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- =========== Write-off Discount ============= -->
+                                        <span t-esc="o._get_writeoff_balance()"
+                                          t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': record[2].move_id.currency_id}"/>
+                                        <t t-set="amount_paid" t-value="amount_paid + amount"/>
+                                    </td>
+                                </tr>
+                                </tr>
+                            </t>
+
+
+
+                            <t t-if="o.invoice_lines">
+                                <t t-set="writeoff_amount" t-value="0"/>
+                                <tr t-foreach="o.invoice_lines" t-as="inv">
+                                    <td class="text-center">
+                                        <span t-field="inv.invoice_id.invoice_date"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="inv.invoice_id.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="inv.invoice_id.ref"/>
+                                    </td>
+                                    <td class="text-center">
+
+                                        <span t-field="inv.total_amount"/>
+                                        <t t-set="amount_total" t-value="amount_total + inv.invoice_id.amount_total"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="inv.allocation"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="inv.discount_amount"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="inv.select_all and inv.payment_difference != 0.0">
+                                            <t t-set="writeoff_amount" t-value="inv.payment_difference"/>
+                                            <span t-esc="writeoff_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"/>
+                                        </t>
+                                        <t t-if="not inv.select_all or inv.payment_difference == 0.0">
+                                            <span t-esc="writeoff_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="inv.allocation + writeoff_amount + inv.discount_amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': inv.currency_id, 'precision': 2}"/>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o.outstanding_payment_ids" t-as="out">
+                                    <t t-set="writeoff_amount" t-value="0"/>
+                                    <t t-set="move_id" t-value="out.move_id"/>
+                                    <t t-set="payment_id" t-value="out.move_payment_id"/>
+                                    <td class="text-center">
+                                        <t t-if="move_id">
+                                            <span t-field="move_id.invoice_date"/>
+                                        </t>
+                                        <t t-if="payment_id">
+                                            <span t-field="payment_id.date"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="move_id">
+                                            <span t-field="move_id.name"/>
+                                        </t>
+                                        <t t-if="payment_id">
+                                            <span t-field="payment_id.name"/>
+                                        </t>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="move_id">
+                                            <span t-field="move_id.ref"/>
+                                        </t>
+                                        <t t-if="payment_id">
+                                            <!--                                            <span t-field="payment_id.name"/>-->
+                                        </t>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-if="move_id">
+                                            <span t-field="move_id.amount_total"
+                                                  t-options="{'widget': 'monetary', 'display_currency': move_id.currency_id, 'precision': 2}"/>
+
+                                        </t>
+                                        <t t-if="payment_id">
+                                            <span t-field="payment_id.amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': payment_id.currency_id, 'precision': 2}"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="out.amount_to_utilize"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"/>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span t-esc="writeoff_amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"/> <!-- we need to put zero for outstanding payments so used writeoff field values which is zero-->
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="writeoff_amount"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="out.amount_to_utilize"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'precision': 2}"
+                                        />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div style="width:35%;float:right;margin-top:20px;">
+                            <table width="100%" class="table table-sm"
+                                   style="padding:0px 0px;border:1px  ;page-break-inside: avoid;">
+                                <t t-if="not o.invoice_lines">
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Paid Amount
+                                            <td class="text-right">
+                                                <span t-esc="o.amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Discount Amount
+                                            <td class="text-right">
+                                                <span t-esc="o._get_early_payment_discount_balance()"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Writeoff Amount
+                                            <td class="text-right">
+                                                <span t-esc="o._get_writeoff_balance()"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <t t-set="writeoff_discount" t-value="o._get_writeoff_discount_amount()" />
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Net Paid
+                                            <td class="text-right">
+                                                <span t-esc="writeoff_discount[0] + o.amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <!-- for payment allocation -->
+                                <t t-if="o.invoice_lines">
+                                    <t t-set="writeoff_discount" t-value="o._get_writeoff_discount_amount()" />
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Paid Amount
+                                            <td class="text-right">
+                                                <span t-esc="o.amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Writeoff Amount
+                                            <td class="text-right">
+                                                <span t-esc="writeoff_discount[0]"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Discount Amount
+                                            <td class="text-right">
+                                                <span t-esc="writeoff_discount[1]"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Net Paid
+                                            <td class="text-right">
+                                                <span t-esc="o.with_context(is_net=1)._get_paid_amount()"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:1px  black;">
+                                        <td style="height:10px;text-align:left;padding-left:8px;">
+                                            Outstanding Amount
+                                            <td class="text-right">
+                                                <span t-esc="o.payment_outstanding_amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+<!--            </t>-->
+        </xpath>
+    </template>
+
+
+    <template id="report_payment_receipt_inherit">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="bista_payment_import.report_inherit_payment" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo> 

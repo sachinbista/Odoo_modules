@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="goflow_purchase_tree_view">
+            <field name="name">goflow.purchase.order.tree.view</field>
+            <field name="model">goflow.purchase.order</field>
+            <field name="arch" type="xml">
+                <tree string="Goflow Purchase" create="false" editable="bottom">
+                    <field name="purchase_order" readonly="1" force_save="1"/>
+                    <field name="goflow_order_id" readonly="1" force_save="1"/>
+                    <field name="order_number" readonly="1" force_save="1"/>
+                    <field name="instance_id" readonly="1" force_save="1"/>
+                    <field name="goflow_order_status" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_purchase_menu_action_window">
+            <field name="name">GoFlow Purchase</field>
+            <field name="res_model">goflow.purchase.order</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+{
+    "name": "Custom Inventory Reports",
+    "summary": "Custom Inventory Reports",
+    "version": "16.0.1.0.0",
+    "category": "Inventory",
+    "description": "Display Custom Inventory report",
+    'author': "Bista Solutions Pvt. Ltd.",
+    'website': "https://www.bistasolutions.com",
+    'company': 'Bista Solutions Pvt. Ltd.',
+    'maintainer': 'Bista Solutions Pvt. Ltd',
+    "depends": [
+        'stock',
+        'stock_picking_batch_extend',
+        'product_dimension',
+        'stock_picking_batch',
+        'sale',
+        'purchase',
+        'contacts',
+        'account',
+        'delivery',
+        'printnode_base'
+    ],
+    "data": [
+        'security/ir.model.access.csv',
+        'data/printnode_scenario_data.xml',
+        'wizard/empty_location_wiz_views.xml',
+        'views/bol_report.xml',
+        'views/connector_delivery_slip_report.xml',
+        'views/storage_location_analysis_view.xml',
+        'views/package_report.xml',
+        'views/pre_receiver_report.xml',
+        'views/account_move.xml',
+        'views/account_payment.xml',
+        'views/receipt_ticket.xml',
+        'views/prodcut_views.xml',
+        'views/contact_views.xml',
+        'views/stock_picking.xml',
+        'views/stock_picking_batch_view.xml',
+        'views/report_package_barcode.xml',
+        'views/delivery_view.xml',
+        'wizard/choose_delivery_package_views.xml',
+    ],
+
+    # 'assets': {
+    #         'web.assets_backend': [
+    #             'flybar_custom_inventory_report/static/src/style_css.css',
+    #
+    #         ],
+    # },
+
+    'images': [],
+    'license': "LGPL-3",
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

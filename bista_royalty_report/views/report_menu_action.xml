@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_royalty_report" model="ir.actions.client">
+        <field name="name">Royalty Report</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'report_id': ref('bista_royalty_report.royalty_report')}"/>
+    </record>
+
+    <menuitem id="menu_action_royalty_report" name="Royalty Report" groups="account.group_account_readonly"
+              action="action_royalty_report" parent="account.account_reports_legal_statements_menu" sequence="75"/>
+</odoo>
+
+
+

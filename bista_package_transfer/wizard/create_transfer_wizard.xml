@@ -1,0 +1,117 @@
+<odoo>
+    <record id="wizard_create_transfer" model="ir.ui.view">
+        <field name="name">Create Transfer</field>
+        <field name="model">create.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Create Transfer">
+
+                <notebook>
+                    <page string="Transfer Details">
+                        <field name="line_ids">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"/>
+                                 <field name="qty_transfer" />
+                                <field name="quant_action" readonly="1" force_save="1" invisible="context.get('action',False)"/>
+                                <field name="warehouse_id" force_save="1" readonly="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="des_warehouse_id" options="{'no_create': True}"/>
+                                <field name="core_location_id" invisible="1"/>
+                                 <field name="is_core_product" invisible="1"/>
+                                 <field name="notes"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <div class="col-8" invisible="1">
+                    <group>
+                        <field name="note" nolabel="1" placeholder="Add notes here"/>
+                    </group>
+                </div>
+                <footer>
+                    <button name="action_next_step" type="object" string="Transfer" class="btn-primary"/>
+                    or
+                    <button string="_Cancel" class="oe_highlight"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+      <record id="wizard_create_transfer_internal_transfer" model="ir.ui.view">
+        <field name="name">Create Transfer</field>
+        <field name="model">create.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Create Transfer">
+                <notebook>
+                    <page string="Transfer Details">
+                        <field name="line_ids">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"/>
+                                 <field name="qty_transfer" />
+<!--                                <field name="quant_action" readonly="1" force_save="1" invisible="context.get('action',False)"/>-->
+                                <field name="quant_action" readonly="1" force_save="1" invisible="context.get('action',False)"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="core_location_id" invisible="1"/>
+                                 <field name="is_core_product" invisible="1"/>
+                                <field name="brnch_id" invisible="1"/>
+                                <field name="source_location_id" domain="[('usage', '=','internal')]" force_save="1" readonly="1"/>
+                                <field name="destination_location_id" domain="[('branch_id', '=', brnch_id)]"/>
+                                <field name="notes"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <div class="col-8" invisible="1">
+                    <group>
+                        <field name="note" nolabel="1" placeholder="Add notes here"/>
+                    </group>
+                </div>
+                <footer>
+                    <button name="action_next_step" type="object" string="Transfer" class="btn-primary"/>
+                    or
+                    <button string="_Cancel" class="oe_highlight"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="po_manager_src_warehouse_access" model="ir.ui.view">
+            <field name="name">po manager access</field>
+            <field name="model">create.transfer</field>
+             <field name="inherit_id" ref="bista_warehouse_inventory.wizard_create_transfer"/>
+            <field name="groups_id" eval="[(6,0, [ref('purchase.group_purchase_manager')])]" />
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='warehouse_id']" position="attributes">
+                 <attribute name="readonly">0</attribute>
+            </xpath>
+            </field>
+        </record>
+
+    <record id="action_wh_create_transfer" model="ir.actions.act_window">
+        <field name="name">Create Transfer</field>
+        <field name="res_model">create.transfer</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_create_transfer"/>
+        <field name="context">{'action':True, 'is_core': context.get('is_core') }</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_product_warehouse_inventory"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="action_internal_company_transfer" model="ir.actions.act_window">
+        <field name="name">Create Internal Transfer</field>
+        <field name="res_model">create.transfer</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_create_transfer_internal_transfer"/>
+        <field name="context">{'type':'internal_company_transfer'}</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_stock_quant"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+</odoo>

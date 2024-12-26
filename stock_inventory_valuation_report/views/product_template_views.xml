@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	
+	<record id="product_template_search_view_inherited_siv" model="ir.ui.view">
+        <field name="name">product.template.search</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="type_product" string="New Type"/>
+            </field>
+            <group expand="1" position="inside">
+                  <filter string="Type" name="type_product" context="{'group_by':'type_product'}"/>
+             </group>
+        </field>
+    </record>
+    
+    <record id="product_product_form_view_valuation_report" model="ir.ui.view">
+        <field name="name">product.product.common.form.commission</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <label for="purchase_ok" position="after">
+                <div>
+                	<label for="type_product" />
+                    <field name="type_product" readonly="1"/>
+                </div>
+            </label>
+        </field>
+    </record>
+    
+    <record id="product_template_form_view_valuation_report" model="ir.ui.view">
+        <field name="name">product.template.common.form.commission</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+        	<header position="inside">
+        		<button name="excute_type_product" string="Execute code" type="object" invisible="1"/>
+        	</header>
+            <label for="purchase_ok" position="after">
+                <div>
+                	<label for="type_product" />
+                    <field name="type_product" readonly="1"/>
+                </div>
+            </label>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- ============ Stock Search view Inherited ================== -->
+		<record id="stock_product_search_view_inherited" model="ir.ui.view">
+			<field name="name">product.product.search.stock.form</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_search_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@name='inactive']" position="after">
+					<filter name="show_negative_stock" string="Show Negative Stock" domain="[('qty_available','&lt;',0)]" />
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- ============ product.product Form view Inherited ================== -->
+		<record id="product_form_view_procurement_button_inherited" model="ir.ui.view">
+			<field name="name">product.product.form.view.inherited</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="stock.product_form_view_procurement_button" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_update_quantity_on_hand']" position="replace">
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- ============ product.template Form view Inherited ================== -->
+		<record id="product_template_form_view_procurement_button_inherited" model="ir.ui.view">
+			<field name="name">product.template.form.view.inherited</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="stock.product_template_form_view_procurement_button" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_update_quantity_on_hand']" position="replace">
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- ============ Stock Action Inherited ================== -->
+		<record model="ir.actions.act_window" id="stock.action_product_stock_view">
+			<field name="name">Stock</field>
+			<field name="res_model">product.product</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="stock.product_product_stock_tree" />
+			<field name="search_view_id" ref="stock.product_search_form_view_stock_report" />
+			<field name="context">{'default_detailed_type': 'product', 'search_default_real_stock_available': 1}</field>
+			<field name="domain">[('detailed_type', '=', 'product')]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					No stock to show
+				</p>
+				<p>
+					Create some storable products to see their stock info in this view.
+				</p>
+			</field>
+		</record>
+	</data>
+</odoo>
+        

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+
+    <record id="transfer_routing_status_action" model="ir.actions.act_window">
+        <field name="name">Routing Status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '!=', 'done'),('state', '!=', 'cancel'),('goflow_routing_status', '!=', False)]</field>
+       <field name="context">{'contact_display': 'partner_address', 'default_company_id': allowed_company_ids[0]}</field>
+          <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Transfer found. Let's create one!
+            </p><p>
+                Transfers allow you to move products from one location to another.
+            </p>
+        </field>
+    </record>
+    	
+    	<menuitem name="Shipping" 
+       		      id="menu_inventory_shipping" 
+       		      parent="stock.menu_stock_warehouse_mgmt" 
+       		      sequence="2"/>
+
+        <menuitem id="transfer_routing_status_menu" 
+        		  name="Routing Status" 
+        		  action="transfer_routing_status_action"
+        		  parent="menu_inventory_shipping" 
+        		  sequence="1"/>
+
+    </data>
+</odoo>

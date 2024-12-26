@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_move_custom_search_view_inherited_po_ref" model="ir.ui.view">
+        <field name="name">account.out.invoice.search</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="po_reference"/>
+            </field>
+            <filter name="cancel" position="after">
+                  <filter string="PO Reference" name="po_reference" domain="[('po_reference', '!=', False)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <!--<record id="invoice_supplier_tree_view_inherit_po_ref" model="ir.ui.view">
+        <field name="name">account.out.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_bill_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="po_reference" optional="show"/>
+            </xpath>
+        </field>
+    </record>-->
+
+    <!--<record id="out_invoice_tree_view_inherit_po_ref" model="ir.ui.view">
+        <field name="name">account.out.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="po_reference" optional="show"/>
+            </xpath>
+        </field>
+    </record>-->
+
+    <record id="invoice_tree_view_inherit_po_ref" model="ir.ui.view">
+        <field name="name">account.out.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="po_reference" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_journal_entry_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_left_group']" position="inside">
+                <field name="po_reference"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="batch_payment_tree_view_inherited" model="ir.ui.view">
+        <field name="name">account.batch.payment.tree</field>
+        <field name="model">account.batch.payment</field>
+        <field name="inherit_id" ref="account_batch_payment.view_batch_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="badge" decoration-danger="state == 'draft'" decoration-info="state == 'sent'" decoration-success="state == 'reconciled'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

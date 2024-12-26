@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_valuation_history" model="ir.ui.view">
+        <field name="name">Stock Valuation Report at Date</field>
+        <field name="model">stock.valuation.history</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <group>
+                        <field name="start_date" />
+                    </group>
+                    <group>
+                        <field name="end_date" />
+                    </group>
+                </group>
+                <group>
+                	<field name="type_product_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create': True, 'no_create_edit': True}" required="1"/>
+                    <field name="warehouse_ids" widget="many2many_tags"/>
+<!--                    <field name="location_ids" widget="many2many_tags"/>-->
+                </group>
+                <footer>
+                    <button
+                        context="{'for_view': True}"
+                        name="export_valuation_report"
+                        string="View"
+                        type="object"
+                        class="btn-primary"
+                        close="1"
+                    />
+                    <button
+                        context="{'for_excel': True}"
+                        name="export_valuation_report"
+                        string="Download"
+                        type="object"
+                        class="btn-primary"
+                        close="1"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="history_valuation_action" model="ir.actions.act_window">
+        <field name="name">Stock Inventory Valuation</field>
+        <field name="res_model">stock.valuation.history</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_stock_valuation"
+        name="Stock Inventory Valuation"
+        parent="stock.menu_warehouse_report"
+        sequence="320"
+        action="history_valuation_action"
+    />
+</odoo>

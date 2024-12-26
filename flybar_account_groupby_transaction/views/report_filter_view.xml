@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Order Type filter in accounting reports -->
+    <template id="search_template_transaction_type">
+        <button type="button" class="o-no-caret btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            <span class="fa fa-user"/>
+            Transaction Type:
+            <t t-set="names_selected" t-value="[options['transaction_type_ids'][n]['name'] for n in range(len(options['transaction_type_ids'])) if options['transaction_type_ids'][n]['selected']]"/>
+            <t t-set="num_selected" t-value="len(names_selected)"/>
+            <t t-out="options['transaction_type_display_name']"/>
+        </button>
+        <div class="dropdown-menu o_filter_menu" role="menu">
+            <t t-foreach="options['transaction_type_ids']" t-as="transaction_type">
+                <a t-att-title="transaction_type['name']"
+                    t-att-data-id="transaction_type['id']"
+                    data-filter="transaction_type"
+                    class="dropdown-item js_account_report_choice_filter_transaction_type"
+                    role="menuitem"
+                    t-out="transaction_type['name']"/>
+            </t>
+        </div>
+    </template>
+
+
+    <template id="inherit_search_template_transaction_type" inherit_id="account_reports.search_template">
+        <xpath expr="." position="inside">
+            <div class="btn-group dropdown o_account_reports_filter_transaction_type"
+                 t-if="options.get('transaction_type_ids')">
+                <t t-call="flybar_account_groupby_transaction.search_template_transaction_type"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

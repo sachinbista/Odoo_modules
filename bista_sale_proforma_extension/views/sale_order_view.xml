@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_proforma" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+               <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                    string="Confirm" class="btn-primary" type="object" context="{'validate_analytic': True}"
+                    attrs="{'invisible': [('state', 'not in', ['sent','proforma'])]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][3]" position="replace">
+               <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', 'in', ['draft','proforma']), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale', 'proforma']), ('id', '=', False)]}" data-hotkey="z"/>
+            </xpath>
+
+        </field>
+
+    </record>
+</odoo>

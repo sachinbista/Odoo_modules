@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="apps_hide_access" model="res.groups">
+            <field name="name">Access For Apps</field>
+        </record>
+
+        <record id="base.menu_management" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('bista_go_flow.apps_hide_access'))]"/>
+        </record>
+        
+        <record id="group_go_flow_admin" model="res.groups">
+	        <field name="name">GoFlow Admin</field>
+	        <field name="comment">User belongs to this group can only use 'GoFlow Admin' feature in GoFlow</field>
+	    </record>
+    </data>
+</odoo>

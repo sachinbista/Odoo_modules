@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- ======== Add a Dynamic Note Tree view =========== -->
+	<record id="add_dynamic_note_tree_view" model="ir.ui.view">
+		<field name="name">add.dynamic.note.tree</field>
+		<field name="model">add.dynamic.note</field>
+		<field name="arch" type="xml">
+			<tree string="Add a Dynamic Note">
+				<field name="name" />
+				<field name="note" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- ======== Add a Dynamic Note Form view =========== -->
+	<record id="add_dynamic_note_form_view" model="ir.ui.view">
+		<field name="name">add.dynamic.note.form</field>
+		<field name="model">add.dynamic.note</field>
+		<field name="arch" type="xml">
+			<form string="Add a Dynamic Note">
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+						</group>
+						<group>
+							<field name="note" required="1"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<!-- ======== Action Add a Dynamic Note =========== -->
+	<record id="action_add_dynamic_note" model="ir.actions.act_window">
+		<field name="name">Add a dynamic note</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">add.dynamic.note</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain"></field>
+		<field name="context"></field>
+		<field name="search_view_id" ref="add_dynamic_note_tree_view" />
+	</record>
+
+	<menuitem action="action_add_dynamic_note" 
+			  name="Add a dynamic note"
+			  parent="purchase.menu_purchase_config" 
+			  id="menu_add_dynamic_note"
+			  sequence="50"/>
+
+</odoo>
+
+

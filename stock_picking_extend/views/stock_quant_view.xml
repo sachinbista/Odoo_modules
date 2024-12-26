@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- ================ Locations Search view Inherited ================== -->
+		<record id="stock_quant_search_view_inherited" model="ir.ui.view">
+			<field name="name">stock.quant.search.view.inherited</field>
+			<field name="model">stock.quant</field>
+			<field name="inherit_id" ref="stock.quant_search_view"/>
+			<field name="arch" type="xml">
+				 <xpath expr="//filter[@name='negative']" position="attributes">
+					<attribute name="string">Show Negative Stock</attribute>
+				</xpath>
+				<xpath expr="//filter[@name='negative']" position="before">
+					<filter name="available_stock" string="Available Stock" domain="[('quantity', '&gt;', 0.0), ('location_id.name', 'not ilike', 'Virtual')]"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="view_stock_quant_tree_inventory_editable_inherited" model="ir.ui.view">
+	        <field name="name">view.stock.quant.tree.inherit.inventory.editable</field>
+	        <field name="model">stock.quant</field>
+	        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//button[@name='action_set_inventory_quantity']" position="attributes">
+	                <attribute name="groups">stock.group_stock_manager</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='inventory_diff_quantity']" position="replace">
+	            </xpath>
+	            <xpath expr="//field[@name='inventory_date']" position="replace">
+	            </xpath>
+	        </field>
+	    </record>
+	</data>
+</odoo>
+        

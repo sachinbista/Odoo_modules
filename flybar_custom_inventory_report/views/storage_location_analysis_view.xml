@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_location_search_inherited" model="ir.ui.view">
+        <field name="name">stock.location.search.inherited</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search" />
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                 <separator>
+                        <filter string="Company" name="company_groupby"  context="{'group_by': 'company_id'}"/>
+                 </separator>
+            </filter>
+        </field>
+    </record>
+
+    <record id="report_storage_location_analysis_tree_view" model="ir.ui.view">
+        <field name="name">stock.location.tree</field>
+        <field name="model">stock.location</field>
+        <field name="arch" type="xml">
+            <tree string="Storage Location Analysis" create="false">
+                <field name="complete_name" string="Location"/>
+                <field name="storage_capacity" invisible="1"/>
+                <field name="volume" string="Location Volume"/>
+                <field name="stock_volume" string="Product Volume"/>
+                <field name="stock_qty" />
+                <field name="total_case_count" />
+                <field name="total_pallet_count" />
+                <field name="stock_availability" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_report_storage_location_analysis" model="ir.actions.act_window">
+        <field name="name">Storage Location Analysis</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree</field>
+        <field name='view_id' ref='report_storage_location_analysis_tree_view'/>
+    </record>
+
+   <!--<menuitem
+            id="menu_storage_location_analysis"
+            name="Storage Location Analysis"
+            parent="stock.menu_warehouse_report"
+            action="action_report_storage_location_analysis"
+            sequence="302"/>-->
+</odoo>

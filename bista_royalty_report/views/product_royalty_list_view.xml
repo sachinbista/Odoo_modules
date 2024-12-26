@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_royalty_list_tree_view" model="ir.ui.view">
+        <field name="name">product.royalty.list.tree.view</field>
+        <field name="model">product.royalty.list</field>
+        <field name="arch" type="xml">
+            <tree string="Product Royalty List" editable="bottom">
+                <field name="partner_id"/>
+                <field name="royalty_id"/>
+                <field name="royalty_rate" readonly="1" force_save="1"/>
+                <field name="royalty_type"/>
+                <field name="store_id"/>
+                <!--<field name="is_dropship" optional="hide"/>-->
+                <field name="product_tmpl_id" readonly="1" force_save="1" optional="hide"/>
+                <field name="product_id" readonly="1" force_save="1" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="goflow_split_order_wiz_form_view" model="ir.ui.view">
+        <field name="name">goflow.split.order.wiz.form.view</field>
+        <field name="model">goflow.split.order.wiz</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <field name="split_order_wiz_line">
+                        <tree editable="bottom" create="0">
+                            <field name="product_id" readonly="1" force_save="1"/>                       
+                            <field name="total_qty" readonly="1" force_save="1"/>
+                            <field name="done_qty" />
+                            <field name="uom_id" readonly="1" force_save="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button string="Confirm" name="split_order" type="object" class="oe_highlight" />
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_goflow_split_order" model="ir.actions.act_window">
+        <field name="name">GoFlow Split Order</field>
+        <field name="res_model">goflow.split.order.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="view_goflow_import_export_operation" model="ir.ui.view">
+            <field name="name">goflow.import.export.opt.form</field>
+            <field name="model">goflow.import.export.opt</field>
+            <field name="arch" type="xml">
+                    <form>
+                        <group>
+                            <field name="instance_id" options="{'no_create':True,'no_create_edit': True}" required="1"
+                                   widget="selection"/>
+                        </group>
+                        <group>
+                            <field name="operations" required="1"/>
+                        </group>
+                        <footer>
+                            <button name="execute" string="Execute" type="object" class="oe_highlight"/>
+                            <button string="Cancel" special="cancel"/>
+                        </footer>
+                    </form>
+            </field>
+        </record>
+
+         <record model="ir.actions.act_window" id="action_goflow_import_export_operation">
+            <field name="name">Rooteam Goflow Operation</field>
+            <field name="res_model">goflow.import.export.opt</field>
+            <field name="view_id" ref="view_goflow_import_export_operation"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

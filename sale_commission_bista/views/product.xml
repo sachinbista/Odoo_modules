@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<!--    <record id="view_product_normal_form_view_inherit" model="ir.ui.view">-->
+<!--        <field name="name">product.product.inherit.form</field>-->
+<!--        <field name="model">product.product</field>-->
+<!--        <field name="inherit_id" ref="product.product_normal_form_view" />-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="barcode" position="after">-->
+<!--                <field name="royalty_partner_ids" class="oe_inline">-->
+<!--                    <tree editable="bottom" class="oe_inline">-->
+<!--                        <field name="agent_id" required="1" class="oe_inline" domain="[('agent','=',1)]" options="{'no_create':True,'no_create_edit': True}"/>-->
+<!--                        <field name="commission_id" required="1" optional="show" options="{'no_create':True,'no_create_edit': True}"/>-->
+<!--                    </tree>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template id="template" xml:space="preserve">
+    <t t-name="bista_list_o2m.qtyAtDate" owl="1">
+        <div t-att-class="!props.record.data.display_warehouse_qty_widget ? '' : ''">
+            <a t-att-tabindex="props.record.data.display_qty_widget ? '0' : '-1'" t-on-click="showPopup"
+               t-attf-class="fa fa-fw o_button_icon fa-list {{ props.record.data.display_warehouse_qty_widget ? 'text-primary' : 'text-danger' }}">
+            </a>
+        </div>
+    </t>
+
+    <t t-name="bista_list_o2m.QtyDetailPopOver" owl="1">
+        <div>
+            <h6><t t-esc="props.calcData.warehous_ok"/> </h6>
+            <table class="table table-borderless table-sm">
+                    <tbody>
+                        <tr t-foreach="props.record.warehouse_qty_data" t-as="warehouse" t-key="warehouse_index">
+                            <t t-if="warehouse.so_available">
+                                <td>
+                                    <strong><t t-esc="warehouse.warehouse"/></strong>
+                                </td>
+                                <td class="text-right" style="text-align: end">
+                                    <b t-esc='warehouse.qty'/>
+                                    <t t-esc='warehouse.uom'/>
+                                </td>
+                            </t>
+<!--                            <t t-else="">-->
+<!--                                <td>-->
+<!--                                    <span class="text-danger no_future_enabled">-->
+<!--                                       PLease enable warehouse checkbox for     <strong class="text-primary"> <t t-esc="warehouse.warehouse"/></strong>-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                            </t>-->
+                        </tr>
+                        <tr t-if="props.calcData.will_be_fulfilled">
+                            <td>
+                                <span class="text-danger no_future_enabled">
+                                    No future availability
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </t>
+
+    <!--    inheriting QtyDetailPopOver for fetching values in nested tree view-->
+
+    <t t-name="bista_list_o2m.QtyDetailPopOverBista" t-inherit="sale_stock.QtyDetailPopOver" t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//table[1]/tbody[1]/t[3]" position="after">
+            <t t-elif="props.record.parentRecord">
+                <t t-if="!props.record.data.is_mto and ['draft', 'sent'].includes(props.record.parentRecord.data.state)">
+                    <tr>
+                        <td><strong>Forecasted Stock</strong>
+                            <br/>
+                            <small>On <span t-out="props.calcData.delivery_date"/></small></td>
+                        <td><b t-out='props.record.data.virtual_available_at_date'/>
+                            <t t-out='props.record.data.product_uom[1]'/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Available</strong>
+                            <br/>
+                            <small>All planned operations included</small></td>
+                        <td><b t-out='props.record.data.free_qty_today' t-att-class="!props.calcData.will_be_fulfilled ? 'text-danger': ''"/>
+                            <t t-out='props.record.data.product_uom[1]'/></td>
+                    </tr>
+                </t>
+                <t t-if="props.record.parentRecord.data.state == 'sale'">
+                    <tr>
+                        <td>
+                            <strong>Reserved</strong>
+                            <br/>
+                        </td>
+                        <td style="min-width: 50px; text-align: right;">
+                            <b t-out='props.record.data.qty_available_today'/>
+                            <t t-out='props.record.data.product_uom[1]'/>
+                        </td>
+                    </tr>
+                    <tr t-if="props.record.data.qty_available_today &lt; props.record.data.qty_to_deliver">
+                        <td>
+                            <span t-if="props.calcData.will_be_fulfilled and props.calcData.forecast_expected_date_str">
+                                Remaining demand available at <b t-out="props.calcData.forecast_expected_date_str"
+                                                                 t-att-class="props.record.data.scheduled_date &lt; props.record.data.forecast_expected_date ? 'text-danger' : ''"/>
+                            </span>
+                            <span t-elif="!props.calcData.will_be_fulfilled and props.calcData.forecast_expected_date_str"
+                                  class="text-danger">
+                                Not enough future availability
+                            </span>
+                            <span t-elif="!props.calcData.will_be_fulfilled" class="text-danger">
+                                No future availability
+                            </span>
+                            <span t-else="">
+                                Available in stock
+                            </span>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+</template>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inter_company_stock_warehouse_form_view" model="ir.ui.view">
+        <field name="name">inter.company.stock.warehouse.form.view</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='wh_output_stock_loc_id']" position="after">
+                <field name="transit_loc_id" string="Transit Location"/>
+                <!-- <field name="debit_account_id"/>
+                <field name="credit_account_id"/> -->
+                <field name="account_journal_id" string="Payment Journal"
+                    domain="[('company_id','=', company_id),
+                    ('type', 'in', ['bank','cash'])]"/>
+                <field name="account_receivable_id" string="Account Receivable"
+                    domain="[('company_id','=', company_id),
+                    ('account_type', 'in', ('asset_receivable', 'liability_payable'))]"/>
+                <field name="account_payable_id" string="Account Payable"
+                    domain="[('company_id','=', company_id),
+                    ('account_type', 'in', ('asset_receivable', 'liability_payable'))]"/>
+                <field name="account_income_id" string="Income Account"
+                    domain="[('company_id','=', company_id),
+                    ('account_type','=', 'income')]"/>
+                <field name="account_expense_id" string="Expense Account"
+                    domain="[('company_id','=', company_id),
+                    ('account_type','=', 'expense_direct_cost')]"/>
+            </xpath>
+            <xpath expr="//page[@groups='base.group_no_one']" position="inside">
+                <group>
+                    <group string="Inter-Warehouse Routes">
+                        <field name="resupply_warehouse_id"/>
+                        <field name="outgoing_route_id"/>
+                        <field name="incoming_route_id"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Hide Route field from Sale Order Line for normal sale order -->
+<!--     <record id="inherit_route_view_order_form_inherit_sale_stock" model="ir.ui.view"> -->
+<!--         <field name="name">inherit.route.view.order.form.inherit.sale.stock</field> -->
+<!--         <field name="model">sale.order</field> -->
+<!--         <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/> -->
+<!--         <field name="arch" type="xml"> -->
+<!--             <xpath expr="//field[@name='picking_policy']" position="after"> -->
+<!--                 <field name="shortid" invisible="1"/> -->
+<!--             </xpath> -->
+<!--             <xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="attributes"> -->
+<!--                 <attribute name="attrs">{'column_invisible': [('parent.shortid', '=', False)]}</attribute> -->
+<!--             </xpath> -->
+<!--         </field> -->
+<!--     </record> -->
+
+    <record id="view_location_form_inherit" model="ir.ui.view">
+        <field name="name">stock.location.form.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='next_inventory_date']" position="after">
+                <field name="is_intercompany"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='barcode']" position="after">
+                <field name="show_as_virtual_location" attrs="{'invisible': [('usage', '!=', 'internal')]}"/>
+            </xpath> -->
+        </field>
+    </record>
+
+</odoo>

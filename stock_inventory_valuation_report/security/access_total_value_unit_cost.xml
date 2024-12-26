@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<odoo>
+    <data>
+        <record id="total_value_unit_cost_access" model="res.groups">
+            <field name="name">Access for Total Value Or Unit Cost</field>
+        </record>
+
+        <record id="product_product_form" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock_account.product_product_stock_tree_inherit_stock_account"/>
+            <field name="arch" type="xml">
+                <field name="avg_cost" position="attributes">
+                    <attribute name="groups">stock_inventory_valuation_report.total_value_unit_cost_access</attribute>
+                </field>
+                <field name="total_value" position="attributes">
+                    <attribute name="groups">stock_inventory_valuation_report.total_value_unit_cost_access</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
+
+
+
+

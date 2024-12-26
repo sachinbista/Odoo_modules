@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <div t-name="bista_inventory_enhancement.MainComponent" t-inherit="stock_barcode.MainComponent" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_action_buttons')]" position="inside">
+            <button t-if="env.model.displayApplyCountButton" t-on-click="validate"
+                    class="btn text-uppercase o_apply_page"
+                    t-attf-class="{{highlightValidateButton ? 'btn-success' : 'btn-secondary'}}">
+                    <i class="fa fa-check mr-1"/> <t t-esc="validateLabel"/>
+            </button>
+            <t t-foreach="env.model.printButtons" t-as="button" t-key="button.class">
+                <button t-if="displayBarcodeLines and env.model.displayApplyCountButton"
+                    class="btn text-uppercase"
+                    t-on-click="() => env.model.print(button.action, button.method)">
+                    <i class="fa fa-download mr-1"/> Download
+                </button>
+            </t>
+        </xpath>
+        <!-- <xpath expr="//div[hasclass('o_action_buttons')]/button[1]" position="attributes">
+            <attribute name="t-if">!env.model.displayAddProduct</attribute>
+        </xpath> -->
+    </div>
+
+</templates>

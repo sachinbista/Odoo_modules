@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_common_invoice_allocation_form" model="ir.ui.view">
+        <field name="name">common.allocation.form</field>
+        <field name="model">common.allocation</field>
+        <field name="arch" type="xml">
+            <tree string="Allocation Screen" editable="bottom"
+                  decoration-warning="move_id == False and is_outstanding_line == True"
+                  decoration-info="move_id != False"
+                  js_class="invoice_multi_payment_allocation_amount" create="false" delete="false">
+                <field name="check_all_posted" invisible="1" />
+                <field name="linked_payment_id" force_save="1" readonly="1" invisible="1"/>
+                <field name="state" invisible="1" force_save="1" readonly="1"/>
+                <field name="select" widget="boolean_toggle"
+                       attrs="{'readonly': ['|',('state', '=', 'posted'),'|',('is_payment_line', '=', True),('check_all_posted', '=', True)]}"/>
+                <field name="invoice_line_id" invisible="1" readonly="1" force_save="1"/>
+                <field name="invoice_id" invisible="1" readonly="1" force_save="1"/>
+                <field name="reference" readonly="1" force_save="1"/>
+                <field name="date" string="Date" readonly="1" force_save="1"/>
+                <field name="total_amount" readonly="1" force_save="1"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)]}"/>
+                <field name="amount_residual" readonly="1" force_save="1" sum="Total Due"/>
+                <field name="amount_allowed_discount" readonly="1" force_save="1"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)]}"/>
+                <field name="discount_amount"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)], 'readonly': [('state', '=', 'posted')]}"
+                       sum="Discount Amount"/>
+                <!--<field name="sale_tax"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)], 'readonly': [('state', '=', 'posted')]}"
+                       sum="Discount Amount"/>-->
+                <field name="allocation" sum="Allocation Amount"
+                       attrs="{'readonly': ['|',('state', '=', 'posted'),'|',('is_payment_line', '=', True),('check_all_posted', '=', True)]}"/>
+                <field name="payment_difference" readonly="1" force_save="1"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)]}" sum="Payment Difference"/>
+                <field name="select_all" widget="boolean_toggle"
+                       attrs="{'invisible': [('is_outstanding_line', '=', True)], 'readonly': [('state', '=', 'posted')]}"
+                       string="Mark As Paid"/>
+                <field name="move_line_ids" widget="many2many_tags" invisible="1" readonly="1" force_save="1"/>
+                <field name="move_id" invisible="1" readonly="1" force_save="1"/>
+                <!-- <field name="move_name"/> -->
+                <field name="move_payment_id" invisible="1" readonly="1" force_save="1"/>
+                <field name="move_line_id" invisible="1" readonly="1" force_save="1"/>
+                <field name="is_outstanding_line" invisible="1" readonly="1" force_save="1"/>
+                <field name="currency_id" invisible="1" readonly="1" force_save="1"/>
+                <field name="is_payment_line" invisible="1" readonly="1" force_save="1"/>
+                <field name="writeoff_account_id" optional="hide"/>
+                <field name="discount_account_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    <record id="action_common_invoice_allocation" model="ir.actions.act_window">-->
+    <!--        <field name="name">Allocation Screen</field>-->
+    <!--        <field name="res_model">common.allocation</field>-->
+    <!--        <field name="view_mode">tree</field>-->
+    <!--        <field name="view_id" ref="view_common_invoice_allocation_form"/>-->
+    <!--        <field name="domain">[('payment_id', '=', active_id)]</field>-->
+    <!--    </record>-->
+
+    <!--    <record id="action_allocate_amount" model="ir.actions.server">-->
+    <!--        <field name="name">Allocate Amount</field>-->
+    <!--        <field name="model_id" ref="model_common_allocation"/>-->
+    <!--        <field name="binding_model_id" ref="invoice_multi_payment.model_common_allocation"/>-->
+    <!--        <field name="state">code</field>-->
+    <!--        <field name="binding_view_types">list</field>-->
+    <!--        <field name="code">-->
+    <!--            records.action_allocate_amount()-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_common_allocation_filter" model="ir.ui.view">
+        <field name="name">common.allocation.filter</field>
+        <field name="model">common.allocation</field>
+        <field name="arch" type="xml">
+            <search string="Payment Allocation">
+                <field name="reference"/>
+                <field name="total_amount"/>
+                <field name="amount_residual"/>
+                <group expand='0' string='Filters'>
+                    <filter string="Outstanding" name="outstanding" domain="[('is_outstanding_line', '=', True)]"/>
+                    <filter string="Bill/Invoices" name="bill_invoice" domain="[('is_outstanding_line', '=', False)]"/>
+                </group>
+                <group expand='0' string='Group By'>
+                    <filter string='Outstanding' name="group_by_is_outstanding_lines" context="{'group_by': 'is_outstanding_line'}"/>
+                    <filter string="Date" name="group_by_date"  context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_common_payment_process" model="ir.actions.act_window">
+        <field name="name">Process Payment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">common.payment.process</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="invoice_multi_payment.model_common_allocation"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+</odoo>

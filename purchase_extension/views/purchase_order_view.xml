@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Purchase order form view -->
+    <record id="bi_price_mgt_inherit_purchase_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.branch</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="ready_date"/>
+                <field name="cargo_date"/>
+                <field name="etd_date"/>
+                <field name="eta_date"/>
+            </xpath>
+            <xpath expr="//field[@name='effective_date']" position="after">
+                <field name="shipping_point_from"/>
+                <field name="shipping_point_to"/>
+                <field name="shipping_method"/>
+
+                <label for="start_date" string="Shipping Window"/>
+                <div class="o_row">
+                    <field name="start_date" widget="daterange" options="{'related_end_date': 'end_date'}"/>
+                    <span>to</span>
+                    <field name="end_date" widget="daterange" options="{'related_start_date': 'start_date'}"/>
+                </div>
+
+                <field name="payment_term_id"/>
+            </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']/group/group[@name='invoice_info']/field[@name='payment_term_id']"
+                   position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='incoterm_id']" position="replace"/>
+            <xpath expr="//field[@name='eta_date']" position="after">
+                <field name="incoterm_id"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='partner_ref']" position="replace"/> -->
+             <xpath expr="//field[@name='order_line']/tree//field[@name='product_packaging_id']" position="after">
+                    <field name="package_type_barcode" string="Identifier" readonly="1"/>
+             </xpath>
+             
+             <create name="add_note_control" context="{'default_display_type': 'line_note'}" position="after">
+             	<button name="button_add_note_control" states="draft" string="Add a dynamic note" type="object" class="oe_link"/>
+             </create>
+             
+             <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="context">{'default_state': 'draft', 'po_id': id}</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="purchase_order_view_tree_inherit_1" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ref']" position="replace"/>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="partner_ref"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_status']" position="replace">
+                <field name="invoice_status" optional="hide" widget="badge" decoration-danger="invoice_status == 'no'" decoration-info="invoice_status == 'to invoice'" decoration-success="invoice_status == 'invoiced'"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="purchase_order_view_tree_view_inherited1" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_status']" position="replace">
+                <field name="invoice_status" optional="hide" widget="badge" decoration-danger="invoice_status == 'no'" decoration-info="invoice_status == 'to invoice'" decoration-success="invoice_status == 'invoiced'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

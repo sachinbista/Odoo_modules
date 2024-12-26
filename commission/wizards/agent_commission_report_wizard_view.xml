@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="agent_commission_report_wizard_view" model="ir.ui.view">
+        <field name="name">Agent Commission Report at Date</field>
+        <field name="model">agent.commission.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <group>
+                        <field name="start_date" />
+                    </group>
+                    <group>
+                        <field name="end_date" />
+                    </group>
+                </group>
+                <group>
+                    <field name="commission_agent_ids" widget="many2many_tags"/>
+<!--                    <field name="location_ids" widget="many2many_tags"/>-->
+                </group>
+                <footer>
+                    <button
+                        name="generate_agent_commission_report"
+                        string="View Report"
+                        type="object"
+                        class="btn-primary"
+                        close="1"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="agent_commission_report_action" model="ir.actions.act_window">
+        <field name="name">Agent Commission Report</field>
+        <field name="res_model">agent.commission.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_commission_report"
+        name="Agent Commission Report"
+        parent="account.account_reports_legal_statements_menu"
+        sequence="121"
+        action="agent_commission_report_action"
+    />
+</odoo>

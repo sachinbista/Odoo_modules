@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <record id="cash_projections_id_1" model="ir.actions.act_window">-->
+<!--        <field name="name">Cash Projection</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">cash.projection</field>-->
+<!--        <field name="view_mode">tree,kanban,form</field>-->
+<!--        <field name="help" type="html"/>-->
+<!--    </record>-->
+
+     <record id="cash_projections_id_1" model="ir.actions.act_window">
+        <field name="name">Cash Projection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cash.projection</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="cash_projection_menu"
+            name="Cash Projection"
+            parent="sale.sale_menu_root"
+            sequence="36"/>
+    <menuitem
+            id="cash_projection_menu"
+            name="Cash Projection"
+            sequence="10"/>
+
+    <menuitem id="action_cash_projection"
+              name="Cash Projection"
+              parent="cash_projection_menu"
+              action="cash_projections_id_1"
+              sequence="10"/>
+
+</odoo>
+
+

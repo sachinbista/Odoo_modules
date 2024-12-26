@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="inherit_view_picking_form_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="picking_type_code" invisible="1"/>
+                    <field name="sale_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='backorder_id']" position="after">
+                    <field name="external_origin"/>
+                    <field name="sale_state" invisible="1"/>
+                </xpath>
+                <xpath expr="//page/group/group[@name='other_infos']" position="after">
+                    <group name="goflow_grp" string="Goflow"
+                           attrs="{'invisible':[('picking_type_code','=','incoming')]}">
+                        <field name="goflow_store_id" readonly="1" force_save="1" invisible="1"/>
+                        <field name="goflow_routing_status"/>
+                        <field name="manual_overwridden"/>
+                        <field name="goflow_routing_req_by" readonly="1" force_save="1"
+                               attrs="{'invisible': ['|',('goflow_routing_req_by', '=', False),('identify_pack_picking', '=', False)]}"/>
+                        <field name="goflow_routing_req_date" readonly="1" force_save="1"
+                               attrs="{'invisible': ['|',('goflow_routing_req_date', '=', False),('identify_pack_picking', '=', False)]}"/>
+                        <field name="identify_pack_picking" invisible="1"/>
+
+                        <field name="goflow_customer_name" readonly="1" force_save="1" string="Name"/>
+                        <span class="o_form_label o_td_label" name="address_name">
+                            <b>Shipping Address</b>
+                        </span>
+                        <div class="o_address_format">
+                            <field name="goflow_street1" placeholder="Street..." class="o_address_street" readonly="1"
+                                   force_save="1"/>
+                            <field name="goflow_street2" placeholder="Street 2..." class="o_address_street" readonly="1"
+                                   force_save="1"/>
+                            <field name="goflow_city" style="width:50px;" placeholder="City" class="o_address_city"
+                                   readonly="1" force_save="1"/>
+                            <field name="goflow_state" style="width:50px;" class="o_address_state" placeholder="State"
+                                   readonly="1" force_save="1"/>
+                            <field name="goflow_zip_code" style="width:30px;" placeholder="ZIP" class="o_address_zip"
+                                   readonly="1" force_save="1"/>
+                            <field name="goflow_country_code" style="width:30px;" placeholder="Country"
+                                   class="o_address_country" readonly="1" force_save="1"/>
+                        </div>
+                    </group>
+                    <group string="Shipment Details" attrs="{'invisible':[('picking_type_code','=','incoming')]}">
+                        <field name="goflow_shipment_type" readonly="1" force_save="1"/>
+                        <field name="goflow_carrier" readonly="1" force_save="1" invisible="1"/>
+                        <field name="goflow_shipping_method" readonly="1" force_save="1"/>
+                        <field name="goflow_scac" readonly="1" force_save="1"/>
+                        <field name="goflow_shipped_at" readonly="1" force_save="1"/>
+                        <field name="goflow_currency_code" readonly="1" force_save="1"/>
+                    </group>
+                    <group>
+                    </group>
+                    <!-- <group>
+                        <field name="goflow_routing_request_enable" />
+                    </group> -->
+                </xpath>
+                <!-- <field name="carrier_id" position="after">
+                    <field name="shipping_account" />
+                </field> -->
+                <!-- <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">
+                    <field name="rpa_process_type" optional="hide" readonly="1" force_save="1"/>
+                </xpath> -->
+                <xpath expr="//header" position="inside">
+                    <!-- <button name="goflow_shipment_ready" string="GoFlow Shipment Ready" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|',('sale_id', '=', False),'|',('picking_type_code', '!=', 'outgoing'),('state', '!=', 'assigned')]}" />
+
+                    <button name="goflow_shipment_edit" string="GoFlow Shipment Edit" type="object" class="btn btn-warning"
+                    attrs="{'invisible': ['|',('sale_id', '=', False),'|',('picking_type_code', '!=', 'outgoing'),('state', '!=', 'assigned')]}" /> -->
+
+                    <!-- <button name="goflow_send_request_routing" string="GoFlow Send Request routing" type="object" class="btn btn-info"
+                    attrs="{'invisible': ['|',('goflow_shipment_type', '!=', 'ltl'),'|',('goflow_routing_status', '=', 'routing_requested'),('identify_pack_picking', '=', False)]}" /> -->
+
+                    <!-- <button name="goflow_fetch_routing_request" string="GoFlow Fetch Routing Request" type="object" class="btn btn-info"
+                    attrs="{'invisible': [('goflow_routing_status', '!=', 'routing_requested'),('state', '!=', 'assigned'),('identify_pack_picking', '=', False)]}" /> -->
+
+                    <!-- <button name="goflow_split_order" string="GoFlow Split Order" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|',('sale_id', '=', False),'|',('state', '!=', 'assigned'),('picking_type_code', '!=', 'outgoing')]}" /> -->
+
+                    <!-- <button name="goflow_submit_order_shipments" string="GoFlow Shipped" type="object" class="btn btn-success"
+                    attrs="{'invisible': ['|',('sale_id', '=', False),'|',('state', '!=', 'assigned'),('picking_type_code', '!=', 'outgoing')]}" /> -->
+
+                    <!-- <button name="goflow_get_order_document_urls" string="Get Shipping Documents" type="object"
+                    attrs="{'invisible': [('identify_pack_picking', '=', False)]}" /> -->
+                    <field name="shipping_request" invisible="1"/>
+                    <button string="Request Shipping" name="req_shipping" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('identify_pack_picking', '=', False),('shipping_request', '=', False)]}"/>
+                    <button string="Get Shipping Label" name="goflow_get_shipping_labels"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('identify_pack_picking', '=', False), ('goflow_routing_status', '!=', 'require_manual_shipment')]}"/>
+                </xpath>
+                <xpath expr="//div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="In Review" bg_color="bg-warning"
+                            attrs="{'invisible': [('sale_state', '!=', 'need_to_review')]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning"
+                            attrs="{'invisible': [('sale_state', '!=', 'hold')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_view_stock_valuation_layers']" position="before">
+                    <button string="BOL Sign Document" type="object"
+                            name="action_bol_sign_document"
+                            attrs="{'invisible': [('goflow_routing_status', '!=', 'doc_generated')]}"
+                            class="oe_stat_button" icon="fa-file-text-o" groups="stock.group_stock_manager"/>
+                </xpath>
+
+                <xpath expr="//page[@name='note']" position="after">
+                    <page string="Shipping Documents" name="shipping_documents"
+                         attrs="{'invisible': [('goflow_routing_status', '!=', 'doc_generated')]}">
+                        <field name="extracted_shipping_files" options="{'create': False, 'edit': False}">
+                            <tree editable="bottom" readonly="1">
+                                <field name="picking_id" invisible="1"/>
+                                <field name="shipping_file_name" invisible="1"/>
+                                <field name="file_content" filename="shipping_file_name" widget="binary"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                                <!--                                <field name="call_auto_print" readonly="0"/>-->
+                            </tree>
+                            <!-- Form view within One2many field -->
+                            <!--                            <form string="Shipping Document" create="false">-->
+                            <!--                                <field name="picking_id" readonly="1"/>-->
+                            <!--                                <field name="shipping_file_name"  readonly="1" invisible="1"/>-->
+                            <!--                                <field name="file_content" filename="shipping_file_name" widget="binary"-->
+                            <!--                                       options="{'no_create': True, 'no_create_edit': True}"/>-->
+                            <!--                                <field name="call_auto_print" readonly="0"/>-->
+                            <!--                            </form>-->
+                        </field>
+                    </page>
+                    <page string="Delivery Documents" name="delivery_documents"
+                           attrs="{'invisible': [('picking_type_code','in',('incoming','internal','mrp_operation'))]}">
+                        <field name="delivery_shipping_files" options="{'create': False, 'edit': False}">
+                            <tree editable="bottom" readonly="1">
+                                <field name="delivery_picking_id" invisible="0"/>
+                                <field name="shipping_file_name" invisible="1"/>
+                                <field name="file_content" filename="shipping_file_name" widget="binary"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="view_picking_withcarrier_out_form_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='send_to_shipper']" position="replace">
+                </xpath> -->
+        <!--                <xpath expr="//button[@name='send_to_shipper']" position="attributes">-->
+        <!--                    <attribute name="attrs">{'invisible':['|','|','|','|','|',('carrier_tracking_ref','!=',False),-->
+        <!--                        ('delivery_type','in', ['fixed', 'base_on_rule']),-->
+        <!--                        ('delivery_type','=',False),('state','not in',('confirmed', 'assigned')),-->
+        <!--                        ('picking_type_code', '=', 'incoming'),-->
+        <!--                        '&amp;',('external_origin', '=', 'go_flow'),('goflow_shipment_type', '!=', 'ltl')]}</attribute>-->
+        <!--                </xpath>-->
+        <!-- </field>
+    </record> -->
+
+        <!-- stock.backorder.confirmation -->
+        <record id="view_backorder_confirmation_inherit_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.backorder.confirmation.view.form.inherit</field>
+            <field name="model">stock.backorder.confirmation</field>
+            <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pick_ids']" position="after">
+                    <field name="identify_goflow_split_order" invisible="1" readonly="1"/>
+                </xpath>
+                <xpath expr="//button[@name='process']" position="replace">
+                    <button name="process" string="Create Backorder" type="object"
+                            class="oe_highlight" data-hotkey="q"
+                            attrs="{'invisible': [('identify_goflow_split_order', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='process_cancel_backorder']" position="replace">
+                    <button name="process_cancel_backorder" string="No Backorder"
+                            type="object" class="btn-primary"
+                            attrs="{'invisible': ['|', ('show_transfers', '=', True),('identify_goflow_split_order', '=', True)]}"
+                            data-hotkey="w"/>
+                </xpath>
+                <xpath expr="//button[@name='process']" position="before">
+                    <button name="split_hold_order" string="Split and Hold Order"
+                            type="object" class="oe_highlight" data-hotkey="w"
+                            attrs="{'invisible': [('identify_goflow_split_order', '=', False)]}"/>
+                    <button name="split_cancel_order" string="Split and Cancel Order"
+                            type="object" class="oe_highlight" data-hotkey="w"
+                            attrs="{'invisible': [('identify_goflow_split_order', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- stock.picking treeview -->
+        <record id="vpicktree_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.picking.view.tree.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="container_id" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="goflow_routing_status" widget="badge"
+                           decoration-info="goflow_routing_status== 'routing_requested'"
+                           decoration-success="goflow_routing_status == 'routing_received'"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit stock picking search view -->
+        <record id="view_picking_internal_search_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.picking.search.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='move_line_ids']" position="after">
+                    <field name="container_id"/>
+                </xpath>
+                <xpath expr="//group/filter[@name='picking_type']" position="after">
+                    <filter name="container_id" string="Container ID" context="{'group_by': 'container_id'}"/>
+                    <filter name="goflow_store_id" string="GoFlow Store" context="{'group_by': 'goflow_store_id'}"/>
+                    <filter name="company_filter" string="Company" context="{'group_by': 'company_id'}"/>
+                    <filter name="goflow_routing_status" string="GoFlow Routing Status"
+                            context="{'group_by': 'goflow_routing_status'}"/>
+                    <filter name="rpa_process_priority_id" string="RPA Priority"
+                            context="{'group_by': 'rpa_process_priority'}"/>
+                </xpath>
+                <xpath expr="//filter[@name='backorder']" position="after">
+                    <separator/>
+                    <filter name="container_id_set" string="Container ID"
+                            domain="[('container_id', '!=', False)]"/>
+                    <separator/>
+                    <filter name="routing_requested" string="Goflow Routing Requested"
+                            domain="[('goflow_routing_status', '=', 'routing_requested')]"/>
+                    <filter name="routing_received" string="Goflow Routing Received"
+                            domain="[('goflow_routing_status', '=', 'routing_received')]"/>
+                    <filter name="doc_generated" string="Documents Generated"
+                            domain="[('goflow_routing_status', '=', 'doc_generated')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit stock move search view -->
+        <record id="view_move_search_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.move.search.view</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/filter[@name='status']" position="after">
+                    <filter name="goflow_store_id" string="GoFlow Store" context="{'group_by': 'goflow_store_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit stock valuation layer search view -->
+        <record id="view_move_search_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.valuation.layer.search.view</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.view_inventory_valuation_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/filter[@name='group_by_product_id']" position="after">
+                    <filter name="goflow_store_id" string="GoFlow Store" context="{'group_by': 'goflow_store_id'}"/>
+                    <separator>
+                        <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                    </separator>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_search_company_grp_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.list.select.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='vendor']" position="after">
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_search_inherit_company_grp_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.list.select.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='representative']" position="after">
+                    <filter string="Company" name="company_groupby" context="{'group_by': 'company_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit warehouse -->
+        <record id="view_warehouse_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.warehouse.view.form.inherit</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="is_default_warehouse"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- inherit stock move line -->
+        <record id="view_stock_move_line_detailed_operation_tree_bista_go_flow" model="ir.ui.view">
+            <field name="name">stock.move.line.view.form.inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_uom_id']" position="after">
+                    <field name="rpa_process_type" optional="hide" readonly="1" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

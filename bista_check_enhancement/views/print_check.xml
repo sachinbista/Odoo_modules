@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="l10n_us_check_printing.ckus_stub">
+        <div t-attf-class="ckus_stub ckus_stub_{{ stub_num }}">
+            <div class="row summary_line">
+                <div class="col-xs-4 text-start">
+                    <span t-esc="page['partner_name']"/>
+                </div>
+                <div class="col-xs-4 text-middle" style="margin-left: 340px;">
+                    <span t-esc="page['date']"/>
+                    <span t-if="page['sequence_number']" t-esc="page['sequence_number']"/>
+                </div>
+            </div>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            <span>Invoice Date</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Invoice Number</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Reference</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Original</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Paid</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Discount</span>
+                        </th>
+                        <th class="text-center">
+                            <span>Net</span>
+                        </th>
+                        <!--                                                <th>-->
+                        <!--                                                    <span t-esc="o"/>-->
+                        <!--                                                </th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-if="o.move_id">
+                        <tr t-foreach="o.reconciled_bill_ids" t-as="invoice">
+                            <tr t-foreach="invoice.invoice_line_ids" t-as="record">
+                                <t t-if="record.discount > 0">
+
+                                    <t t-set="disc_val" t-value="record.price_unit * record.discount/100"/>
+                                </t>
+
+                                <t t-esle="">
+                                    <t t-set="disc_val" t-value="record.price_unit - o.amount"/>
+                                </t>
+                                <td class="text-center">
+                                    <span t-field="invoice.date"/><!--Invoice Date-->
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="record.move_id.name"/><!--Invoice Number-->
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="record.move_id.ref"/><!--Reference-->
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="record.price_unit"/><!--Original(Unit Price)-->
+                                </td>
+
+                                <td class="text-center">
+                                    <t t-if="record.discount">
+                                        <span t-field="record.price_unit"/><!--Paid-->
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="o.amount"/><!--Paid-->
+                                    </t>
+                                </td>
+
+                                <td class="text-center">
+                                    <t t-if="record.discount > 0">
+                                        <span t-esc="record.discount"/><!--Discount-->
+                                    </t>
+                                    <t t-esle="">
+                                        <t t-esc="disc_val"></t>
+                                    </t>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="record.price_unit  - disc_val"/><!--Net-->
+                                </td>
+                            </tr>
+                        </tr>
+                    </t>
+                    <t t-if="o.invoice_lines">
+                        <tr t-foreach="o.invoice_lines" t-as="inv">
+                            <td class="text-center">
+                                <span t-field="inv.invoice_id.invoice_date"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="inv.invoice_id.name"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="inv.invoice_id.ref"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="inv.invoice_id.amount_total"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="inv.allocation"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+
+            </table>
+
+            <div class="stub_total_amount">Check Amount:
+                <span class="text-nowrap">
+                    <t t-esc="page['amount']"/>
+                </span>
+            </div>
+        </div>
+    </template>
+
+</odoo>
+
+
+
+
+
+
+

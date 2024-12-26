@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Define the form view of product brand-->
+    <record id="view_product_brand_form" model="ir.ui.view">
+        <field name="name">product.brand.form.view</field>
+        <field name="model">product.brand</field>
+        <field name="arch" type="xml">
+            <form string="Product Brand">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Define the tree view of product brand-->
+    <record id="view_product_brand_tree" model="ir.ui.view">
+        <field name="name">product.brand.tree.view</field>
+        <field name="model">product.brand</field>
+        <field name="arch" type="xml">
+            <tree string="Product Brand">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Define the action of product brand-->
+    <record id="action_product_brand" model="ir.actions.act_window">
+        <field name="name">Product Brand</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.brand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Define the menu of product brand-->
+    <menuitem name="Product Brand"
+              id="menu_product_brand"
+              parent="bista_go_flow.goflow_catalog_menu"
+              action="action_product_brand"
+              sequence="5"/>
+</odoo>

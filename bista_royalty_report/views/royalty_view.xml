@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="royalty_tree_view" model="ir.ui.view">
+        <field name="name">royalty.tree.view</field>
+        <field name="model">royalty</field>
+        <field name="arch" type="xml">
+            <tree string="Royalty">
+                <field name="name"/>
+                <!--<field name="partner_id"/>-->
+                <!--<field name="royalty_type"/>-->
+                <field name="royalty_percentage"/>
+                <field name="active" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="royalty_form_view" model="ir.ui.view">
+        <field name="name">royalty.form.view</field>
+        <field name="model">royalty</field>
+        <field name="arch" type="xml">
+            <form string="Royalty">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group>
+                            <field name="name" required="True"/>
+                            <!--<field name="royalty_type"/>-->
+                        </group>
+                        <group>
+                            <!--<field name="partner_id"/>-->
+                            <field name="royalty_percentage"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_royalty" model="ir.actions.act_window">
+        <field name="name">Royalty List</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">royalty</field>
+        <field name="binding_view_types">tree,form</field>
+    </record>
+
+    <menuitem name="Royalty List" id="menu_royalty_list" parent="bista_royalty_report.menu_royalty_management"
+              action="action_royalty"/>
+</odoo>

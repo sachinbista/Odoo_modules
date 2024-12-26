@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_create_inter_intra_caliva_transfer" model="ir.actions.server">
+        <field name="name">Create Inter-Warehouse Transfer</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="binding_model_id" ref="stock.model_stock_quant"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records._generate_intra_inter_company_transfer()
+        </field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="inter_company_users_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">inter.company.res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="0"/>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div name="warehouse_setting_container" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box"
+                    id="inter_company_users"
+                    title="Add users for Inter Company Transfer.">
+                    <div class="o_setting_right_pane">
+                        <label string="Inter Company Users" for="inter_company_user_ids"/>
+                        <field name="inter_company_user_ids"
+                               class="oe_inline"
+                               widget="many2many_tags"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

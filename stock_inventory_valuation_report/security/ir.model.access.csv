@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_valuation_history,access.stock.valuation.history,model_stock_valuation_history,stock.group_stock_user,1,1,1,1
+access_view_report,access.view.report,model_view_report,stock.group_stock_user,1,1,1,1
+access_view_report_stock_valuation_report,access_view_report_stock_valuation_report_user,model_stock_valuation_report,base.group_user,1,1,1,1
+access_type_product,type.product,model_type_product,base.group_user,1,1,1,0

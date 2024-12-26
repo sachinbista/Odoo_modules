@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_flask_server_config_tree" model="ir.ui.view">
+            <field name="name">flask.server.config.tree</field>
+            <field name="model">flask.server.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_flask_server_config_form" model="ir.ui.view">
+            <field name="name">flask.server.config.form</field>
+            <field name="model">flask.server.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="update_active_status"
+                                    attrs="{'invisible': [('active', '=', False)]}"
+                                    class="oe_stat_button" type="object" icon="fa-check">
+                                <div class="o_stat_info o_field_widget">
+                                    <span class="text-success">Active</span>
+                                </div>
+                            </button>
+                            <button name="update_active_status"
+                                    attrs="{'invisible': [('active', '=', True)]}"
+                                    class="oe_stat_button" type="object" icon="fa-times">
+                                <div class="o_stat_info o_field_widget">
+                                    <span class="text-danger">Deactivated</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="active" invisible="1"/>
+                            <field name="url" required="1"/>
+                            <field name="auth_token" password="True" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_flask_server_config" model="ir.actions.act_window">
+            <field name="name">Flask Server Config</field>
+            <field name="res_model">flask.server.config</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_flask_server_config" name="Flask Server Config"
+                  parent="menu_go_flow_packing_update_config_main" sequence="10"
+                  action="action_flask_server_config"/>
+    </data>
+</odoo>

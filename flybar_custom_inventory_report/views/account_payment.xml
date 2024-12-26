@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_payment_custom_search_view" model="ir.ui.view">
+            <field name="name">account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <field name="is_internal_transfer" position="after">
+                    <field name="ref" string="Memo"/>
+                </field>
+                <filter name="inbound_filter" position="replace">
+                    <filter string="Customer without inter-company payments"
+                            name="inbound_filter"
+                            domain="[('partner_type', '=', 'customer'), ('is_internal_transfer', '=', False), ('journal_id.code', '!=', 'INTR')]"/>
+
+                    <filter string="Customer Payments"
+                            name="customer_not_intercompany"
+                            domain="[('partner_type', '=', 'customer'), ('is_internal_transfer', '=', False)]"/>
+                </filter>
+
+                <filter name="outbound_filter" position="replace">
+                    <filter string="Vendor without inter-company payments"
+                            name="outbound_filter"
+                            domain="[('partner_type', '=', 'supplier'), ('is_internal_transfer', '=', False), ('journal_id.code', '!=', 'INTR')]"/>
+
+                    <filter string="Vendor Payments"
+                            name="vendor_not_intercompany"
+                            domain="[('partner_type', '=', 'supplier'), ('is_internal_transfer', '=', False)]"/>
+
+                </filter>
+
+
+            </field>
+        </record>
+</odoo>

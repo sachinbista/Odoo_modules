@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cash_projection_1" model="ir.ui.view">
+        <field name="name">cash.projection.view</field>
+        <field name="model">cash.projection.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Search SAGE Presentation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Download" type="object" name="calculate_cash_projection_report"
+                            class="oe_highlight" close="1"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_cash_projection_1">
+        <field name="name">Search Presentation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cash.projection.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <!--    <menuitem id="action_cash_project"-->
+    <!--              name="Cash Projection"-->
+    <!--              sequence="36"/>-->
+
+    <menuitem id="action_cash_projection"
+              name="Cash Projections"
+              action="action_cash_projection_1"
+              sequence="99"/>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_commission_partner_form_agent_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="commission.view_partner_form_agent"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='agent_ids']" position="replace">
+                <field name="is_commission_customer" invisible="1"/>
+                <field name="agent_new_ids" class="oe_inline">
+                    <tree editable="bottom">
+                        <field name="agent_id" required="1" domain="[('agent','=',1)]"
+                               options="{'no_create':True,'no_create_edit': True}"/>
+                        <field name="commission_id" required="1" options="{'no_create':True,'no_create_edit': True}"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view_search_inherit_commission" model="ir.ui.view">
+        <field name="name">res.partner.view.search.inherit.commission</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="before">
+                <filter string="Commission Customer" name="is_commission_customer"
+                        domain="[('is_commission_customer', '=', True)]" help="Customer has commission agents."/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+     <record id="contacts_view_tree_inherit_1" model="ir.ui.view">
+        <field name="name">res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='email']" position="after">
+		        <field name="agent_new_ids" widget="many2many_tags"/>
+	        </xpath>
+        </field>
+    </record>
+
+</odoo>

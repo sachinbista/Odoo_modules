@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_move_form_freigh_charges" model="ir.ui.view">
+        <field name="name">inherit.view.move.form.freigh_charges</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="tax_totals" position="after">
+                <field name="freight_charges"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       attrs="{'invisible': [
+                        ('move_type', 'not in', ['out_invoice', 'in_invoice'])
+                    ]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

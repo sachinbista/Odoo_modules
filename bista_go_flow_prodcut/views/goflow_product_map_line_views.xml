@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="goflow_product_map_line_form_view">
+            <field name="name">goflow.product.map.line.form.view</field>
+            <field name="model">goflow.product.map.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="goflow_configuration_id" invisible="1"/>
+                                <field name="display_goflow_field" required="1"/>
+                                <field name="mapping_opt" required="1"/>
+                                <field name="display_odoo_fields" options="{'no_create':True,'no_create_edit': True}" widget="many2many_tags" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

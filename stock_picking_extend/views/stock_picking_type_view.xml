@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="repair_view_picking_type_form_stock_picking_extend" model="ir.ui.view">
+        <field name="name">stock.picking.type.inherit.repair</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']" position="before">
+                <group>
+                    <group>
+                        <field name="color"/>
+                    </group>
+                </group>
+            </xpath>
+             <xpath expr="//field[@name='show_reserved']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('code', 'not in', ['internal', 'outgoing','incoming'])]}</attribute>
+             </xpath>
+
+        </field>
+    </record>
+
+    <record id="search_view_form_stock_picking_extend" model="ir.ui.view">
+        <field name="name">stock.picking.type.inherit.repair</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_pickingtype_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='groupby_warehouse_id']" position="after">
+                    <group expand="0" string="Group By">
+                    <filter string="Inventory Overview - Grouped" name="group_by_color"  context="{'group_by': 'color'}"/>
+                    </group>
+            </xpath>
+        </field>
+    </record>
+
+
+      <record id="stock.stock_picking_type_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_group_by_color': 1}</field>
+    </record>
+
+</odoo>
+

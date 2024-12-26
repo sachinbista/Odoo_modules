@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+         <record model="ir.ui.view" id="stock_location_route_form_view_ext">
+            <field name="name">stock.route.form</field>
+            <field name="model">stock.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//p[@class='oe_grey']" position="after">
+                    <field name="route_domain" widget="domain" options="{'model': 'sale.order'}"/>
+                </xpath>
+                <xpath expr="//group[@name='route_selector']/group[1]" position="after">
+                    <group>
+                        <label for="picking_type_selectable" string="Picking Type Selectable"/>
+                        <div class="o_row">
+                            <field name="picking_type_selectable"/>
+                            <field name="picking_type_ids" widget="many2many_tags" nolabel="1" attrs="{'invisible': [('picking_type_selectable', '=', False)]}" />
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='supplied_wh_id']" position="after">
+                    <field name="single_picking" groups="base.group_no_one" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

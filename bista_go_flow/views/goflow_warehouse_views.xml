@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="goflow_warehouse_tree_view">
+            <field name="name">goflow.warehouse.tree.view</field>
+            <field name="model">goflow.warehouse</field>
+            <field name="arch" type="xml">
+                <tree string="Goflow Warehouse" create="false" editable="bottom">
+                    <field name="goflow_warehouse_name" readonly="1" force_save="1"/>
+                    <field name="goflow_warehouse_id" readonly="1" force_save="1"/>
+                    <field name="configuration_id" readonly="1" force_save="1"/>
+                    <field name="partner_id" readonly="1" force_save="1"/>
+                    <field name="goflow_warehouse_data" invisible="1"/>
+                    <field name="warehouse_type" invisible="1"/>
+                    <field name="warehouse_id" options="{'no_create': True}" readonly="1"/>
+                    <field name="is_sync_goflow_inventory" />
+                    <field name="goflow_sync_shipment" />
+                    <field name="goflow_get_document" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_warehouse_menu_action_window">
+            <field name="name">GoFlow Warehouse</field>
+            <field name="res_model">goflow.warehouse</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

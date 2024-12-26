@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Send for Approval wizard form view -->
+    <record id="form_view_send_approval_wizard" model="ir.ui.view">
+        <field name="name">Send for Approval Invoices</field>
+        <field name="model">account.send.approval.invoices</field>
+        <field name="arch" type="xml">
+            <form string="Send for Approval Invoices">
+                <p class="oe_grey">
+                    This is the first level of approval for Vendor Bill, 
+                    By Clicking on 'SEND FOR APPROVAL' Button bills will
+                    send to 'Send To Approval' State.
+                </p>
+                <group>
+                    <field name="invoice_ids" widget="many2many_tags" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="send_for_approval" string="Send for Approval" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Send for Approval wizard Action view -->
+    <record id="action_view_send_approval_wizard" model="ir.actions.act_window">
+        <field name="name">Send for Approval Bills</field>
+        <field name="res_model">account.send.approval.invoices</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_view_send_approval_wizard"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]"/>
+    </record>
+
+    <!-- Approved to Pay wizard form view -->
+    <record id="form_view_payment_to_pay_wizard" model="ir.ui.view">
+        <field name="name">Approved to Pay</field>
+        <field name="model">account.approved.pay.invoices</field>
+        <field name="arch" type="xml">
+            <form string="Approved to Pay Bills">
+                <p class="oe_grey">
+                    This is the Second level of approval for Vendor Bill,
+                    By Clicking on 'APPROVED TO PAY' Button Bill will
+                    send to 'Approved to Pay' State.
+                </p>
+                <group>
+                    <field name="invoice_ids" widget="many2many_tags" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="approved_to_pay" string="Approved to Pay" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Approved to Pay wizard Action view -->
+    <record id="action_view_payment_to_pay_wizard" model="ir.actions.act_window">
+        <field name="name">Approved to Pay</field>
+        <field name="res_model">account.approved.pay.invoices</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_view_payment_to_pay_wizard"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]"/>
+    </record>
+
+    <!-- Cancel Approved to Pay wizard form view -->
+    <record id="form_view_cancel_payment_to_pay_wizard" model="ir.ui.view">
+        <field name="name">Cancel Approved to Pay</field>
+        <field name="model">cancel.approved.pay.invoices</field>
+        <field name="arch" type="xml">
+            <form string="Cancel Send for Approval Bills">
+                <footer>
+                    <button name="cancel_approved_to_pay"
+                            string="Cancel Approved to Pay"
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Approved to Pay wizard Action view -->
+     <record id="action_view_cancel_payment_to_pay_wizard" model="ir.actions.act_window">
+        <field name="name">Cancel Approved to Pay</field>
+        <field name="res_model">cancel.approved.pay.invoices</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_view_cancel_payment_to_pay_wizard"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]"/>
+    </record>
+</odoo>

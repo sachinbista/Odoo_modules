@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_line_report_tree_view" model="ir.ui.view">
+        <field name="name">sale.line.report.tree.view</field>
+        <field name="model">sale.line.report</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Management" default_order="priority asc , scheduled_date asc" create="false"
+                  multi_edit="1" delete="false" duplicate="false">
+                <!--                <field name="sequence" widget="handle"/>-->
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <field name="order_date"/>
+                <field name="scheduled_date"/>
+
+                <!--Commented below field to move it to bista_line_o2m for dependency issue-->
+                <!--                <field name="sub_line" string="Order Lines" widget="one2many" readonly="1" decoration-bf="1">-->
+                <!--                    <tree string="Quotation" class="o_sale_order" limit="3">-->
+                <!--                        <field name="product_id"/>-->
+                <!--                        <field name="product_uom_qty"/>-->
+                <!--                        <widget name="qty_at_date_widget" width="5px"/>-->
+                <!--                        <field class="display_qty_widget" name="display_qty_widget" invisible="1"/>-->
+                <!--                        <field name="display_warehouse_qty_widget" invisible="1"/>-->
+                <!--                        <widget name="branch_qty_at_date_widget" width="0.1"/>-->
+                <!--                    </tree>-->
+                <!--                </field>-->
+
+
+                <!--                <field name="sub_line" widget="many2many_tags" string="Products"/>-->
+                <!--                <field name="picking_ids" widget="many2many_tags" string="Pickings"/>-->
+                <!--                <field name="product_id"/>-->
+                <!--                <field name="product_uom_qty"/>-->
+                <!--                <field name="qoh_available"/>-->
+                <!--                <field name="back_order_qty"/>-->
+                <!--                <field name="picking_type_id"/>-->
+
+
+                <field name="warehouse_id"/>
+                <field name="order_status"/>
+                <field name="delivery_status"/>
+                <field name="priority"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_line_report_form_view" model="ir.ui.view">
+        <field name="name">sale.line.report.form.view</field>
+        <field name="model">sale.line.report</field>
+        <field name="arch" type="xml">
+            <form string="Sales Order Management" create="false" edit="false" delete="false" duplicate="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="order_date"/>
+                            <field name="partner_id"/>
+                            <field name="company_id" invisible="1"/>
+
+
+                            <!--                            <field name="product_id" />-->
+                            <!--                            <field name="product_uom_qty"/>-->
+                        </group>
+                        <notebook>
+                            <page string="Sub Lines" name="sub_line">
+                                <field name="sub_line">
+                                    <tree>
+                                        <field name="product_id"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="qty_delivered"/>
+                                        <!--                                        <field name="qoh_available"/>-->
+                                        <!--                                        <field name="back_order_qty"/>-->
+                                        <field name="picking_type_id"/>
+                                        <!--                                        <field name="priority"/>-->
+                                    </tree>
+                                </field>
+                                <!--                            <field name="qoh_available"/>-->
+                                <!--                            <field name="back_order_qty"/>-->
+                                <!--                            <field name="picking_type_id"/>-->
+                                <!--                            <field name="priority"/>-->
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    <record id="view_sale_line_report_tree view_1" model="ir.ui.view">-->
+    <!--        <field name="name">sale.order.report.tree.view</field>-->
+    <!--        <field name="model">sale.order</field>-->
+    <!--        <field name="inherit_id" ref="sale_line_report.sale_line_report_form_view"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='picking_type_id']" position="after">-->
+    <!--                <field name="qty_delivered"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <record id="view_sale_line_report_warehouse_view_tree" model="ir.ui.view">
+        <field name="name">sale.line.report.group.by</field>
+        <field name="model">sale.line.report</field>
+        <field name="inherit_id" ref="sale_line_report.sale_line_report_search_view"/>
+        <field name="arch" type="xml">
+            <group>
+                <filter string="Warehouse" name="warehouse_groupby" context="{'group_by': 'warehouse_id'}"/>
+                <filter string="Customer" name="customer_groupby" context="{'group_by': 'partner_id'}"/>
+                <filter string="Picking Status" name="picking_status_groupby" context="{'group_by': 'picking_status'}"/>
+                <filter string="Order Status" name="order_status_groupby" context="{'group_by': 'order_status'}"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="sale_line_report_search_view" model="ir.ui.view">
+        <field name="name">sale.line.report.search.view</field>
+        <field name="model">sale.line.report</field>
+        <field name="arch" type="xml">
+            <search string="Sales Order Lines">
+                <field name="partner_id"/>
+                <!--                <field name="product_id"/>-->
+                <field name="sub_line" string="Product" filter_domain="[('sub_line.product_id', 'ilike', self)]"/>
+                <field name="order_id" string="Order Reference"/>
+                <separator/>
+                <filter string="Pending Status" name="pending_filter" domain="[('delivery_status','=','pending')]"/>
+                <filter string="Partial Status" name="partial_filter" domain="[('delivery_status','=','partial')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <!--                    <filter string="Product" name="product" domain="[]" context="{'group_by':'product_id'}"/>-->
+                    <filter string="Order" name="order" domain="[]" context="{'group_by':'order_id'}"/>
+                    <filter string="Delivery Status" name="delivery_status" context="{'group_by': 'delivery_status'}"/>
+
+                    <!--                    <filter string="Order Status" name="group_by_status" domain="[]" context="{'group_by':'picking_status'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--    <record id="action_update_reference" model="ir.actions.server">-->
+    <!--      <field name="name">Update Reference</field>-->
+    <!--      <field name="type">ir.actions.server</field>-->
+    <!--      <field name="state">code</field>-->
+    <!--      <field name="model_id" ref="model_res_partner" />-->
+    <!--      <field name="binding_model_id" ref="model_res_partner"/>-->
+    <!--      <field name="code">-->
+    <!--        records.update_reference()-->
+    <!--      </field>-->
+    <!--    </record>-->
+
+
+    <record model="ir.actions.server" id="action_view_id_2">
+        <field name="name">sale.management.reserve</field>
+        <field name="name">Reserve</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="sale_line_report.model_sale_line_report"/>
+        <field name="binding_model_id" ref="sale_line_report.model_sale_line_report"/>
+        <field name="code">
+            action = records.button_reserve()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_view_id_1">
+        <field name="name">sale.management.unreserve</field>
+        <field name="name">Unreserve</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="sale_line_report.model_sale_line_report"/>
+        <field name="binding_model_id" ref="sale_line_report.model_sale_line_report"/>
+        <field name="code">
+            action = records.button_unreserve()
+        </field>
+    </record>
+
+    <record id="action_sale_line_report" model="ir.actions.act_window">
+        <field name="name">Sale Order Management</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.line.report</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('id', '>', 0), ('delivery_status', 'in', ['pending', 'partial'])]</field>
+        <field name="context">{"search_default_filter_sale_order_line":1}</field>
+    </record>
+
+    <menuitem
+            id="menu_sale_line_report"
+            name="Sale Order Management"
+            parent="sale.sale_order_menu"
+            action="action_sale_line_report"
+            sequence="110"
+    />
+</odoo>

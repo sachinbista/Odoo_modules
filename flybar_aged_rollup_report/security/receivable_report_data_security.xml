@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aged_receivable_data_comp_rule" model="ir.rule">
+            <field name="name">Aged Receivable Data</field>
+            <field name="model_id" ref="model_account_receivable_report" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|',('company_id','=',False),('company_id','in',company_ids), ('create_uid','=',user.id)]</field>
+        </record>
+    </data>
+</odoo>

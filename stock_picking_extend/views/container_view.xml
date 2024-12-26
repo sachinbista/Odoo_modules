@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_stock_picking_batch_search_inherited_container" model="ir.ui.view">
+        <field name="name">stock.picking.batch.search.view</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+        <field name="arch" type="xml">
+            <filter name="activities_upcoming_all" position="after">
+                <filter name="landed_cost_status_pending" string="Landed Cost-(Pending)" domain="[('landed_cost_status', '=', 'pending')]"/>
+                <filter name="landed_cost_status_done" string="Landed Cost-(Done)" domain="[('landed_cost_status', '=', 'done')]"/>
+                <filter name="landed_cost_status_cancel" string="Landed Cost-(Not Required)" domain="[('landed_cost_status', '=', 'cancel')]"/>
+            </filter>
+            <filter name="user" position="after">
+                <filter name="group_by_landed_cost_status" string="Landed Cost Status" context="{'group_by':'landed_cost_status'}"/>
+            </filter>
+        </field>
+    </record>
+	<record id="stock_picking_batch_container_tree_view" model="ir.ui.view">
+        <field name="name">stock.picking.batch.tree</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Batch Transfer" decoration-danger="remaining_days &lt;=7 and landed_cost_status == 'pending' ">
+                <field name="company_id" invisible="1"/>
+                <field name="name" decoration-bf="1"/>
+                <field name="scheduled_date"/>
+                <field name="date_etd"/>
+                <field name="date_eta"/>
+                <field name="remaining_days"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="picking_type_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="landed_cost_status" widget="badge" optional="show" decoration-info="landed_cost_status == 'pending'" decoration-success="landed_cost_status == 'done'" decoration-danger="landed_cost_status == 'cancel'"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state in ('draft', 'in_progress')"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+                <field name="purchase_order_bool" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+	
+	 <record id="action_stock_picking_batch_container" model="ir.actions.act_window">
+        <field name="name">Container</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('is_wave', '=', False),('picking_type_code', '=', 'incoming'),('date_etd', '!=', False),('date_eta', '!=', False),('warehouse_id', '=', 1),('purchase_order_bool', '=', True)]</field>
+        <field name="context">{'search_default_draft': True, 'search_default_in_progress': True}</field>
+        <field name="search_view_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new batch transfer
+          </p><p>
+            The goal of the batch transfer is to group operations that may
+            (needs to) be done together in order to increase their efficiency.
+            It may also be useful to assign jobs (one person = one batch) or
+            help the timing management of operations (tasks to be done at 1pm).
+          </p>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window.view" id="action_stock_picking_batch_container_tree">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="stock_picking_batch_container_tree_view"/>
+        <field name="act_window_id" ref="action_stock_picking_batch_container"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_stock_picking_batch_container_form">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="act_window_id" ref="action_stock_picking_batch_container"/>
+    </record>
+    
+	<menuitem id="conainer_root_menu" 
+			  name="Container"
+			  parent="stock.menu_stock_root" 
+			  sequence="2"/>
+			  
+	<menuitem action="action_stock_picking_batch_container" 
+			  id="conainer_sub_menu" 
+			  name="Container" 
+			  parent="conainer_root_menu" 
+			  sequence="1"/>
+			  
+	<menuitem action="stock_landed_costs.action_stock_landed_cost"
+			  name="Landed Costs" 
+			  parent="conainer_root_menu"
+			  id="stock_landed_costs.menu_stock_landed_cost" 
+			  sequence="2" />
+</odoo>

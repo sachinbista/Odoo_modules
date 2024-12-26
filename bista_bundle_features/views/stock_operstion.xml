@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="inherit_view_move_search" model="ir.ui.view">
+			<field name="name">purchase.view.move.search</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_search"/>
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@name='today']" position="after">
+					<filter string="Today" name="today_date" domain="[('date','&lt;=',context_today().strftime('%Y-%m-%d 23:59:59')),('date','&gt;=',context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- All Operations Lines -->
+		<record id="action_operation_line" model="ir.actions.act_window">
+			<field name="name">All Operations Lines</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.move</field>
+			
+			<field name="view_mode">tree,kanban,form,pivot</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create a new quotation line.
+				</p><p>
+					Create a new quotation line.
+				</p>
+			</field>
+		</record>
+	
+		<menuitem 
+			id="all_picking_line" 
+			action="action_operation_line" 
+			parent="stock.menu_stock_warehouse_mgmt" 
+			groups="bista_bundle_features.group_all_in_one_views"/>
+
+		<!-- Incoming Operations Lines -->
+		<record id="action_incoming_operation_line" model="ir.actions.act_window">
+			<field name="name">Incoming Operations Lines</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.move</field>
+			<field name="domain">[('picking_id.picking_type_id.code','=','incoming')]</field>
+			<field name="view_mode">tree,kanban,form,pivot</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create a new Incoming Operations Lines.
+				</p><p>
+					Create a new incoming operations lines.
+				</p>
+			</field>
+		</record>
+	
+		<menuitem 
+			id="menu_incoming_picking_line" 
+			action="action_incoming_operation_line" 
+			parent="stock.menu_stock_warehouse_mgmt" 
+			groups="bista_bundle_features.group_all_in_one_views"/>
+
+
+		<!-- Outgoing Operations Lines -->
+		<record id="action_outgoing_operation_line" model="ir.actions.act_window">
+			<field name="name">Outgoing Operations Lines</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">stock.move</field>
+			<field name="domain">[('picking_id.picking_type_id.code','=','outgoing')]</field>
+			<field name="view_mode">tree,kanban,form,pivot</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Create a new Outgoing Operations Lines.
+				</p><p>
+					Create a new outgoing operations lines.
+				</p>
+			</field>
+		</record>
+	
+		<menuitem 
+			id="menu_outgoing_picking_line" 
+			action="action_outgoing_operation_line" 
+			parent="stock.menu_stock_warehouse_mgmt" 
+			groups="bista_bundle_features.group_all_in_one_views"/>
+	</data>
+</odoo>

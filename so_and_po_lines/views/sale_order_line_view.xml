@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_sales_order_line_filter_inherit_flybar" model="ir.ui.view">
+            <field name="name">sale.order.line.select</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group/filter[@name='order']" position="after">
+                    <filter string="Order From" name="external_origin" domain="[]"
+                            context="{'group_by':'external_origin'}"/>
+                    <filter string="Order Date" name="date_order" domain="[]"
+                            context="{'group_by':'date_order'}"/>
+                    <filter string="GoFlow Store" name="goflow_store_id" domain="[]"
+                            context="{'group_by':'goflow_store_id'}"/>
+                    <filter string="Customer Type" name="customer_type" domain="[]"
+                            context="{'group_by':'customer_type'}"/>
+                    <filter string="Customer" name="order_partner" domain="[]"
+                            context="{'group_by':'order_partner_id'}"/>
+                    <filter string="Status" name="order_status" domain="[]" context="{'group_by':'state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_line_tree_flybar" model="ir.ui.view">
+            <field name="name">view.order.line.tree.readonly.flybar</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="string">Order Qty</attribute>
+                    <attribute name="sum">Total Order Qty</attribute>
+                </xpath>
+                <xpath expr="//field[@name='qty_delivered']" position="attributes">
+                    <attribute name="string">Delivered Qty</attribute>
+                    <attribute name="sum">Total Delivered Qty</attribute>
+                </xpath>
+                <xpath expr="//field[@name='qty_invoiced']" position="attributes">
+                    <attribute name="string">Invoiced Qty</attribute>
+                    <attribute name="sum">Total Invoiced Qty</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='route_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='qty_to_invoice']" position="attributes">
+                    <attribute name="string">To Invoice Qty</attribute>
+                    <attribute name="sum">Total To-Invoice Qty</attribute>
+                </xpath>
+                <xpath expr="//field[@name='salesman_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_id']" position="after">
+                    <field name="date_order" force_save="1"/>
+                    <!--                    <field name="effective_date"/>-->
+                    <field name="product_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_order_line_pivot_flybar" model="ir.ui.view">
+            <field name="name">sale.order.line.pivot</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Sales Order Lines" sample="1">
+                    <field name="date_order" interval="year" type="col"/>
+                    <field name="product_id" type="row"/>
+                    <field name="product_uom_qty" string="Ordered Qty" type="measure"/>
+                    <field name="qty_delivered" string="Delivered Qty" type="measure"/>
+                    <field name="qty_invoiced" type="measure"/>
+                    <field name="qty_to_invoice" type="measure"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="action_sale_orders_line" model="ir.actions.act_window">
+            <field name="name">Sale Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">pivot,tree</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="sale.action_order_report_all" model="ir.actions.act_window">
+            <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <menuitem id="sale.menu_report_product_all"
+                  name="Sale Order Report"
+                  action="sale.action_order_report_all"
+                  parent="sale.menu_sale_report"
+                  groups="sales_team.group_sale_manager"
+                  sequence="1" active="0"/>
+
+        <menuitem id="sale_order_line_view"
+                  name="Sale Order Line Report"
+                  parent="sale.menu_sale_report"
+                  groups="sales_team.group_sale_manager"
+                  sequence="2" active="0"
+                  action="action_sale_orders_line"/>
+    </data>
+</odoo>

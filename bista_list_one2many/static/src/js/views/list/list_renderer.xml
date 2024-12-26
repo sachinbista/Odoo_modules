@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-inherit="web.ListRenderer" t-inherit-mode="extension" owl="1">
+        <xpath expr="//table[1]/thead[1]/tr[1]/t[1]/th[1]" position="attributes">
+            <attribute name="t-on-click">(ev) => this.onClickSortColumn(column, ev)</attribute>
+        </xpath>
+    </t>
+</templates>

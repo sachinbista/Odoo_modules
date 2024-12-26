@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+purchase_extension.access_cancel_reason_wizard,access_cancel_reason_wizard,purchase_extension.model_cancel_reason_wizard,base.group_user,1,1,1,1
+access_add_dynamic_note,add.dynamic.note,model_add_dynamic_note,base.group_user,1,1,1,1
+access_add_dynamic_note_wiz,add.dynamic.note.wiz,model_add_dynamic_note_wiz,base.group_user,1,1,1,1

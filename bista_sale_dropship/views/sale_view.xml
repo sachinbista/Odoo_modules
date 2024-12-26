@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sale order form view -->
+    <record id="bista_sale_dropship_inherit_sale_form" model="ir.ui.view">
+        <field name="name">dropship.inherit.sale.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_cancel']" position="after">
+                <button name="create_dropship" string="Create Dropship" type="object" class="btn-primary"
+                        attrs="{'invisible': [('state', 'in', ['draft','done','cancel','permanent_order'])]}"
+                        groups="bista_sale_dropship.group_dropship_user"/>
+            </xpath>
+
+            <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_purchases" type="object" class="oe_stat_button" icon="fa-credit-card" attrs="{'invisible': [('purchase_count', '=', 0)]}" groups="purchase.group_purchase_user">
+                    <field name="purchase_count" widget="statinfo" string="Purchase"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="before">
+                <field name="tick"/>
+                <field name="is_dropship" optional="hide" readonly="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="before">
+                <div class="o_row" style="margin: 15px 0;">
+                    <button name="action_check" icon="fa-check" title="check" class="btn btn-primary" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                    <button name="action_uncheck" icon="fa-close" title="uncheck" class="btn btn-primary" type="object" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_inherited_form_purchase_sh_so_po" model="ir.ui.view">
+        <field name="name">sale.order.inherited.form.purchase.inherit.sh.so.po</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_purchase.sale_order_inherited_form_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_purchase_orders']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

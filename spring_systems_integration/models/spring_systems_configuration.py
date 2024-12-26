@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+import datetime
 import requests
 import json
 from .connection import SpringSystemConnection
@@ -32,12 +33,13 @@ class SpringSystemsConfiguration(models.Model):
     # send_po_ack_855_url = fields.Char(string="Send PO Acknowledgement to Spring URL")
 
     send_po_ack_856 = fields.Boolean(string="Send Shipment to Spring")
+    scheduled_so_fetch_date = fields.Datetime(string='Last Fetch Date')
     # send_po_ack_856_url = fields.Char(string="Send Shipment to Spring URL")
     # api_connection = fields.Char('connection url')
     # get_product_catalog= fields.Boolean(string="Get Product Catalog")
     # get_product_catalog_url = fields.Char(string="Get Product Catalog URL")
 
-    def _add_spring_log(self, method, query_url, response, exception):
+    def _add_spring_log(self, method, query_url, response, payload, exception):
         if method.lower() == 'patch':
             message = response.reason
         elif not exception:
@@ -48,6 +50,7 @@ class SpringSystemsConfiguration(models.Model):
         self.env['spring.systems.error.log'].sudo().create(
             {'name': 'spring_request_log',
              'message': message,
+             'request_payload': payload,
              'api_url': query_url,
              'request': json.dumps(query_url, default=str),
              'request_type': method,
@@ -59,20 +62,17 @@ class SpringSystemsConfiguration(models.Model):
         response = ''
         try:
             response = requests.request(method, query_url, json=payload, headers=headers)
-            self._add_spring_log(method, query_url, response, exception=False)
+            self._add_spring_log(method, query_url, response, payload, exception=False)
         except Exception as e:
-            self._add_spring_log(method, query_url, str(e), exception=True)
+            self._add_spring_log(method, query_url, str(e), payload, exception=True)
         return response
 
     def test_connection(self):
-        env_url = self.url
-        end_point = 'po-outgoing/export/'
-        end_point_url = env_url + end_point
-        config_id = self
+        end_point_url = self.url + 'po-outgoing/export/'
         filter = '/po.filter.gt.po_created/2017-09-01T00:00:00Z'
         connection_url = end_point_url + 'api_user/' + self.api_user + '/api_key/' + self.api_key + filter
-        connection_obj = SpringSystemConnection.establish_connection(connection_url, config_id)
-        if connection_obj:
+        connection_obj = self._send_spring_request('get', connection_url, payload=False)
+        if connection_obj and connection_obj.status_code == 200:
             message = _("Connection Test Successful!")
             return {
                 'type': 'ir.actions.client',
@@ -98,23 +98,26 @@ class SpringSystemsConfiguration(models.Model):
 
     def _auto_download_po_so_data(self):
         spring_systems_configuration_ids = self.env['spring.systems.configuration'].search([])
+        scheduler_datetime = datetime.datetime.now()
         for config in spring_systems_configuration_ids:
             if config.get_po_850:
-                config._download_po_so_data()
+                config._download_po_so_data(scheduler_datetime)
 
-    def _download_po_so_data(self):
-        po_ids = False
+    def _download_po_so_data(self, scheduler_datetime):
+        po_ids = []
         end_point_url = self.url + 'po-outgoing/export/'
-        po_filter = '/po.filter.gt.po_created/2017-09-01'
+        filter_date = self.scheduled_so_fetch_date if self.scheduled_so_fetch_date else datetime.date.today()
+        po_filter = '/po.filter.gt.po_created/' + str(filter_date)
         connection_url = end_point_url + 'api_user/' + self.api_user + '/api_key/' + self.api_key + po_filter
         so_connection_obj = {}
         so_response = self._send_spring_request('get', connection_url, payload=False)
         if so_response and so_response.status_code == 200:
             so_connection_obj = json.loads(so_response.text)
+            self.scheduled_so_fetch_date = scheduler_datetime
         # so_connection_obj = SpringSystemConnection.establish_connection(connection_url, config_id)
-        connected_po = so_connection_obj.get('pos', {})
+        connected_po = so_connection_obj.get('pos', False)
         if connected_po:
-            po_ids = connected_po.get('po', {})
+            po_ids = connected_po.get('po', '')
         spring_systems_so_obj = self.env['spring.systems.sale.order']
         for each in po_ids:
             vals = {}
@@ -166,7 +169,7 @@ class SpringSystemsConfiguration(models.Model):
                         else:
                             error += '\nInvoice address not found for - '+ tp_location_name
                     expiration_date = attributes.get('ship_no_later_date', False)
-                    order_msg = attributes.get('order_message', False)
+                    order_msg = attributes.get('order_message', '')
                     if order_msg:
                         vals.update({'note': str(order_msg)})
                     # if expiration_date:
@@ -176,11 +179,8 @@ class SpringSystemsConfiguration(models.Model):
                     if payment_terms:
                         payment_term = payment_terms.get('payment_term', False)
                         payment_description = payment_term.get('payment_description', False)
-                        payment_days = payment_term.get('payment_days', '')
-                        payment_term_line_id = self.env['account.payment.term.line'].search(
-                            [('days', '=', payment_days), ('value', '=', 'balance')], limit=1)
-                        if payment_term_line_id:
-                            payment_term_id = payment_term_line_id.payment_id
+                        payment_term_id = self.env['account.payment.term'].search([('name', '=', payment_description)], limit=1)
+                        if payment_term_id:
                             vals.update({'payment_term_id': payment_term_id.id})
                         else:
                             error += '\nPayment Term not found for - ' + payment_description
@@ -226,12 +226,12 @@ class SpringSystemsConfiguration(models.Model):
                                                })
                     else:
                         spring_systems_so_obj.create({
-                            'spring_system_so_id': each.get('po_id', ''),
-                            'spring_system_vendor_num': each.get('retailer_id', ''),
-                            'spring_system_po_num': each.get('po_num', ''),
+                            'spring_system_so_id': each.get('po_id', False),
+                            'spring_system_vendor_num': each.get('retailer_id', False),
+                            'spring_system_po_num': each.get('po_num', False),
                             'status': 'draft',
                             'sale_order_id': sale_order.id,
-                            'payment_term_id': vals.get('payment_term_id', ''),
+                            'payment_term_id': vals.get('payment_term_id', False),
                             'edi_850_data': str(each),
                             'configuration_id': self.id
                         })

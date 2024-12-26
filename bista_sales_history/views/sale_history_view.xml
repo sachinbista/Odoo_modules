@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_history_store_view_pivot" model="ir.ui.view">
+        <field name="name">sale.history.store.tree.view</field>
+        <field name="model">sale.history.store</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales History Store" sample="1">
+                <field name="warehouse_name" type="row"/>
+                <field name="orders" type="measure"/>
+                <field name="units_sold" type="measure"/>
+                <field name="products_sold" type="measure"/>
+                <field name="gross_revenue" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sale_history_store_search_view" model="ir.ui.view">
+        <field name="name">sale.history.store.search</field>
+        <field name="model">sale.history.store</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="customer_id"/>
+                <field name="warehouse_name"/>
+                <separator/>
+                <group expand='0' string='Group by...'>
+                    <filter string='Customer OR Store' name="group_by_customer_id"
+                            context="{'group_by': 'customer_id'}"/>
+                    <filter string='Customer Order' name="group_by_customer_reference"
+                            context="{'group_by': 'customer_reference'}"/>
+                    <filter string='Warehouse' name="group_by_warehouse_name" context="{'group_by': 'warehouse_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_history_product_view_pivot" model="ir.ui.view">
+        <field name="name">sale.history.product.pivot</field>
+        <field name="model">sale.history.product</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales History Product" sample="1">
+                <field name="date_order" interval="year" type="col"/>
+                <field name="product_name" type="row"/>
+                <field name="sale_price" type="measure"/>
+                <field name="qty" type="measure"/>
+                <field name="amount" type="measure"/>
+                <!--                <field name="product_brand" type="row"/>-->
+
+                <!--                <field name="orders" type="measure"/>-->
+                <!--                <field name="units_sold" type="measure"/>-->
+                <!--                <field name="products_sold" type="measure"/>-->
+                <!--                <field name="gross_revenue" type="measure"/>-->
+            </pivot>
+        </field>
+    </record>
+
+    <record id="sale_history_product_search_view" model="ir.ui.view">
+        <field name="name">sale.history.product.search</field>
+        <field name="model">sale.history.product</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="customer_id"/>
+                <field name="number"/>
+                <field name="reference"/>
+                <field name="product_name"/>
+                <field name="item_number"/>
+                <field name="product_brand"/>
+                <separator/>
+                <group expand='0' string='Group by...'>
+                    <filter string='Customer' name="group_by_customer_id"
+                            context="{'group_by': 'customer_id'}"/>
+<!--                    <filter string='Number' name="group_by_number"-->
+<!--                            context="{'group_by': 'number'}"/>-->
+                    <filter string='Item Number' name="group_by_item_number"
+                            context="{'group_by': 'item_number'}"/>
+                    <filter string='Product Name' name="group_by_product_name"
+                            context="{'group_by': 'product_name'}"/>
+                    <filter string='Product Brand' name="group_by_product_brand"
+                            context="{'group_by': 'product_brand'}"/>
+                    <filter string='Order date' name="group_by_date_order"
+                            context="{'group_by': 'date_order'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_store_form_view">
+        <field name="name">sale.history.store.form.view</field>
+        <field name="model">sale.history.store</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false" duplicate="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="customer_reference" invisible="1"/>
+                            <field name="warehouse_name"/>
+                            <field name="orders"/>
+                            <field name="commission_fee"/>
+                            <field name="units_sold"/>
+                        </group>
+                        <group>
+
+                            <field name="avg_order_value"/>
+                            <field name="products_sold"/>
+                            <field name="skus_sold"/>
+                            <field name="cost_of_goods_sold"/>
+                            <field name="shipping_cost"/>
+                            <field name="gross_revenue"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="sale_history_product_form_view">
+        <field name="name">sale.history.product.form.view</field>
+        <field name="model">sale.history.product</field>
+        <field name="arch" type="xml">
+            <form delete="false" duplicate="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                            <field name="date_order"/>
+                            <field name="number"/>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="product_name"/>
+                            <field name="item_number"/>
+                            <!--                            <field name="product_brand"/>-->
+                            <field name="customer_id"/>
+                            <field name="sale_price"/>
+                            <field name="qty"/>
+                            <field name="amount"/>
+                            <!--                            <field name="products_sold"/>-->
+                            <!--                            <field name="skus_sold"/>-->
+                            <!--                            <field name="cost_of_goods_sold"/>-->
+                            <!--                            <field name="shipping_cost"/>-->
+                            <!--                            <field name="gross_revenue"/>-->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_store_tree_view">
+        <field name="name">sale.history.store.tree.view</field>
+        <field name="model">sale.history.store</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">
+                <field name="customer_id"/>
+                <field name="customer_reference" invisible="1"/>
+                <field name="warehouse_name"/>
+                <field name="orders"/>
+                <field name="commission_fee"/>
+                <field name="units_sold"/>
+                <field name="avg_order_value"/>
+                <field name="products_sold"/>
+                <field name="skus_sold"/>
+                <field name="cost_of_goods_sold"/>
+                <field name="shipping_cost"/>
+                <field name="gross_revenue"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_history_product_tree_view">
+        <field name="name">sale.history.product.tree.view</field>
+        <field name="model">sale.history.product</field>
+        <field name="arch" type="xml">
+            <tree edit="false">
+                <field name="type"/>
+                <field name="date_order"/>
+                <field name="number"/>
+                <field name="reference"/>
+                <field name="customer_id"/>
+                <field name="product_name"/>
+                <field name="item_number"/>
+                <field name="product_brand"/>
+                <field name="sale_price"/>
+                <field name="qty"/>
+                <field name="amount"/>
+
+                <!--                <field name="orders"/>-->
+                <!--                <field name="commission_fee"/>-->
+                <!--                <field name="units_sold"/>-->
+                <!--                <field name="avg_price_per_item"/>-->
+                <!--                <field name="products_sold"/>-->
+                <!--                <field name="skus_sold"/>-->
+                <!--                <field name="cost_of_goods_sold"/>-->
+                <!--                <field name="shipping_cost"/>-->
+                <!--                <field name="gross_revenue"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sale_history_store_tree" model="ir.actions.act_window">
+        <field name="name">Sales History Store</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.history.store</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <record id="action_sale_history_product_tree" model="ir.actions.act_window">
+        <field name="name">Sales History Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.history.product</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <!--    <menuitem action="action_sale_history_store_tree"-->
+    <!--              id="menu_sale_history_store"-->
+    <!--              parent="sale.sale_order_menu"-->
+    <!--              groups="sales_team.group_sale_manager"-->
+    <!--              sequence="22"/>-->
+    <menuitem action="action_sale_history_product_tree"
+              id="menu_sale_history_product"
+              parent="sale.sale_order_menu"
+              groups="sales_team.group_sale_manager"
+              sequence="111"/>
+
+</odoo>

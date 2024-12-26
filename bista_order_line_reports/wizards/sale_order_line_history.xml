@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_order_line_history" model="ir.ui.view">
+        <field name="name">Sale Order Line Report at Date</field>
+        <field name="model">sale.order.line.history</field>
+        <field name="arch" type="xml">
+            <form string="Choose your date">
+                <group>
+                    <group>
+                        <field name="start_date" />
+                    </group>
+                    <group>
+                        <field name="end_date" />
+                    </group>
+                </group>
+                <group>
+                    <field name="warehouse_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button
+                        context="{'for_view': True}"
+                        name="export_valuation_report"
+                        string="View"
+                        type="object"
+                        class="btn-primary"
+                        close="1"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_orderline_report_action" model="ir.actions.act_window">
+        <field name="name">Sale Order Line Summary</field>
+        <field name="res_model">sale.order.line.history</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sale_main_report"
+            name="Sale Order Report"
+            action="sale.action_order_report_all"
+            parent="sale.menu_sale_report"
+            groups="sales_team.group_sale_manager"
+            sequence="10"/>
+
+    <menuitem
+        id="menu_sale_orderline_report_valuation"
+        name="Sale Order Line Summary"
+        parent="sale.menu_sale_report"
+        sequence="120"
+        action="sale_orderline_report_action"
+    />
+</odoo>

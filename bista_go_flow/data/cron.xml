@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_goflow_sync_vendors" model="ir.cron">
+            <field name="name">GoFlow Sync Vendors</field>
+            <field name="model_id" ref="model_goflow_configuration"/>
+            <field name="state">code</field>
+            <field name="code">model._auto_goflow_sync_vendors_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!--Commented due to requirement change : 20112023 - Hemant Bhoi - Need to make it manual from configuration view.-->
+        <!--<record id="ir_cron_goflow_sync_warehouse" model="ir.cron">-->
+        <!--<field name="name">GoFlow Sync Warehouse</field>-->
+        <!--<field name="model_id" ref="model_goflow_configuration"/>-->
+        <!--<field name="state">code</field>-->
+        <!--<field name="code">model._auto_goflow_sync_warehouse_data()</field>-->
+        <!--<field name="interval_number">1</field>-->
+        <!--<field name="interval_type">hours</field>-->
+        <!--<field name="numbercall">-1</field>-->
+        <!--<field name="doall" eval="False"/>-->
+        <!--</record>-->
+
+        <record id="ir_cron_goflow_download_channel" model="ir.cron">
+            <field name="name">GoFlow Channel Data</field>
+            <field name="model_id" ref="model_goflow_configuration"/>
+            <field name="state">code</field>
+            <field name="code">model._auto_goflow_download_channel_data()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="ir_cron_goflow_sync_order" model="ir.cron">
+            <field name="name">GoFlow Sync Orders</field>
+            <field name="model_id" ref="model_goflow_order"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_go_flow_order()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="ir_cron_goflow_routing_request" model="ir.cron">
+            <field name="name">GoFlow Shipment Routing Request</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.go_flow_fetch_shipment_routing_request()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="ir_cron_goflow_delete_log" model="ir.cron">
+            <field name="name">GoFlow Delete Log</field>
+            <field name="model_id" ref="model_goflow_error_log"/>
+            <field name="state">code</field>
+            <field name="code">model.go_flow_delete_log(days=15)</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_goflow_order_status" model="ir.cron">
+            <field name="name">GoFlow Check Order Status</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.go_flow_check_order_status()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="ir_cron_goflow_order_need_to_review" model="ir.cron">
+            <field name="name">GoFlow Need to Review Order Sync</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.go_flow_check_need_to_review(filter=None, go_flow_order_id=False)</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="ir_cron_goflow_order_status_cancel" model="ir.cron">
+            <field name="name">GoFlow Check Canceled Order Sync</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.go_flow_check_need_to_cancel(filter=None, go_flow_order_id=False)</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+
+        <record id="ir_cron_goflow_inventory_sync" model="ir.cron">
+            <field name="name">GoFlow Inventory Adjustment Sync</field>
+            <field name="model_id" ref="model_product_warehouse_quantity"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_product_warehouse_quantity_goflow()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_goflow_get_documents" model="ir.cron">
+            <field name="name">GoFlow Get Documents</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">model.goflow_get_documents()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_goflow_sync_split_order" model="ir.cron">
+            <field name="name">GoFlow Sync Split Orders</field>
+            <field name="model_id" ref="model_goflow_order"/>
+            <field name="state">code</field>
+            <field name="code">model.sync_split_go_flow_order()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

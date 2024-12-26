@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_cds" model="report.paperformat">
+        <field name="name">CDS</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">32</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="inherit_external_layout_standard" inherit_id="web.external_layout_standard">
+         <xpath expr="//div[@t-attf-class='footer o_standard_footer o_company_#{company.id}_layout']/div[1]/ul" position="replace">
+             <!--<div class="text-center" style="height:1px;border-width:0;color:black;background-color:black"/>-->
+             <div class="text-center"/>
+                <span t-field="company.phone"/>&amp;nbsp;
+                <span t-field="company.email"/>&amp;nbsp;
+                <span t-field="company.website"/>
+             <div style="height:1px;border-width:0;color:black;background-color:black"/>
+         </xpath>
+    </template>
+
+    <template id="connector_delivery_slip_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <style>
+                        .font_size1 {font-size:15pt;}
+                        .font_size2{ font-size: 11.5pt;}
+                    </style>
+                    <strong class="font_size1">Purchase order:</strong>
+                    <span class="font_size1" t-field="o.purchase_id.name"/>
+                    <br/>
+                    <strong class="font_size1">Container ID:</strong>
+                    <span class="font_size1" t-field="o.container_id"/>
+                    <br/>
+                    <strong class="font_size2">Creation Date:</strong>
+                    <span class="font_size2" t-field="o.scheduled_date"/>
+                    <br/>
+                    <strong class="font_size2">Document Type:</strong>
+                    <span class="font_size2" t-field="o.picking_type_id.name"/>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th name="cds_product" style="text-align:left;">
+                                    <strong >Product</strong>
+                                </th>
+                                <th name="cds_ordered">
+                                    <strong>Ordered</strong>
+                                </th>
+                                <th name="cds_quantity">
+                                    <strong>Delivered</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+                            <tr t-foreach="lines" t-as="move">
+                                <td>
+                                    <span t-field="move.product_id"/>
+                                    <p t-if="move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
+                                        <span t-field="move.description_picking"/>
+                                    </p>
+                                </td>
+                                <td>
+                                    <span t-field="move.product_uom_qty"/>
+                                    <span t-field="move.product_uom"/>
+                                </td>
+                                <td>
+                                    <span t-field="move.quantity_done"/>
+                                    <span t-field="move.product_uom"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="connector_delivery_slip_report">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="flybar_custom_inventory_report.connector_delivery_slip_document" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+
+    <record id="action_connector_delivery_slip" model="ir.actions.report">
+        <field name="name">Connector Delivery Slip</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">flybar_custom_inventory_report.connector_delivery_slip_report</field>
+        <field name="report_file">flybar_custom_inventory_report.connector_delivery_slip_report</field>
+        <field name="print_report_name">'Connector Delivery Slip'</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="flybar_custom_inventory_report.paperformat_cds"/>
+    </record>
+</odoo>

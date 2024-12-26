@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_form_add_new_fields" model="ir.ui.view">
+        <field name="name">view.account.form.add.new.fields</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='accounting']/group/group[1]/field[@name='allowed_journal_ids']" position="after">
+                <field name="allow_bank_reconciliation"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_line_search_inherit_flybar" model="ir.ui.view">
+            <field name="name">purchase.order.line.search</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group/filter[@name='order_reference']" position="after">
+                    <filter string="Order Date" name="date_orderd" domain="[]"
+                            context="{'group_by':'date_orderd'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="purchase_order_line_tree_inherit_flybar" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree.inherit.flybar</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_history_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='order_id']" position="after">
+                    <field name="product_id" readonly="1" string="Product"/>
+                    <field name="brand" readonly="1" optional="hide"/>
+                    <field name="manufacturer" readonly="1" optional="hide"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='date_approve']" position="replace">
+                    <field name="create_date" readonly="1" optional="hide" string="Creation Date"/>
+                    <field name="date_approve" readonly="1" optional="hide" string="Confirmation Date"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="before">
+                    <field name="product_qty" string="Ordered Qty" readonly="1"/>
+                    <field name="product_uom" string="UOM" readonly="1"/>
+                    <field name="qty_received" readonly="1"/>
+                    <field name="qty_invoiced" readonly="1"/>
+                    <field name="product_packaging_qty" string="Packaging Qty" readonly="1"/>
+                    <field name="product_packaging_id" readonly="1"/>
+                    <field name="package_type_barcode" optional="hide" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_purchase_order_line_pivot_flybar" model="ir.ui.view">
+            <field name="name">purchase.order.line.pivot</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Purchase Order Lines" sample="1">
+                    <field name="date_orderd" interval="year" type="col"/>
+                    <field name="product_id" type="row"/>
+                    <field name="product_qty" string="Ordered Qty" type="measure"/>
+                    <field name="qty_received" type="measure"/>
+                    <field name="qty_invoiced" type="measure"/>
+                    <field name="price_subtotal" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="action_purchase_orders_line" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_mode">pivot,tree</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="purchase.action_purchase_order_report_all" model="ir.actions.act_window">
+            <field name="view_mode">pivot,graph</field>
+        </record>
+
+        <menuitem id="purchase.purchase_report_main"
+                  name="Reporting"
+                  parent="purchase.menu_purchase_root"
+                  sequence="99"
+                  groups="purchase.group_purchase_manager,purchase.group_purchase_user"/>
+
+        <menuitem id="purchase.purchase_report"
+                  name="Purchase Order Report"
+                  parent="purchase.purchase_report_main"
+                  groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+                  action="purchase.action_purchase_order_report_all" />
+
+        <menuitem id="purchase_purchase_order_line"
+                  name="Purchase Order Line Report"
+                  action="action_purchase_orders_line"
+                  parent="purchase.purchase_report_main"
+                  groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+                  sequence="105" active="0"/>
+
+        <menuitem id="menu_sale_report_custom"
+                  name="Sale Order Report"
+                  action="sale.action_order_report_all"
+                  parent="purchase.purchase_report_main"
+                  groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+                  sequence="107" active="1"/>
+
+        <menuitem id="sale_order_line_view_custom"
+                  name="Sale Order Line Report"
+                  parent="purchase.purchase_report_main"
+                  groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+                  sequence="108" active="0"
+                  action="action_sale_orders_line"/>
+
+
+    </data>
+</odoo>

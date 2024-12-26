@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_receivable_aging_form" model="ir.ui.view">
+        <field name="name">view.account.receivable.aging.form</field>
+        <field name="model">account.receivable.report</field>
+        <field name="arch" type="xml">
+            <form string="Receivable Aging" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                            <field name="salesperson_id" invisible="1"/>
+                            <!-- <field name="invoice_id"/> -->
+                            <field name="account_move_id" />
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="source_document" invisible="1"/>
+                            <field name="warehouse_id" invisible="1"/>
+                            <field name="payment_term_id" />
+                            <field name="accounting_date" />
+                            <field name="bill_date" />
+                            <field name="date_maturity" />
+<!--                            <field name="credit_limit" />-->
+                        </group>
+                        <group>
+                            <field name="bucket_current" sum="bucket_current" />
+                            <field name="bucket_60" sum="bucket_60" />
+                            <field name="bucket_90" sum="bucket_90" />
+                            <field name="bucket_120" sum="bucket_120" />
+                            <field name="bucket_150" sum="bucket_150" />
+                            <field name="bucket_180" sum="bucket_180" />
+                            <field name="bucket_180_plus" sum="bucket_180_plus" />
+                            <field name="balance" sum="balance" />
+                            <field name="company_id" invisible="1" />
+                            <field name="currency_id" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_receivable_aging_tree" model="ir.ui.view">
+        <field name="name">view.account.receivable.report.tree</field>
+        <field name="model">account.receivable.report</field>
+        <field name="arch" type="xml">
+            <tree string="Receivable Aging" create="false" edit="false" delete="false" editable="top" js_class="receivable_report_list">
+<!--                <header>-->
+<!--                    <button name="action_open_receivable_date" type="object"-->
+<!--                            string="Receivable at Date"/>-->
+<!--                </header>-->
+                <field name="partner_id" />
+                <field name="salesperson_id" invisible="1"/>
+                <!-- <field name="invoice_id"/> -->
+                <field name="account_move_id" />
+                <field name="sale_order_id" invisible="1"/>
+                <field name="warehouse_id" invisible="1"/>
+                <field name="source_document" optional="hide"/>
+                <field name="type" optional="hide"/>
+                <field name="payment_term_id"  optional="show"/>
+                <field name="accounting_date"/>
+                <field name="bill_date"/>
+                <field name="date_maturity"/>
+                <field name="bucket_current" sum="bucket_current"/>
+                <field name="bucket_30" sum="bucket_30"/>
+                <field name="bucket_60" sum="bucket_60"/>
+                <field name="bucket_90" sum="bucket_90"/>
+                <field name="bucket_120" sum="bucket_120"/>
+                <field name="bucket_150" sum="bucket_150"/>
+                <field name="bucket_180" sum="bucket_180"/>
+                <field name="bucket_180_plus" sum="bucket_180_plus"/>
+                <field name="tax_amt" sum="tax_amt"/>
+                <field name="original_bal" sum="original_bal" optional="hide"/>
+                <field name="balance" sum="balance"/>
+                <field name="company_id"/>
+<!--                <field name="credit_limit" invisible="1"/>-->
+                <field name="currency_id" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_receivable_aging_search" model="ir.ui.view">
+        <field name="name">view.account.receivable.aging.search</field>
+        <field name="model">account.receivable.report</field>
+        <field name="arch" type="xml">
+            <search string="Receivable Aging">
+                <field name="partner_id" />
+<!--                <field name="salesperson_id" />-->
+                <!-- <field name="invoice_id"/> -->
+<!--                <field name="sale_order_id" />-->
+<!--                <field name="warehouse_id" />-->
+                <field name="source_document" />
+                <field name="payment_term_id" />
+                <field name="account_move_id" />
+                <field name="accounting_date" />
+                <field name="company_id" />
+                <group expand="0" string="Group By">
+                    <filter name="group_by_partner_id" string="Customer" context="{'group_by':'partner_id'}"
+                        domain="[]" />
+                    <filter string="Company" name="company_id" context="{'group_by':'company_id'}" domain="[]" />
+                    <separator />
+                    <filter string="Salesperson" name="salesperson" context="{'group_by':'salesperson_id'}"
+                        domain="[]" />
+                    <filter string="Invoice Date" name="invoice_date" context="{'group_by':'bill_date'}"
+                        domain="[]" />
+                    <filter string="Due Date" name="due_date" context="{'group_by':'date_maturity'}" domain="[]" />
+                    <filter string="Sale Order" name="sale_order" context="{'group_by':'sale_order_id'}"
+                        domain="[]" />
+                    <filter string="Source Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"
+                        domain="[]" />
+                    <filter string="Payment Term" name="payment_term" context="{'group_by':'payment_term_id'}"
+                        domain="[]" />
+                    <filter string="Journal Entry" name="journal_entry" context="{'group_by':'account_move_id'}"
+                        domain="[]" />
+                    <filter string="Accounting Date" name="accounting_date"
+                        context="{'group_by':'accounting_date'}" domain="[]" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_receivable_aging" model="ir.actions.act_window">
+        <field name="name">Aged Receivable Detail</field>
+        <field name="res_model">account.receivable.report</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="ir_actions_server_receivable_aging" model="ir.actions.server">
+        <field name="name">Aged Receivable Detail</field>
+        <field name="model_id" ref="flybar_receivable_report.model_account_receivable_report" />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code"> action = model.create_update_customer_aging() </field>
+    </record>
+
+    <record id="account_aged_receivable_wizard_view" model="ir.ui.view">
+        <field name="name">Aged Receivable Report</field>
+        <field name="model">account.receivable.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Options">
+                <group col="4">
+                    <field name="receivable_at" required="1"/>
+                    <field name="date_from" string="As of" required="1" attrs="{'invisible': [('date_selection_option', '!=', 'custom')]}" />
+                    <field name="date_selection_option" />
+                </group>
+                <footer>
+                    <button name="create_update_customer_aging" string="Run" type="object" default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_action_account_payable_report_wiz" name="Aged Receivable Detail"
+        action="ir_actions_server_receivable_aging" parent="account_reports.account_reports_partners_reports_menu" />
+
+</odoo>

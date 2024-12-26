@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_wizard_view_inherit"  model="ir.ui.view">
+        <field name="name">Purchase Order Manual Receipt Wizard View Inherit</field>
+        <field name="model">purchase.order.manual.receipt.wizard</field>
+        <field name="inherit_id" ref="purchase_order_receipt_expectation.view_purchase_order_wizard_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[@name='picking_data']" position="after">
+                    <group>
+                        <field name="container_id"/>
+                        <field name="inv_reference"/>
+                         <field name="inv_date"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath> 
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='uom_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath> 
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='unit_price']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath> 
+            </field>
+    </record>
+</odoo>

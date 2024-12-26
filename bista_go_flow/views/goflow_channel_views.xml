@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="goflow_channel_form_view">
+            <field name="name">goflow.channel.form.view</field>
+            <field name="model">goflow.channel</field>
+            <field name="arch" type="xml">
+                <form string="Goflow Channel Downloaded Data" create="False" delete="False">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" required="1"/>
+                                <!-- <field name="team_id"/> -->
+                                <field name="goflow_channel_name" required="1"/>
+                                <field name="goflow_store_name" required="1"/>
+                                <field name="goflow_store_id" required="1" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="import_orders"/>
+                                <field name="customer_to_company"/>
+                                <field name="allow_empty_address"/>
+                                <field name="group_orders"/>
+                                <field name="use_channel_billing" attrs="{'readonly': [('group_orders', '=', False)]}" force_save="1"/>
+                                <field name="dsv_delivery_address" attrs="{'readonly': [('group_orders', '=', False)]}" force_save="1"/>
+                                <field name="is_preferred_delivery_slip_readonly" invisible="1"/>
+                                <field name="preferred_delivery_slip" attrs="{'readonly': [('is_preferred_delivery_slip_readonly','=',True)]}"/>
+                                <field name="configuration_id" required="1" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Invoice Matching">
+                                <field name="is_instance_invoice_matching" invisible="1"/>
+                                <field name="invoice_matching" attrs="{'readonly': [('is_instance_invoice_matching','=',False)]}" force_save="1"/>
+                                <field name="update_sale_order_shipping_price" attrs="{'readonly': [('invoice_matching','=',False)]}" force_save="1"/>
+                            </group>
+                            <group string="EDI Routing">
+                                <field name="instance_manage_routing" invisible="1"/>
+                                <field name="is_enable_routing" attrs="{'readonly': [('instance_manage_routing','=',False)]}" force_save="1"/>
+                                <field name="routing_picking_type_ids" widget="many2many_tags" attrs="{'readonly': [('is_enable_routing','=',False)]}" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="goflow_channel_tree_view">
+            <field name="name">goflow.channel.tree.view</field>
+            <field name="model">goflow.channel</field>
+            <field name="arch" type="xml">
+                <tree string="Goflow Channel Downloaded Data">
+                    <field name="partner_id"/>
+                    <field name="goflow_channel_name"/>
+                    <field name="goflow_store_name"/>
+<!--                    <field name="configuration_id"/>-->
+                    <field name="customer_to_company"/>
+                    <field name="group_orders"/>
+                    <field name="use_channel_billing"/>
+                    <field name="dsv_delivery_address"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_channel_menu_action_window">
+            <field name="name">GoFlow Channel Downloaded Data</field>
+            <field name="res_model">goflow.channel</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

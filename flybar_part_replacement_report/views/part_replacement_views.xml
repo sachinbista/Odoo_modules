@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Part Replacement Report Tree view -->
+    <record model="ir.ui.view" id="stock_quant_tree_view_prr">
+        <field name="name">stock.quant.tree.editable</field>
+        <field name="model">stock.quant</field>
+        <field eval="5" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Part Replacement Report" editable="bottom" create="false" edit="false" delete="false">
+                <field name="create_date" invisible="1"/>
+                <field name="write_date" invisible="1"/>
+                <field name="id" invisible="1"/>
+                <field name="tracking" invisible="1"/>
+                <field name="company_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" invisible="1"/>
+                <field name="location_id" attrs="{'readonly': [('id', '!=', False)]}"
+                       invisible="context.get('hide_location', False)"
+                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="storage_category_id" optional="hide" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="product_id" attrs="{'readonly': [('id', '!=', False)]}"
+                       readonly="context.get('single_product', False)" force_save="1"
+                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" widget="many2one"/>
+                <field name="product_categ_id" optional="hide" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name='company_id' groups="base.group_multi_company" optional="hidden" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="package_id"
+                       attrs="{'readonly': [('id', '!=', False)]}"/>
+                <field name="lot_id" groups="stock.group_production_lot" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                       attrs="{
+                            'readonly': ['|', ('id', '!=', False), ('tracking', 'not in', ['serial', 'lot'])]
+                       }"
+                       invisible="context.get('hide_lot', False)"
+                       context="{'default_product_id': product_id, 'default_company_id': company_id}"/>
+                <field name="owner_id" groups="stock.group_tracking_owner"
+                       attrs="{'readonly': [('id', '!=', False)]}"
+                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="quantity" optional="show" decoration-warning="quantity &lt; 0" string="On Hand Quantity" sum="Total On Hand"/>
+                <!--<field name="inventory_quantity_auto_apply" string="On Hand Quantity" readonly="0" sum="Total On Hand"/>-->
+                <!--<button name="%(stock.action_view_inventory_tree)d"
+                        title="Inventory Adjustment"
+                        type="action"
+                        class="btn-link"
+                        icon="fa-pencil"
+                        context="{'search_default_product_id': product_id, 'default_product_id': product_id}"
+                        groups="stock_inventory_valuation_report.total_value_unit_cost_access"
+                />-->
+                <field name="reserved_quantity" optional="show" sum="Total Reserved"/>
+                <field name="product_uom_id" string="Unit" groups="uom.group_uom" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="cost_method" invisible="1"/>
+                <!--<field name="value" optional="show" sum="Total Value"/>-->
+                <!--<button name="action_view_stock_moves"
+                        string="History"
+                        type="object"
+                        class="btn-link"
+                        icon="fa-history"
+                        groups="stock_inventory_valuation_report.total_value_unit_cost_access"
+                />
+                <button name="action_view_orderpoints"
+                        string="Replenishment"
+                        type="object"
+                        context="{'default_product_id': product_id, 'search_default_location_id': location_id}"
+                        class="btn-link"
+                        icon="fa-refresh"
+                        groups="stock_inventory_valuation_report.total_value_unit_cost_access"
+                />
+                <button name="%(stock_account.stock_valuation_layer_report_action)d"
+                        title="Stock Valuation"
+                        string="Valuation"
+                        type="action"
+                        class="btn-link"
+                        icon="fa-bar-chart"
+                        context="{'search_default_product_id': product_id}"
+                        attrs="{'invisible': [('cost_method', '!=', 'fifo')]}"
+                        groups="stock_inventory_valuation_report.total_value_unit_cost_access"
+                />-->
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_part_replacement_report"> <!-- Used in dashboard -->
+        <field name="name">Part Replacement Report</field>
+        <field name="context">{'search_default_internal_loc': 1,'inventory_mode':True}</field>
+        <field name="res_model">stock.quant</field>
+        <field name="domain">[('product_categ_id', 'ilike', 'Replacement')]</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="stock_quant_tree_view_prr"/>
+    </record>
+
+    <menuitem id="menu_part_replacement_report"
+              name="Part Replacement Report"
+              action="action_part_replacement_report"
+              parent="sale.sale_order_menu"
+              groups="sales_team.group_sale_salesman"
+              sequence="50"/>
+</odoo>

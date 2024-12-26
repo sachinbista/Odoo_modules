@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="empty_location_wiz_view" model="ir.ui.view">
+        <field name="name">empty.location.wizard</field>
+        <field name="model">empty.location.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Storage Location Analysis">
+                <group>
+                    <group>
+                        <field name="warehouse_id" required="1" options="{'no_open':True,'no_create': True}"/>
+                        <field name="warehouse_ids" invisible="1" widget="many2many_tags" options="{'no_open':True,'no_create': True}"/>
+                        <field name="view_type" required="1" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="type" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_empty_location" string="Get result" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_empty_location_wiz" model="ir.actions.act_window">
+        <field name="name">Storage Location Analysis</field>
+        <field name="res_model">empty.location.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="empty_location_wiz_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_empty_location"
+            name="Storage Location Analysis"
+            parent="stock.menu_warehouse_report"
+            action="action_empty_location_wiz"
+            sequence="301"/>
+</odoo>

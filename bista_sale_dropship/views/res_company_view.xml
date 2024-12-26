@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_form_sale_dropship" model="ir.ui.view">
+        <field name="name">res.company.inherit.sale.dropship</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="dropship_company_id" groups="bista_sale_dropship.group_dropship_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

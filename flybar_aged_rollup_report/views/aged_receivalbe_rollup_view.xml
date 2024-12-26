@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_aged_receivable_rollup_form" model="ir.ui.view">
+        <field name="name">view.aged.receivable.rollup.form</field>
+        <field name="model">aged.receivable.rollup</field>
+        <field name="arch" type="xml">
+            <form string="Aged Receivable Roll Over Detail" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="account_move_line_id" />
+                            <field name="account_move_id"/>
+                            <field name="partner_id" />
+                            <field name="date" />
+                            <field name="debit" />
+                            <field name="credit" />
+                            <field name="final_balance" />
+                        </group>
+                        <group>
+                            <field name="account_id" />
+                            <field name="journal_id"/>
+                            <field name="initial_balance"/>
+                            <field name="company_id" invisible="1" />
+                            <field name="currency_id" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_aged_receivable_rollup_tree" model="ir.ui.view">
+        <field name="name">view.aged.receivable.rollup.tree</field>
+        <field name="model">aged.receivable.rollup</field>
+        <field name="arch" type="xml">
+            <tree string="Aged Receivable Roll Over Detail" create="false" edit="false" delete="false" editable="top">
+                <field name="account_move_id"/>
+                <field name="account_move_line_id"/>
+                <field name="initial_balance" sum="initial_balance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="debit" sum="debit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="credit" sum="credit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="final_balance" sum="final_balance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="balance" sum="balance" optional="hide" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="company_id" optional="hide"/>
+                <field name="currency_id" invisible="1" />
+                <field name="transaction_type" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_aged_receivable_rollup_search" model="ir.ui.view">
+        <field name="name">view.aged.receivable.rollup.search</field>
+        <field name="model">aged.receivable.rollup</field>
+        <field name="arch" type="xml">
+            <search string="Aged Receivable Roll Over Detail">
+                <field name="partner_id" />
+                <field name="company_id" />
+                <field name="account_id" />
+                <field name="journal_id" />
+                <field name="transaction_type" />
+                <filter string="Sales" name="sales" domain="[('journal_id.type', '=', 'sale')]" context="{'default_journal_type': 'sale'}"/>
+                <filter string="Bank" name="bank" domain="[('journal_id.type', '=', 'bank')]" context="{'default_journal_type': 'bank'}"/>
+                <filter string="Cash" name="cash" domain="[('journal_id.type', '=', 'cash')]" context="{'default_journal_type': 'cash'}"/>
+                <filter string="Miscellaneous" domain="[('journal_id.type', '=', 'general')]" name="misc_filter" context="{'default_journal_type': 'general'}"/>
+                <separator/>
+                <filter string="Receivable" domain="[('account_id.account_type', '=', 'asset_receivable'), ('account_id.non_trade', '=', False)]" help="From Trade Receivable accounts" name="trade_receivable"/>
+                <separator/>
+                <filter string="Date" name="date" date="date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="company_id" context="{'group_by':'company_id'}" domain="[]" />
+                    <filter name="group_by_partner_id" string="Customer" context="{'group_by':'partner_id'}"
+                        domain="[]" />
+                    <filter string="Account" name="group_by_account" domain="[]" context="{'group_by': 'account_id'}"/>
+                    <filter string="Journal" name="journal_id" context="{'group_by':'journal_id'}"
+                        domain="[]" />
+                    <filter string="Type" name="transaction_type" context="{'group_by':'transaction_type'}"
+                        domain="[]" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_aged_receivable_rollup" model="ir.actions.act_window">
+        <field name="name">Aged Receivable Roll Over Report</field>
+        <field name="res_model">aged.receivable.rollup</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bista_ship_from_warehouse.access_ship_from_warehouse,access_ship_from_warehouse,bista_ship_from_warehouse.model_ship_from_warehouse,base.group_user,1,1,1,1

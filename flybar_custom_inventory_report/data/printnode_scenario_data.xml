@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="print_package_on_put_in_pack_scenario_custom" model="printnode.scenario">
+            <field name="action" eval="ref('printnode_base.print_package_on_put_in_pack')"/>
+            <field name="active">False</field>
+            <field name="description">Print Package on Put in Pack for Package Barcode with Content Bista</field>
+            <field name="domain">[["picking_type_code","=","internal"]]</field>
+            <field name="report_id" eval="ref('flybar_custom_inventory_report.action_package_template')"/>
+        </record>
+        <record id="print_pree_receipt_on_batch_transfer" model="printnode.scenario.action">
+            <field name="name">Print Pree Receipt on Batch Transfer</field>
+            <field name="code">print_pree_receipt_on_batch_transfer</field>
+            <field name="model_id" eval="ref('stock_picking_batch.model_stock_picking_batch')"/>
+            <field name="reports_model_id" eval="ref('stock_picking_batch.model_stock_picking_batch')"/>
+        </record>
+        <record id="print_pree_receipt_on_batch_transfer_scenario_custom" model="printnode.scenario">
+            <field name="action" eval="ref('print_pree_receipt_on_batch_transfer')"/>
+            <field name="active">True</field>
+            <field name="description">Print Pree Receipt on Batch Transfer</field>
+            <field name="domain">[["picking_type_code","=","internal"]]</field>
+            <field name="report_id" eval="ref('flybar_custom_inventory_report.action_pre_receiver_template_report')"/>
+        </record>
+    </data>
+</odoo>

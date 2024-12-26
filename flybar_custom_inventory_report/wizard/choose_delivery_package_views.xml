@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="choose_delivery_package_view_form_inherit" model="ir.ui.view">
+        <field name="name">choose.delivery.package.form.inherit</field>
+        <field name="model">choose.delivery.package</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_package_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group[1]" position="after">
+                <group attrs="{'invisible': [('delivery_package_type_id', '=', False)]}">
+                    <label for="product_length" string="L X W X H"/>
+                    <div class="o_row"  name="package_dimensions">
+                        <field name="product_length" nolabel="1"/>
+                        <field name="product_width" nolabel="1"/>
+                        <field name="product_height" nolabel="1"/>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_charges_type_tree" model="ir.ui.view">
+        <field name="name">account.charges.type.tree</field>
+        <field name="model">account.charges.type</field>
+        <field name="arch" type="xml">
+            <tree string="Allocation Screen" editable="bottom">
+                <field name="name" required="1"/>
+                <field name="account_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_charges_type" model="ir.actions.act_window">
+        <field name="name">Account Charges Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.charges.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="action_account_charges_type_menu" parent="account.account_account_menu" action="action_account_charges_type"/>
+</odoo>

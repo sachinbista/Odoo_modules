@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+	<t t-name="AllocateAmount.buttons" t-inherit="web.ListView.Buttons" t-inherit-mode="extension" owl="1">
+		<xpath expr="(//div/*)[last()]" position="after">
+			<t t-if="props.resModel == 'common.allocation' or props.resModel == 'common.allocation'">
+				<button type="button" class="btn btn-secondary o_update_invoices" t-on-click="onClickUpdateInvoice">
+					Update Invoices
+				</button>
+				<button type="button" class="btn btn-secondary o_allocate_amount" t-on-click="onClickAllocateAmount">
+					Allocate
+				</button>
+
+				<button type="button" class="btn btn-secondary o_deallocate_amount" t-on-click="onClickDeAllocateAmount">
+					De-Allocate
+				</button>
+				<button type="button" class="btn btn-secondary o_allocate_discount_amount" t-on-click="onClickAllocateDiscountAmount">
+					Apply-Disc
+				</button>
+				<button type="button" class="btn btn-secondary o_clear_selection" t-on-click="onClickClear">
+					Clear
+				</button>
+<!--				<button type="button" class="btn btn-secondary o_update_amounts fa fa-fw o_button_icon fa-refresh" icon="fa-refresh text-primary" t-on-click="onClickUpdateAmount">-->
+<!--				</button>-->
+				<button type="button" class="btn btn-secondary o_process_payment" t-on-click="onClickProcessPayment">
+					Payment
+				</button>
+<!--				<button type="button" class="btn btn-secondary o_import_invoice" t-on-click="onClickImportInvoice">-->
+<!--					Import-->
+<!--				</button>-->
+			</t>
+		</xpath>
+	</t>
+</templates>

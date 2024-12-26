@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Created new Form View for wizard-->
+    <record id="resupply_add_multiple_product" model="ir.ui.view">
+        <field name="name">resupply.add.multiple.product.add.multiple.product form</field>
+        <field name="model">resupply.add.multiple.product</field>
+        <field name="arch" type="xml">
+            <form string="Add Multiple Items">
+                <field name="product_ids" nolabel="1">
+                    <tree create="1">
+                        <field name="name"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button class="btn-primary" name="add_multipl_product" type="object" string="Apply"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Created new action for wizard-->
+    <record id="action_resupply_transfer_add_multiple_items" model="ir.actions.act_window">
+        <field name="name">Build Item List</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">resupply.add.multiple.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!--    <record id="resupply_transfer_add_mutiple_product_form" model="ir.ui.view">-->
+<!--        <field name="name">resupply.transfer.add.multiple.items.button</field>-->
+<!--        <field name="model">inter.company.stock.transfer</field>-->
+<!--        <field name="inherit_id" ref="intercompany_stock_transfer.inter_company_stock_transfer_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="line_ids" position="before">-->
+<!--                <button name="%(action_resupply_transfer_add_multiple_items)d" type="action" class="btn-warning" attrs="{'invisible': [('state', '!=', 'draft')]}" string="ADD MULTIPLE ITEMS"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

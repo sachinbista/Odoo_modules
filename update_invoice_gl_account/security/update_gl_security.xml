@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	    <record id="group_allow_gl_modification" model="res.groups">
+	        <field name="name">Allow GL Modification</field>
+	        <field name="comment">User belongs to this group can only use 'Allow GL Modification' feature in Customer Invoice</field>
+	    </record>
+    </data>
+</odoo>

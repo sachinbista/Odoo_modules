@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_account_move_royalty" model="ir.ui.view">
+        <field name="name">inherit.account.move.royalty</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="tax_totals" position="after">
+                <field name="royalty_amt"
+                       widget="monetary" attrs="{'invisible': [('move_type', 'not in', ['out_invoice'])]}"
+                       options="{'currency_field': 'currency_id'}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

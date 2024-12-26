@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <record id="download_vendor_data_rt_tree" model="ir.ui.view">
+            <field name="name">goflow.vendor.tree</field>
+            <field name="model">goflow.vendor</field>
+            <field name="arch" type="xml">
+                <tree string="Goflow Vendor Downloaded" create="false">
+                    <field name="name" readonly="1"/>
+                    <field name="goflow_vendor_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="currency" readonly="1"/>
+                    <field name="status" readonly="1"/>
+                    <field name="notes" invisible="1"/>
+                    <field name="tags" invisible="1"/>
+                    <field name="vendor_data" invisible="1"/>
+                    <field name="configuration_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="download_vendor_data_rt_form" model="ir.ui.view">
+            <field name="name">goflow.vendor.form</field>
+            <field name="model">goflow.vendor</field>
+            <field name="arch" type="xml">
+                <form string="Goflow vendor Downloaded Data">
+                    <sheet>
+                        <label for="name"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="goflow_vendor_id" readonly=""/>
+                                <field name="status" readonly="1"/>
+                                <field name="notes" readonly="1" invisible="1"/>
+                                <field name="tags" widget="many2many_tags" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="currency" readonly="1"/>
+                                <field name="vendor_data" invisible="1"/>
+                                <field name="configuration_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="goflow_vendor_data">
+            <field name="name">Goflow Vendor Downloaded Data</field>
+            <field name="res_model">goflow.vendor</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

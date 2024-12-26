@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pin_message_wizard" model="ir.ui.view">
+        <field name="name">pin.message.wizard</field>
+        <field name="model">pin.message.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Message">
+                <sheet>
+                    <group>
+                        
+                        <field name="manager_pin" required="1" password="True" style="width:33%"/>
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="apply_manager_pin" type="object" string="Submit"  class="btn btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="pin_message_wizard_barcode" model="ir.ui.view">
+        <field name="name">pin.message.wizard</field>
+        <field name="model">pin.message.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Message">
+                <sheet>
+                    <group>
+                        
+                        <field name="manager_pin" required="1" password="True" style="width:33%"/>
+                        
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Submit" special="save" class="btn btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ship_from_warehouse_form_view_1" model="ir.ui.view">
+        <field name="name">ship.from.warehouse.form.view</field>
+        <field name="model">ship.from.warehouse.report</field>
+        <field name="arch" type="xml">
+            <form string="Ship From Warehouse">
+                <group>
+                    <group>
+                        <field name="warehouse_id" required="1"
+                               options="{'no_create': True, 'no_open': True, 'no_create_edit': True}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="change_order_warehouse" string="Confirm" type="object" class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ship_from_warehouse_report" model="ir.actions.act_window">
+        <field name="name">Ship From Warehouse Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ship.from.warehouse.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale_line_report.model_sale_line_report"/>
+        <field name="binding_view_types">tree,form</field>
+    </record>
+
+</odoo>

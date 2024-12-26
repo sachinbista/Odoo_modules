@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+intercompany_stock_transfer.access_resupply_add_multiple_product,access_resupply_add_multiple_product,intercompany_stock_transfer.model_resupply_add_multiple_product,stock.group_stock_user,1,1,1,1
+access_cross_dock_route_line_demand_user,cross.dock.route.line.user,model_cross_dock_route_line,stock.group_stock_manager,1,1,1,1
+access_cross_dock_route_line_stock_user,cross.dock.route.line.stock_user,model_cross_dock_route_line,stock.group_stock_user,1,1,1,0
+access_cross_dock_route_line_stock_user_all,cross.dock.route.line.stock_user.all,model_cross_dock_route_line,,1,0,0,0
+access_inter_company_transfer_stock_user,inter.company.transfer.user,model_inter_company_stock_transfer,stock.group_stock_manager,1,1,1,1
+access_intercompany_transfer_employee,inter.company.transfer.employee,model_inter_company_stock_transfer,stock.group_stock_user,1,1,0,0
+access_intercompany_transfer_line_employee,inter.company.transfer.line.employee,model_inter_company_stock_transfer_line,stock.group_stock_user,1,1,0,0
+access_intercompany_transfer_line_stock_user,inter.company.transfer.line.stock_user,model_inter_company_stock_transfer_line,stock.group_stock_manager,1,1,1,1
+access_account_payment_stock_user,account.payment.stock_user,account.model_account_payment,stock.group_stock_user,1,0,0,0

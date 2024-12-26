@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="spring_systems_customer_configuration_tree_view">
+            <field name="name">spring.customer.configuration.tree</field>
+            <field name="model">spring.customer.configuration</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="spring_customer_id"/>
+                    <field name="receive_850"/>
+                    <field name="send_855"/>
+                    <field name="send_856"/>
+                    <field name="send_810"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- explicit form view definition -->
+        <record model="ir.ui.view" id="spring_systems_customer_configuration_form_view">
+            <field name="name">spring.customer.configuration.form</field>
+            <field name="model">spring.customer.configuration</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="spring_customer_id"/>
+                            </group>
+                            <group>
+                                <field name="receive_850"/>
+                                <field name="send_855"/>
+                                <field name="send_856"/>
+                                <field name="send_810"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Note">
+                                <field name="note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spring_systems_customer_configuration_action_window">
+            <field name="name">Spring Systems Customer Configuration</field>
+            <field name="res_model">spring.customer.configuration</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

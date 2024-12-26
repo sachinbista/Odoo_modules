@@ -1,0 +1,7 @@
+<odoo>
+    <record id="bista_inventory_enhancement.stock_barcode_inventory_adjustment_client_action" model="ir.actions.client">
+        <field name="name">Barcode Inventory Adjustment Client Action</field>
+        <field name="tag">stock_barcode_client_action</field>
+        <field name="res_model">stock.inventory</field>
+    </record>
+</odoo>

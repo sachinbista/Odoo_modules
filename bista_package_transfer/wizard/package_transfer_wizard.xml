@@ -1,0 +1,113 @@
+<odoo>
+    <record id="wizard_transfer_package" model="ir.ui.view">
+        <field name="name">Quick Transfer</field>
+        <field name="model">transfer.package</field>
+        <field name="arch" type="xml">
+            <form string="Transfer Package">
+                <field name="show_success_message" invisible="1"/>
+                <field name="success_message"
+                       attrs="{'invisible': [('show_success_message', '=', False)]}"/>
+                <notebook>
+                    <page string="Transfer Details" attrs="{'invisible': [('show_success_message', '=', True)]}">
+                        <field name="line_ids">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="source_location_id" force_save="1" readonly="1"/>
+                                <field name="warehouse_id" invisible="1" force_save="1"/>
+                                <field name="destination_location_id"
+                                       domain="[('warehouse_id', '=', warehouse_id),('usage', '=', 'internal')]"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="package_id" readonly="1" force_save="1"/>
+                                <field name="result_package_id" force_save="1" invisible="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"/>
+                                <field name="qty_transfer" force_save="1" attrs="{'readonly': [('package_id', '!=', False)]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_next_step" type="object" string="Transfer" class="btn-primary"
+                            attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    <button string="Cancel" class="oe_highlight" special="cancel"
+                            attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    <button string="Ok" class="oe_highlight" special="cancel"
+                            attrs="{'invisible': [('show_success_message', '=', False)]}"
+                            options="{'invisible': [('show_success_message', '=', True)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_wizard_transfer_package" model="ir.actions.act_window">
+        <field name="name">Quick Transfer</field>
+        <field name="res_model">transfer.package</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_transfer_package"/>
+        <field name="context">{'action':True,'type':'transfer_package'}</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+    <record id="wizard_merge_package" model="ir.ui.view">
+        <field name="name">Merge Package</field>
+        <field name="model">transfer.package</field>
+        <field name="arch" type="xml">
+            <form string="Merge Package">
+                <div>
+                    <field name="show_success_message" invisible="1"/>
+                    <field name="success_message" nolabel="1"
+                           attrs="{'invisible': [('show_success_message', '=', False)]}"/>
+                </div>
+                <group>
+                    <group>
+                        <field name="dest_location_id" attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    </group>
+                    <group>
+                        <field name="result_package_id" attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Transfer Details" attrs="{'invisible': [('show_success_message', '=', True)]}">
+                        <field name="line_ids">
+                            <tree editable="bottom" create="false">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="source_location_id" force_save="1"
+                                       readonly="1"/>
+                                <!--                                <field name="destination_location_id"/>-->
+                                <field name="company_id" invisible="1"/>
+                                <field name="package_id" readonly="1" force_save="1"/>
+                                <field name="result_package_id" invisible="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"/>
+                                <field name="qty_transfer" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_next_step" type="object" string="Merge" class="btn-primary"
+                            attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    <button string="Cancel" class="oe_highlight" special="cancel"
+                            attrs="{'invisible': [('show_success_message', '=', True)]}"/>
+                    <button string="Ok" class="oe_highlight" special="cancel"
+                            attrs="{'invisible': [('show_success_message', '=', False)]}"
+                            options="{'invisible': [('show_success_message', '=', True)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_merge_package" model="ir.actions.act_window">
+        <field name="name">Merge Package</field>
+        <field name="res_model">transfer.package</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_merge_package"/>
+        <field name="context">{'action':True,'type':'merge_package'}</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+</odoo>

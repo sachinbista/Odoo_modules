@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_warehouse_quantity_report_pivot" model="ir.ui.view">
+         <field name="name">product.warehouse.quantity.report.pivot</field>
+         <field name="model">product.warehouse.quantity.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Stock by Warehouse Report" sample="1">
+                 <field name="warehouse_id" type="col"/>
+                 <field name="product_id" type="row"/>
+                 <field name="avail_stock" type="measure"/>
+                 <field name="reserve_qty" type="measure"/>
+                 <field name="free_stock" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <record id="product_warehouse_quantity_report_view_tree" model="ir.ui.view">
+        <field name="name">product.warehouse.quantity.report</field>
+        <field name="model">product.warehouse.quantity.report</field>
+        <field name="arch" type="xml">
+            <tree string="Stock by Warehouse Report">
+                <field name="product_id" optional="show"/>
+                <field name="warehouse_id" optional="show"/>
+                <field name="avail_stock" optional="show"/>
+                <field name="reserve_qty" optional="show"/>
+                <field name="free_stock" optional="show"/>
+                <field name="uom_id" optional="show"/>
+                <field name="default_code" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_product_warehouse_quantity_report_form"
+            model="ir.ui.view">
+        <field name="name">product.warehouse.quantity.report.view.form</field>
+        <field name="model">product.warehouse.quantity.report</field>
+        <field name="arch" type="xml">
+            <form string="Stock by Warehouse Report">
+                <sheet>
+                    <group col="4">
+                        <field name="product_id" />
+                        <field name="warehouse_id" />
+                        <field name="avail_stock" />
+                        <field name="reserve_qty"/>
+                        <field name="free_stock" />
+                        <field name="default_code" />
+                        <field name="uom_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_warehouse_quantity_report_search"
+            model="ir.ui.view">
+        <field name="name">product.warehouse.quantity.report.search</field>
+        <field name="model">product.warehouse.quantity.report</field>
+        <field name="arch" type="xml">
+            <search string="Stock by Warehouse Report">
+                <field name="product_id"/>
+                <field name="warehouse_id"/>
+                <field name="uom_id"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Product" name="product_group"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Warehouse" name="warehouse_group"
+                            context="{'group_by':'warehouse_id'}"/>
+                    <filter string="Product UOM" name="product_uom"
+                            context="{'group_by':'uom_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action and menu define-->
+    <record model="ir.actions.act_window"
+        id="action_product_warehouse_quantity_report">
+        <field name="name">Stock by Warehouse Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.warehouse.quantity.report</field>
+        <field name="view_mode">pivot</field>
+        <field name="context">{'pivot_show_uom': True}</field>
+        <field name="view_id" ref="product_warehouse_quantity_report_view_tree"/>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_product_warehouse_quantity_wiz"
+        name="Stock by Warehouse"
+        parent="stock.menu_warehouse_report" sequence="301"
+        action="action_product_warehouse_quantity_report"/>
+</odoo>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_invoice_credit_import_form" model="ir.ui.view">
+        <field name="name">account.invoice.import.form</field>
+        <field name="model">account.invoice.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Invoice And Credit Note">
+                <notebook>
+                    <page string="Import File">
+                        <div style="float: right;">
+                            <a class="btn btn-outline-primary mb32 mt8" href="/bista_payment_import/static/src/file/Import Invoice Template.xlsx" aria-label="Download" title="Download">
+                            <i class="fa fa-download"></i> <span>Import Template for Invoice</span>
+                            </a>
+                        </div>
+                        <group string="File supported .xlsx">
+                            <group>
+                                <field name="exception" invisible="1"/>
+                                <field name="noexception" invisible="1"/>
+                                <field name="invoice_file" filename="invoice_filename" string="Import XLSX File"/>
+                                <field name="invoice_filename"/>
+                                <field name="is_new_invoice"/>
+<!--                                <field name="is_vendor_bill"/>-->
+<!--                                <field name="delimeter" invisible="0"/>-->
+                                <field name="state" invisible="1"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <div states="noexception">
+                            <p style="color: #219616">
+                            Everything is fine
+                            <b>Process Payment</b>
+                            button
+                            </p>
+                        </div>
+                        <div states="exception">
+                            <p style="color: #E51616">
+                            Exceptions found. Click on
+                            <b>Exception Summary</b>
+                            tab to view logs
+                            </p>
+                        </div>
+                    </page>
+                    <page string="Exception Summary" attrs="{'invisible': [('exception', '=', False)]}">
+                        <field name="errorline_ids" readonly="1">
+                            <tree string="Summary" editable="bottom">
+                                <field name="importinvoice_id" invisible="1"/>
+                                <field name="rowline"/>
+                                <field name="comment"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_make_invoice_button" type="object" string="Process Invoice" attrs="{'invisible': [('noexception','=',False)]}" context="{'account.invoice.import':True}"/>
+                    <button name="action_invoice_validate_button" type="object" string="Validate File" context="{'validate':True}" attrs="{'invisible': [('noexception','=',True)]}"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+<!--    <record id="account_invoice_credit_import_action" model="ir.actions.act_window">-->
+<!--        <field name="name">Import Invoice And Credit Note</field>-->
+<!--        <field name="res_model">account.invoice.import</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--        <field name="context">{'sale_order_show_amount': True}</field>-->
+<!--    </record>-->
+<!--    <menuitem-->
+<!--        id="account_invoice_credit_import_menu"-->
+<!--        parent="account.menu_finance_receivables"-->
+<!--        action="account_invoice_credit_import_action"-->
+<!--        groups="account.group_account_readonly,base.group_system"-->
+<!--        sequence="11"-->
+<!--    />-->
+</odoo>
